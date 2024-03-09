@@ -12,11 +12,16 @@
     "@tanstack/react-query": "^5.24.8",
     "@tanstack/react-query-devtools": "^5.24.8",
     "axios": "^1.6.7",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "lucide-react": "^0.352.0",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.51.0",
     "react-quill": "^2.0.0",
+    "tailwind-merge": "^2.2.1",
+    "tailwindcss-animate": "^1.0.7",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
