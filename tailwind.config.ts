@@ -1,5 +1,18 @@
 import type { Config } from "tailwindcss";
 
+const px0_50 = Object.fromEntries(
+  Array.from({ length: 51 }, (_, i) => [i, `${i}px`]),
+);
+const px0_100 = Object.fromEntries(
+  Array.from({ length: 101 }, (_, i) => [i, `${i}px`]),
+);
+const px0_200 = Object.fromEntries(
+  Array.from({ length: 201 }, (_, i) => [i, `${i}px`]),
+);
+const px0_400 = Object.fromEntries(
+  Array.from({ length: 401 }, (_, i) => [i, `${i}px`]),
+);
+
 const config = {
   darkMode: ["class"],
   content: [
@@ -26,6 +39,10 @@ const config = {
       },
     },
     extend: {
+      borderRadius: px0_50,
+      fontSize: px0_100,
+      spacing: px0_200,
+      width: px0_400,
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -85,11 +102,6 @@ const config = {
         "bg-06": "var(--bg-06)",
         "bg-02": "var(--bg-02)",
         "line-01": "var(--line-01)",
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
         "accordion-down": {
