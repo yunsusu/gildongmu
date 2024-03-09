@@ -1,13 +1,13 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -25,8 +25,8 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "var(--primary)",
+          foreground: "var(--primary-foreground)",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -52,6 +52,31 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        black: "var(--black)",
+        "gray-200": "var(--gray-200)",
+        "gray-50": "var(--gray-50)",
+        "gray-40": "var(--gray-40)",
+        "gray-30": "var(--gray-30)",
+        "gray-20": "var(--gray-20)",
+        "gray-10": "var(--gray-10)",
+        white: "var(--white)",
+        "red-40": "var(--red-40)",
+        "red-30": "var(--red-30)",
+        "red-20": "var(--red-20)",
+        "red-10": "var(--red-10)",
+        "pink-500": "var(--pink-500)",
+        "blue-20": "var(--blue-20)",
+        "blue-10": "var(--blue-10)",
+        "green-20": "var(--green-20)",
+        "green-10": "var(--green-10)",
+        kakao: "var(--kakao)",
+        "text-05": "var(--text-05)",
+        "text-04": "var(--text-04)",
+        "text-02": "var(--text-02)",
+        "text-01": "var(--text-01)",
+        "bg-06": "var(--bg-06)",
+        "bg-02": "var(--bg-02)",
+        "line-01": "var(--line-01)",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -75,6 +100,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
