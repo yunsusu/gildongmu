@@ -10,6 +10,9 @@ const config = {
   ],
   prefix: "",
   theme: {
+    fontFamily: {
+      "nanum-square-round": ["NanumSquareRound", "sans-serif"],
+    },
     container: {
       center: true,
       padding: "2rem",
