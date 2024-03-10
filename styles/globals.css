@@ -24,7 +24,7 @@
     --primary: #14b8a6;
     --primary-foreground: #fff;
 
-    --secondary: 210 40% 96.1%;
+    --secondary: #84cc16;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
     --muted: 210 40% 96.1%;
@@ -69,13 +69,33 @@
 
     --text-01: #171717;
     --text-02: #262626;
+    --text-03: #404040;
     --text-04: #9e9e9e;
     --text-05: #a3a3a3;
 
     --bg-02: #fafaf9;
-    --bg-06: #fcfaeb;
+    --bg-03: #e5e5e5;
+    --bg-04: #eefdfa;
+    --bg-05: #f7ffe7;
+    --bg-06: #fcfaec;
+
+    --dim-80: rgba(0,0,0,0.80);
+    --dim-60: rgba(0,0,0,0.60);
+    --dim-40: rgba(0,0,0,0.40);
+
+    --primary-press: #2dd4bf;
+    --secondary-press: #a3e635;
 
     --line-01: #d4d4d4;
+    --line-02: #e7e5e4;
+    --line-03: #ccfbf1;
+    --line-04: #d9f99d;
+    --line-05: #fef08a;
+
+    --system-success: #38bdf8;
+    --system-information: #a78bfa;
+    --system-warning: #fb923c;
+    --system-error: #fb7185;
   }
 
   .dark {
