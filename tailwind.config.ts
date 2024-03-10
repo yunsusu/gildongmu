@@ -24,8 +24,8 @@ const config = {
   prefix: "",
   theme: {
     screens: {
-      tablet: { max: "1023px" },
-      mobile: { max: "430px" },
+      tablet: { max: "1199px" },
+      mobile: { max: "767px" },
     },
     fontFamily: {
       "nanum-square-round": ["NanumSquareRound", "sans-serif"],

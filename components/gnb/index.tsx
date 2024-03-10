@@ -94,7 +94,7 @@ function Gnb() {
 
         {dropDown && <Dropdown />}
       </nav>
-      {hamMenu && <Hammenu loginState={loginState} />}
+      {isTablet && hamMenu && <Hammenu loginState={loginState} />}
     </div>
   );
 }

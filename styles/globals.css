@@ -11,7 +11,7 @@
 
 @layer base {
   .container {
-    @apply tablet:max-w-[1023px] mobile:max-w-[430px];
+    @apply tablet:max-w-[1199px] mobile:max-w-[767px];
   }
 }
 
