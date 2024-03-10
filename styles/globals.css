@@ -11,6 +11,17 @@
 }
 
 @layer base {
+  .container {
+    @apply tablet:max-w-[1023px] mobile:max-w-[430px];
+  }
+}
+
+@layer components {
+}
+@layer utilities {
+}
+
+@layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
@@ -79,9 +90,9 @@
     --bg-05: #f7ffe7;
     --bg-06: #fcfaec;
 
-    --dim-80: rgba(0,0,0,0.80);
-    --dim-60: rgba(0,0,0,0.60);
-    --dim-40: rgba(0,0,0,0.40);
+    --dim-80: rgba(0, 0, 0, 0.8);
+    --dim-60: rgba(0, 0, 0, 0.6);
+    --dim-40: rgba(0, 0, 0, 0.4);
 
     --primary-press: #2dd4bf;
     --secondary-press: #a3e635;
