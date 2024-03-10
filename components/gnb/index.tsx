@@ -6,7 +6,7 @@ import Dropdown from "@/components/Gnb/Dropdown";
 import Hammenu from "@/components/Gnb/Hammenu";
 
 function Gnb() {
-  const [loginState, setLoginState] = useState(false);
+  const [loginState, setLoginState] = useState(true);
   const [dropDown, setDropDown] = useState(false);
   const [hamMenu, setHamMenu] = useState(false);
   const [isTablet, setIsTablet] = useState(true);
@@ -94,7 +94,10 @@ function Gnb() {
 
         {dropDown && <Dropdown />}
       </nav>
-      {isTablet && hamMenu && <Hammenu loginState={loginState} />}
+      {isTablet && (
+        // hamMenu &&
+        <Hammenu loginState={loginState} hamMenu={hamMenu} />
+      )}
     </div>
   );
 }
