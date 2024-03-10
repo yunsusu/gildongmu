@@ -25,7 +25,7 @@ export default function AlertModal({ alertType, onClose }: AlertModalProps) {
       message = "비밀번호를 확인해주세요.";
       break;
     case "signupSuccess":
-      title = "회원 가입 완료";
+      title = "회원가입 완료";
       message = "가입이 완료되었습니다.";
       break;
     case "emailInUse":
