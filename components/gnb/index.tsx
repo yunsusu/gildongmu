@@ -92,7 +92,7 @@ function Gnb() {
       {isTablet && (
         <div
           style={{ pointerEvents: hamMenu ? "auto" : "none" }}
-          className="overflow-hidden h-screen w-full absolute"
+          className="overflow-hidden h-screen w-full absolute top-0"
         >
           <Hammenu loginState={loginState} hamMenu={hamMenu} />
         </div>
