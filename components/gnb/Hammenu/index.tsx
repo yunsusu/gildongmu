@@ -9,7 +9,11 @@ interface LoginState {
 function Hammenu({ loginState, hamMenu }: LoginState) {
   return (
     <div
-      // style={hamMenu ? { right: "0px" } : { right: "-100%" }}
+      style={
+        hamMenu
+          ? { transform: "translateX(0%)" }
+          : { transform: "translateX(100%)" }
+      }
       className="w-5/12 h-screen absolute top-0 z-0 bg-white right-0 mobile:w-full transition-all duration-1000"
     >
       <div className="w-full h-72"></div>

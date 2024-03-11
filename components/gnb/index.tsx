@@ -4,30 +4,24 @@ import { useEffect, useState } from "react";
 
 import Dropdown from "@/components/gnb/Dropdown";
 import Hammenu from "@/components/gnb/Hammenu";
+import useToggle from "@/hooks/useToggle";
 
 function Gnb() {
   const [loginState, setLoginState] = useState(false);
-  const [dropDown, setDropDown] = useState(false);
-  const [hamMenu, setHamMenu] = useState(false);
-  const [isTablet, setIsTablet] = useState(true);
-
-  const handleDropDown = () => {
-    setDropDown(prev => !prev);
-  };
-  const handleHamMenu = () => {
-    setHamMenu(prev => !prev);
-  };
+  const [dropDown, setDropDown, handleDropDown] = useToggle();
+  const [hamMenu, setHamMenu, handleHamMenu] = useToggle(false);
+  const [isTablet, setIsTablet] = useToggle(true);
 
   useEffect(() => {
     const handleResize = () => {
       setIsTablet(window.innerWidth <= 1199);
     };
-    // 이벤트 리스너 등록
     window.addEventListener("resize", handleResize);
-    // 초기 사이즈 체크
     handleResize();
-    // 컴포넌트 언마운트시 이벤트 리스너 제거
-    return () => window.removeEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (
@@ -94,8 +88,14 @@ function Gnb() {
 
         {dropDown && <Dropdown />}
       </nav>
-      {isTablet && hamMenu && (
-        <Hammenu loginState={loginState} hamMenu={hamMenu} />
+
+      {isTablet && (
+        <div
+          style={{ pointerEvents: hamMenu ? "auto" : "none" }}
+          className="overflow-hidden h-screen w-full absolute"
+        >
+          <Hammenu loginState={loginState} hamMenu={hamMenu} />
+        </div>
       )}
     </div>
   );
