@@ -2,11 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import Dropdown from "@/components/Gnb/Dropdown";
-import Hammenu from "@/components/Gnb/Hammenu";
+import Dropdown from "@/components/gnb/Dropdown";
+import Hammenu from "@/components/gnb/Hammenu";
 
 function Gnb() {
-  const [loginState, setLoginState] = useState(true);
+  const [loginState, setLoginState] = useState(false);
   const [dropDown, setDropDown] = useState(false);
   const [hamMenu, setHamMenu] = useState(false);
   const [isTablet, setIsTablet] = useState(true);
@@ -20,7 +20,7 @@ function Gnb() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsTablet(window.innerWidth <= 1124);
+      setIsTablet(window.innerWidth <= 1199);
     };
     // 이벤트 리스너 등록
     window.addEventListener("resize", handleResize);
@@ -31,7 +31,7 @@ function Gnb() {
   }, []);
 
   return (
-    <div className="bg-white tracking-tight">
+    <div className="bg-white tracking-tight text-text-01">
       <nav className="flex max-w-[1200px] h-72 justify-between items-center py-20 px-24 mx-auto bg-white relative z-10 border-b border-line-02">
         <div className="flex items-center gap-6">
           <Link href={"/"} className="w-120 h-30 relative overflow-hidden ">
@@ -94,8 +94,7 @@ function Gnb() {
 
         {dropDown && <Dropdown />}
       </nav>
-      {isTablet && (
-        // hamMenu &&
+      {isTablet && hamMenu && (
         <Hammenu loginState={loginState} hamMenu={hamMenu} />
       )}
     </div>
