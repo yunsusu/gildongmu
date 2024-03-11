@@ -118,6 +118,7 @@ const config = {
         "system-information": "var(--system-information)",
         "system-warning": "var(--system-warning)",
         "system-error": "var(--system-error)",
+        "input-error": "var(--input-error)",
       },
       keyframes: {
         "accordion-down": {

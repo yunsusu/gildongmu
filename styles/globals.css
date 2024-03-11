@@ -105,6 +105,8 @@
     --system-information: #a78bfa;
     --system-warning: #fb923c;
     --system-error: #fb7185;
+
+    --input-error: #FFF1F2;
   }
 
   .dark {
