@@ -33,7 +33,7 @@ export default function AlertModalLayout({
   return (
     portalRoot &&
     createPortal(
-      <div className="fixed inset-0 flex items-center justify-center w-full h-full bg-dim-60">
+      <div className="fixed inset-0 z-30 flex items-center justify-center w-full h-full bg-dim-60">
         <div className="flex flex-col items-center gap-32 px-40 py-48 overflow-x-hidden bg-white shadow-md mobile:gap-24 w-360 mobile:w-288 rounded-32 moblie:px-24 mobile:py-32">
           <span className="font-bold text-center text-text-01 leading-32 text-20 mobile:text-18 font-NanumSquareRound">
             {alertTitle}
