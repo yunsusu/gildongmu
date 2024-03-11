@@ -1,10 +1,13 @@
+import { ReactNode } from "react";
+
 import AlertModalLayout from "@/components/modal/alert/layout";
 
 export type AlertType =
   | "emailNotFound"
   | "passwordMismatch"
   | "signupSuccess"
-  | "emailInUse";
+  | "emailInUse"
+  | "writingCancel";
 
 interface AlertModalProps {
   alertType: AlertType;
@@ -13,7 +16,7 @@ interface AlertModalProps {
 
 export default function AlertModal({ alertType, onClose }: AlertModalProps) {
   let title: string = "";
-  let message: string = "";
+  let message: string | ReactNode = "";
 
   switch (alertType) {
     case "emailNotFound":
@@ -31,6 +34,16 @@ export default function AlertModal({ alertType, onClose }: AlertModalProps) {
     case "emailInUse":
       title = "";
       message = "이미 사용중인 이메일입니다.";
+      break;
+    case "writingCancel":
+      title = "글쓰기 취소";
+      message = (
+        <>
+          글쓰기를 취소하시겠습니까?
+          <br />
+          작성 중인 내용은 저장되지 않습니다.
+        </>
+      );
       break;
     default:
       break;
