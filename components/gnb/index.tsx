@@ -26,7 +26,7 @@ function Gnb() {
 
   return (
     <div className="bg-white tracking-tight text-text-01">
-      <nav className="flex max-w-[1200px] h-72 justify-between items-center py-20 px-24 mx-auto bg-white relative z-10 border-b border-line-02">
+      <nav className="flex max-w-[1200px] h-72 justify-between items-center py-20 px-24 mx-auto bg-white relative z-20 border-b border-line-02">
         <div className="flex items-center gap-6">
           <Link href={"/"} className="w-120 h-30 relative overflow-hidden ">
             <Image
@@ -92,7 +92,7 @@ function Gnb() {
       {isTablet && (
         <div
           style={{ pointerEvents: hamMenu ? "auto" : "none" }}
-          className="overflow-hidden h-screen w-full absolute top-0"
+          className="overflow-hidden h-screen w-full absolute top-0 z-10"
         >
           <Hammenu loginState={loginState} hamMenu={hamMenu} />
         </div>
