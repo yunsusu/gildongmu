@@ -2,20 +2,22 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import Image from "next/image";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 import DatePickerInput from "@/components/form/input/DatePickerInput";
 import ImageUpload from "@/components/form/input/ImageUploadInput";
 import IntroTextarea from "@/components/form/input/IntroTextarea";
+import RadioInput from "@/components/form/input/RadioInput";
+import TagInput from "@/components/form/input/TagInput";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { regEmail, regPassword } from "@/lib/utils/regexp";
 
 function SignUpForm() {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, isValid },
     watch,
   } = useForm({ mode: "onBlur" });
@@ -42,6 +44,13 @@ function SignUpForm() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="bg-white w-[956px] px-32 py-48 flex flex-col rounded-32 items-center tablet:w-[720px] mobile:w-[312px]">
         <div className="flex flex-col gap-24">
+        <div className="flex items-center mb-20 gap-32 tablet:gap-28">
+          <div className="w-294 h-px bg-line-02 tablet:w-248 mobile:w-52"></div>
+          <div className="text-18 tablet:text-16 mobile:text-14">
+            필수 정보 입력
+          </div>
+          <div className="w-294 h-px bg-line-02 tablet:w-248 mobile:w-52"></div>
+        </div>
           <div className="flex flex-col gap-4">
             <Label>
               이메일<span className="text-pink-500">*</span>
@@ -170,48 +179,76 @@ function SignUpForm() {
             <Label>
               성별<span className="text-pink-500">*</span>
             </Label>
-            <RadioGroup defaultValue="man" className="flex gap-5">
-              <div className="w-121 h-24 flex items-center gap-12">
-                <RadioGroupItem
-                  value="man"
-                  id="man"
-                  className="w-24 h-24 border-line-01"
+            <Controller
+              control={control}
+              name="gender"
+              rules={{ required: true }}
+              render={({ field }) => (
+                <RadioInput
+                  onChange={(e: any) => field.onChange(e.target.value)}
+                  value={field.value}
                 />
-                <Label htmlFor="man">남자</Label>
-              </div>
-              <div className="w-121 h-24 flex items-center gap-12">
-                <RadioGroupItem
-                  value="woman"
-                  id="woman"
-                  className="w-24 h-24 border-line-01"
-                />
-                <Label htmlFor="woman">여자</Label>
-              </div>
-            </RadioGroup>
+              )}
+            />
           </div>
           <div className="flex flex-col gap-4">
             <Label>
               생년월일<span className="text-pink-500">*</span>
             </Label>
-            <DatePickerInput />
+            <Controller
+              control={control}
+              name="birthDate"
+              rules={{ required: true }}
+              render={({ field }) => (
+                <DatePickerInput
+                  onChange={(date: any) => field.onChange(date)}
+                  value={field.value}
+                />
+              )}
+            />
           </div>
         </div>
         <div className="flex items-center my-40 gap-32 tablet:gap-28">
           <div className="w-294 h-px bg-line-02 tablet:w-248 mobile:w-52"></div>
-          <div className="text-18 tablet:text-16 mobile:text-14">추가 정보 입력</div>
+          <div className="text-18 tablet:text-16 mobile:text-14">
+            추가 정보 입력
+          </div>
           <div className="w-294 h-px bg-line-02 tablet:w-248 mobile:w-52"></div>
         </div>
         <div className="flex flex-col gap-24 items-center">
-          <ImageUpload />
+          <Controller
+            control={control}
+            name="imageUpload"
+            render={({ field }) => (
+              <ImageUpload
+                onChange={imageDataUrl => field.onChange(imageDataUrl)}
+                value={field.value}
+              />
+            )}
+          />
           <div className="flex flex-col gap-4">
             <Label htmlFor="favorite">좋아하는 여행지</Label>
-            <Input
-              id="favorite"
-              className="w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border-0 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01"
-              placeholder="좋아하는 여행지를 입력해 주세요"
+            <Controller
+              control={control}
+              name="tags"
+              render={({ field }) => (
+                <TagInput
+                  onChange={(tags: any) => field.onChange(tags)}
+                  value={field.value}
+                />
+              )}
             />
           </div>
-          <IntroTextarea />
+          <Controller
+            control={control}
+            name="intro"
+            render={({ field }) => (
+              <IntroTextarea
+                onChange={text => field.onChange(text)}
+                value={field.value}
+              />
+            )}
+          />
         </div>
       </div>
       <div className="w-[956px] mt-40 flex flex-col rounded-32 items-center tablet:w-[720px] mobile:w-[312px]">
