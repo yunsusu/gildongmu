@@ -16,10 +16,10 @@ export default function Travel() {
       </div>
       <div className="flex flex-col justify-start gap-24">
         <div className="flex gap-16 mx-36 mobile:mx-0">
-          <button className="flex items-center justify-center gap-4 px-16 py-10 font-extrabold leading-5 text-center text-white w-90 h-44 tablet:h-36 mobile:h-32 tablet:w-72 rounded-32 bg-primary text-16 tablet:text-14">
+          <button className="flex items-center justify-center gap-4 px-16 py-10 font-extrabold leading-5 text-center text-white w-90 h-44 tablet:h-36 mobile:h-32 tablet:w-72 rounded-32 bg-primary text-16 tablet:text-14 hover:bg-primary-press">
             인기
           </button>
-          <button className="flex items-center justify-center gap-4 px-16 py-10 font-extrabold leading-5 text-center text-primary w-90 h-44 tablet:h-36 mobile:h-32 tablet:w-72 rounded-32 bg-bg-06 border-primary border-[1.5px] text-16 tablet:text-14">
+          <button className="flex items-center justify-center gap-4 px-16 py-10 font-extrabold leading-5 text-center text-primary w-90 h-44 tablet:h-36 mobile:h-32 tablet:w-72 rounded-32 bg-bg-06 border-primary border-[1.5px] text-16 tablet:text-14 hover:border-primary-press hover:text-primary-press">
             최신
           </button>
         </div>
