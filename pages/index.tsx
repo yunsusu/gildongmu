@@ -4,10 +4,10 @@ import Header from "@/components/main/header";
 
 export default function Main() {
   return (
-    <>
+    <div className="">
       <Header />
       <Contents />
       <Footer />
-    </>
+    </div>
   );
 }
