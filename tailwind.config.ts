@@ -119,6 +119,12 @@ const config = {
         "system-warning": "var(--system-warning)",
         "system-error": "var(--system-error)",
         "input-error": "var(--input-error)",
+        "tag-orange-100": "var(--tag-orange-100)",
+        "tag-orange-500": "var(--tag-orange-500)",
+        "tag-blue-100": "var(--tag-blue-100)",
+        "tag-blue-500": "var(--tag-blue-500)",
+        "tag-pink-100": "var(--tag-pink-100)",
+        "tag-pink-500": "var(--tag-pink-500)",
       },
       keyframes: {
         "accordion-down": {

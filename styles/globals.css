@@ -4,7 +4,8 @@
 
 @font-face {
   font-family: "NanumSquareRound";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff") format("woff");
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff")
+    format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -15,9 +16,11 @@
   }
 }
 
-@layer components {}
+@layer components {
+}
 
-@layer utilities {}
+@layer utilities {
+}
 
 @layer base {
   :root {
@@ -106,7 +109,14 @@
     --system-warning: #fb923c;
     --system-error: #fb7185;
 
-    --input-error: #FFF1F2;
+    --input-error: #fff1f2;
+
+    --tag-orange-100: #ffedd5;
+    --tag-orange-500: #f97316;
+    --tag-blue-100: #e0f2fe;
+    --tag-blue-500: #0ea5e9;
+    --tag-pink-100: #fce7f3;
+    --tag-pink-500: #ec4899;
   }
 
   .dark {
