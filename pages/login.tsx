@@ -8,7 +8,7 @@ export default function Login() {
       <div className="flex" style={{ height: "calc(100vh - 72px" }}>
         <div className="bg-kakao w-1/2 h-full text-50 tablet:hidden"></div>
         <div className="bg-bg-06 w-1/2 h-full text-14 flex justify-center tablet:w-full">
-          <div className="bg-white w-[434px] h-5/6 p-40 mt-[65.5px] flex flex-col justify-between items-center rounded-32 tablet:mt-[81.5px] mobile:w-full mobile:mx-24 mobile:mt-[50.5px]">
+          <div className="bg-white w-[434px] h-5/6 p-40 mt-[65.5px] flex flex-col justify-between items-cen
             <h1 className="text-32 text-text-01 font-extrabold">로그인</h1>
             <ul className="w-full">
               <li className="w-full mb-32">
