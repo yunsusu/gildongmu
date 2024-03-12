@@ -4,9 +4,10 @@ import Link from "next/link";
 interface LoginState {
   loginState: boolean;
   hamMenu: boolean;
+  handleHamMenu: () => void;
 }
 
-function Hammenu({ loginState, hamMenu }: LoginState) {
+function Hammenu({ loginState, hamMenu, handleHamMenu }: LoginState) {
   return (
     <div
       style={
@@ -14,7 +15,8 @@ function Hammenu({ loginState, hamMenu }: LoginState) {
           ? { transform: "translateX(0%)" }
           : { transform: "translateX(100%)" }
       }
-      className="w-5/12 h-screen absolute top-0 z-0 bg-white right-0 mobile:w-full transition-all duration-1000"
+      className="w-5/12 h-screen absolute top-0 z-0 bg-white right-0 mobile:w-full transition-all duration-700"
+      onClick={handleHamMenu}
     >
       <div className="w-full h-72"></div>
       <div className="flex flex-col p-24">
@@ -49,7 +51,7 @@ function Hammenu({ loginState, hamMenu }: LoginState) {
         )}
       </div>
       {loginState && (
-        <div className="w-full mb-32 pt-24 border-t border-line-03 absolute bottom-0 px-24">
+        <div className="w-full mb-32 pt-24 absolute bottom-0 px-24">
           <Link
             href={"/mypage"}
             className=" hover:text-teal-500 py-4 cursor-pointer text-16"
@@ -59,6 +61,7 @@ function Hammenu({ loginState, hamMenu }: LoginState) {
           <div className="w-max hover:text-teal-500 py-4 cursor-pointer text-16 mt-12">
             로그아웃
           </div>
+          <div className="w-11/12 border-t border-line-03 absolute top-0 left-1/2 -translate-x-1/2"></div>
         </div>
       )}
     </div>
