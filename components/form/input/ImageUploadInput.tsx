@@ -24,7 +24,7 @@ function ImageUpload() {
           hidden
           onChange={handleFileChange}
         />
-        <div className="w-120 h-120 rounded-full overflow-hidden mt-4 border-4 border-line-02 relative">
+        <div className="w-120 h-120 rounded-full overflow-hidden mt-4 border-4 border-line-02 relative tablet:w-90 tablet:h-90">
           <Image
             src={imageSrc || "/icons/defaultProfile.png"}
             alt="Profile"
