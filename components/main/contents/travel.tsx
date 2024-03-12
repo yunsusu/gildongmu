@@ -23,8 +23,10 @@ export default function Travel() {
             최신
           </button>
         </div>
-        <div className="flex items-center justify-center w-full">
-          카드 컴포넌트
+        <div className="flex items-center justify-center">
+          <div className="w-full px-24 pt-24 pb-8 gap-24 tablet:gap-16 mobile:gap-0 rounded-32 bg-white">
+            카드 컴포넌트
+          </div>
         </div>
       </div>
     </div>
