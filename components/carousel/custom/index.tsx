@@ -26,7 +26,7 @@ function SampleNextArrow(props: { className: any; style: any; onClick: any }) {
     >
       <Image
         className="-translate-y-20"
-        src="icons/arrow_right_primary.svg"
+        src="icons/arrow_right.svg"
         alt="캐러셀다음버튼"
         width={32}
         height={32}
@@ -58,7 +58,7 @@ function SamplePrevArrow(props: { className: any; style: any; onClick: any }) {
     >
       <Image
         className="-translate-y-20"
-        src="icons/arrow_left_primary.svg"
+        src="icons/arrow_left.svg"
         alt="캐러셀이전버튼"
         width={32}
         height={32}
