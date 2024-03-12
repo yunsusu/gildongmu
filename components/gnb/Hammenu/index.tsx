@@ -21,7 +21,7 @@ function Hammenu({ loginState, hamMenu, handleHamMenu }: LoginState) {
       <div className="w-full h-72"></div>
       <div className="flex flex-col p-24">
         {!loginState ? (
-          <div className="flex w-full h-40 text-16 justify-center items-center px-4 py-2.5 text-teal-500 border-[1.5px] rounded-[24px] border-teal-500">
+          <div className="flex w-full h-40 text-16 justify-center items-center px-4 py-2.5 text-teal-500 border-[1.5px] rounded-[24px] border-teal-500 font-extrabold">
             <Link href={"/login"}>로그인</Link> &nbsp;/&nbsp;
             <Link href={"/signup"}>회원가입</Link>
           </div>
