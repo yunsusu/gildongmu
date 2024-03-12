@@ -17,17 +17,9 @@
 }
 
 @layer components {
-  .slick-prev:before,
-  .slick-next:before {
-    content: none !important;
-  }
 }
 
 @layer utilities {
-  .slick-prev:before,
-  .slick-next:before {
-    content: none !important;
-  }
 }
 
 @layer base {
@@ -157,4 +149,9 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.slick-arrow.slick-next,
+.slick-arrow.slick-prev {
+  display: none !important;
 }
