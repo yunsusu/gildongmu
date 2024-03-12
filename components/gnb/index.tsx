@@ -7,7 +7,7 @@ import Hammenu from "@/components/gnb/Hammenu";
 import useToggle from "@/hooks/useToggle";
 
 function Gnb() {
-  const [loginState, setLoginState] = useState(true);
+  const [loginState, setLoginState] = useState(false);
   const [dropDown, setDropDown, handleDropDown] = useToggle();
   const [hamMenu, setHamMenu, handleHamMenu] = useToggle(false);
   const [isTablet, setIsTablet] = useToggle(true);
@@ -25,7 +25,7 @@ function Gnb() {
   }, []);
 
   return (
-    <div className="bg-white tracking-tight text-text-01 relative">
+    <div className="bg-white tracking-tight text-text-01 relative font-bold">
       <nav className="flex max-w-[1200px] h-72 tablet:h-60 justify-between items-center py-20 px-24 mx-auto bg-white relative z-20">
         <div className="flex items-center gap-6">
           <Link href={"/"} className="w-120 h-30 relative overflow-hidden ">
