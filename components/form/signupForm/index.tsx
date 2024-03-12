@@ -1,5 +1,7 @@
 import "react-datepicker/dist/react-datepicker.css";
 
+import Image from "next/image";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import DatePickerInput from "@/components/form/input/DatePickerInput";
@@ -19,6 +21,17 @@ function SignUpForm() {
   } = useForm({ mode: "onBlur" });
 
   const password = watch("password", "");
+
+  const [passwordShown, setPasswordShown] = useState(false);
+  const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
+
+  const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown => !passwordShown);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setConfirmPasswordShown(confirmPasswordShown => !confirmPasswordShown);
+  };
 
   const onSubmit = (data: any) => {
     console.log(data);
@@ -84,15 +97,30 @@ function SignUpForm() {
             <Label>
               비밀번호<span className="text-pink-500">*</span>
             </Label>
-            <Input
-              type="password"
-              className={`w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border-0 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01 ${errors.password && "bg-input-error text-text-02"}`}
-              placeholder="비밀번호를 입력해 주세요"
-              {...register("password", {
-                required: true,
-                pattern: regPassword,
-              })}
-            />
+            <div className="relative">
+              <Input
+                type={passwordShown ? "text" : "password"}
+                className={`w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border-0 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01 ${errors.password && "bg-input-error text-text-02"}`}
+                placeholder="비밀번호를 입력해 주세요"
+                {...register("password", {
+                  required: true,
+                  pattern: regPassword,
+                })}
+              />
+              <div className="absolute inset-y-0 right-0 flex items-center justify-center px-16 h-full">
+                <button
+                  type="button"
+                  onClick={togglePasswordVisiblity}
+                  className="w-24 h-24 relative"
+                >
+                  <Image
+                    src={`/icons/eye-${passwordShown ? "off" : "on"}.png`}
+                    fill
+                    alt="eye-icon"
+                  />
+                </button>
+              </div>
+            </div>
             {errors.password && errors.password.type === "required" && (
               <span className="text-system-error text-12">
                 비밀번호를 입력해 주세요
@@ -108,15 +136,30 @@ function SignUpForm() {
             <Label>
               비밀번호 확인<span className="text-pink-500">*</span>
             </Label>
-            <Input
-              type="password"
-              className={`w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border-0 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01 ${errors.confirmPassword && "bg-input-error"}`}
-              placeholder="비밀번호를 다시 입력해 주세요"
-              {...register("confirmPassword", {
-                required: true,
-                validate: value => value === password,
-              })}
-            />
+            <div className="relative">
+              <Input
+                type={confirmPasswordShown ? "text" : "password"}
+                className={`w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border-0 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01 ${errors.confirmPassword && "bg-input-error"}`}
+                placeholder="비밀번호를 다시 입력해 주세요"
+                {...register("confirmPassword", {
+                  required: true,
+                  validate: value => value === password,
+                })}
+              />
+              <div className="absolute inset-y-0 right-0 flex items-center justify-center px-16 h-full">
+                <button
+                  type="button"
+                  onClick={toggleConfirmPasswordVisibility}
+                  className="w-24 h-24 relative"
+                >
+                  <Image
+                    src={`/icons/eye-${confirmPasswordShown ? "off" : "on"}.png`}
+                    fill
+                    alt="eye-icon"
+                  />
+                </button>
+              </div>
+            </div>
             {errors.confirmPassword && (
               <span className="text-system-error text-12">
                 비밀번호가 일치하지 않습니다
@@ -153,7 +196,11 @@ function SignUpForm() {
             <DatePickerInput />
           </div>
         </div>
-        <div className="my-40">추가 정보 입력</div>
+        <div className="flex items-center my-40 gap-32 tablet:gap-28">
+          <div className="w-294 h-px bg-line-02 tablet:w-248 mobile:w-52"></div>
+          <div className="text-18 tablet:text-16 mobile:text-14">추가 정보 입력</div>
+          <div className="w-294 h-px bg-line-02 tablet:w-248 mobile:w-52"></div>
+        </div>
         <div className="flex flex-col gap-24 items-center">
           <ImageUpload />
           <div className="flex flex-col gap-4">
@@ -171,7 +218,7 @@ function SignUpForm() {
         <button
           type="submit"
           disabled={!isValid}
-          className="w-240 h-52 bg-primary text-white rounded-32 flex justify-center items-center disabled:bg-line-02 disabled:text-text-04"
+          className="w-240 h-52 bg-primary text-white rounded-32 flex justify-center items-center disabled:bg-line-02 disabled:text-text-04 mobile:w-180 mobile:h-44"
         >
           가입하기
         </button>
