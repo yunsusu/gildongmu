@@ -108,6 +108,15 @@
     --system-information: #a78bfa;
     --system-warning: #fb923c;
     --system-error: #fb7185;
+
+    --input-error: #fff1f2;
+
+    --tag-orange-100: #ffedd5;
+    --tag-orange-500: #f97316;
+    --tag-blue-100: #e0f2fe;
+    --tag-blue-500: #0ea5e9;
+    --tag-pink-100: #fce7f3;
+    --tag-pink-500: #ec4899;
   }
 
   .dark {
