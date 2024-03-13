@@ -159,3 +159,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+.slick-arrow.slick-next,
+.slick-arrow.slick-prev {
+  display: none !important;
+}
+
+.my-custom-slider .slick-arrow.slick-next,
+.my-custom-slider .slick-arrow.slick-prev {
+  display: block !important;
+}
