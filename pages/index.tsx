@@ -1,19 +1,13 @@
-import CountryCarousel from "@/components/carousel/country/index";
-import CustomCarousel from "@/components/carousel/custom";
+import Contents from "@/components/main/contents";
+import Footer from "@/components/main/footer";
+import Header from "@/components/main/header";
 
-export default function Home() {
+export default function Main() {
   return (
     <>
-      <div>
-        <span className="text-primary text-8 tablet:text-red-600 mobile:text-blue-700">
-          안녕하세요
-        </span>
-        <div className="w-1200 p-20 flex flex-col justify-center">
-          <CustomCarousel />
-          <div className="h-30"></div>
-          <CountryCarousel />
-        </div>
-      </div>
+      <Header />
+      <Contents />
+      <Footer />
     </>
   );
 }

@@ -8,7 +8,7 @@ function Card() {
     <Link href={"/"} className="w-max h-[310px] block bg-white rounded-14">
       <div className="tablex:w-196 mobile:w-312 w-240 h-180 p-16 tablet:p-12 flex flex-col rounded-16 relative overflow-hidden border">
         <Image
-          src={"/images/logo.png"}
+          src={"/images/logo.svg"}
           alt="여행지 이미지"
           fill
           className="z-0 object-cover"
