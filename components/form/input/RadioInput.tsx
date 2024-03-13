@@ -1,9 +1,22 @@
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-function RadioInput({ onChange, value }: any) {
+function RadioInput({
+  onChange,
+  value,
+}: {
+  onChange: (value: string) => void;
+  value: string;
+}) {
+  const handleChange = (newValue: string) => {
+    onChange(newValue);
+  };
   return (
-    <RadioGroup defaultValue={value} className="flex gap-5" onChange={onChange}>
+    <RadioGroup
+      defaultValue={value}
+      className="flex gap-5"
+      onValueChange={handleChange}
+    >
       <div className="w-121 h-24 flex items-center gap-12">
         <RadioGroupItem
           value="man"
