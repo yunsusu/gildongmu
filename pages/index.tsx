@@ -6,7 +6,9 @@ import Footer from "@/components/main/footer";
 export default function Main() {
   return (
     <>
-      <Header />
+      <Header headerColor="bg-primary-press">
+        이번 여행, 어디로 떠나볼까요?
+      </Header>
       <Contents />
       <WritingButton />
       <Footer />
