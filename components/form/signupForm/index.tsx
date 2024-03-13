@@ -259,7 +259,7 @@ function SignUpForm() {
           <button
             type="submit"
             disabled={!isValid}
-            className="w-240 h-52 bg-primary text-white rounded-32 flex justify-center items-center disabled:bg-line-02 disabled:text-text-04 mobile:w-180 mobile:h-44"
+            className="w-240 h-52 bg-primary hover:bg-primary-press text-white rounded-32 flex justify-center items-center disabled:bg-line-02 disabled:text-text-04 mobile:w-180 mobile:h-44"
           >
             가입하기
           </button>
