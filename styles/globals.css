@@ -39,6 +39,8 @@
     --secondary: #84cc16;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
+    --error: #fb7185;
+
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
@@ -111,6 +113,7 @@
 
     --input-error: #fff1f2;
 
+    --rose-300: #fda4af;
     --tag-orange-100: #ffedd5;
     --tag-orange-500: #f97316;
     --tag-blue-100: #e0f2fe;
