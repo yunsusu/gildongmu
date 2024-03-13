@@ -21,9 +21,14 @@ function Hammenu({ loginState, hamMenu, handleHamMenu }: LoginState) {
       <div className="w-full h-72"></div>
       <div className="flex flex-col p-24">
         {!loginState ? (
-          <div className="flex w-full h-40 text-16 justify-center items-center px-4 py-2.5 text-teal-500 border-[1.5px] rounded-[24px] border-teal-500 font-extrabold">
-            <Link href={"/login"}>로그인</Link> &nbsp;/&nbsp;
-            <Link href={"/signup"}>회원가입</Link>
+          <div className="flex w-full h-40 text-16 justify-center items-center px-4 py-2.5 text-teal-500 border-[1.5px] rounded-[24px] border-teal-500 font-extrabold hover:border-primary-press">
+            <Link href={"/login"} className="hover:text-primary-press">
+              로그인
+            </Link>{" "}
+            &nbsp;/&nbsp;
+            <Link href={"/signup"} className="hover:text-primary-press">
+              회원가입
+            </Link>
           </div>
         ) : (
           <div className="flex gap-12 items-center">
@@ -38,15 +43,21 @@ function Hammenu({ loginState, hamMenu, handleHamMenu }: LoginState) {
             야돈 님
           </div>
         )}
-        <div className="w-max mt-32 text-16 hover:text-teal-500">
-          <Link href={"/travel"}>여행</Link>
+        <div className="w-max mt-32 text-16">
+          <Link href={"/travel"} className="hover:text-primary-press">
+            여행
+          </Link>
         </div>
         <div className="w-max mt-20 text-16 hover:text-teal-500">
-          <Link href={"/community"}>소통공간</Link>
+          <Link href={"/community"} className="hover:text-primary-press">
+            소통공간
+          </Link>
         </div>
         {loginState && (
           <div className="w-max mt-20 text-16 hover:text-teal-500">
-            <Link href={"/community"}>내 여행</Link>
+            <Link href={"/community"} className="hover:text-primary-press">
+              내 여행
+            </Link>
           </div>
         )}
       </div>
@@ -54,11 +65,11 @@ function Hammenu({ loginState, hamMenu, handleHamMenu }: LoginState) {
         <div className="w-full mb-32 pt-24 absolute bottom-0 px-24">
           <Link
             href={"/mypage"}
-            className=" hover:text-teal-500 py-4 cursor-pointer text-16"
+            className=" hover:text-teal-500 py-4 cursor-pointer text-16 hover:text-primary-press"
           >
             마이페이지
           </Link>
-          <div className="w-max hover:text-teal-500 py-4 cursor-pointer text-16 mt-12">
+          <div className="w-max hover:text-teal-500 py-4 cursor-pointer text-16 mt-12 hover:text-primary-press">
             로그아웃
           </div>
           <div className="w-11/12 border-t border-line-03 absolute top-0 left-1/2 -translate-x-1/2"></div>
