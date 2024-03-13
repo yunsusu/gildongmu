@@ -56,6 +56,9 @@ const config = {
           DEFAULT: "var(--secondary)",
           foreground: "var(--secondary-foreground)",
         },
+        error: {
+          DEFAULT: "var(--error)",
+        },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
@@ -119,6 +122,7 @@ const config = {
         "system-warning": "var(--system-warning)",
         "system-error": "var(--system-error)",
         "input-error": "var(--input-error)",
+        "rose-300": "var(--rose-300)",
         "tag-orange-100": "var(--tag-orange-100)",
         "tag-orange-500": "var(--tag-orange-500)",
         "tag-blue-100": "var(--tag-blue-100)",
