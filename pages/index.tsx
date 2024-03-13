@@ -1,11 +1,13 @@
-export default function Home() {
+import Contents from "@/components/main/contents";
+import Footer from "@/components/main/footer";
+import Header from "@/components/main/header";
+
+export default function Main() {
   return (
     <>
-      <div>
-        <span className="text-primary text-8 tablet:text-red-600 mobile:text-blue-700">
-          안녕하세요
-        </span>
-      </div>
+      <Header />
+      <Contents />
+      <Footer />
     </>
   );
 }

@@ -25,12 +25,12 @@ function Gnb() {
   }, []);
 
   return (
-    <div className="bg-white tracking-tight text-text-01">
-      <nav className="flex max-w-[1200px] h-72 justify-between items-center py-20 px-24 mx-auto bg-white relative z-20 border-b border-line-02">
+    <div className="bg-white tracking-tight text-text-01 relative font-bold">
+      <nav className="flex max-w-[1200px] h-72 tablet:h-60 justify-between items-center py-20 px-24 mx-auto bg-white relative z-20">
         <div className="flex items-center gap-6">
           <Link href={"/"} className="w-120 h-30 relative overflow-hidden ">
             <Image
-              src={"/images/logo.png"}
+              src={"/images/logo.svg"}
               alt="로고"
               fill
               className="object-cover"
@@ -69,7 +69,15 @@ function Gnb() {
               onClick={handleDropDown}
               className="text-18 flex items-center cursor-pointer"
             >
-              야돈 님
+              야돈 님 &nbsp;
+              <div className="w-16 h-16 relative">
+                <Image
+                  src={"/icons/chevron-down.svg"}
+                  alt="드롭다운 버튼"
+                  fill
+                  className={dropDown ? "rotate-180" : ""}
+                />
+              </div>
             </div>
           )
         ) : (
@@ -78,7 +86,7 @@ function Gnb() {
             className="w-24 h-24 relative cursor-pointer"
           >
             <Image
-              src={!hamMenu ? "/images/menu.svg" : "/images/close.svg"}
+              src={!hamMenu ? "/icons/menu.svg" : "/icons/close.svg"}
               alt="햄버거메뉴"
               fill
               className="object-cover"
@@ -94,9 +102,14 @@ function Gnb() {
           style={{ pointerEvents: hamMenu ? "auto" : "none" }}
           className="overflow-hidden h-screen w-full absolute top-0 z-10"
         >
-          <Hammenu loginState={loginState} hamMenu={hamMenu} />
+          <Hammenu
+            loginState={loginState}
+            hamMenu={hamMenu}
+            handleHamMenu={handleHamMenu}
+          />
         </div>
       )}
+      <div className="w-full h-1 bg-line-02 absolute bottom-0 z-20"></div>
     </div>
   );
 }

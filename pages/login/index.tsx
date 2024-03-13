@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 export default function Login() {
   return (
     <>
-      <div className="flex">
-        <div className="bg-kakao w-1/2 h-screen text-50"></div>
-        <div className="bg-bg-06 w-1/2 h-screen text-14 flex justify-center items-center">
-          <div className="bg-white w-3/4 h-5/6 p-40 flex flex-col justify-between items-center rounded-32">
+      <div className="flex" style={{ height: "calc(100vh - 72px)" }}>
+        <div className="bg-kakao w-1/2 h-full text-50 tablet:hidden"></div>
+        <div className="bg-bg-06 w-1/2 h-full text-14 flex justify-center tablet:w-full">
+          <div className="bg-white w-[434px] h-5/6 max-h-[617px] p-40 mt-[65.5px] flex flex-col justify-between items-center rounded-32 tablet:mt-[81.5px] mobile:w-full mobile:mx-24 mobile:mt-[50.5px]">
             <h1 className="text-32 text-text-01 font-extrabold">로그인</h1>
             <ul className="w-full">
               <li className="w-full mb-32">
