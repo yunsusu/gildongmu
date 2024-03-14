@@ -4,13 +4,13 @@ import { useState } from "react";
 
 function Card() {
   const [gather, setGather] = useState(false);
+  const [favor, setFavor] = useState(false);
   return (
     <Link
       href={"/"}
-      className="w-max h-[310px] block bg-white rounded-14 border border-line-02 m-auto"
+      className="tablet:w-196 mobile:max-w-[280px] mobile:min-w-264 mobile:w-full w-240 h-[310px] block bg-white rounded-16 border border-line-02 m-auto"
     >
-      <div className="tablet:w-196 mobile:w-312 w-240 h-180 p-16 tablet:p-12 flex flex-col rounded-16 relative overflow-hidden border">
-
+      <div className="w-full h-180 p-16 tablet:p-12 flex flex-col rounded-16 relative overflow-hidden border">
         <Image
           src={"/images/logo.svg"}
           alt="여행지 이미지"
@@ -19,15 +19,27 @@ function Card() {
         />
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-20"></div>
         <div className="relative w-full z-1">
-          {gather ? (
-            <div className="px-12 py-5 w-max tablet:py-3 tablet:px-10 bg-stone-100 rounded-24 text-14 tablet:text-12 text-stone-500">
-              모집 완료
-            </div>
-          ) : (
-            <div className="px-12 py-5 text-pink-500 bg-pink-100 w-max tablet:py-3 tablet:px-10 rounded-24 text-14 tablet:text-12">
-              모집 중
-            </div>
-          )}
+          <div className="flex justify-between">
+            {gather ? (
+              <div className="px-12 py-5 w-max tablet:py-3 tablet:px-10 bg-stone-100 rounded-24 text-14 tablet:text-12 text-stone-500">
+                모집 완료
+              </div>
+            ) : (
+              <div className="px-12 py-5 text-pink-500 bg-pink-100 w-max tablet:py-3 tablet:px-10 rounded-24 text-14 tablet:text-12">
+                모집 중
+              </div>
+            )}
+            {favor ? (
+              <div className="w-24 h-24 relative cursor-pointer">
+                <Image src={"/icons/heartOff.svg"} alt="하트" fill />
+              </div>
+            ) : (
+              <div className="w-24 h-24 relative">
+                <Image src={"/icons/heartOn.svg"} alt="하트" fill />
+              </div>
+            )}
+          </div>
+
           <div className="mt-16 leading-tight text-white text-16 tablet:text-14">
             길동무 모집글 제목길동무 모집글 제목길동
           </div>
