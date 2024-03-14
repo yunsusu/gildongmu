@@ -72,7 +72,7 @@ function SamplePrevArrow(props: { className: any; style: any; onClick: any }) {
   );
 }
 
-function Responsive() {
+function TravelCarousel() {
   var settings = {
     dots: false,
     infinite: true,
@@ -132,4 +132,4 @@ function Responsive() {
   );
 }
 
-export default Responsive;
+export default TravelCarousel;

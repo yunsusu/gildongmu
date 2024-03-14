@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import Responsive from "@/components/carousel/custom";
+import TravelCarousel from "@/components/carousel/travel";
 
 export default function Travel() {
   return (
@@ -28,7 +28,7 @@ export default function Travel() {
           </div>
           <div className="flex items-center justify-center mx-36 mobile:mx-0">
             <div className="w-full gap-24 px-24 pt-24 pb-8 bg-white tablet:gap-16 mobile:gap-0 rounded-32">
-              <Responsive />
+              <TravelCarousel />
             </div>
           </div>
         </div>
