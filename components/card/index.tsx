@@ -6,7 +6,7 @@ function Card() {
   const [gather, setGather] = useState(false);
   return (
     <Link href={"/"} className="w-max h-[310px] block bg-white rounded-14">
-      <div className="relative flex flex-col p-16 overflow-hidden border tablex:w-196 mobile:w-312 w-240 h-180 tablet:p-12 rounded-16">
+      <div className="relative flex flex-col p-16 overflow-hidden border tablet:w-196 mobile:w-312 w-240 h-180 tablet:p-12 rounded-16">
         <Image
           src={"/images/logo.svg"}
           alt="여행지 이미지"
