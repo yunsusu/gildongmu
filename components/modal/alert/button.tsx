@@ -33,7 +33,7 @@ export default function AlertModalButton({
   return (
     <>
       {ghostStyle && ghostText ? (
-        <div className="flex items-start self-stretch justify-center gap-12">
+        <div className="flex items-start justify-center gap-12 self-stretch">
           <Button variant={"outline"} className={ghostStyle} onClick={onClose}>
             {ghostText}
           </Button>
