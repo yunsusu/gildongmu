@@ -45,7 +45,7 @@ function Hammenu({ loginState, hamMenu, handleHamMenu, gnbColor }: LoginState) {
           </div>
         )}
         <div
-          className={`w-max mt-32 text-16 ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"}`}
+          className={`w-max mt-32 text-16 ${gnbColor === "travel" && "text-blue-400"} ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"}`}
         >
           <Link href={"/travel"}>여행</Link>
         </div>
