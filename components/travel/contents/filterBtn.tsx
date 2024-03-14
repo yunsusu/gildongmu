@@ -24,7 +24,7 @@ function FilterBtn({ text }: filterBtnProps) {
   return (
     <Link href={`/travel?search=${encodeURIComponent(text)}`}>
       <div
-        className={`text-blue-500 ${choice} hover:bg-yellow-300 rounded-32 text-16 text-center font-extrabold py-10 px-16 max-w-320 min-w-90`}
+        className={`text-blue-500 ${choice} hover:bg-yellow-300 rounded-32 text-16 tablet:text-14 text-center font-extrabold py-10 px-16 max-w-320 min-w-90`}
       >
         {text}
       </div>

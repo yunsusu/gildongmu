@@ -24,7 +24,7 @@ function Gnb() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [setIsTablet]);
 
   return (
     <div className="bg-white tracking-tight text-text-01 relative font-bold">
@@ -39,21 +39,21 @@ function Gnb() {
             />
           </Link>
           <Link
-            href={"/travel"}
-            className={`text-18 px-4 hover:${gnbColor} tablet:hidden `}
+            href="/travel"
+            className={`text-18 px-4 tablet:hidden ${gnbColor === "travel" && "text-blue-400"} ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"}`}
           >
             여행
           </Link>
           <Link
             href={"/community"}
-            className={`text-18 px-4 hover:${gnbColor} tablet:hidden `}
+            className={`text-18 px-4 ${gnbColor === "community" && "text-primary-press"} ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"} tablet:hidden `}
           >
             소통공간
           </Link>
           {loginState && (
             <Link
               href={"/mytravel"}
-              className={`text-18 px-4 hover:${gnbColor} tablet:hidden `}
+              className={`text-18 px-4 ${gnbColor === "mytravel" && "text-primary-press"} ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"} tablet:hidden `}
             >
               내 여행
             </Link>
@@ -62,9 +62,14 @@ function Gnb() {
 
         {!isTablet ? (
           !loginState ? (
-            <div className="flex w-137 h-40 text-16 justify-center items-center px-4 py-2.5 text-teal-500 border-[1.5px] rounded-[24px] border-teal-500">
-              <Link href={"/login"}>로그인</Link>/
-              <Link href={"/signup"}>회원가입</Link>
+            <div className="flex w-137 h-40 text-16 justify-center items-center px-4 py-2.5 text-teal-500 border-[1.5px] rounded-[24px] border-teal-500 hover:border-primary-press">
+              <Link href={"/login"} className="hover:text-primary-press">
+                로그인
+              </Link>
+              /
+              <Link href={"/signup"} className="hover:text-primary-press">
+                회원가입
+              </Link>
             </div>
           ) : (
             <div
@@ -96,7 +101,13 @@ function Gnb() {
           </div>
         )}
 
-        {dropDown && <Dropdown />}
+        {dropDown && (
+          <Dropdown
+            gnbColor={gnbColor}
+            buttons={gnbs}
+            handleDropDown={handleDropDown}
+          />
+        )}
       </nav>
 
       {isTablet && (
@@ -108,6 +119,7 @@ function Gnb() {
             loginState={loginState}
             hamMenu={hamMenu}
             handleHamMenu={handleHamMenu}
+            gnbColor={gnbColor}
           />
         </div>
       )}
@@ -115,5 +127,16 @@ function Gnb() {
     </div>
   );
 }
+
+const gnbs = [
+  {
+    name: "마이페이지",
+    link: "/mypage",
+  },
+  {
+    name: "로그아웃",
+    link: "",
+  },
+];
 
 export default Gnb;
