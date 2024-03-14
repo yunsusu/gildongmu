@@ -1,4 +1,5 @@
 import { AlertType } from "@/components/modal/alert";
+import { Button } from "@/components/ui/button";
 
 interface AlertModalButtonProps {
   alertType: AlertType;
@@ -36,17 +37,21 @@ export default function AlertModalButton({
     <>
       {ghostStyle && ghostText ? (
         <div className="flex items-start self-stretch justify-center gap-12">
-          <button className={ghostStyle} onClick={onClose}>
+          <Button
+            variant={"outline"}
+            className="w-full text-18"
+            onClick={onClose}
+          >
             {ghostText}
-          </button>
-          <button className={filledStyle} onClick={onClose}>
+          </Button>
+          <Button className="w-full text-18" onClick={onClose}>
             {filledText}
-          </button>
+          </Button>
         </div>
       ) : (
-        <button className={filledStyle} onClick={onClose}>
+        <Button className="w-full text-18" onClick={onClose}>
           {filledText}
-        </button>
+        </Button>
       )}
     </>
   );
