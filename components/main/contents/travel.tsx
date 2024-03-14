@@ -27,7 +27,7 @@ export default function Travel() {
             </button>
           </div>
           <div className="flex items-center justify-center mx-36 mobile:mx-0">
-            <div className="w-full gap-24 px-24 pt-24 pb-8 bg-white tablet:gap-16 mobile:gap-0 rounded-32">
+            <div className="w-[1080px] tablet:w-[676px] mobile:w-312 gap-24 px-24 pt-24 pb-8 bg-white tablet:gap-16 mobile:gap-0 rounded-32">
               <TravelCarousel />
             </div>
           </div>
