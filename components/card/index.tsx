@@ -5,8 +5,12 @@ import { useState } from "react";
 function Card() {
   const [gather, setGather] = useState(false);
   return (
-    <Link href={"/"} className="w-max h-[310px] block bg-white rounded-14">
-      <div className="relative flex flex-col p-16 overflow-hidden border tablet:w-196 mobile:w-312 w-240 h-180 tablet:p-12 rounded-16">
+    <Link
+      href={"/"}
+      className="w-max h-[310px] block bg-white rounded-14 border border-line-02 m-auto"
+    >
+      <div className="tablet:w-196 mobile:w-312 w-240 h-180 p-16 tablet:p-12 flex flex-col rounded-16 relative overflow-hidden border">
+
         <Image
           src={"/images/logo.svg"}
           alt="여행지 이미지"
