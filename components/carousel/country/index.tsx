@@ -58,7 +58,7 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
           justifyContent: "space-between",
         }}
       >
-        <div className="flex justify-start gap-12">
+        <div className="flex items-center justify-center gap-12">
           <Image src={titleIcon} alt="타이틀 아이콘" width={40} height={40} />
           <span className="font-extrabold leading-10 tracking-tight text-center text-text-01 text-32 tablet:text-24">
             {children}
