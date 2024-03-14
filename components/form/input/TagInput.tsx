@@ -47,7 +47,7 @@ function TagInput({ onChange, value }: any) {
     <div>
       <Input
         type="text"
-        id="favorite"
+        id="tags"
         className="w-[756px] h-52 bg-bg-02 mb-5 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border-0 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01"
         value={inputValue}
         onChange={handleInputChange}
