@@ -62,7 +62,7 @@ function SignUpForm() {
               <Input
                 id="email"
                 type="email"
-                className={`w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border-0 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01 ${errors.email && "bg-input-error"}`}
+                className={`w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border border-line-02 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01 ${errors.email && "bg-input-error border-0"}`}
                 placeholder="이메일을 입력해 주세요"
                 {...register("email", { required: true, pattern: regEmail })}
               />
@@ -84,7 +84,7 @@ function SignUpForm() {
               <Input
                 id="nickname"
                 type="text"
-                className={`w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border-0 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01 ${errors.nickname && "bg-input-error"}`}
+                className={`w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border border-line-02 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01 ${errors.nickname && "bg-input-error border-0"}`}
                 placeholder="닉네임을 입력해 주세요"
                 {...register("nickname", {
                   required: true,
@@ -116,7 +116,7 @@ function SignUpForm() {
                 <Input
                   id="password"
                   type={passwordShown ? "text" : "password"}
-                  className={`w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border-0 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01 ${errors.password && "bg-input-error text-text-02"}`}
+                  className={`w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border border-line-02 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01 ${errors.password && "bg-input-error text-text-02 border-0"}`}
                   placeholder="비밀번호를 입력해 주세요"
                   {...register("password", {
                     required: true,
@@ -156,7 +156,7 @@ function SignUpForm() {
                 <Input
                   id="confimPassword"
                   type={confirmPasswordShown ? "text" : "password"}
-                  className={`w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border-0 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01 ${errors.confirmPassword && "bg-input-error"}`}
+                  className={`w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border border-line-02 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01 ${errors.confirmPassword && "bg-input-error border-0"}`}
                   placeholder="비밀번호를 다시 입력해 주세요"
                   {...register("confirmPassword", {
                     required: true,
@@ -267,7 +267,7 @@ function SignUpForm() {
           <button
             type="submit"
             disabled={!isValid}
-            className="w-240 h-52 bg-primary text-white rounded-32 flex justify-center items-center disabled:bg-line-02 disabled:text-text-04 mobile:w-180 mobile:h-44"
+            className="w-240 h-52 bg-primary hover:bg-primary-press text-white rounded-32 flex justify-center items-center disabled:bg-line-02 disabled:text-text-04 mobile:w-180 mobile:h-44"
           >
             가입하기
           </button>
