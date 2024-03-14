@@ -5,7 +5,10 @@ import { useState } from "react";
 function Card() {
   const [gather, setGather] = useState(false);
   return (
-    <Link href={"/"} className="w-max h-[310px] block bg-white rounded-14">
+    <Link
+      href={"/"}
+      className="w-max h-[310px] block bg-white rounded-14 border border-line-02 m-auto"
+    >
       <div className="tablex:w-196 mobile:w-312 w-240 h-180 p-16 tablet:p-12 flex flex-col rounded-16 relative overflow-hidden border">
         <Image
           src={"/images/logo.svg"}

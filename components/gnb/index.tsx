@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 import Dropdown from "@/components/gnb/Dropdown";
 import Hammenu from "@/components/gnb/Hammenu";
 import useToggle from "@/hooks/useToggle";
+import useGnbStore from "@/store/gnb";
 
 function Gnb() {
-  const [loginState, setLoginState] = useState(false);
+  const [loginState, setLoginState] = useState(true);
   const [dropDown, setDropDown, handleDropDown] = useToggle();
   const [hamMenu, setHamMenu, handleHamMenu] = useToggle(false);
   const [isTablet, setIsTablet] = useToggle(true);
+  const { gnbColor } = useGnbStore();
 
   useEffect(() => {
     const handleResize = () => {
@@ -38,20 +40,20 @@ function Gnb() {
           </Link>
           <Link
             href={"/travel"}
-            className="text-18 px-4 hover:text-teal-500 tablet:hidden"
+            className={`text-18 px-4 hover:${gnbColor} tablet:hidden `}
           >
             여행
           </Link>
           <Link
             href={"/community"}
-            className="text-18 px-4 hover:text-teal-500 tablet:hidden"
+            className={`text-18 px-4 hover:${gnbColor} tablet:hidden `}
           >
             소통공간
           </Link>
           {loginState && (
             <Link
               href={"/mytravel"}
-              className="text-18 px-4 hover:text-teal-500 tablet:hidden"
+              className={`text-18 px-4 hover:${gnbColor} tablet:hidden `}
             >
               내 여행
             </Link>

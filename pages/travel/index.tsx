@@ -1,21 +1,25 @@
 import { useEffect } from "react";
 
-import Contents from "@/components/main/contents";
 import Footer from "@/components/main/footer";
 import Header from "@/components/main/header";
+import Filter from "@/components/travel/contents/filter";
+import Paging from "@/components/travel/contents/paging";
 import useGnbStore from "@/store/gnb";
 
-export default function Main() {
+function Travel() {
   const { setGnbColor } = useGnbStore();
   useEffect(() => {
-    setGnbColor("text-primary-press");
+    setGnbColor("text-blue-400");
   }, [setGnbColor]);
 
   return (
     <>
       <Header />
-      <Contents />
+      <Filter />
+      <Paging />
       <Footer />
     </>
   );
 }
+
+export default Travel;
