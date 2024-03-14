@@ -5,6 +5,8 @@ import Image from "next/image";
 import React from "react";
 import Slider from "react-slick";
 
+import Card from "@/components/card";
+
 function SampleNextArrow(props: { className: any; style: any; onClick: any }) {
   const { className, onClick } = props;
   return (
@@ -22,6 +24,7 @@ function SampleNextArrow(props: { className: any; style: any; onClick: any }) {
         background: "#fff",
         justifyContent: "center",
         alignItems: "center",
+        transform: "translate(35px,-50%)",
       }}
     >
       <Image
@@ -53,6 +56,7 @@ function SamplePrevArrow(props: { className: any; style: any; onClick: any }) {
         background: "#fff",
         justifyContent: "center",
         alignItems: "center",
+        transform: "translate(-35px,-50%)",
         zIndex: 1,
       }}
     >
@@ -68,7 +72,7 @@ function SamplePrevArrow(props: { className: any; style: any; onClick: any }) {
   );
 }
 
-function Responsive() {
+function TravelCarousel() {
   var settings = {
     dots: false,
     infinite: true,
@@ -113,35 +117,19 @@ function Responsive() {
     ],
   };
   return (
-    <div className="slider-container my-custom-slider">
+    <div className="relative slider-container my-custom-slider">
       <Slider {...settings}>
-        <div className="flex w-40 h-40 border-2 border-black">
-          <h3>1</h3>
-        </div>
-        <div className="flex w-40 h-40 border-2 border-black">
-          <h3>2</h3>
-        </div>
-        <div className="flex w-40 h-40 border-2 border-black">
-          <h3>3</h3>
-        </div>
-        <div className="flex w-40 h-40 border-2 border-black">
-          <h3>4</h3>
-        </div>
-        <div className="flex w-40 h-40 border-2 border-black">
-          <h3>5</h3>
-        </div>
-        <div className="flex w-40 h-40 border-2 border-black">
-          <h3>6</h3>
-        </div>
-        <div className="flex w-40 h-40 border-2 border-black">
-          <h3>7</h3>
-        </div>
-        <div className="flex w-40 h-40 border-2 border-black">
-          <h3>8</h3>
-        </div>
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
       </Slider>
     </div>
   );
 }
 
-export default Responsive;
+export default TravelCarousel;
