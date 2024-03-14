@@ -24,7 +24,7 @@ function RadioInput({
           <RadioGroupItem
             value="none"
             id="none"
-            className="w-24 h-24 border-line-01"
+            className="w-24 h-24 border-line-01 mobile:w-20 mobile:h-20"
           />
           <Label htmlFor="none">상관없음</Label>
         </div>
@@ -33,7 +33,7 @@ function RadioInput({
         <RadioGroupItem
           value="male"
           id="male"
-          className="w-24 h-24 border-line-01"
+          className="w-24 h-24 border-line-01 mobile:w-20 mobile:h-20"
         />
         <Label htmlFor="male">{pageType === "write" ? "남자만" : "남자"}</Label>
       </div>
@@ -41,7 +41,7 @@ function RadioInput({
         <RadioGroupItem
           value="female"
           id="female"
-          className="w-24 h-24 border-line-01"
+          className="w-24 h-24 border-line-01 mobile:w-20 mobile:h-20"
         />
         <Label htmlFor="female">
           {pageType === "write" ? "여자만" : "여자"}
