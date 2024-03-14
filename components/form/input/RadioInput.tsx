@@ -20,7 +20,7 @@ function RadioInput({
       onValueChange={handleChange}
     >
       {pageType === "write" && (
-        <div className="w-121 h-24 flex items-center gap-12">
+        <div className="w-121 h-24 flex items-center gap-12 mobile:w-100">
           <RadioGroupItem
             value="none"
             id="none"
@@ -29,7 +29,7 @@ function RadioInput({
           <Label htmlFor="none">상관없음</Label>
         </div>
       )}
-      <div className="w-121 h-24 flex items-center gap-12">
+      <div className="w-121 h-24 flex items-center gap-12 mobile:w-80">
         <RadioGroupItem
           value="male"
           id="male"
@@ -37,7 +37,7 @@ function RadioInput({
         />
         <Label htmlFor="male">{pageType === "write" ? "남자만" : "남자"}</Label>
       </div>
-      <div className="w-121 h-24 flex items-center gap-12">
+      <div className="w-121 h-24 flex items-center gap-12 mobile:w-80">
         <RadioGroupItem
           value="female"
           id="female"
