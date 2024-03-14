@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import Responsive from "@/components/carousel/custom";
+
 export default function Travel() {
   return (
     <div className="flex flex-col bg-bg-06">
@@ -24,9 +26,9 @@ export default function Travel() {
               최신
             </button>
           </div>
-          <div className="flex items-center justify-center">
-            <div className="w-full px-24 pt-24 pb-8 gap-24 tablet:gap-16 mobile:gap-0 rounded-32 bg-white">
-              카드 컴포넌트
+          <div className="flex items-center justify-center mx-36 mobile:mx-0">
+            <div className="w-full gap-24 px-24 pt-24 pb-8 bg-white tablet:gap-16 mobile:gap-0 rounded-32">
+              <Responsive />
             </div>
           </div>
         </div>
