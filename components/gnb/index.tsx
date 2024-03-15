@@ -36,6 +36,7 @@ function Gnb() {
               alt="로고"
               fill
               className="object-cover"
+              priority={true}
             />
           </Link>
           <Link

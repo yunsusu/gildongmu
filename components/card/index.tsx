@@ -1,18 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Card() {
   const [gather, setGather] = useState(false);
   const [favor, setFavor] = useState(false);
+  const [wrap, setWrap] = useState("");
   const router = useRouter();
 
+  useEffect(() => {
+    if (router.pathname === "/travel") {
+      setWrap(
+        "mobile:max-w-[280px] mobile:min-w-264 mobile:w-full w-240 h-[310px] block bg-white rounded-16 border border-line-02 m-auto overflow-hidden",
+      );
+    } else {
+      setWrap(
+        "tablet:w-196 mobile:max-w-[280px] mobile:min-w-264 mobile:w-full w-240 h-[310px] block bg-white rounded-16 border border-line-02 m-auto overflow-hidden",
+      );
+    }
+  }, [router.pathname]);
+
   return (
-    <Link
-      href={"/"}
-      className={`tablet:${router.pathname === "/travel" ? "" : "w-196"} mobile:max-w-[280px] mobile:min-w-264 mobile:w-full w-240 h-[310px] block bg-white rounded-16 border border-line-02 m-auto overflow-hidden`}
-    >
+    <Link href={"/"} className={wrap}>
       <div className="w-full h-180 p-16 tablet:p-12 flex flex-col relative overflow-hidden border">
         <Image
           src={"/images/logo.svg"}
