@@ -44,7 +44,7 @@ function RangeDatePickerInput() {
           readOnly
           placeholder="여행 일정을 선택해 주세요"
           onClick={() => setIsPickerOpen(true)}
-          className="w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border-0 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01"
+          className="w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border border-line-02 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01"
         />
         <style>{css}</style>
         {isPickerOpen && (

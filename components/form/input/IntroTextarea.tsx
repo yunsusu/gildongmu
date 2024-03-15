@@ -29,7 +29,7 @@ function IntroTextarea({
         id="bio"
         value={text}
         onChange={handleChange}
-        className="w-full h-137 bg-bg-02 resize-none placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border-0 rounded-12 px-16 py-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01"
+        className="w-full h-137 bg-bg-02 resize-none placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border border-line-02 rounded-12 px-16 py-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01"
         placeholder="자기소개를 입력해 주세요"
       />
       <p className="text-sm text-gray-500 mt-1 self-end">
