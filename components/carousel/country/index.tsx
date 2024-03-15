@@ -50,7 +50,7 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
     ],
   };
   return (
-    <div className="slider-container !flex flex-col gap-40 w-full">
+    <div className="slider-container !flex w-full flex-col gap-40">
       <div
         style={{
           textAlign: "end",
@@ -60,34 +60,30 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
       >
         <div className="flex items-center justify-center gap-12">
           <Image src={titleIcon} alt="타이틀 아이콘" width={40} height={40} />
-          <span className="font-extrabold leading-10 tracking-tight text-center text-text-01 text-32 tablet:text-24">
+          <span className="text-center text-32 font-extrabold leading-10 tracking-tight text-text-01 tablet:text-24">
             {children}
           </span>
         </div>
         <div className="flex gap-24">
           <button
-            className="button flex justify-center items-center w-44 h-44 p-10 border-[1.5px] border-[#0EA5E9] hover:bg-sky-100 rounded-full bg-white"
+            className="button flex h-44 w-44 items-center justify-center rounded-full border-[1.5px] border-[#0EA5E9] bg-white p-10 hover:bg-sky-100"
             onClick={previous}
           >
-            <Image
-              src="icons/chevron_left.svg"
-              alt="캐러셀 다음 버튼"
-              width={24}
-              height={24}
-              objectFit="fill"
-            />
+            <div className="relative h-24 w-24">
+              <Image src="icons/chevron_left.svg" alt="캐러셀 다음 버튼" fill />
+            </div>
           </button>
           <button
-            className="button flex justify-center items-center w-44 h-44 p-10 border-[1.5px] border-[#0EA5E9] hover:bg-sky-100 rounded-full bg-white"
+            className="button flex h-44 w-44 items-center justify-center rounded-full border-[1.5px] border-[#0EA5E9] bg-white p-10 hover:bg-sky-100"
             onClick={next}
           >
-            <Image
-              src="icons/chevron_right.svg"
-              alt="캐러셀 다음 버튼"
-              width={24}
-              height={24}
-              objectFit="fill"
-            />
+            <div className="relative h-24 w-24">
+              <Image
+                src="icons/chevron_right.svg"
+                alt="캐러셀 다음 버튼"
+                fill
+              />
+            </div>
           </button>
         </div>
       </div>
