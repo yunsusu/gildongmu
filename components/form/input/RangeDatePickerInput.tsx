@@ -8,7 +8,7 @@ import { DateRange, DayPicker } from "react-day-picker";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-function RangeDatePickerInput() {
+function RangeDatePickerInput({ onChange }: any) {
   const [range, setRange] = useState<DateRange | undefined>();
   const [inputValue, setInputValue] = useState("");
   const [isPickerOpen, setIsPickerOpen] = useState(false);
@@ -24,6 +24,7 @@ function RangeDatePickerInput() {
   }, [range]);
 
   const handleSelectButton = () => {
+    onChange(range);
     setIsPickerOpen(false);
   };
 
