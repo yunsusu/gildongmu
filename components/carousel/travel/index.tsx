@@ -27,14 +27,14 @@ function SampleNextArrow(props: { className: any; style: any; onClick: any }) {
         transform: "translate(35px,-50%)",
       }}
     >
-      <Image
-        className="-translate-y-20"
-        src="icons/arrow_right.svg"
-        alt="캐러셀다음버튼"
-        width={32}
-        height={32}
-        objectFit="fill"
-      />
+      <div className="relative h-29 w-29">
+        <Image
+          className="-translate-y-20"
+          src="icons/arrow_right.svg"
+          alt="캐러셀다음버튼"
+          fill
+        />
+      </div>
     </div>
   );
 }
@@ -60,14 +60,14 @@ function SamplePrevArrow(props: { className: any; style: any; onClick: any }) {
         zIndex: 1,
       }}
     >
-      <Image
-        className="-translate-y-20"
-        src="icons/arrow_left.svg"
-        alt="캐러셀이전버튼"
-        width={32}
-        height={32}
-        objectFit="fill"
-      />
+      <div className="relative h-29 w-29">
+        <Image
+          className="-translate-y-20"
+          src="icons/arrow_left.svg"
+          alt="캐러셀이전버튼"
+          fill
+        />
+      </div>
     </div>
   );
 }
@@ -117,7 +117,7 @@ function TravelCarousel() {
     ],
   };
   return (
-    <div className="relative slider-container my-custom-slider">
+    <div className="slider-container my-custom-slider relative">
       <Slider {...settings}>
         <Card />
         <Card />
