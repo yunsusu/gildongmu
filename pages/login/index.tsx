@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
 
 export default function Login() {
-  const [eye, setEye, toggleEye] = useToggle();
+  const [eye, setEye, toggleEye] = useToggle(true);
 
   return (
     <>
@@ -30,16 +30,17 @@ export default function Login() {
               </li>
               <li className="relative w-full">
                 <input
-                  type="password"
+                  type={eye ? "password" : "text"}
                   placeholder="비밀번호"
                   className="flex h-52 w-full items-center justify-end gap-8 self-stretch rounded-xl bg-bg-02 px-16"
                 />
                 <Image
-                  src="/icons/eye-on.png"
+                  src={eye ? "/icons/eye-off.png" : "/icons/eye-on.png"}
                   alt="eye"
                   width="24"
                   height="24"
                   className="absolute right-16 top-14"
+                  onClick={toggleEye}
                 />
               </li>
             </ul>
