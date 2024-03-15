@@ -43,8 +43,9 @@ function Card() {
             )}
           </div>
 
-          <div className="mt-16 leading-tight text-white text-16 tablet:text-14">
-            길동무 모집글 제목길동무 모집글 제목길동
+          <div className="mt-16 leading-tight text-white text-16 tablet:text-14 line-clamp-2">
+            길동무 모집글 제목길동무 모집글 제목길동 길동무 모집글 제목길동무
+            모집글 제목길동 길동무 모집글 제목길동무 모집글 제목길동
           </div>
           <div className="mt-1 text-white text-14">작성자</div>
         </div>

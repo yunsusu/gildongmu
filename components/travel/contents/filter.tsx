@@ -15,8 +15,11 @@ const filterMock = [
 function Filter() {
   return (
     <div className="bg-white tracking-tight text-text-01 relative font-bold border-b border-line-02">
-      <div className="max-w-[1200px] w-full m-auto">
-        <div className="flex m-auto justify-center gap-12 py-20 px-36">
+      <div
+        className="max-w-[1200px] w-full m-auto mobile:overflow-x-scroll"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        <div className="flex m-auto w-max justify-center gap-12 py-20 px-36 mobile:justify-start">
           {filterMock.map((item, index) => (
             <FilterBtn key={index} text={item} />
           ))}
