@@ -244,6 +244,7 @@ function SignUpForm() {
                   <TagInput
                     onChange={(tags: any) => field.onChange(tags)}
                     value={field.value}
+                    formType={"signUp"}
                   />
                 )}
               />
