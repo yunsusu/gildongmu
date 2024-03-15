@@ -18,6 +18,7 @@ export default function AlertModalButton({
     alertType === "emailNotFound" ||
     alertType === "passwordMismatch" ||
     alertType === "signupSuccess" ||
+    alertType === "writingSuccess" ||
     alertType === "emailInUse"
   ) {
     filledStyle =
