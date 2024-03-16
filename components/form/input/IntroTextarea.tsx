@@ -5,9 +5,11 @@ import { Textarea } from "@/components/ui/textarea";
 function IntroTextarea({
   onChange,
   value,
+  id,
 }: {
   onChange: (value: string) => void;
   value: string;
+  id: string;
 }) {
   const [text, setText] = useState(value);
 
@@ -24,15 +26,15 @@ function IntroTextarea({
   };
 
   return (
-    <div className="w-[756px] tablet:w-[672px] mobile:w-272 flex flex-col gap-4">
+    <div className="flex w-[756px] flex-col gap-4 tablet:w-[672px] mobile:w-272">
       <Textarea
-        id="bio"
+        id={id}
         value={text}
         onChange={handleChange}
-        className="w-full h-137 bg-bg-02 resize-none placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border border-line-02 rounded-12 px-16 py-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01"
+        className="h-137 w-full resize-none rounded-12 border border-line-02 bg-bg-02 px-16 py-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm"
         placeholder="자기소개를 입력해 주세요"
       />
-      <p className="text-sm text-gray-500 mt-1 self-end">
+      <p className="mt-1 self-end text-sm text-gray-500">
         {text?.length ?? 0} / 200
       </p>
     </div>

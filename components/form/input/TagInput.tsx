@@ -3,7 +3,7 @@ import React, { KeyboardEvent, useEffect, useState } from "react";
 
 import { Input } from "@/components/ui/input";
 
-function TagInput({ onChange, value, formType }: any) {
+function TagInput({ onChange, value, formType, id }: any) {
   const [tags, setTags] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
 
@@ -65,8 +65,8 @@ function TagInput({ onChange, value, formType }: any) {
     <div>
       <Input
         type="text"
-        id="tags"
-        className="w-[756px] h-52 bg-bg-02 mb-5 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border border-line-02 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01"
+        id={id}
+        className="mb-5 h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm"
         value={inputValue}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
@@ -77,7 +77,7 @@ function TagInput({ onChange, value, formType }: any) {
         {tags.map((tag, index) => (
           <span
             key={index}
-            className={`h-34 mobile:h-28 px-13 py-5 bg-primary rounded-24 text-16 mobile:text-14 flex items-center gap-5 ${tagStyles[index]} ${tagTextStyles[index]}`}
+            className={`flex h-34 items-center gap-5 rounded-24 bg-primary px-13 py-5 text-16 mobile:h-28 mobile:text-14 ${tagStyles[index]} ${tagTextStyles[index]}`}
           >
             # {tag}
             <button type="button" onClick={() => removeTag(index)}>
