@@ -20,13 +20,6 @@ export default function Login() {
                   placeholder="이메일"
                   className="flex h-52 w-full items-center justify-end gap-8 self-stretch rounded-xl bg-bg-02 px-16"
                 />
-                <Image
-                  src="/icons/check.png"
-                  alt="check"
-                  width="20"
-                  height="20"
-                  className="absolute right-16 top-16"
-                />
               </li>
               <li className="relative w-full">
                 <input
