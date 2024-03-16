@@ -19,6 +19,7 @@ interface ModalProps {
   favoriteSpots?: string[];
   bio?: string;
   nickname?: string;
+  profilePath?: string;
   onClose: () => void;
 }
 
@@ -30,6 +31,7 @@ export default function Modal({ modalType, onClose }: ModalProps) {
   const bio =
     "자기소개 공간 3줄 공백 포함 75자 정도 안녕하세요 길동무 같이 해요 자기소개 공간 3줄 공백 포함 75자 정도 안녕하세요 길동무 같이 해요 자기소개 공간 3줄 공백 포함 75자 정도 안녕하세요 길동무 같이 해요 자기소개 공간 3줄 공백 포함 75자 정도 안녕하세요 길동무 같이 해요";
   const nickname = "닉네임";
+  const profilePath = "/icons/defaultProfile.png";
 
   switch (modalType) {
     case "emailNotFound":
@@ -69,7 +71,7 @@ export default function Modal({ modalType, onClose }: ModalProps) {
           <div className="flex flex-col items-center gap-12 mobile:gap-8">
             <div className="moblie:w-64 h-72 w-72 overflow-hidden rounded-full mobile:h-64">
               <Image
-                src={"/icons/defaultProfile.png"}
+                src={profilePath}
                 alt="프로필 이미지"
                 width={72}
                 height={72}
@@ -95,7 +97,7 @@ export default function Modal({ modalType, onClose }: ModalProps) {
             ))}
           </div>
           <div className="justify-left flex w-full items-center self-stretch rounded-16 bg-bg-02 p-16 text-left text-14 font-normal">
-            {bio.length > 75 ? `#${bio.slice(0, 75)}...` : bio}
+            {bio.length > 75 ? `#${bio.slice(0, 75)} ...` : bio}
           </div>
         </div>
       );
