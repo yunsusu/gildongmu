@@ -22,7 +22,8 @@
     "**/*.ts",
     "**/*.tsx",
     "store/gnb.js",
-    "lib/api/axios.js"
+    "lib/api/axios.js",
+    "lib/utils/regexp.ts"
   ],
   "exclude": ["node_modules"]
 }
