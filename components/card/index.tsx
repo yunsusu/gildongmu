@@ -35,51 +35,47 @@ function Card() {
   }, [router.pathname]);
 
   return (
-    <Link
-      href={`/travel/${content.id}/detail`}
-      className="tablet:w-196 mobile:max-w-[280px] mobile:min-w-264 mobile:w-full w-240 h-[310px] block bg-white rounded-16 border border-line-02 m-auto"
-    >
-      <div className="w-full h-180 p-16 tablet:p-12 flex flex-col rounded-16 relative overflow-hidden border">
-
+    <Link href={`/travel/${content.id}/detail`} className={wrap}>
+      <div className="relative flex h-180 w-full flex-col overflow-hidden border p-16 tablet:p-12">
         <Image
           src={content.thumbnail}
           alt="여행지 이미지"
           fill
           className="z-0 object-cover"
         />
-        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-20"></div>
-        <div className="relative w-full z-1">
+        <div className="absolute left-0 top-0 h-full w-full bg-black opacity-20"></div>
+        <div className="z-1 relative w-full">
           <div className="flex justify-between">
             {content.status === "모집 완료" ? (
-              <div className="px-12 py-5 w-max tablet:py-3 tablet:px-10 bg-stone-100 rounded-24 text-14 tablet:text-12 text-stone-500">
+              <div className="w-max rounded-24 bg-stone-100 px-12 py-5 text-14 text-stone-500 tablet:px-10 tablet:py-3 tablet:text-12">
                 모집 완료
               </div>
             ) : (
-              <div className="px-12 py-5 text-pink-500 bg-pink-100 w-max tablet:py-3 tablet:px-10 rounded-24 text-14 tablet:text-12">
+              <div className="w-max rounded-24 bg-pink-100 px-12 py-5 text-14 text-pink-500 tablet:px-10 tablet:py-3 tablet:text-12">
                 모집 중
               </div>
             )}
             {favor ? (
-              <div className="w-24 h-24 relative cursor-pointer">
+              <div className="relative h-24 w-24 cursor-pointer">
                 <Image src={"/icons/heartOff.svg"} alt="하트" fill />
               </div>
             ) : (
-              <div className="w-24 h-24 relative">
+              <div className="relative h-24 w-24">
                 <Image src={"/icons/heartOn.svg"} alt="하트" fill />
               </div>
             )}
           </div>
 
-          <div className="mt-16 leading-tight text-white text-16 tablet:text-14">
+          <div className="mt-16 text-16 leading-tight text-white tablet:text-14">
             {content.title}
           </div>
-          <div className="mt-1 text-white text-14">{content.nickname}</div>
+          <div className="mt-1 text-14 text-white">{content.nickname}</div>
         </div>
       </div>
 
-      <div className="flex flex-col w-full p-16 h-130 tablet:p-12 text-14 text-text-02">
-        <div className="flex items-center flex-1 gap-8">
-          <div className="relative w-16 h-16 tablet:w-12 tablet:h-12">
+      <div className="flex h-130 w-full flex-col p-16 text-14 text-text-02 tablet:p-12">
+        <div className="flex flex-1 items-center gap-8">
+          <div className="relative h-16 w-16 tablet:h-12 tablet:w-12">
             <Image src={"/icons/location.svg"} alt="위치" fill />
           </div>
           <div>
@@ -87,8 +83,8 @@ function Card() {
           </div>
         </div>
 
-        <div className="flex items-center flex-1 gap-8">
-          <div className="relative w-16 h-16 tablet:w-12 tablet:h-12">
+        <div className="flex flex-1 items-center gap-8">
+          <div className="relative h-16 w-16 tablet:h-12 tablet:w-12">
             <Image src={"/icons/calendar.svg"} alt="일정" fill />
           </div>
           <div>
@@ -96,8 +92,8 @@ function Card() {
           </div>
         </div>
 
-        <div className="flex items-center flex-1 gap-8">
-          <div className="relative w-16 h-16 tablet:w-12 tablet:h-12">
+        <div className="flex flex-1 items-center gap-8">
+          <div className="relative h-16 w-16 tablet:h-12 tablet:w-12">
             <Image src={"/icons/tag.svg"} alt="태그" fill />
           </div>
           <div>야돈만</div>
@@ -105,14 +101,14 @@ function Card() {
 
         <div className="flex flex-1 gap-12 text-12">
           <div className="flex items-center gap-4">
-            <div className="relative w-12 h-12">
+            <div className="relative h-12 w-12">
               <Image src={"/icons/heart.svg"} alt="좋아요 수" fill />
             </div>
             <div>{content.countOfBookmarks}</div>
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="relative w-12 h-12">
+            <div className="relative h-12 w-12">
               <Image src={"/icons/comment.svg"} alt="댓글 수" fill />
             </div>
             <div>{content.countOfComments}</div>
