@@ -7,7 +7,7 @@ import MultipleImageUploadInput from "@/components/form/input/MultipleImageUploa
 import RadioInput from "@/components/form/input/RadioInput";
 import RangeDatePickerInput from "@/components/form/input/RangeDatePickerInput";
 import TagInput from "@/components/form/input/TagInput";
-import AlertModal from "@/components/modal/alert";
+import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,7 +20,7 @@ function WriteForm() {
     formState: { errors, isValid },
     watch,
   } = useForm({ mode: "onBlur" });
-  
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 
@@ -37,17 +37,17 @@ function WriteForm() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="bg-white w-[956px] px-32 py-48 flex flex-col rounded-32 items-center tablet:w-[720px] mobile:w-[312px]">
+        <div className="flex w-[956px] flex-col items-center rounded-32 bg-white px-32 py-48 tablet:w-[720px] mobile:w-[312px]">
           <div className="flex flex-col gap-32">
-            <div className="flex flex-col items-center mb-8">
+            <div className="mb-8 flex flex-col items-center">
               <Input
                 type="text"
-                className={`w-[756px] h-52 text-xl text-center font-bold border-0 border-b rounded-0 px-24 pt-12 pb-24 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 focus-visible:ring-0 focus-visible:ring-offset-0 ${errors.email && "bg-input-error"}`}
+                className={`h-52 w-[756px] rounded-0 border-0 border-b px-24 pb-24 pt-12 text-center text-xl font-bold placeholder:text-text-05 focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 ${errors.email && "bg-input-error"}`}
                 placeholder="제목을 입력해 주세요"
                 {...register("title", { required: true })}
               />
               {errors.title && errors.title.type === "required" && (
-                <span className="text-system-error text-12">
+                <span className="text-12 text-system-error">
                   제목을 입력해 주세요
                 </span>
               )}
@@ -58,9 +58,9 @@ function WriteForm() {
               </Label>
               <Input
                 placeholder="여행지 입력"
-                className="w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border border-line-02 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01"
+                className="h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272"
               />
-              <div className="w-[756px] h-[240px] bg-line-02 tablet:w-[672px] mobile:w-272">
+              <div className="h-[240px] w-[756px] bg-line-02 tablet:w-[672px] mobile:w-272">
                 지도
               </div>
             </div>
@@ -80,7 +80,7 @@ function WriteForm() {
                 )}
               />
               {errors.tripDate && errors.tripDate.type === "required" && (
-                <span className="text-system-error text-12">
+                <span className="text-12 text-system-error">
                   여행 일정을 선택해 주세요
                 </span>
               )}
@@ -104,7 +104,7 @@ function WriteForm() {
                       isError={!!error}
                     />
                     {error && (
-                      <span className="text-system-error text-12">
+                      <span className="text-12 text-system-error">
                         {error.message}
                       </span>
                     )}
@@ -129,7 +129,7 @@ function WriteForm() {
                 )}
               />
               {errors.gender && errors.gender.type === "required" && (
-                <span className="text-system-error text-12">
+                <span className="text-12 text-system-error">
                   성별 구성을 선택해 주세요
                 </span>
               )}
@@ -151,7 +151,7 @@ function WriteForm() {
                 )}
               />
               {errors.content && errors.content.type === "required" && (
-                <span className="text-system-error text-12">
+                <span className="text-12 text-system-error">
                   모집 내용을 작성해 주세요
                 </span>
               )}
@@ -184,35 +184,35 @@ function WriteForm() {
             </div>
           </div>
         </div>
-        <div className="w-[956px] mt-40 flex gap-20 items-center justify-center tablet:w-[720px] tablet:mt-32 mobile:w-[312px]">
+        <div className="mt-40 flex w-[956px] items-center justify-center gap-20 tablet:mt-32 tablet:w-[720px] mobile:w-[312px]">
           <Button
             variant={"outline"}
             type="button"
             onClick={handleWritingCancel}
-            className="w-180 h-52 tablet:w-128 tablet:h-44"
+            className="h-52 w-180 tablet:h-44 tablet:w-128"
           >
             취소
           </Button>
           <Button
             type="submit"
             disabled={!isValid}
-            className="w-180 h-52 tablet:w-128 tablet:h-44"
+            className="h-52 w-180 tablet:h-44 tablet:w-128"
           >
             작성하기
           </Button>
         </div>
       </form>
       {isModalOpen && (
-        <AlertModal
-          alertType="writingSuccess"
+        <Modal
+          modalType="writingSuccess"
           onClose={() => {
             setIsModalOpen(false);
           }}
         />
       )}
       {isCancelModalOpen && (
-        <AlertModal
-          alertType="writingCancel"
+        <Modal
+          modalType="writingCancel"
           onClose={() => {
             setIsCancelModalOpen(false);
           }}
