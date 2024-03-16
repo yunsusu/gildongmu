@@ -129,6 +129,8 @@ const config = {
         "tag-blue-500": "var(--tag-blue-500)",
         "tag-pink-100": "var(--tag-pink-100)",
         "tag-pink-500": "var(--tag-pink-500)",
+        "sky-50": "var(--sky-50)",
+        "sky-200": "var(--sky-200)",
       },
       keyframes: {
         "accordion-down": {
