@@ -10,7 +10,13 @@ export default function Login() {
   const [validEmail, setValidEmail] = useState(true);
   const [validPassword, setValidPassword] = useState(true);
   const [eye, setEye, toggleEye] = useToggle(true);
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { isValid },
+  } = useForm({
+    mode: "onChange",
+  });
 
   const onSubmit = async (data: any) => {
     try {
@@ -89,7 +95,8 @@ export default function Login() {
                 <Button
                   type="submit"
                   variant="ghost"
-                  className="h-52 w-full bg-stone-200"
+                  className="h-52 w-full bg-primary text-primary-foreground hover:bg-primary-press"
+                  disabled={!isValid}
                 >
                   로그인
                 </Button>
