@@ -1,33 +1,33 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   const [eye, setEye, toggleEye] = useToggle(true);
+  const { register, handleSubmit } = useForm();
 
-  const handleLogin = async (event: any) => {
-    event?.preventDefault();
-
+  const onSubmit = async (data: any) => {
     try {
       const response = await fetch("http://3.38.76.39:8080/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email: data.email, password: data.password }),
       });
 
+      if (response.ok) {
+        window.location.href = "/";
+      }
+
       if (!response.ok) {
-        throw new Error("로그인 실패");
+        throw new Error("로그인 에러");
       }
     } catch (error: any) {
-      console.log(error.message);
+      alert(error.message);
     }
   };
 
@@ -40,22 +40,22 @@ export default function Login() {
             <h1 className="mb-40 text-32 font-extrabold text-text-01">
               로그인
             </h1>
-            <form onSubmit={handleLogin} className="w-full">
+            <form onSubmit={handleSubmit(onSubmit)} className="w-full">
               <div className="relative mb-32 w-full">
                 <input
+                  id="email"
                   type="email"
                   placeholder="이메일"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  {...register("email", { required: true })}
                   className="flex h-52 w-full items-center justify-end gap-8 self-stretch rounded-xl bg-bg-02 px-16"
                 />
               </div>
               <div className="relative w-full">
                 <input
+                  id="password"
                   type={eye ? "password" : "text"}
                   placeholder="비밀번호"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
+                  {...register("password", { required: true })}
                   className="flex h-52 w-full items-center justify-end gap-8 self-stretch rounded-xl bg-bg-02 px-16"
                 />
                 <Image
@@ -68,7 +68,11 @@ export default function Login() {
                 />
               </div>
               <div className="mt-24 w-full text-18">
-                <Button variant="ghost" className="h-52 w-full bg-stone-200">
+                <Button
+                  type="submit"
+                  variant="ghost"
+                  className="h-52 w-full bg-stone-200"
+                >
                   로그인
                 </Button>
               </div>
