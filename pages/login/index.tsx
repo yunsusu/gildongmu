@@ -36,8 +36,10 @@ export default function Login() {
       <div className="flex" style={{ height: "calc(100vh - 72px)" }}>
         <div className="h-full w-1/2 bg-kakao text-50 tablet:hidden"></div>
         <div className="flex h-full w-1/2 items-center justify-center bg-bg-06 text-14 tablet:w-full">
-          <div className="flex h-5/6 max-h-[617px] w-[434px] flex-col items-center justify-between rounded-32 bg-white p-40 tablet:mt-[81.5px] mobile:mx-24 mobile:mt-[50.5px] mobile:w-full">
-            <h1 className="text-32 font-extrabold text-text-01">로그인</h1>
+          <div className="flex h-5/6 max-h-[617px] w-[434px] flex-col items-center rounded-32 bg-white p-40 tablet:mt-[81.5px] mobile:mx-24 mobile:mt-[50.5px] mobile:w-full">
+            <h1 className="mb-40 text-32 font-extrabold text-text-01">
+              로그인
+            </h1>
             <form onSubmit={handleLogin} className="w-full">
               <div className="relative mb-32 w-full">
                 <input
@@ -61,7 +63,7 @@ export default function Login() {
                   alt="eye"
                   width="24"
                   height="24"
-                  className="absolute right-16 top-14"
+                  className="absolute right-16 top-16"
                   onClick={toggleEye}
                 />
               </div>
@@ -72,7 +74,7 @@ export default function Login() {
               </div>
             </form>
 
-            <Link href="/signup" className="w-full text-18">
+            <Link href="/signup" className="mb-40 mt-20 w-full text-18">
               <Button
                 variant="ghost"
                 className="h-52 w-full border-[1.5px] !text-primary hover:bg-primary-press hover:!text-primary-foreground"
@@ -81,13 +83,14 @@ export default function Login() {
               </Button>
             </Link>
 
-            <div className="flex w-full items-center justify-center">
+            <div className="mb-32 flex w-full items-center justify-center">
               <div className="w-1/3 border-b border-line-01"></div>
               <p className="flex w-1/3 justify-center text-16 leading-[130%] tracking-[-0.6px] text-text-01">
                 SNS 로그인
               </p>
               <div className="w-1/3 border-b border-line-01"></div>
             </div>
+
             <div className="flex w-full items-center justify-between text-18">
               <Button
                 variant="destructive"
@@ -96,8 +99,8 @@ export default function Login() {
                 <Image
                   src="/icons/kakao.png"
                   alt="kakao"
-                  width="32"
-                  height="32"
+                  width={32}
+                  height={32}
                   className="pr-8"
                 />
                 카카오톡
