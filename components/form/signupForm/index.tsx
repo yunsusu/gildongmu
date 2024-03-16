@@ -47,14 +47,14 @@ function SignUpForm() {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex w-[956px] flex-col items-center rounded-32 bg-white px-32 py-48 tablet:w-[720px] mobile:w-[312px]">
-          <div className="flex flex-col gap-24">
-            <div className="mb-20 flex items-center">
-              <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:w-52"></div>
-              <div className="text-18 tablet:text-16 mobile:text-14">
-                필수 정보 입력
-              </div>
-              <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:w-52"></div>
+          <div className="mb-40 flex items-center gap-32 tablet:gap-28">
+            <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:w-52"></div>
+            <div className="text-18 tablet:text-16 mobile:text-14">
+              필수 정보 입력
             </div>
+            <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:w-52"></div>
+          </div>
+          <div className="flex flex-col gap-24">
             <div className="flex flex-col gap-8">
               <Label htmlFor="email">
                 이메일<span className="text-pink-500">*</span>
