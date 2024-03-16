@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { Checkbox } from "@/components/ui/checkbox"
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function CheckboxDemo() {
   return (
@@ -8,10 +8,10 @@ export default function CheckboxDemo() {
       <Checkbox id="terms" />
       <label
         htmlFor="terms"
-        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        className="text-14 font-normal leading-[18.2px] tracking-[-0.6px] text-text-02 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
       >
         비밀 댓글
       </label>
     </div>
-  )
+  );
 }

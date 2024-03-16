@@ -1,4 +1,5 @@
 import Image from "next/image";
+import React from "react";
 
 import Checkbox from "@/components/checkbox";
 import { Button } from "@/components/ui/button";
@@ -47,20 +48,41 @@ function Title() {
 }
 
 function Content() {
+  const scrollToContent =
+    (id: string) => (event: { preventDefault: () => void }) => {
+      event.preventDefault(); // 기본 앵커 이동 방지
+      const element = document.getElementById(id);
+
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" }); // 부드러운 스크롤 효과
+      }
+    };
   return (
     <div className="flex w-[956px] flex-col items-center">
       <div className="flex w-full items-start gap-4 text-20 font-bold text-sky-600">
-        <div className="flex h-60 w-1/3 justify-around rounded-tl-8 rounded-tr-8 border-none bg-tag-blue-100">
+        <a
+          className="flex h-60 w-1/3 justify-around rounded-tl-32 rounded-tr-32 border-none bg-tag-blue-100"
+          href="#information"
+          onClick={scrollToContent("information")}
+        >
           <span className="flex items-center">모집정보</span>
-        </div>
-        <div className="flex h-60 w-1/3 justify-around rounded-tl-8 rounded-tr-8 border-none bg-tag-blue-100">
+        </a>
+        <a
+          className="flex h-60 w-1/3 justify-around rounded-tl-32 rounded-tr-32 border-none bg-tag-blue-100"
+          href="#destination"
+          onClick={scrollToContent("destination")}
+        >
           <span className="flex items-center">여행지</span>
-        </div>
-        <div className="flex h-60 w-1/3 justify-around rounded-tl-8 rounded-tr-8 border-none bg-tag-blue-100">
+        </a>
+        <a
+          className="flex h-60 w-1/3 justify-around rounded-tl-32 rounded-tr-32 border-none bg-tag-blue-100"
+          href="#comment"
+          onClick={scrollToContent("comment")}
+        >
           <span className="flex items-center">댓글</span>
-        </div>
+        </a>
       </div>
-      <div className="flex w-full flex-col items-start gap-60 bg-white px-32 pb-80 pt-32 text-20 font-bold">
+      <div className="flex w-full flex-col items-start gap-60 rounded-bl-32 rounded-br-32 bg-white px-32 pb-80 pt-32 text-20 font-bold">
         <Recruitment />
         <Images />
         <Destination />
@@ -73,7 +95,10 @@ function Content() {
 function Recruitment() {
   const tags = ["태그1", "태그2", "태그3"];
   return (
-    <div className="flex w-full flex-col items-start gap-32 self-stretch">
+    <div
+      id="information"
+      className="flex w-full flex-col items-start gap-32 self-stretch"
+    >
       <span>모집 정보</span>
       <div className="flex flex-col items-start gap-24 self-stretch text-16 font-normal">
         <div className="flex flex-col items-start gap-16 self-stretch">
@@ -132,7 +157,7 @@ function Images() {
       <div className="flex flex-wrap gap-24">
         {travelImg.map((img, index) => (
           <div key={index} className="relative h-[281px] w-[281px]">
-            <Image src={img} alt="여행지 이미지" fill />
+            <Image className="rounded-16" src={img} alt="여행지 이미지" fill />
           </div>
         ))}
       </div>
@@ -142,7 +167,10 @@ function Images() {
 
 function Destination() {
   return (
-    <div className="flex w-full flex-col items-start gap-32 self-stretch">
+    <div
+      id="destination"
+      className="flex w-full flex-col items-start gap-32 self-stretch"
+    >
       <span>여행지</span>
       <div className="flex flex-col items-start gap-16 self-stretch">
         <div className="flex items-center gap-12">
@@ -155,6 +183,7 @@ function Destination() {
         </div>
         <div className="relative h-[500px] w-[892px]">
           <Image
+            className="rounded-16"
             src="https://i.namu.wiki/i/EchoVcoRKArNn17MtwKZP5ZS2aJdhC5_S5mpoowWd3mdsvM-L0IC-nsITZqO1aW4a2g8FhP0QE7WBI41WEserhGZurYc5PPRt1Nl07mB40rxoUXO66P95Op0p8i0i4QIxQ4y50YbfRudX1k47GW75g.webp"
             alt="여행 지도 이미지"
             fill
@@ -167,7 +196,10 @@ function Destination() {
 
 function Comment() {
   return (
-    <div className="flex w-full flex-col items-start gap-32 self-stretch">
+    <div
+      id="comment"
+      className="flex w-full flex-col items-start gap-32 self-stretch"
+    >
       <span>댓글</span>
       <div className="flex w-full flex-col items-start gap-40 self-stretch">
         <div className="flex w-full flex-col items-start gap-20 self-stretch">
@@ -297,13 +329,13 @@ function RegisterCommnet() {
       </div>
       <div className="flex items-start self-stretch overflow-auto">
         <Textarea
-          className="h-120 w-full rounded-12 border border-line-02 bg-bg-02 p-16 placeholder:text-ellipsis placeholder:text-16 placeholder:font-normal placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="h-120 w-full resize-none rounded-12 border border-line-02 bg-bg-02 p-16 placeholder:text-ellipsis placeholder:text-16 placeholder:font-normal placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0"
           placeholder="댓글을 작성해 주세요."
         />
       </div>
       <div className="flex items-center justify-between self-stretch">
         <Checkbox />
-        <Button variant={"outline"} className="h-36 w-72 rounded-32">
+        <Button variant={"outline"} className="h-36 w-83 rounded-32">
           <span className="text-14 font-extrabold leading-5">등록하기</span>
         </Button>
       </div>
