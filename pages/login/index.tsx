@@ -3,19 +3,22 @@ import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
+import AlertModal from "@/components/modal/alert";
 import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
+import { regEmail, regPassword } from "@/lib/utils/regexp";
 
 export default function Login() {
-  const [validEmail, setValidEmail] = useState(true);
-  const [validPassword, setValidPassword] = useState(true);
+  const [loginErrorModal, setLoginErrorModal] = useState(false);
   const [eye, setEye, toggleEye] = useToggle(true);
   const {
     register,
     handleSubmit,
-    formState: { isValid },
+    formState: { isValid, errors },
   } = useForm({
-    mode: "onChange",
+    mode: "onBlur", // 포커스 아웃 시 유효성 검사
+    criteriaMode: "all", // 모든 유효성 검사 규칙 체크
+    reValidateMode: "onBlur", // 포커스 아웃 시 재검증
   });
 
   const onSubmit = async (data: any) => {
@@ -31,22 +34,23 @@ export default function Login() {
       if (response.ok) {
         window.location.href = "/";
       }
-
-      if (!response.ok) {
-        throw new Error("로그인 에러");
-      }
     } catch (error: any) {
-      if (error.message === "invalid email") {
-        setValidEmail(true);
-      } else if (error.message === "invalid password") {
-        setValidPassword(false);
+      if (error.status === 401) {
+        setLoginErrorModal(true);
       }
-      alert(error.message);
+
+      console.log(error.message);
     }
   };
 
   return (
     <>
+      {loginErrorModal ? (
+        <AlertModal
+          alertType={"emailNotFound"}
+          onClose={() => setLoginErrorModal(true)}
+        />
+      ) : null}
       <div className="flex" style={{ height: "calc(100vh - 72px)" }}>
         <div className="h-full w-1/2 bg-kakao text-50 tablet:hidden"></div>
         <div className="flex h-full w-1/2 items-center justify-center bg-bg-06 text-14 tablet:w-full">
@@ -60,21 +64,31 @@ export default function Login() {
                   id="email"
                   type="email"
                   placeholder="이메일"
-                  {...register("email", { required: true })}
+                  {...register("email", {
+                    required: true,
+                    pattern: {
+                      value: regEmail,
+                      message: "올바른 이메일을 입력해주세요.",
+                    },
+                  })}
                   className="flex h-52 w-full items-center justify-end gap-8 self-stretch rounded-xl bg-bg-02 px-16"
                 />
-                {validEmail ? null : (
-                  <p className="ml-12 mt-4 text-system-error">
-                    올바른 이메일을 입력해주세요.
-                  </p>
-                )}
+                <p className="ml-12 mt-4 text-system-error">
+                  {errors.email?.message}
+                </p>
               </div>
               <div className="relative w-full">
                 <input
                   id="password"
                   type={eye ? "password" : "text"}
                   placeholder="비밀번호"
-                  {...register("password", { required: true })}
+                  {...register("password", {
+                    required: true,
+                    pattern: {
+                      value: regPassword,
+                      message: "올바른 비밀번호를 입력해주세요.",
+                    },
+                  })}
                   className="flex h-52 w-full items-center justify-end gap-8 self-stretch rounded-xl bg-bg-02 px-16"
                 />
                 <Image
@@ -85,11 +99,9 @@ export default function Login() {
                   className="absolute right-16 top-16"
                   onClick={toggleEye}
                 />
-                {validPassword ? null : (
-                  <p className="mb-12 ml-12 mt-4 text-system-error">
-                    올바른 비밀번호를 입력해주세요.
-                  </p>
-                )}
+                <p className="mb-12 ml-12 mt-4 text-system-error">
+                  {errors.password?.message}
+                </p>
               </div>
               <div className="mt-24 w-full text-18">
                 <Button
