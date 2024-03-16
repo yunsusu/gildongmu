@@ -1,11 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
 
 export default function Login() {
+  const [validEmail, setValidEmail] = useState(true);
+  const [validPassword, setValidPassword] = useState(true);
   const [eye, setEye, toggleEye] = useToggle(true);
   const { register, handleSubmit } = useForm();
 
@@ -27,6 +30,11 @@ export default function Login() {
         throw new Error("로그인 에러");
       }
     } catch (error: any) {
+      if (error.message === "invalid email") {
+        setValidEmail(true);
+      } else if (error.message === "invalid password") {
+        setValidPassword(false);
+      }
       alert(error.message);
     }
   };
@@ -41,7 +49,7 @@ export default function Login() {
               로그인
             </h1>
             <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-              <div className="relative mb-32 w-full">
+              <div className="relative mb-12 w-full">
                 <input
                   id="email"
                   type="email"
@@ -49,6 +57,11 @@ export default function Login() {
                   {...register("email", { required: true })}
                   className="flex h-52 w-full items-center justify-end gap-8 self-stretch rounded-xl bg-bg-02 px-16"
                 />
+                {validEmail ? null : (
+                  <p className="ml-12 mt-4 text-system-error">
+                    올바른 이메일을 입력해주세요.
+                  </p>
+                )}
               </div>
               <div className="relative w-full">
                 <input
@@ -66,6 +79,11 @@ export default function Login() {
                   className="absolute right-16 top-16"
                   onClick={toggleEye}
                 />
+                {validPassword ? null : (
+                  <p className="mb-12 ml-12 mt-4 text-system-error">
+                    올바른 비밀번호를 입력해주세요.
+                  </p>
+                )}
               </div>
               <div className="mt-24 w-full text-18">
                 <Button
