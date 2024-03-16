@@ -20,13 +20,18 @@ export default function AlertModalButton({
     alertType === "passwordMismatch" ||
     alertType === "signupSuccess" ||
     alertType === "writingSuccess" ||
-    alertType === "emailInUse"
+    alertType === "emailInUse" ||
+    alertType === "userProfile"
   ) {
-    filledStyle = "w-full text-18";
+    filledStyle = `text-18 h-52 mobile:h-44  ${alertType === "userProfile" ? "w-240 mobile:w-full" : "w-full"}`;
     filledText = "확인";
-  } else if (alertType === "writingCancel") {
-    filledStyle = "w-full text-18";
-    ghostStyle = "w-full text-18";
+  } else if (
+    alertType === "writingCancel" ||
+    alertType === "travelApply" ||
+    alertType === "travelCancle"
+  ) {
+    filledStyle = "w-full text-18 h-52 mobile:h-44";
+    ghostStyle = "w-full text-18 h-52 mobile:h-44";
     filledText = "예";
     ghostText = "아니오";
   }

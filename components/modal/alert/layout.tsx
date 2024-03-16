@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { ReactNode, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -33,12 +34,24 @@ export default function AlertModalLayout({
   return (
     portalRoot &&
     createPortal(
-      <div className="fixed inset-0 z-30 flex items-center justify-center w-full h-full bg-dim-60">
-        <div className="flex flex-col items-center gap-32 px-40 py-48 overflow-x-hidden bg-white shadow-md mobile:gap-24 w-360 mobile:w-288 rounded-32 moblie:px-24 mobile:py-32">
-          <span className="font-bold text-center text-text-01 leading-32 text-20 mobile:text-18 font-NanumSquareRound">
+      <div className="fixed inset-0 z-30 flex h-full w-full items-center justify-center bg-dim-60">
+        <div
+          className={`flex flex-col items-center overflow-x-hidden rounded-32 bg-white shadow-md ${alertType === "userProfile" ? "relative w-[480px] gap-24 px-24 py-32 mobile:w-320" : "moblie:px-24 w-360 gap-32 px-40 py-48 mobile:w-288 mobile:gap-24 mobile:py-32"}`}
+        >
+          {alertType === "userProfile" && (
+            <button className="absolute right-25 top-17" onClick={onClose}>
+              <Image
+                src={"/icons/close.svg"}
+                alt="프로필 이미지"
+                width={24}
+                height={24}
+              />
+            </button>
+          )}
+          <span className="leading-32 font-NanumSquareRound text-center text-20 font-bold text-text-01 mobile:text-18">
             {alertTitle}
           </span>
-          <span className="font-normal leading-relaxed tracking-tight text-center text-18 mobile:text-16 text-text-02 font-NanumSquareRound">
+          <span className="font-NanumSquareRound text-center text-18 font-normal leading-relaxed tracking-tight text-text-02 mobile:text-16">
             {alertMessage}
           </span>
           <AlertModalButton alertType={alertType} onClose={onClose} />
