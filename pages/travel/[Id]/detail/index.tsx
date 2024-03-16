@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 import Checkbox from "@/components/checkbox";
 import { Button } from "@/components/ui/button";
@@ -48,36 +48,47 @@ function Title() {
 }
 
 function Content() {
-  const scrollToContent =
-    (id: string) => (event: { preventDefault: () => void }) => {
-      event.preventDefault(); // 기본 앵커 이동 방지
-      const element = document.getElementById(id);
+  // 현재 선택된 content의 id를 상태로 관리
+  const [selectedId, setSelectedId] = useState("information");
 
+  const handleClick =
+    (id: string) => (event: { preventDefault: () => void }) => {
+      event.preventDefault();
+      setSelectedId(id); // 선택된 id를 상태로 설정
+      const element = document.getElementById(id);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" }); // 부드러운 스크롤 효과
+        element.scrollIntoView({ behavior: "smooth" });
       }
     };
+
+  // 선택된 링크에 따라 스타일을 결정하는 함수
+  const getLinkStyle = (id: string) => ({
+    background: selectedId === id ? "white" : "#e0f2fe",
+  });
   return (
     <div className="flex w-[956px] flex-col items-center">
       <div className="flex w-full items-start gap-4 text-20 font-bold text-sky-600">
         <a
-          className="flex h-60 w-1/3 justify-around rounded-tl-32 rounded-tr-32 border-none bg-tag-blue-100"
+          className="flex h-60 w-1/3 justify-around rounded-tl-32 rounded-tr-32 border-none"
           href="#information"
-          onClick={scrollToContent("information")}
+          onClick={handleClick("information")}
+          style={getLinkStyle("information")}
         >
           <span className="flex items-center">모집정보</span>
         </a>
         <a
-          className="flex h-60 w-1/3 justify-around rounded-tl-32 rounded-tr-32 border-none bg-tag-blue-100"
+          className="flex h-60 w-1/3 justify-around rounded-tl-32 rounded-tr-32 border-none"
           href="#destination"
-          onClick={scrollToContent("destination")}
+          onClick={handleClick("destination")}
+          style={getLinkStyle("destination")}
         >
           <span className="flex items-center">여행지</span>
         </a>
         <a
-          className="flex h-60 w-1/3 justify-around rounded-tl-32 rounded-tr-32 border-none bg-tag-blue-100"
+          className="flex h-60 w-1/3 justify-around rounded-tl-32 rounded-tr-32 border-none"
           href="#comment"
-          onClick={scrollToContent("comment")}
+          onClick={handleClick("comment")}
+          style={getLinkStyle("comment")}
         >
           <span className="flex items-center">댓글</span>
         </a>
