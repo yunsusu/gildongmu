@@ -48,18 +48,19 @@ function SignUpForm() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="bg-white w-[956px] px-32 py-48 flex flex-col rounded-32 items-center tablet:w-[720px] mobile:w-[312px]">
           <div className="flex flex-col gap-24">
-            <div className="flex items-center mb-20 gap-32 tablet:gap-28">
+            <div className="flex items-center mb-20">
               <div className="w-294 h-px bg-line-02 tablet:w-248 mobile:w-52"></div>
               <div className="text-18 tablet:text-16 mobile:text-14">
                 필수 정보 입력
               </div>
               <div className="w-294 h-px bg-line-02 tablet:w-248 mobile:w-52"></div>
             </div>
-            <div className="flex flex-col gap-4">
-              <Label>
+            <div className="flex flex-col gap-8">
+              <Label htmlFor="email">
                 이메일<span className="text-pink-500">*</span>
               </Label>
               <Input
+                id="email"
                 type="email"
                 className={`w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border border-line-02 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01 ${errors.email && "bg-input-error border-0"}`}
                 placeholder="이메일을 입력해 주세요"
@@ -76,11 +77,12 @@ function SignUpForm() {
                 </span>
               )}
             </div>
-            <div className="flex flex-col gap-4">
-              <Label>
+            <div className="flex flex-col gap-8">
+              <Label htmlFor="nickname">
                 닉네임<span className="text-pink-500">*</span>
               </Label>
               <Input
+                id="nickname"
                 type="text"
                 className={`w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border border-line-02 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01 ${errors.nickname && "bg-input-error border-0"}`}
                 placeholder="닉네임을 입력해 주세요"
@@ -106,12 +108,13 @@ function SignUpForm() {
                 </span>
               )}
             </div>
-            <div className="flex flex-col gap-4">
-              <Label>
+            <div className="flex flex-col gap-8">
+              <Label htmlFor="password">
                 비밀번호<span className="text-pink-500">*</span>
               </Label>
               <div className="relative">
                 <Input
+                  id="password"
                   type={passwordShown ? "text" : "password"}
                   className={`w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border border-line-02 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01 ${errors.password && "bg-input-error text-text-02 border-0"}`}
                   placeholder="비밀번호를 입력해 주세요"
@@ -145,12 +148,13 @@ function SignUpForm() {
                 </span>
               )}
             </div>
-            <div className="flex flex-col gap-4">
-              <Label>
+            <div className="flex flex-col gap-8">
+              <Label htmlFor="confimPassword">
                 비밀번호 확인<span className="text-pink-500">*</span>
               </Label>
               <div className="relative">
                 <Input
+                  id="confimPassword"
                   type={confirmPasswordShown ? "text" : "password"}
                   className={`w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border border-line-02 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01 ${errors.confirmPassword && "bg-input-error border-0"}`}
                   placeholder="비밀번호를 다시 입력해 주세요"
@@ -179,8 +183,8 @@ function SignUpForm() {
                 </span>
               )}
             </div>
-            <div className="flex flex-col gap-4">
-              <Label>
+            <div className="flex flex-col gap-8">
+              <Label htmlFor="gender">
                 성별<span className="text-pink-500">*</span>
               </Label>
               <Controller
@@ -189,14 +193,15 @@ function SignUpForm() {
                 rules={{ required: true }}
                 render={({ field }) => (
                   <RadioInput
-                    onChange={(sex: any) => field.onChange(sex)}
+                    onChange={(gender: any) => field.onChange(gender)}
                     value={field.value}
+                    pageType="singUp"
                   />
                 )}
               />
             </div>
-            <div className="flex flex-col gap-4">
-              <Label>
+            <div className="flex flex-col gap-8">
+              <Label htmlFor="birthDate">
                 생년월일<span className="text-pink-500">*</span>
               </Label>
               <Controller
@@ -230,8 +235,8 @@ function SignUpForm() {
                 />
               )}
             />
-            <div className="flex flex-col gap-4">
-              <Label htmlFor="favorite">좋아하는 여행지</Label>
+            <div className="flex flex-col gap-8">
+              <Label htmlFor="tags">좋아하는 여행지</Label>
               <Controller
                 control={control}
                 name="tags"
@@ -239,20 +244,24 @@ function SignUpForm() {
                   <TagInput
                     onChange={(tags: any) => field.onChange(tags)}
                     value={field.value}
+                    formType={"signUp"}
                   />
                 )}
               />
             </div>
-            <Controller
-              control={control}
-              name="intro"
-              render={({ field }) => (
-                <IntroTextarea
-                  onChange={text => field.onChange(text)}
-                  value={field.value}
-                />
-              )}
-            />
+            <div className="flex flex-col gap-8">
+              <Label htmlFor="bio">자기소개</Label>
+              <Controller
+                control={control}
+                name="bio"
+                render={({ field }) => (
+                  <IntroTextarea
+                    onChange={text => field.onChange(text)}
+                    value={field.value}
+                  />
+                )}
+              />
+            </div>
           </div>
         </div>
         <div className="w-[956px] mt-40 flex flex-col rounded-32 items-center tablet:w-[720px] mobile:w-[312px]">

@@ -7,6 +7,7 @@ export type AlertType =
   | "passwordMismatch"
   | "signupSuccess"
   | "emailInUse"
+  | "writingSuccess"
   | "writingCancel";
 
 interface AlertModalProps {
@@ -34,6 +35,10 @@ export default function AlertModal({ alertType, onClose }: AlertModalProps) {
     case "emailInUse":
       title = "";
       message = "이미 사용중인 이메일입니다.";
+      break;
+    case "writingSuccess":
+      title = "";
+      message = "모집글 작성을 완료했습니다.";
       break;
     case "writingCancel":
       title = "글쓰기 취소";
