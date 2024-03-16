@@ -33,6 +33,13 @@ export default function Modal({ modalType, onClose }: ModalProps) {
   const nickname = "닉네임";
   const profilePath = "/icons/defaultProfile.png";
 
+  const tagStyles = ["bg-tag-orange-100", "bg-tag-blue-100", "bg-tag-pink-100"];
+  const tagTextStyles = [
+    "text-tag-orange-500",
+    "text-tag-blue-500",
+    "text-tag-pink-500",
+  ];
+
   switch (modalType) {
     case "emailNotFound":
       title = "로그인 실패";
@@ -82,18 +89,14 @@ export default function Modal({ modalType, onClose }: ModalProps) {
               {`${nickname}(남/27)`}
             </div>
           </div>
-          <div className="flex items-start justify-center gap-12 mobile:gap-8">
+          <div className="flex w-[432px] flex-wrap items-center justify-center gap-12 mobile:w-272 mobile:gap-8">
             {favoriteSpots.map((favoriteSpot, index) => (
-              <div
+              <span
                 key={index}
-                className="moblie:py-12 flex h-34 w-full items-center justify-center rounded-24 border-[1px] border-[#A8A29E] py-16 mobile:h-28 mobile:py-12"
+                className={`moblie:py-12 flex h-34 items-center gap-5 rounded-24 bg-primary px-13 py-16 text-16 mobile:h-28 mobile:text-14 ${tagStyles[index]} ${tagTextStyles[index]}`}
               >
-                <span className="text-16 font-normal leading-[130%] tracking-[0.6px] text-[#A8A29E] mobile:text-14">
-                  {favoriteSpot.length > 4
-                    ? `#${favoriteSpot.slice(0, 4)}...`
-                    : `#${favoriteSpot}`}
-                </span>
-              </div>
+                # {favoriteSpot}
+              </span>
             ))}
           </div>
           <div className="justify-left flex w-full items-center self-stretch rounded-16 bg-bg-02 p-16 text-left text-14 font-normal">
