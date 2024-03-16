@@ -49,7 +49,10 @@ function CardGrid() {
 
   return (
     <>
-      <div className="grid gap-24 grid-cols-4 tablet:grid-cols-3 mobile:grid-cols-1 grid-rows-3 tablet:grid-rows-2 mb-40 mx-auto">
+      <div
+        className="grid gap-24 mb-40 mx-auto grid-flow-row auto-rows-max"
+        style={{ gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}
+      >
         <Card />
         <Card />
         <Card />

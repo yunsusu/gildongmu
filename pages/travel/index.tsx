@@ -1,6 +1,5 @@
 import WritingButton from "@/components/button/writing";
 import Header from "@/components/header";
-import Footer from "@/components/main/footer";
 import Filter from "@/components/travel/contents/filter";
 import Paging from "@/components/travel/contents/paging";
 
@@ -14,7 +13,6 @@ function Travel() {
       <Paging />
 
       <WritingButton />
-      <Footer />
     </>
   );
 }

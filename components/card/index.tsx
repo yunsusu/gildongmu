@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 const content = {
   id: 1,
@@ -18,12 +19,28 @@ const content = {
 
 function Card() {
   const [favor, setFavor] = useState(false);
+  const [wrap, setWrap] = useState("");
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.pathname === "/travel") {
+      setWrap(
+        "mobile:max-w-[280px] mobile:min-w-264 mobile:w-full w-240 h-[310px] block bg-white rounded-16 border border-line-02 m-auto overflow-hidden",
+      );
+    } else {
+      setWrap(
+        "tablet:w-196 mobile:max-w-[280px] mobile:min-w-264 mobile:w-full w-240 h-[310px] block bg-white rounded-16 border border-line-02 m-auto overflow-hidden",
+      );
+    }
+  }, [router.pathname]);
+
   return (
     <Link
       href={`/travel/${content.id}/detail`}
       className="tablet:w-196 mobile:max-w-[280px] mobile:min-w-264 mobile:w-full w-240 h-[310px] block bg-white rounded-16 border border-line-02 m-auto"
     >
       <div className="w-full h-180 p-16 tablet:p-12 flex flex-col rounded-16 relative overflow-hidden border">
+
         <Image
           src={content.thumbnail}
           alt="여행지 이미지"
