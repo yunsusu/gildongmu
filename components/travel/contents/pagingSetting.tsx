@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import Dropdown from "@/components/gnb/Dropdown";
+import Dropdown from "@/components/dropdown";
 import useToggle from "@/hooks/useToggle";
 import useGnbStore from "@/store/gnb";
 
@@ -14,23 +14,38 @@ function PagingSetting() {
   const handleSort = (name: string) => {
     setChoiceSort(name);
   };
+  const travels = [
+    {
+      name: "최근 작성순",
+      link: "",
+      handleBtn: () => setChoiceSort("최근 작성순"),
+    },
+    {
+      name: "인기순",
+      link: "",
+      handleBtn: () => setChoiceSort("인기순"),
+    },
+    {
+      name: "댓글 많은 순",
+      link: "",
+      handleBtn: () => setChoiceSort("댓글 많은 순"),
+    },
+    {
+      name: "가까운 여행순",
+      link: "",
+      handleBtn: () => setChoiceSort("가까운 여행순"),
+    },
+  ];
   return (
     <>
-      <div className="w-full flex justify-between mb-32">
-        <div className="flex gap-8">
-          <div className="w-24 h-24 relative cursor-pointer">
-            <Image src={"/icons/layout-grid.svg"} alt="그리드버전" fill />
-          </div>
-          <div className="w-24 h-24 relative cursor-pointer">
-            <Image src={"/icons/list.svg"} alt="리스트버전" fill />
-          </div>
-        </div>
+      <div className="mb-32 flex w-full justify-between">
+        <div></div>
         <div
           onClick={handleDropDown}
-          className="text-18 flex items-center cursor-pointer"
+          className="flex cursor-pointer items-center text-18"
         >
           {choiceSort} &nbsp;
-          <div className="w-16 h-16 relative">
+          <div className="relative h-16 w-16">
             <Image
               src={"/icons/chevron-down.svg"}
               alt="드롭다운 버튼"
@@ -45,7 +60,7 @@ function PagingSetting() {
           gnbColor={gnbColor}
           buttons={travels}
           choiceSort={choiceSort}
-          handleBtn={handleSort}
+          // handleBtn={handleSort}
           handleDropDown={handleDropDown}
         />
       )}
@@ -53,22 +68,4 @@ function PagingSetting() {
   );
 }
 
-const travels = [
-  {
-    name: "최근 작성순",
-    link: "",
-  },
-  {
-    name: "인기순",
-    link: "",
-  },
-  {
-    name: "댓글 많은 순",
-    link: "",
-  },
-  {
-    name: "가까운 여행순",
-    link: "",
-  },
-];
 export default PagingSetting;

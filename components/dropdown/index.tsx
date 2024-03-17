@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { MouseEventHandler } from "react";
 
 interface Btn {
+  handleBtn: MouseEventHandler<HTMLDivElement> | undefined;
   name: string;
   link: string;
 }
@@ -8,7 +10,6 @@ interface DropdownProps {
   gnbColor: string;
   buttons: Btn[];
   choiceSort?: string;
-  handleBtn?: (name: string) => void;
   handleDropDown: () => void;
 }
 
@@ -16,22 +17,21 @@ function Dropdown({
   gnbColor,
   buttons,
   choiceSort,
-  handleBtn,
   handleDropDown,
 }: DropdownProps) {
   return (
     <div
-      className="text-16 min-w-119 min-h-96 bg-white absolute top-76 right-24 flex flex-col justify-center p-16 rounded-16 shadow z-10"
+      className="absolute right-24 top-76 z-10 flex min-h-96 min-w-119 flex-col justify-center rounded-16 bg-white p-16 text-16 shadow"
       onClick={handleDropDown}
     >
       {buttons.map((item, index) => (
         <Link
           key={index}
           href={item.link}
-          className={`w-max h-29 flex-1 ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"} py-4 px-8 cursor-pointer`}
+          className={`h-29 w-max flex-1 ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"} cursor-pointer px-8 py-4`}
         >
           <div
-            onClick={() => handleBtn?.(item.name)}
+            onClick={item.handleBtn}
             className={`${choiceSort === item.name && "text-blue-400"}`}
           >
             {item.name}
