@@ -121,7 +121,7 @@ function Recruitment() {
   return (
     <div
       id="information"
-      className="flex w-full flex-col items-start gap-32 self-stretch"
+      className="flex w-full flex-col items-start gap-32 self-stretch pt-60"
     >
       <span>모집 정보</span>
       <div className="flex flex-col items-start gap-24 self-stretch text-16 font-normal">
@@ -193,7 +193,7 @@ function Destination() {
   return (
     <div
       id="destination"
-      className="flex w-full flex-col items-start gap-32 self-stretch"
+      className="flex w-full flex-col items-start gap-32 self-stretch pt-60"
     >
       <span>여행지</span>
       <div className="flex flex-col items-start gap-16 self-stretch">
@@ -222,7 +222,7 @@ function Comment() {
   return (
     <div
       id="comment"
-      className="flex w-full flex-col items-start gap-32 self-stretch"
+      className="flex w-full flex-col items-start gap-32 self-stretch pt-60"
     >
       <span>댓글</span>
       <div className="flex w-full flex-col items-start gap-40 self-stretch">
