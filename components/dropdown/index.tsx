@@ -7,7 +7,7 @@ interface Btn {
   link: string;
 }
 interface DropdownProps {
-  gnbColor: string;
+  gnbColor?: string;
   buttons: Btn[];
   choiceSort?: string;
   handleDropDown: () => void;

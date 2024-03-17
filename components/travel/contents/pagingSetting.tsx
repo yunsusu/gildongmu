@@ -60,7 +60,6 @@ function PagingSetting() {
           gnbColor={gnbColor}
           buttons={travels}
           choiceSort={choiceSort}
-          // handleBtn={handleSort}
           handleDropDown={handleDropDown}
         />
       )}
