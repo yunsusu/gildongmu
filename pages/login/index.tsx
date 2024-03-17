@@ -126,7 +126,7 @@ export default function Login() {
 
             <div className="mb-32 flex w-full items-center justify-center">
               <div className="w-1/3 border-b border-line-01"></div>
-              <p className="flex w-1/3 justify-center text-16 leading-[130%] tracking-[-0.6px] text-text-01">
+              <p className="flex w-1/3 justify-center text-16 font-bold leading-[130%] tracking-[-0.6px] text-text-01">
                 SNS 로그인
               </p>
               <div className="w-1/3 border-b border-line-01"></div>
