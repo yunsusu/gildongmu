@@ -230,6 +230,7 @@ function Comment() {
           {<OthersComment />}
           <SecretCommment />
           <MyComment />
+          <SecretMyComment />
           <RegisterComment />
         </div>
       </div>
@@ -261,14 +262,14 @@ function OthersComment() {
             <div className="relative h-32 w-32 rounded-full">
               <Image
                 src={
-                  "https://i.namu.wiki/i/5i-kQ5O71eVdYRGVSfquZF5NmnBYYRNcK9bFMq-CD9OI5L-faMaFykGuua7N11FgAuTwiW8vlDrNlK9Yx8TGrA.webp"
+                  "https://i.namu.wiki/i/6b7_BVyszfYCyjDtIPE8tJK56XutqfO28xp9KdjZ8tXMP1JCmcYei0IN5vbAJ5JF2t3u4TxwsUrQew6xWfvWgg.webp"
                 }
                 alt="댓글 작성자 이미지"
                 fill
               />
             </div>
             <span className="text-18 leading-[27px] tracking-[-0.6px] text-text-01">
-              {"유저 이름"}
+              {"비챤"}
             </span>
           </div>
         </div>
@@ -288,7 +289,7 @@ function OthersComment() {
         </Button>
         {showReply && (
           <div className={`${animationClass} w-full`}>
-            <CommentOfComment />
+            <RegistCommentOfComment />
           </div>
         )}
       </div>
@@ -297,7 +298,22 @@ function OthersComment() {
   );
 }
 
-function MyComment() {
+function SecretMyComment() {
+  const [showReply, setShowReply] = useState(false);
+  const [animationClass, setAnimationClass] = useState("");
+
+  const toggleReply = () => {
+    if (showReply) {
+      setAnimationClass("animate-fade-out-down");
+      setTimeout(() => {
+        setShowReply(false);
+        setAnimationClass("");
+      }, 500);
+    } else {
+      setShowReply(true);
+      setAnimationClass("animate-fade-down");
+    }
+  };
   return (
     <>
       <div className="flex flex-col items-start gap-8 self-stretch">
@@ -330,10 +346,78 @@ function MyComment() {
             }
           </span>
         </div>
-        <Button variant={"outline"} className="h-36 w-72 rounded-lg">
+        <Button
+          variant={"outline"}
+          className="h-36 w-72 rounded-lg"
+          onClick={toggleReply}
+        >
           <span className="text-14 font-extrabold leading-5">답글</span>
         </Button>
       </div>
+      <SecretMyCommentOfComment />
+      <div
+        className="h-[1px] self-stretch"
+        style={{ borderTop: "1px dashed #7DD3FC" }}
+      ></div>
+    </>
+  );
+}
+
+function MyComment() {
+  const [showReply, setShowReply] = useState(false);
+  const [animationClass, setAnimationClass] = useState("");
+
+  const toggleReply = () => {
+    if (showReply) {
+      setAnimationClass("animate-fade-out-down");
+      setTimeout(() => {
+        setShowReply(false);
+        setAnimationClass("");
+      }, 500);
+    } else {
+      setShowReply(true);
+      setAnimationClass("animate-fade-down");
+    }
+  };
+  return (
+    <>
+      <div className="flex flex-col items-start gap-8 self-stretch">
+        <div className="flex items-center justify-between self-stretch py-2">
+          <div className="flex items-center gap-12">
+            <div className="relative h-32 w-32 rounded-full">
+              <Image
+                src={
+                  "https://i.namu.wiki/i/5i-kQ5O71eVdYRGVSfquZF5NmnBYYRNcK9bFMq-CD9OI5L-faMaFykGuua7N11FgAuTwiW8vlDrNlK9Yx8TGrA.webp"
+                }
+                alt="댓글 작성자 이미지"
+                fill
+              />
+            </div>
+            <span className="text-18 leading-[27px] tracking-[-0.6px] text-text-01">
+              {"내 닉네임"}
+            </span>
+          </div>
+          <div className="relative h-24 w-24 rounded-full">
+            <Image src={"/icons/more_vertical.svg"} alt="케밥 이미지" fill />
+          </div>
+        </div>
+        <div className="flex items-start gap-8 self-stretch overflow-auto py-12">
+          <span className="text-16 font-normal leading-6 tracking-[-0.6px]">
+            {
+              "댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용"
+            }
+          </span>
+        </div>
+        <Button
+          variant={"outline"}
+          className="h-36 w-72 rounded-lg"
+          onClick={toggleReply}
+        >
+          <span className="text-14 font-extrabold leading-5">답글</span>
+        </Button>
+      </div>
+      <CommentOfComment />
+      <OthersCommentOfComment />
       <div
         className="h-[1px] self-stretch"
         style={{ borderTop: "1px dashed #7DD3FC" }}
@@ -350,6 +434,7 @@ function SecretCommment() {
           비밀 댓글입니다.
         </span>
       </div>
+      <SecretCommentOfComment />
       <div className="h-[1px] self-stretch bg-sky-200"></div>
     </>
   );
@@ -403,7 +488,7 @@ function RegisterComment() {
   );
 }
 
-function CommentOfComment() {
+function RegistCommentOfComment() {
   const [comment, setComment] = useState("");
   const maxLength = 200;
   const charCount = comment.length;
@@ -433,9 +518,6 @@ function CommentOfComment() {
             <span className="text-18 leading-[27px] tracking-[-0.6px] text-text-01">
               {"내 닉네임"}
             </span>
-            <div className="relative h-20 w-20">
-              <Image src="/icons/lock.svg" alt="자물쇠 이미지" fill />
-            </div>
           </div>
           <div className="relative h-24 w-24 rounded-full">
             <Image src={"/icons/more_vertical.svg"} alt="케밥 이미지" fill />
@@ -452,11 +534,235 @@ function CommentOfComment() {
           <span className="bottom-3 right-3 text-sm text-gray-600">{`${charCount}/${maxLength}`}</span>
         </div>
         <div className="flex items-center justify-between self-stretch">
-          <Button variant={"outline"} className="h-36 w-72 rounded-lg">
+          <Checkbox />
+          <Button variant={"outline"} className="h-36 w-83 rounded-32">
             <span className="text-14 font-extrabold leading-5">등록하기</span>
           </Button>
         </div>
       </div>
     </div>
+  );
+}
+
+function SecretMyCommentOfComment() {
+  const [showReply, setShowReply] = useState(false);
+  const [animationClass, setAnimationClass] = useState("");
+
+  const toggleReply = () => {
+    if (showReply) {
+      setAnimationClass("animate-fade-out-down");
+      setTimeout(() => {
+        setShowReply(false);
+        setAnimationClass("");
+      }, 500);
+    } else {
+      setShowReply(true);
+      setAnimationClass("animate-fade-down");
+    }
+  };
+  return (
+    <>
+      <div className="flex w-full items-start gap-12 rounded-12 bg-bg-02 px-20 py-16">
+        <div className="relative h-32 w-24">
+          <Image src="/icons/frame.svg" alt="대댓글 이미지" fill />
+        </div>
+        <div className="flex w-full flex-col items-start gap-12 self-stretch">
+          <div className="flex items-center justify-between self-stretch py-2">
+            <div className="flex items-center gap-12">
+              <div className="relative h-32 w-32 rounded-full">
+                <Image
+                  src={
+                    "https://i.namu.wiki/i/5i-kQ5O71eVdYRGVSfquZF5NmnBYYRNcK9bFMq-CD9OI5L-faMaFykGuua7N11FgAuTwiW8vlDrNlK9Yx8TGrA.webp"
+                  }
+                  alt="댓글 작성자 이미지"
+                  fill
+                />
+              </div>
+              <span className="text-18 leading-[27px] tracking-[-0.6px] text-text-01">
+                {"내 닉네임"}
+              </span>
+              <div className="relative h-20 w-20">
+                <Image src="/icons/lock.svg" alt="자물쇠 이미지" fill />
+              </div>
+            </div>
+            <div className="relative h-24 w-24 rounded-full">
+              <Image src={"/icons/more_vertical.svg"} alt="케밥 이미지" fill />
+            </div>
+          </div>
+          <div className="flex items-start gap-8 self-stretch py-12">
+            <span className="text-16 font-normal not-italic leading-[20.8px] tracking-[-0.6px] text-text-02">
+              {"대댓글 내용"}
+            </span>
+          </div>
+          <div className="flex items-center justify-between self-stretch">
+            <Button
+              variant={"outline"}
+              className="h-36 w-72 rounded-lg"
+              onClick={toggleReply}
+            >
+              <span className="text-14 font-extrabold leading-5">답글</span>
+            </Button>
+          </div>
+        </div>
+      </div>
+      {showReply && (
+        <div className={`${animationClass} w-full`}>
+          <RegistCommentOfComment />
+        </div>
+      )}
+    </>
+  );
+}
+
+function SecretCommentOfComment() {
+  return (
+    <>
+      <div className="flex w-full items-start gap-12 rounded-12 bg-bg-02 px-20 py-16">
+        <div className="relative h-32 w-24">
+          <Image src="/icons/frame.svg" alt="대댓글 이미지" fill />
+        </div>
+        <div className="flex items-start gap-8 py-12">
+          <span className="text-16 font-normal not-italic leading-[20.8px] tracking-[-0.6px] text-text-02">
+            {"비밀 댓글입니다."}
+          </span>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function CommentOfComment() {
+  const [showReply, setShowReply] = useState(false);
+  const [animationClass, setAnimationClass] = useState("");
+
+  const toggleReply = () => {
+    if (showReply) {
+      setAnimationClass("animate-fade-out-down");
+      setTimeout(() => {
+        setShowReply(false);
+        setAnimationClass("");
+      }, 500);
+    } else {
+      setShowReply(true);
+      setAnimationClass("animate-fade-down");
+    }
+  };
+  return (
+    <>
+      <div className="flex w-full items-start gap-12 rounded-12 bg-bg-02 px-20 py-16">
+        <div className="relative h-32 w-24">
+          <Image src="/icons/frame.svg" alt="대댓글 이미지" fill />
+        </div>
+        <div className="flex w-full flex-col items-start gap-12 self-stretch">
+          <div className="flex items-center justify-between self-stretch py-2">
+            <div className="flex items-center gap-12">
+              <div className="relative h-32 w-32 rounded-full">
+                <Image
+                  src={
+                    "https://i.namu.wiki/i/5i-kQ5O71eVdYRGVSfquZF5NmnBYYRNcK9bFMq-CD9OI5L-faMaFykGuua7N11FgAuTwiW8vlDrNlK9Yx8TGrA.webp"
+                  }
+                  alt="댓글 작성자 이미지"
+                  fill
+                />
+              </div>
+              <span className="text-18 leading-[27px] tracking-[-0.6px] text-text-01">
+                {"내 닉네임"}
+              </span>
+            </div>
+            <div className="relative h-24 w-24 rounded-full">
+              <Image src={"/icons/more_vertical.svg"} alt="케밥 이미지" fill />
+            </div>
+          </div>
+          <div className="flex items-start gap-8 self-stretch py-12">
+            <span className="text-16 font-normal not-italic leading-[20.8px] tracking-[-0.6px] text-text-02">
+              {"대댓글 내용"}
+            </span>
+          </div>
+          <div className="flex items-center justify-between self-stretch">
+            <Button
+              variant={"outline"}
+              className="h-36 w-72 rounded-lg"
+              onClick={toggleReply}
+            >
+              <span className="text-14 font-extrabold leading-5">답글</span>
+            </Button>
+          </div>
+        </div>
+      </div>
+      {showReply && (
+        <div className={`${animationClass} w-full`}>
+          <RegistCommentOfComment />
+        </div>
+      )}
+    </>
+  );
+}
+
+function OthersCommentOfComment() {
+  const [showReply, setShowReply] = useState(false);
+  const [animationClass, setAnimationClass] = useState("");
+
+  const toggleReply = () => {
+    if (showReply) {
+      setAnimationClass("animate-fade-out-down");
+      setTimeout(() => {
+        setShowReply(false);
+        setAnimationClass("");
+      }, 500);
+    } else {
+      setShowReply(true);
+      setAnimationClass("animate-fade-down");
+    }
+  };
+  return (
+    <>
+      <div className="flex w-full items-start gap-12 rounded-12 bg-bg-02 px-20 py-16">
+        <div className="relative h-32 w-24">
+          <Image src="/icons/frame.svg" alt="대댓글 이미지" fill />
+        </div>
+        <div className="flex w-full flex-col items-start gap-12 self-stretch">
+          <div className="flex items-center justify-between self-stretch py-2">
+            <div className="flex items-center gap-12">
+              <div className="relative h-32 w-32 rounded-full">
+                <Image
+                  src={
+                    "https://i.namu.wiki/i/x0p4O-TMPuCvZmIwxa2wDiSnePtAueSz5hHqEK1_f_2zU9btj3q2ORRvnzc6yqOnZIU-tB7im9pntDXUpPZyNg.webp"
+                  }
+                  alt="댓글 작성자 이미지"
+                  fill
+                />
+              </div>
+              <span className="text-18 leading-[27px] tracking-[-0.6px] text-text-01">
+                {"주르르"}
+              </span>
+              {
+                <span className="flex h-24 items-center gap-10 rounded-24 bg-tag-blue-100 px-10 pb-2 pt-3 text-12 font-normal leading-[15.6px] tracking-[-0.6px] text-tag-blue-500 mobile:h-28 mobile:text-14">
+                  작성자
+                </span>
+              }
+            </div>
+          </div>
+          <div className="flex items-start gap-8 self-stretch py-12">
+            <span className="text-16 font-normal not-italic leading-[20.8px] tracking-[-0.6px] text-text-02">
+              {"작성자의 대댓글 내용"}
+            </span>
+          </div>
+          <div className="flex items-center justify-between self-stretch">
+            <Button
+              variant={"outline"}
+              className="h-36 w-72 rounded-lg"
+              onClick={toggleReply}
+            >
+              <span className="text-14 font-extrabold leading-5">답글</span>
+            </Button>
+          </div>
+        </div>
+      </div>
+      {showReply && (
+        <div className={`${animationClass} w-full`}>
+          <RegistCommentOfComment />
+        </div>
+      )}
+    </>
   );
 }
