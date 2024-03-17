@@ -11,9 +11,6 @@ function PagingSetting() {
   const { gnbColor } = useGnbStore();
   const [dropDown, setDropDown, handleDropDown] = useToggle();
 
-  const handleSort = (name: string) => {
-    setChoiceSort(name);
-  };
   const travels = [
     {
       name: "최근 작성순",
@@ -42,7 +39,7 @@ function PagingSetting() {
         <div></div>
         <div
           onClick={handleDropDown}
-          className="flex cursor-pointer items-center text-18"
+          className="flex cursor-pointer items-center text-16 tablet:text-14"
         >
           {choiceSort} &nbsp;
           <div className="relative h-16 w-16">
