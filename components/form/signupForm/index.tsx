@@ -47,14 +47,14 @@ function SignUpForm() {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex w-[956px] flex-col items-center rounded-32 bg-white px-32 py-48 tablet:w-[720px] mobile:w-[312px]">
-          <div className="flex flex-col gap-24">
-            <div className="mb-20 flex items-center">
-              <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:w-52"></div>
-              <div className="text-18 tablet:text-16 mobile:text-14">
-                필수 정보 입력
-              </div>
-              <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:w-52"></div>
+          <div className="mb-40 flex items-center gap-32 tablet:gap-28">
+            <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:w-52"></div>
+            <div className="text-18 tablet:text-16 mobile:text-14">
+              필수 정보 입력
             </div>
+            <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:w-52"></div>
+          </div>
+          <div className="flex flex-col gap-24">
             <div className="flex flex-col gap-8">
               <Label htmlFor="email">
                 이메일<span className="text-pink-500">*</span>
@@ -62,7 +62,7 @@ function SignUpForm() {
               <Input
                 id="email"
                 type="email"
-                className={`h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 ${errors.email && "border-0 bg-input-error"}`}
+                className={`h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.email && "border-0 bg-input-error"}`}
                 placeholder="이메일을 입력해 주세요"
                 {...register("email", { required: true, pattern: regEmail })}
               />
@@ -84,7 +84,7 @@ function SignUpForm() {
               <Input
                 id="nickname"
                 type="text"
-                className={`h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 ${errors.nickname && "border-0 bg-input-error"}`}
+                className={`h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.nickname && "border-0 bg-input-error"}`}
                 placeholder="닉네임을 입력해 주세요"
                 {...register("nickname", {
                   required: true,
@@ -116,7 +116,7 @@ function SignUpForm() {
                 <Input
                   id="password"
                   type={passwordShown ? "text" : "password"}
-                  className={`h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 ${errors.password && "border-0 bg-input-error text-text-02"}`}
+                  className={`h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.password && "border-0 bg-input-error text-text-02"}`}
                   placeholder="비밀번호를 입력해 주세요"
                   {...register("password", {
                     required: true,
@@ -156,7 +156,7 @@ function SignUpForm() {
                 <Input
                   id="confimPassword"
                   type={confirmPasswordShown ? "text" : "password"}
-                  className={`h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 ${errors.confirmPassword && "border-0 bg-input-error"}`}
+                  className={`h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.confirmPassword && "border-0 bg-input-error"}`}
                   placeholder="비밀번호를 다시 입력해 주세요"
                   {...register("confirmPassword", {
                     required: true,
@@ -196,22 +196,24 @@ function SignUpForm() {
                     onChange={(gender: any) => field.onChange(gender)}
                     value={field.value}
                     pageType="singUp"
+                    id={"gender"}
                   />
                 )}
               />
             </div>
             <div className="flex flex-col gap-8">
-              <Label htmlFor="birthDate">
+              <Label htmlFor="date">
                 생년월일<span className="text-pink-500">*</span>
               </Label>
               <Controller
                 control={control}
-                name="birthDate"
+                name="dayOfBirth"
                 rules={{ required: true }}
                 render={({ field }) => (
                   <DatePickerInput
                     onChange={(date: any) => field.onChange(date)}
                     value={field.value}
+                    id={"date"}
                   />
                 )}
               />
@@ -239,12 +241,13 @@ function SignUpForm() {
               <Label htmlFor="tags">좋아하는 여행지</Label>
               <Controller
                 control={control}
-                name="tags"
+                name="favoriteSpots"
                 render={({ field }) => (
                   <TagInput
                     onChange={(tags: any) => field.onChange(tags)}
                     value={field.value}
                     formType={"signUp"}
+                    id={"tags"}
                   />
                 )}
               />
@@ -258,6 +261,7 @@ function SignUpForm() {
                   <IntroTextarea
                     onChange={text => field.onChange(text)}
                     value={field.value}
+                    id={"bio"}
                   />
                 )}
               />

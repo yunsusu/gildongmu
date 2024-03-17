@@ -29,10 +29,10 @@ function ImageUpload({
   const triggerFileInput = () => document.getElementById("fileInput")?.click();
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex items-center justify-center">
       <div className="relative">
         <input id="fileInput" type="file" hidden onChange={handleFileChange} />
-        <div className="w-120 h-120 rounded-full overflow-hidden mt-4 border-4 border-line-02 relative tablet:w-90 tablet:h-90">
+        <div className="relative mt-4 h-120 w-120 overflow-hidden rounded-full border-4 border-line-02 tablet:h-90 tablet:w-90">
           <Image
             src={imageSrc || "/icons/defaultProfile.png"}
             alt="Profile"
@@ -42,7 +42,7 @@ function ImageUpload({
         </div>
         <button
           type="button"
-          className="w-32 h-32 absolute right-0 bottom-0"
+          className="absolute bottom-0 right-0 h-32 w-32"
           onClick={triggerFileInput}
         >
           <Image

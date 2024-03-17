@@ -18,7 +18,6 @@ function WriteForm() {
     handleSubmit,
     control,
     formState: { errors, isValid },
-    watch,
   } = useForm({ mode: "onBlur" });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -76,6 +75,7 @@ function WriteForm() {
                   <RangeDatePickerInput
                     onChange={(date: any) => field.onChange(date)}
                     value={field.value}
+                    id={"date"}
                   />
                 )}
               />
@@ -91,7 +91,7 @@ function WriteForm() {
               </Label>
               <Controller
                 control={control}
-                name="member"
+                name="numberOfPeople"
                 rules={{
                   required: "모집 인원을 입력해 주세요",
                   validate: value =>
@@ -102,6 +102,7 @@ function WriteForm() {
                     <CounterInput
                       onChange={(member: number) => field.onChange(member)}
                       isError={!!error}
+                      id={"member"}
                     />
                     {error && (
                       <span className="text-12 text-system-error">
@@ -125,6 +126,7 @@ function WriteForm() {
                     onChange={(gender: any) => field.onChange(gender)}
                     value={field.value}
                     pageType="write"
+                    id={"gender"}
                   />
                 )}
               />
@@ -135,7 +137,7 @@ function WriteForm() {
               )}
             </div>
             <div className="flex flex-col gap-8">
-              <Label>
+              <Label htmlFor="content">
                 모집 내용<span className="text-pink-500">*</span>
               </Label>
               <Controller
@@ -147,6 +149,7 @@ function WriteForm() {
                     onChange={content => field.onChange(content)}
                     value={field.value}
                     isError={!!fieldState.error}
+                    id={"content"}
                   />
                 )}
               />
@@ -160,7 +163,7 @@ function WriteForm() {
               <Label>이미지</Label>
               <Controller
                 control={control}
-                name="imageUpload"
+                name="images"
                 render={({ field }) => (
                   <MultipleImageUploadInput
                     onChange={imagesUrl => field.onChange(imagesUrl)}
@@ -178,6 +181,7 @@ function WriteForm() {
                     onChange={(tags: any) => field.onChange(tags)}
                     value={field.value}
                     formType={"write"}
+                    id={"tags"}
                   />
                 )}
               />
