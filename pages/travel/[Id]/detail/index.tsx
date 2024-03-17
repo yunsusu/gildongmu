@@ -446,7 +446,7 @@ function CommentOfComment() {
             value={comment}
             onChange={handleInputChange}
             className="h-120 w-full resize-none rounded-12 border border-line-02 bg-white p-16 placeholder:text-ellipsis placeholder:text-16 placeholder:font-normal placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0"
-            placeholder="댓글을 작성해 주세요."
+            placeholder="답글을 작성해 주세요."
             maxLength={200}
           />
           <span className="bottom-3 right-3 text-sm text-gray-600">{`${charCount}/${maxLength}`}</span>
