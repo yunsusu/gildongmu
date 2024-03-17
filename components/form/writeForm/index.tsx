@@ -7,7 +7,7 @@ import MultipleImageUploadInput from "@/components/form/input/MultipleImageUploa
 import RadioInput from "@/components/form/input/RadioInput";
 import RangeDatePickerInput from "@/components/form/input/RangeDatePickerInput";
 import TagInput from "@/components/form/input/TagInput";
-import AlertModal from "@/components/modal/alert";
+import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -207,16 +207,16 @@ function WriteForm() {
         </div>
       </form>
       {isModalOpen && (
-        <AlertModal
-          alertType="writingSuccess"
+        <Modal
+          modalType="writingSuccess"
           onClose={() => {
             setIsModalOpen(false);
           }}
         />
       )}
       {isCancelModalOpen && (
-        <AlertModal
-          alertType="writingCancel"
+        <Modal
+          modalType="writingCancel"
           onClose={() => {
             setIsCancelModalOpen(false);
           }}

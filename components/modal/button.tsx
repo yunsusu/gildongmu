@@ -1,32 +1,34 @@
-import { AlertType } from "@/components/modal/alert";
+import { ModalType } from "@/components/modal";
 import { Button } from "@/components/ui/button";
 
-interface AlertModalButtonProps {
-  alertType: AlertType;
+interface ModalButtonProps {
+  modalType: ModalType;
   onClose: () => void;
 }
 
-export default function AlertModalButton({
-  alertType,
-  onClose,
-}: AlertModalButtonProps) {
+export default function ModalButton({ modalType, onClose }: ModalButtonProps) {
   let filledStyle: string = "";
   let ghostStyle: string = "";
   let filledText: string = "";
   let ghostText: string = "";
 
   if (
-    alertType === "emailNotFound" ||
-    alertType === "passwordMismatch" ||
-    alertType === "signupSuccess" ||
-    alertType === "writingSuccess" ||
-    alertType === "emailInUse"
+    modalType === "emailNotFound" ||
+    modalType === "passwordMismatch" ||
+    modalType === "signupSuccess" ||
+    modalType === "writingSuccess" ||
+    modalType === "emailInUse" ||
+    modalType === "userProfile"
   ) {
-    filledStyle = "w-full text-18";
+    filledStyle = `text-18 h-52 mobile:h-44  ${modalType === "userProfile" ? "w-240 mobile:w-full" : "w-full"}`;
     filledText = "확인";
-  } else if (alertType === "writingCancel") {
-    filledStyle = "w-full text-18";
-    ghostStyle = "w-full text-18";
+  } else if (
+    modalType === "writingCancel" ||
+    modalType === "travelApply" ||
+    modalType === "travelCancle"
+  ) {
+    filledStyle = "w-full text-18 h-52 mobile:h-44";
+    ghostStyle = "w-full text-18 h-52 mobile:h-44";
     filledText = "예";
     ghostText = "아니오";
   }

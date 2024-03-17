@@ -9,7 +9,7 @@ import ImageUpload from "@/components/form/input/ImageUploadInput";
 import IntroTextarea from "@/components/form/input/IntroTextarea";
 import RadioInput from "@/components/form/input/RadioInput";
 import TagInput from "@/components/form/input/TagInput";
-import AlertModal from "@/components/modal/alert";
+import AlertModal from "@/components/modal";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { regEmail, regPassword } from "@/lib/utils/regexp";
@@ -62,7 +62,7 @@ function SignUpForm() {
               <Input
                 id="email"
                 type="email"
-                className={`h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 text-base placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.email && "border-0 bg-input-error"}`}
+                className={`h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.email && "border-0 bg-input-error"}`}
                 placeholder="이메일을 입력해 주세요"
                 {...register("email", { required: true, pattern: regEmail })}
               />
@@ -280,7 +280,7 @@ function SignUpForm() {
       </form>
       {isModalOpen && (
         <AlertModal
-          alertType="signupSuccess"
+          modalType="signupSuccess"
           onClose={() => {
             setIsModalOpen(false);
           }}
