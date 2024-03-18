@@ -3,7 +3,17 @@ import React, { KeyboardEvent, useEffect, useState } from "react";
 
 import { Input } from "@/components/ui/input";
 
-function TagInput({ onChange, value, formType, id }: any) {
+function TagInput({
+  onChange,
+  value,
+  formType,
+  id,
+}: {
+  onChange: (newTags: string[]) => void;
+  value: string[] | undefined;
+  formType: "write" | "signUp";
+  id: string;
+}) {
   const [tags, setTags] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
 
