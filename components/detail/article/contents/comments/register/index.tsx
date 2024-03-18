@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import Checkbox from "@/components/checkbox";
+import Checkbox from "@/components/detail/secretCheckbox";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
