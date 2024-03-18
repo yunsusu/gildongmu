@@ -14,6 +14,7 @@ function PagingSetting() {
   const { gnbColor } = useGnbStore();
   const [dropDown, setDropDown, handleDropDown] = useToggle();
 
+  const today = new Date().getTime();
   const router = useRouter();
   const { sort } = router.query;
 
@@ -69,6 +70,18 @@ function PagingSetting() {
       handleBtn: () => {
         setChoiceSort("가까운 여행순");
         handleSort("distance");
+        setCardFilter(
+          cards.sort(
+            (
+              a: { startDate: string | number | Date },
+              b: { startDate: string | number | Date },
+            ) => {
+              const dateA = new Date(a.startDate).getTime();
+              const dateB = new Date(b.startDate).getTime();
+              return dateA - today - (dateB - today);
+            },
+          ),
+        );
       },
     },
   ];
