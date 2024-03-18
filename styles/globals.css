@@ -171,3 +171,8 @@
 .my-custom-slider .slick-arrow.slick-prev {
   display: block !important;
 }
+
+.heartRotate {
+  transition: transform 0.6s ease-in-out;
+  transform: rotateY(180deg);
+}
