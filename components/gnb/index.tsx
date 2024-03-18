@@ -27,10 +27,10 @@ function Gnb() {
   }, [setIsTablet]);
 
   return (
-    <div className="bg-white tracking-tight text-text-01 relative font-bold">
-      <nav className="flex max-w-[1200px] h-72 tablet:h-60 justify-between items-center py-20 px-24 mx-auto bg-white relative z-20">
+    <div className="relative bg-white font-bold tracking-tight text-text-01">
+      <nav className="relative z-20 mx-auto flex h-72 max-w-[1200px] items-center justify-between bg-white px-24 py-20 tablet:h-60">
         <div className="flex items-center gap-6">
-          <Link href={"/"} className="w-120 h-30 relative overflow-hidden ">
+          <Link href={"/"} className="relative h-30 w-120 overflow-hidden ">
             <Image
               src={"/images/logo.svg"}
               alt="로고"
@@ -41,20 +41,20 @@ function Gnb() {
           </Link>
           <Link
             href="/travel"
-            className={`text-18 px-4 tablet:hidden ${gnbColor === "travel" && "text-blue-400"} ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"}`}
+            className={`px-4 text-18 tablet:hidden ${gnbColor === "travel" && "text-blue-400"} ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"}`}
           >
             여행
           </Link>
           <Link
             href={"/community"}
-            className={`text-18 px-4 ${gnbColor === "community" && "text-primary-press"} ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"} tablet:hidden `}
+            className={`px-4 text-18 ${gnbColor === "community" && "text-primary-press"} ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"} tablet:hidden `}
           >
             소통공간
           </Link>
           {loginState && (
             <Link
               href={"/mytravel"}
-              className={`text-18 px-4 ${gnbColor === "mytravel" && "text-primary-press"} ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"} tablet:hidden `}
+              className={`px-4 text-18 ${gnbColor === "mytravel" && "text-primary-press"} ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"} tablet:hidden `}
             >
               내 여행
             </Link>
@@ -63,7 +63,7 @@ function Gnb() {
 
         {!isTablet ? (
           !loginState ? (
-            <div className="flex w-137 h-40 text-16 justify-center items-center px-4 py-2.5 text-teal-500 border-[1.5px] rounded-[24px] border-teal-500 hover:border-primary-press">
+            <div className="flex h-40 w-137 items-center justify-center rounded-[24px] border-[1.5px] border-teal-500 px-4 py-2.5 text-16 text-teal-500 hover:border-primary-press">
               <Link href={"/login"} className="hover:text-primary-press">
                 로그인
               </Link>
@@ -75,10 +75,10 @@ function Gnb() {
           ) : (
             <div
               onClick={handleDropDown}
-              className="text-18 flex items-center cursor-pointer"
+              className="flex cursor-pointer items-center text-18"
             >
               야돈 님 &nbsp;
-              <div className="w-16 h-16 relative">
+              <div className="relative h-16 w-16">
                 <Image
                   src={"/icons/chevron-down.svg"}
                   alt="드롭다운 버튼"
@@ -91,7 +91,7 @@ function Gnb() {
         ) : (
           <div
             onClick={handleHamMenu}
-            className="w-24 h-24 relative cursor-pointer"
+            className="relative h-24 w-24 cursor-pointer"
           >
             <Image
               src={!hamMenu ? "/icons/menu.svg" : "/icons/close.svg"}
@@ -114,17 +114,17 @@ function Gnb() {
       {isTablet && (
         <div
           style={{ pointerEvents: hamMenu ? "auto" : "none" }}
-          className="overflow-hidden h-screen w-full absolute top-0 z-10"
+          className="absolute top-0 z-10 h-screen w-full overflow-hidden"
+          onClick={handleHamMenu}
         >
           <Hammenu
             loginState={loginState}
             hamMenu={hamMenu}
-            handleHamMenu={handleHamMenu}
             gnbColor={gnbColor}
           />
         </div>
       )}
-      <div className="w-full h-1 bg-line-02 absolute bottom-0 z-20"></div>
+      <div className="absolute bottom-0 z-20 h-1 w-full bg-line-02"></div>
     </div>
   );
 }
