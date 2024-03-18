@@ -1,19 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import AlertModal from "@/components/modal/alert";
+import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
+import axiosInstance from "@/lib/api/axios";
 import { regEmail, regPassword } from "@/lib/utils/regexp";
 
 export default function Login() {
+  const router = useRouter();
   const [loginErrorModal, setLoginErrorModal] = useState(false);
   const [eye, setEye, toggleEye] = useToggle(true);
   const {
     register,
     handleSubmit,
+    watch,
     formState: { isValid, errors },
   } = useForm({
     mode: "onBlur", // 포커스 아웃 시 유효성 검사
@@ -21,21 +25,20 @@ export default function Login() {
     reValidateMode: "onBlur", // 포커스 아웃 시 재검증
   });
 
+  const email = watch("email");
+  const password = watch("password");
+  const isFormEmpty = !email || !password;
+
   const onSubmit = async (data: any) => {
     try {
-      const response = await fetch("http://3.38.76.39:8080/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: data.email, password: data.password }),
+      const response = await axiosInstance.post("/login", {
+        email: data.email,
+        password: data.password,
       });
 
-      if (response.ok) {
-        window.location.href = "/";
-      }
+      router.push("/");
     } catch (error: any) {
-      if (error.status === 401) {
+      if (error.response && error.response.status === 401) {
         setLoginErrorModal(true);
       }
 
@@ -46,8 +49,8 @@ export default function Login() {
   return (
     <>
       {loginErrorModal ? (
-        <AlertModal
-          alertType={"emailNotFound"}
+        <Modal
+          modalType={"emailNotFound"}
           onClose={() => setLoginErrorModal(false)}
         />
       ) : null}
@@ -108,7 +111,7 @@ export default function Login() {
                   type="submit"
                   variant="ghost"
                   className="h-52 w-full bg-primary text-primary-foreground hover:bg-primary-press"
-                  disabled={!isValid}
+                  disabled={isFormEmpty}
                 >
                   로그인
                 </Button>
