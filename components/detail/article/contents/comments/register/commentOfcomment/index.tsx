@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import Checkbox from "@/components/checkbox";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -44,15 +43,14 @@ export default function RegistCommentOfComment() {
           <Textarea
             value={comment}
             onChange={handleInputChange}
-            className="h-120 w-full resize-none rounded-12 border border-line-02 bg-white p-16 placeholder:text-ellipsis placeholder:text-16 placeholder:font-normal placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0"
+            className="h-120 w-full resize-none rounded-12 border border-line-02 bg-white p-16 placeholder:text-ellipsis placeholder:text-16 placeholder:font-normal placeholder:text-text-02 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0"
             placeholder="답글을 작성해 주세요."
             maxLength={200}
           />
           <span className="bottom-3 right-3 text-sm text-gray-600">{`${charCount}/${maxLength}`}</span>
         </div>
-        <div className="flex items-center justify-between self-stretch">
-          <Checkbox />
-          <Button variant={"outline"} className="h-36 w-83 rounded-32">
+        <div className="flex items-start self-stretch">
+          <Button variant={"outline"} className="h-36 w-83 rounded-8">
             <span className="text-14 font-extrabold leading-5">등록하기</span>
           </Button>
         </div>
