@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 export default function RegisterComment() {
   const [comment, setComment] = useState("");
-  const maxLength = 200;
+  const maxLength = 100;
   const charCount = comment.length;
 
   const handleInputChange = (e: any) => {
