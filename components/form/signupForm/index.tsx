@@ -41,6 +41,7 @@ function SignUpForm() {
   const [passwordShown, setPasswordShown] = useState(false);
   const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCheckEmailModalOpen, setIsCheckEmailModalOpen] = useState(false);
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown => !passwordShown);
@@ -58,7 +59,7 @@ function SignUpForm() {
       if (emailCheckResponse.data.isUsable) {
         await onSubmit(data);
       } else {
-        alert("이미 사용 중인 이메일입니다.");
+        setIsCheckEmailModalOpen(true);
       }
     } catch (error) {
       console.error("이메일 확인 중 오류 발생:", error);
@@ -336,6 +337,14 @@ function SignUpForm() {
             setIsModalOpen(false);
           }}
         />
+      )}
+      {isCheckEmailModalOpen && (
+        <AlertModal
+        modalType="emailInUse"
+        onClose={() => {
+          setIsCheckEmailModalOpen(false);
+        }}
+      />
       )}
     </>
   );
