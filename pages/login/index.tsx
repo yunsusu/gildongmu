@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import Modal from "@/components/modal";
@@ -25,6 +25,12 @@ export default function Login() {
     reValidateMode: "onBlur", // 포커스 아웃 시 재검증
   });
 
+  // 카카오 로그인 URL
+  const kakaoClientName = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
+  const kakaoRedirectUri = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${kakaoClientName}&redirect_uri=${kakaoRedirectUri}&response_type=code`;
+
+  // 인풋이 비어있지 않을 때 로그인 버튼 활성화
   const email = watch("email");
   const password = watch("password");
   const isFormEmpty = !email || !password;
@@ -45,6 +51,33 @@ export default function Login() {
       console.log(error.message);
     }
   };
+
+  useEffect(() => {
+    const sendDataToServer = async (data: any) => {
+      try {
+        const response = await axiosInstance.post(
+          `/oauth2/authorization/${kakaoClientName}`,
+          {
+            data,
+          },
+        );
+        // 백엔드로부터의 응답 처리
+        console.log(response.data);
+
+        router.push("/");
+      } catch (error) {
+        console.error("인증 코드 전송 실패:", error);
+        // 에러 처리 로직
+      }
+    };
+
+    // URL에서 인증 코드 추출
+    const authCode = new URL(window.location.href).searchParams.get("code");
+    if (authCode) {
+      // 인증 코드가 있으면 백엔드로 전송
+      sendDataToServer(authCode);
+    }
+  }, []);
 
   return (
     <>
@@ -136,19 +169,22 @@ export default function Login() {
             </div>
 
             <div className="flex w-full items-center justify-between text-18">
-              <Button
-                variant="destructive"
-                className="hover:bg-curent mr-20 h-52 w-1/2 bg-kakao text-text-02"
-              >
-                <Image
-                  src="/icons/kakao.png"
-                  alt="kakao"
-                  width={32}
-                  height={32}
-                  className="pr-8"
-                />
-                카카오톡
-              </Button>
+              <Link href={KAKAO_AUTH_URL} className="mr-20 w-1/2">
+                <Button
+                  variant="destructive"
+                  className="hover:bg-curent h-52 w-full bg-kakao text-text-02"
+                >
+                  <Image
+                    src="/icons/kakao.png"
+                    alt="kakao"
+                    width={32}
+                    height={32}
+                    className="pr-8"
+                  />
+                  카카오톡
+                </Button>
+              </Link>
+
               <Button
                 variant="destructive"
                 className="hover:bg-curent h-52 w-1/2 bg-bg-02 text-text-02"
