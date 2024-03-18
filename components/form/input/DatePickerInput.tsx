@@ -7,7 +7,15 @@ import { DayPicker } from "react-day-picker";
 
 import { Input } from "@/components/ui/input";
 
-function DatePickerInput({ onChange, value, id }: any) {
+function DatePickerInput({
+  onChange,
+  value,
+  id,
+}: {
+  onChange: (dateString: string) => void; 
+  value: any;
+  id: string;
+}) {
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const formattedDate = value
     ? format(value, "yyyy년 MM월 dd일", { locale: ko })

@@ -12,20 +12,15 @@ export default function App({ Component, pageProps }: AppProps) {
   const { setGnbColor } = useGnbStore();
 
   useEffect(() => {
-    switch (router.pathname) {
-      case "/travel":
-        setGnbColor("travel");
-        break;
-
-      case "/community":
-        setGnbColor("community");
-        break;
-
-      default:
-        setGnbColor("");
-        break;
+    if (router.pathname.startsWith("/travel")) {
+      setGnbColor("travel");
+    } else if (router.pathname.startsWith("/community")) {
+      setGnbColor("community");
+    } else {
+      setGnbColor("");
     }
   }, [router.pathname, setGnbColor]);
+
   return (
     <>
       <Gnb />
