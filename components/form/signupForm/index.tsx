@@ -12,7 +12,20 @@ import TagInput from "@/components/form/input/TagInput";
 import AlertModal from "@/components/modal";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import axios from "@/lib/api/axios";
 import { regEmail, regPassword } from "@/lib/utils/regexp";
+
+interface SignUp {
+  bio?: string;
+  confirmPassword: string;
+  dayOfBirth: string;
+  email: string;
+  favoriteSpots?: string[];
+  gender: "MALE" | "FEMALE";
+  nickname: string;
+  password: string;
+  profile?: string;
+}
 
 function SignUpForm() {
   const {
@@ -21,13 +34,14 @@ function SignUpForm() {
     control,
     formState: { errors, isValid },
     watch,
-  } = useForm({ mode: "onBlur" });
+  } = useForm<SignUp>({ mode: "onBlur" });
 
   const password = watch("password", "");
 
   const [passwordShown, setPasswordShown] = useState(false);
   const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCheckEmailModalOpen, setIsCheckEmailModalOpen] = useState(false);
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown => !passwordShown);
@@ -37,15 +51,53 @@ function SignUpForm() {
     setConfirmPasswordShown(confirmPasswordShown => !confirmPasswordShown);
   };
 
-  const onSubmit = (data: any) => {
-    console.log(data);
-    // 회원가입 성공 시
-    setIsModalOpen(true);
+  const checkEmail = async (data: SignUp) => {
+    try {
+      const emailCheckResponse = await axios.post("/auth/check-email", {
+        email: data.email,
+      });
+      if (emailCheckResponse.data.isUsable) {
+        await onSubmit(data);
+      } else {
+        setIsCheckEmailModalOpen(true);
+      }
+    } catch (error) {
+      console.error("이메일 확인 중 오류 발생:", error);
+    }
+  };
+
+  const onSubmit = async (data: SignUp) => {
+    const formData = new FormData();
+
+    const { confirmPassword, profile, ...submitData } = data;
+    formData.append(
+      "request",
+      new Blob([JSON.stringify(submitData)], { type: "application/json" }),
+    );
+
+    if (data.profile) {
+      formData.append("profile", data.profile);
+    }
+
+    try {
+      const res = await axios.post("/auth/signup", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error("회원가입 실패:", error);
+    }
+  };
+
+  const handleFormSubmit = (data: SignUp) => {
+    checkEmail(data);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(handleFormSubmit)}>
         <div className="flex w-[956px] flex-col items-center rounded-32 bg-white px-32 py-48 tablet:w-[720px] mobile:w-[312px]">
           <div className="mb-40 flex items-center gap-32 tablet:gap-28">
             <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:w-52"></div>
@@ -130,7 +182,7 @@ function SignUpForm() {
                     className="relative h-24 w-24"
                   >
                     <Image
-                      src={`/icons/eye-${passwordShown ? "off" : "on"}.png`}
+                      src={`/icons/eye-${passwordShown ? "on" : "off"}.png`}
                       fill
                       alt="eye-icon"
                     />
@@ -170,7 +222,7 @@ function SignUpForm() {
                     className="relative h-24 w-24"
                   >
                     <Image
-                      src={`/icons/eye-${confirmPasswordShown ? "off" : "on"}.png`}
+                      src={`/icons/eye-${confirmPasswordShown ? "on" : "off"}.png`}
                       fill
                       alt="eye-icon"
                     />
@@ -229,11 +281,11 @@ function SignUpForm() {
           <div className="flex flex-col items-center gap-24">
             <Controller
               control={control}
-              name="imageUpload"
+              name="profile"
               render={({ field }) => (
                 <ImageUpload
-                  onChange={imageDataUrl => field.onChange(imageDataUrl)}
-                  value={field.value}
+                  onChange={profile => field.onChange(profile)}
+                  value={field.value ?? ""}
                 />
               )}
             />
@@ -260,7 +312,7 @@ function SignUpForm() {
                 render={({ field }) => (
                   <IntroTextarea
                     onChange={text => field.onChange(text)}
-                    value={field.value}
+                    value={field.value ?? ""}
                     id={"bio"}
                   />
                 )}
@@ -285,6 +337,14 @@ function SignUpForm() {
             setIsModalOpen(false);
           }}
         />
+      )}
+      {isCheckEmailModalOpen && (
+        <AlertModal
+        modalType="emailInUse"
+        onClose={() => {
+          setIsCheckEmailModalOpen(false);
+        }}
+      />
       )}
     </>
   );

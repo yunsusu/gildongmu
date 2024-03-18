@@ -5,7 +5,7 @@ function ImageUpload({
   onChange,
   value,
 }: {
-  onChange: (value: string | ArrayBuffer | null) => void;
+  onChange: (value: string) => void;
   value: string;
 }) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -20,8 +20,11 @@ function ImageUpload({
 
     const reader = new FileReader();
     reader.onloadend = () => {
-      setImageSrc(reader.result as string);
-      onChange(reader.result);
+      const result = reader.result;
+      if (typeof result === "string") {
+        setImageSrc(result);
+        onChange(result);
+      }
     };
     reader.readAsDataURL(file);
   };

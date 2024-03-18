@@ -34,19 +34,19 @@ function RadioInput({
       )}
       <div className="flex h-24 w-121 items-center gap-12 mobile:w-80">
         <RadioGroupItem
-          value="male"
-          id="male"
+          value="MALE"
+          id="MALE"
           className="h-24 w-24 border-line-01 mobile:h-20 mobile:w-20"
         />
-        <Label htmlFor="male">{pageType === "write" ? "남자만" : "남자"}</Label>
+        <Label htmlFor="MALE">{pageType === "write" ? "남자만" : "남자"}</Label>
       </div>
       <div className="flex h-24 w-121 items-center gap-12 mobile:w-80">
         <RadioGroupItem
-          value="female"
-          id="female"
+          value="FEMALE"
+          id="FEMALE"
           className="h-24 w-24 border-line-01 mobile:h-20 mobile:w-20"
         />
-        <Label htmlFor="female">
+        <Label htmlFor="FEMALE">
           {pageType === "write" ? "여자만" : "여자"}
         </Label>
       </div>
