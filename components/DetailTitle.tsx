@@ -57,7 +57,9 @@ function DetailTitle() {
     <>
       <div className="flex h-136 w-[956px] flex-col gap-12 rounded-24 bg-white px-32 py-24 tablet:h-128 tablet:w-[720px] mobile:h-194 mobile:w-[312px] mobile:px-20">
         <div className="flex items-center justify-between">
-          <div className="text-20">{titleData.title}</div>
+          <div className="text-20 font-bold tablet:text-18">
+            {titleData.title}
+          </div>
           <div className="flex gap-16">
             {isOwner ? (
               <div className="flex h-44 items-center gap-8">
@@ -90,7 +92,7 @@ function DetailTitle() {
               <div className="flex gap-16">
                 <button
                   type="button"
-                  className={`relative h-44 w-44 ${isRotating ? "heartRotate" : ""}`}
+                  className={`relative h-44 w-44 ${isRotating ? "heartRotate" : ""} tablet:h-36 tablet:w-36`}
                   onClick={handleClick}
                 >
                   <Image
@@ -107,7 +109,7 @@ function DetailTitle() {
                 {isSubmit ? (
                   <Button
                     type="button"
-                    className="h-44 w-91"
+                    className="h-44 w-91 tablet:h-36 tablet:w-83 tablet:text-14"
                     onClick={handleCancleModal}
                   >
                     신청취소
@@ -115,7 +117,7 @@ function DetailTitle() {
                 ) : (
                   <Button
                     type="button"
-                    className="h-44 w-91"
+                    className="h-44 w-91 tablet:h-36 tablet:w-83 tablet:text-14"
                     onClick={handleModal}
                   >
                     신청하기
