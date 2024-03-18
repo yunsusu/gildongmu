@@ -10,6 +10,7 @@ export type ModalType =
   | "emailInUse"
   | "writingSuccess"
   | "writingCancel"
+  | "writingDelete"
   | "userProfile"
   | "travelApply"
   | "travelCancle";
@@ -68,6 +69,16 @@ export default function Modal({ modalType, onClose }: ModalProps) {
           글쓰기를 취소하시겠습니까?
           <br />
           작성 중인 내용은 저장되지 않습니다.
+        </>
+      );
+      break;
+      case "writingDelete":
+      title = "글 삭제하기";
+      message = (
+        <>
+          글을 삭제하시겠습니까?
+          <br />
+          삭제된 글은 복구할 수 없습니다.
         </>
       );
       break;
