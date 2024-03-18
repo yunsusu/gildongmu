@@ -132,7 +132,6 @@ function Gnb() {
           <Hammenu
             loginState={loginState}
             hamMenu={hamMenu}
-            handleHamMenu={handleHamMenu}
             gnbColor={gnbColor}
           />
         </div>

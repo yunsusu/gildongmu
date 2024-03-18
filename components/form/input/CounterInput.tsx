@@ -6,9 +6,11 @@ import { Input } from "@/components/ui/input";
 function CounterInput({
   onChange,
   isError,
+  id,
 }: {
   onChange: (value: number) => void;
   isError: boolean;
+  id: string;
 }) {
   const [count, setCount] = useState(0);
 
@@ -43,22 +45,23 @@ function CounterInput({
     <div className="flex items-center gap-12">
       <Button
         type="button"
-        variant={count <= 0?"ghost":"outline"}
-        className="w-44 h-44 rounded-ful border-2 tablet:w-36 tablet:h-36"
+        variant={count <= 0 ? "ghost" : "outline"}
+        className="rounded-ful h-44 w-44 border-2 tablet:h-36 tablet:w-36"
         onClick={handleDecrement}
       >
         -
       </Button>
       <Input
+        id={id}
         type="text"
         value={count}
         onChange={handleChange}
-        className={`w-254 h-52 px-16 text-center text-l rounded-xl focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-228 mobile:w-176 ${isError && "bg-input-error border-0"}`}
+        className={`text-l h-52 w-254 rounded-xl px-16 text-center focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-228 mobile:w-176 mobile:text-sm ${isError && "border-0 bg-input-error"}`}
       />
       <Button
         type="button"
         variant={count >= 99 ? "ghost" : "outline"}
-        className="w-44 h-44 rounded-full border-2 tablet:w-36 tablet:h-36"
+        className="h-44 w-44 rounded-full border-2 tablet:h-36 tablet:w-36"
         onClick={handleIncrement}
       >
         +

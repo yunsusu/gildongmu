@@ -8,7 +8,7 @@ import { DateRange, DayPicker } from "react-day-picker";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-function RangeDatePickerInput({ onChange }: any) {
+function RangeDatePickerInput({ onChange, id }: any) {
   const [range, setRange] = useState<DateRange | undefined>();
   const [inputValue, setInputValue] = useState("");
   const [isPickerOpen, setIsPickerOpen] = useState(false);
@@ -24,7 +24,16 @@ function RangeDatePickerInput({ onChange }: any) {
   }, [range]);
 
   const handleSelectButton = () => {
-    onChange(range);
+    if (range?.from && range?.to) {
+      const formattedFrom = format(range.from, "yyyy-MM-dd");
+      const formattedTo = format(range.to, "yyyy-MM-dd");
+      onChange({
+        startDate: formattedFrom,
+        endDate: formattedTo,
+      });
+    } else {
+      console.error("날짜 데이터 전송 오류");
+    }
     setIsPickerOpen(false);
   };
 
@@ -39,13 +48,13 @@ function RangeDatePickerInput({ onChange }: any) {
     <>
       <div className="relative">
         <Input
-          id="date"
+          id={id}
           type="text"
           value={inputValue}
           readOnly
           placeholder="여행 일정을 선택해 주세요"
           onClick={() => setIsPickerOpen(true)}
-          className="w-[756px] h-52 bg-bg-02 placeholder:text-text-05 tablet:w-[672px] mobile:w-272 border border-line-02 rounded-12 px-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus:bg-white focus:border focus:border-line-01"
+          className="h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm"
         />
         <style>{css}</style>
         {isPickerOpen && (
@@ -69,7 +78,7 @@ function RangeDatePickerInput({ onChange }: any) {
               />
               <Button
                 onClick={handleSelectButton}
-                className="absolute text-xs w-35 h-25 rounded-15 right-20 -bottom-10"
+                className="absolute -bottom-10 right-20 h-25 w-35 rounded-15 text-xs"
               >
                 선택
               </Button>

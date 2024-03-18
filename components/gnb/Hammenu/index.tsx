@@ -4,11 +4,10 @@ import Link from "next/link";
 interface LoginState {
   loginState: boolean;
   hamMenu: boolean;
-  handleHamMenu: () => void;
   gnbColor: string;
 }
 
-function Hammenu({ loginState, hamMenu, handleHamMenu, gnbColor }: LoginState) {
+function Hammenu({ loginState, hamMenu, gnbColor }: LoginState) {
   return (
     <div
       style={
@@ -16,13 +15,12 @@ function Hammenu({ loginState, hamMenu, handleHamMenu, gnbColor }: LoginState) {
           ? { transform: "translateX(0%)" }
           : { transform: "translateX(100%)" }
       }
-      className="w-5/12 h-screen absolute top-0 z-0 bg-white right-0 mobile:w-full transition-all duration-700"
-      onClick={handleHamMenu}
+      className="absolute right-0 top-0 z-0 h-screen w-5/12 bg-white transition-all duration-700 mobile:w-full"
     >
-      <div className="w-full h-72"></div>
+      <div className="h-72 w-full"></div>
       <div className="flex flex-col p-24">
         {!loginState ? (
-          <div className="flex w-full h-40 text-16 justify-center items-center px-4 py-2.5 text-teal-500 border-[1.5px] rounded-[24px] border-teal-500 font-extrabold hover:border-primary-press">
+          <div className="flex h-40 w-full items-center justify-center rounded-[24px] border-[1.5px] border-teal-500 px-4 py-2.5 text-16 font-extrabold text-teal-500 hover:border-primary-press">
             <Link href={"/login"} className="hover:text-primary-press">
               로그인
             </Link>{" "}
@@ -32,8 +30,8 @@ function Hammenu({ loginState, hamMenu, handleHamMenu, gnbColor }: LoginState) {
             </Link>
           </div>
         ) : (
-          <div className="flex gap-12 items-center">
-            <div className="w-36 h-36 overflow-hidden rounded-full relative">
+          <div className="flex items-center gap-12">
+            <div className="relative h-36 w-36 overflow-hidden rounded-full">
               <Image
                 src={"/images/logo.svg"}
                 alt="유저 프로필"
@@ -45,37 +43,37 @@ function Hammenu({ loginState, hamMenu, handleHamMenu, gnbColor }: LoginState) {
           </div>
         )}
         <div
-          className={`w-max mt-32 text-16 ${gnbColor === "travel" && "text-blue-400"} ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"}`}
+          className={`mt-32 w-max text-16 ${gnbColor === "travel" && "text-blue-400"} ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"}`}
         >
           <Link href={"/travel"}>여행</Link>
         </div>
         <div
-          className={`w-max mt-20 text-16 ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"}`}
+          className={`mt-20 w-max text-16 ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"}`}
         >
           <Link href={"/community"}>소통공간</Link>
         </div>
         {loginState && (
           <div
-            className={`w-max mt-20 text-16 ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"}`}
+            className={`mt-20 w-max text-16 ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"}`}
           >
             <Link href={"/community"}>내 여행</Link>
           </div>
         )}
       </div>
       {loginState && (
-        <div className="w-full mb-32 pt-24 absolute bottom-0 px-24">
+        <div className="absolute bottom-0 mb-32 w-full px-24 pt-24">
           <Link
             href={"/mypage"}
-            className={`${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"} py-4 cursor-pointer text-16`}
+            className={`${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"} cursor-pointer py-4 text-16`}
           >
             마이페이지
           </Link>
           <div
-            className={`w-max ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"} py-4 cursor-pointer text-16 mt-12`}
+            className={`w-max ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"} mt-12 cursor-pointer py-4 text-16`}
           >
             로그아웃
           </div>
-          <div className="w-11/12 border-t border-line-03 absolute top-0 left-1/2 -translate-x-1/2"></div>
+          <div className="absolute left-1/2 top-0 w-11/12 -translate-x-1/2 border-t border-line-03"></div>
         </div>
       )}
     </div>

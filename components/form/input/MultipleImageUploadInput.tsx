@@ -6,7 +6,11 @@ interface ImagePreview {
   preview: string;
 }
 
-function MultipleImageUploadInput({ onChange }: { onChange: (images: ImagePreview[]) => void }) {
+function MultipleImageUploadInput({
+  onChange,
+}: {
+  onChange: (images: ImagePreview[]) => void;
+}) {
   const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>([]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,16 +41,19 @@ function MultipleImageUploadInput({ onChange }: { onChange: (images: ImagePrevie
     image: ImagePreview;
     index: number;
   }) => (
-    <div key={index} className="w-132 h-132 mr-2 relative group tablet:w-118 tablet:h-118">
+    <div
+      key={index}
+      className="group relative mr-2 h-132 w-132 tablet:h-118 tablet:w-118"
+    >
       <Image
         src={image.preview}
         alt={`preview ${index}`}
         fill
-        className="border border-line-02 rounded-2xl object-cover"
+        className="rounded-2xl border border-line-02 object-cover"
       />
       <button
         onClick={() => handleRemoveImage(index)}
-        className="w-20 h-20 flex items-center justify-center absolute top-5 right-5 bg-primary text-white rounded-xl"
+        className="absolute right-5 top-5 flex h-20 w-20 items-center justify-center rounded-xl bg-primary text-white"
       >
         x
       </button>
@@ -54,7 +61,10 @@ function MultipleImageUploadInput({ onChange }: { onChange: (images: ImagePrevie
   );
 
   const ImageUploadButton = () => (
-    <label htmlFor="file" className="cursor-pointer w-132 bg-bg-02 border border-line-02 rounded-2xl h-132 flex justify-center items-center tablet:w-118 tablet:h-118">
+    <label
+      htmlFor="file"
+      className="flex h-132 w-132 cursor-pointer items-center justify-center rounded-2xl border border-line-02 bg-bg-02 tablet:h-118 tablet:w-118"
+    >
       <input
         type="file"
         id="file"
@@ -72,16 +82,16 @@ function MultipleImageUploadInput({ onChange }: { onChange: (images: ImagePrevie
   );
 
   const TitleBage = () => (
-    <div className="w-42 h-24 flex items-center justify-center rounded-24 bg-tag-orange-100 text-tag-orange-500 text-xs absolute left-8 top-8 mobile:left-10">
+    <div className="absolute left-8 top-8 flex h-24 w-42 items-center justify-center rounded-24 bg-tag-orange-100 text-xs text-tag-orange-500 mobile:left-10">
       대표
     </div>
   );
 
   return (
     <div className="relative">
-      <div className="w-[756px] flex gap-24 tablet:w-[672px] tablet:gap-20 mobile:w-272 mobile:grid mobile:grid-cols-2">
+      <div className="flex w-[756px] gap-24 tablet:w-[672px] tablet:gap-20 mobile:grid mobile:w-272 mobile:grid-cols-2">
         {Array.from({ length: 5 }).map((_, index) => (
-          <div key={index} className="flex justify-center items-center">
+          <div key={index} className="flex items-center justify-center">
             {imagesPreview[index] ? (
               <ImagePreviewComponent
                 image={imagesPreview[index]}
