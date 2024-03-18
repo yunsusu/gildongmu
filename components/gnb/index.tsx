@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import Dropdown from "@/components/gnb/Dropdown";
+import Dropdown from "@/components/dropdown";
 import Hammenu from "@/components/gnb/Hammenu";
 import useToggle from "@/hooks/useToggle";
 import useGnbStore from "@/store/gnb";
@@ -13,6 +13,19 @@ function Gnb() {
   const [hamMenu, setHamMenu, handleHamMenu] = useToggle(false);
   const [isTablet, setIsTablet] = useToggle(true);
   const { gnbColor } = useGnbStore();
+
+  const gnbs = [
+    {
+      name: "마이페이지",
+      link: "/mypage",
+      handleBtn: () => {},
+    },
+    {
+      name: "로그아웃",
+      link: "",
+      handleBtn: () => {},
+    },
+  ];
 
   useEffect(() => {
     const handleResize = () => {
@@ -28,7 +41,7 @@ function Gnb() {
 
   return (
     <div className="relative bg-white font-bold tracking-tight text-text-01">
-      <nav className="relative z-20 mx-auto flex h-72 max-w-[1200px] items-center justify-between bg-white px-24 py-20 tablet:h-60">
+      <nav className="relative z-30 mx-auto flex h-72 max-w-[1200px] items-center justify-between bg-white px-24 py-20 tablet:h-60">
         <div className="flex items-center gap-6">
           <Link href={"/"} className="relative h-30 w-120 overflow-hidden ">
             <Image
@@ -114,8 +127,7 @@ function Gnb() {
       {isTablet && (
         <div
           style={{ pointerEvents: hamMenu ? "auto" : "none" }}
-          className="absolute top-0 z-10 h-screen w-full overflow-hidden"
-          onClick={handleHamMenu}
+          className="absolute top-0 z-20 h-screen w-full overflow-hidden"
         >
           <Hammenu
             loginState={loginState}
@@ -128,16 +140,5 @@ function Gnb() {
     </div>
   );
 }
-
-const gnbs = [
-  {
-    name: "마이페이지",
-    link: "/mypage",
-  },
-  {
-    name: "로그아웃",
-    link: "",
-  },
-];
 
 export default Gnb;
