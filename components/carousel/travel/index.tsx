@@ -2,12 +2,27 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "react-slick";
 
 import Card from "@/components/card";
+import useToggle from "@/hooks/useToggle";
 
 function SampleNextArrow(props: { className: any; style: any; onClick: any }) {
+  const [isMobile, setIsMobile] = useToggle(true);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [setIsMobile]);
+
   const { className, onClick } = props;
   return (
     <div
@@ -24,7 +39,7 @@ function SampleNextArrow(props: { className: any; style: any; onClick: any }) {
         background: "#fff",
         justifyContent: "center",
         alignItems: "center",
-        transform: "translate(35px,-50%)",
+        transform: isMobile ? "translate(25px,-50%)" : "translate(35px,-50%)",
       }}
     >
       <div className="relative h-29 w-29">
@@ -41,6 +56,21 @@ function SampleNextArrow(props: { className: any; style: any; onClick: any }) {
 
 function SamplePrevArrow(props: { className: any; style: any; onClick: any }) {
   const { className, onClick } = props;
+
+  const [isMobile, setIsMobile] = useToggle(true);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [setIsMobile]);
+
   return (
     <div
       className={className}
@@ -56,7 +86,7 @@ function SamplePrevArrow(props: { className: any; style: any; onClick: any }) {
         background: "#fff",
         justifyContent: "center",
         alignItems: "center",
-        transform: "translate(-35px,-50%)",
+        transform: isMobile ? "translate(-25px,-50%)" : "translate(-35px,-50%)",
         zIndex: 1,
       }}
     >
