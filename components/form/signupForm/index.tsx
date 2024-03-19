@@ -1,6 +1,7 @@
 import "react-datepicker/dist/react-datepicker.css";
 
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
@@ -35,6 +36,8 @@ function SignUpForm() {
     formState: { errors, isValid },
     watch,
   } = useForm<SignUp>({ mode: "onBlur" });
+
+  const router = useRouter();
 
   const password = watch("password", "");
 
@@ -335,16 +338,17 @@ function SignUpForm() {
           modalType="signupSuccess"
           onClose={() => {
             setIsModalOpen(false);
+            router.push("/login");
           }}
         />
       )}
       {isCheckEmailModalOpen && (
         <AlertModal
-        modalType="emailInUse"
-        onClose={() => {
-          setIsCheckEmailModalOpen(false);
-        }}
-      />
+          modalType="emailInUse"
+          onClose={() => {
+            setIsCheckEmailModalOpen(false);
+          }}
+        />
       )}
     </>
   );
