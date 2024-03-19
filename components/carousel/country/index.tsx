@@ -70,7 +70,7 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
             onClick={previous}
           >
             <div className="relative h-24 w-24">
-              <Image src="icons/chevron_left.svg" alt="캐러셀 다음 버튼" fill />
+              <Image src="icons/chevron-left.svg" alt="캐러셀 다음 버튼" fill />
             </div>
           </button>
           <button
@@ -79,7 +79,7 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
           >
             <div className="relative h-24 w-24">
               <Image
-                src="icons/chevron_right.svg"
+                src="icons/chevron-right.svg"
                 alt="캐러셀 다음 버튼"
                 fill
               />
