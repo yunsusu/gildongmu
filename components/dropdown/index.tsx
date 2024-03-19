@@ -23,11 +23,11 @@ function Dropdown({ buttons, choiceSort, handleDropDown }: DropdownProps) {
           <Link
             key={index}
             href={item.link}
-            className={`"hover:text-primary-press" h-29 w-max flex-1 cursor-pointer px-8 py-4`}
+            className={`h-29 w-max flex-1 cursor-pointer px-8 py-4 hover:text-primary-press`}
           >
             <div
               onClick={item.handleBtn}
-              className={`${choiceSort === item.name && "text-blue-400"}`}
+              className={`${choiceSort === item.name && "text-primary-press"}`}
             >
               {item.name}
             </div>
@@ -35,11 +35,11 @@ function Dropdown({ buttons, choiceSort, handleDropDown }: DropdownProps) {
         ) : (
           <div
             key={index}
-            className={`"hover:text-primary-press" h-29 w-max  flex-1 cursor-pointer px-8 py-4`}
+            className={`h-29 w-max flex-1  cursor-pointer px-8 py-4 hover:text-primary-press`}
           >
             <div
               onClick={item.handleBtn}
-              className={`${choiceSort === item.name && "text-blue-400"}`}
+              className={`${choiceSort === item.name && "text-primary-press"}`}
             >
               {item.name}
             </div>
