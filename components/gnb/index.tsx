@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useOnClickOutside } from "usehooks-ts";
 
 import Dropdown from "@/components/dropdown";
 import Hammenu from "@/components/gnb/Hammenu";
@@ -13,6 +14,8 @@ function Gnb() {
   const [hamMenu, setHamMenu, handleHamMenu] = useToggle(false);
   const [isTablet, setIsTablet] = useToggle(true);
   const { gnbColor } = useGnbStore();
+
+  const ref = useRef<HTMLDivElement>(null);
 
   const gnbs = [
     {
@@ -39,6 +42,21 @@ function Gnb() {
     };
   }, [setIsTablet]);
 
+  useEffect(() => {
+    const handleWheel = (event: { deltaY: any }) => {
+      setHamMenu(false);
+    };
+
+    window.addEventListener("wheel", handleWheel);
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+    };
+  }, [setHamMenu]);
+
+  useOnClickOutside(ref, () => {
+    dropDown && handleDropDown();
+  });
   return (
     <div className="relative bg-white font-bold tracking-tight text-text-01">
       <nav className="relative z-30 mx-auto flex h-72 max-w-[1200px] items-center justify-between bg-white px-24 py-20 tablet:h-60">
@@ -86,19 +104,24 @@ function Gnb() {
               </Link>
             </div>
           ) : (
-            <div
-              onClick={handleDropDown}
-              className="flex cursor-pointer items-center text-18"
-            >
-              야돈 님 &nbsp;
-              <div className="relative h-16 w-16">
-                <Image
-                  src={"/icons/chevron-down.svg"}
-                  alt="드롭다운 버튼"
-                  fill
-                  className={dropDown ? "rotate-180" : ""}
-                />
+            <div ref={ref}>
+              <div
+                onClick={handleDropDown}
+                className="flex cursor-pointer items-center text-18"
+              >
+                야돈 님 &nbsp;
+                <div className="relative h-16 w-16">
+                  <Image
+                    src={"/icons/chevron-down.svg"}
+                    alt="드롭다운 버튼"
+                    fill
+                    className={dropDown ? "rotate-180" : ""}
+                  />
+                </div>
               </div>
+              {dropDown && (
+                <Dropdown buttons={gnbs} handleDropDown={handleDropDown} />
+              )}
             </div>
           )
         ) : (
@@ -114,20 +137,12 @@ function Gnb() {
             />
           </div>
         )}
-
-        {dropDown && (
-          <Dropdown
-            gnbColor={gnbColor}
-            buttons={gnbs}
-            handleDropDown={handleDropDown}
-          />
-        )}
       </nav>
 
       {isTablet && (
         <div
           style={{ pointerEvents: hamMenu ? "auto" : "none" }}
-          className="absolute top-0 z-20 h-screen w-full overflow-hidden"
+          className="fixed top-0 z-20 h-full w-full overflow-hidden"
           onClick={handleHamMenu}
         >
           <Hammenu
