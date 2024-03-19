@@ -128,6 +128,7 @@ function Gnb() {
         <div
           style={{ pointerEvents: hamMenu ? "auto" : "none" }}
           className="absolute top-0 z-20 h-screen w-full overflow-hidden"
+          onClick={handleHamMenu}
         >
           <Hammenu
             loginState={loginState}

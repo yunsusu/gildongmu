@@ -4,13 +4,22 @@ import { useEffect, useState } from "react";
 
 import Card from "@/components/card";
 import GridNum from "@/components/travel/contents/gridNum";
+import axios from "@/lib/api/axios";
+import useCardFilterStore from "@/store/cardfilter";
 
 function CardGrid() {
   const [pageLimit, setPageLimit] = useState(12);
+  const { cards, cardsOrigin, setCardFilter, setCardOrigin } =
+    useCardFilterStore();
+  console.log(cards);
   const router = useRouter();
-  const { page } = router.query;
+  const { page, search } = router.query;
 
   const currentPage = parseInt(page as string, 10) || 1;
+
+  const getTravel = async (page: number, pageLimit: number) => {
+    const res = await axios.get(`/posts?page=${page}&limit=${pageLimit}`);
+  };
 
   const prevPage = () => {
     if (currentPage > 1) {
@@ -30,27 +39,93 @@ function CardGrid() {
   };
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 1200) {
-        setPageLimit(12);
-      } else if (window.innerWidth <= 1200 && window.innerWidth > 768) {
-        setPageLimit(9);
-      } else {
-        setPageLimit(6);
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    handleResize();
+    const newCardsOrigin = [
+      {
+        id: 1,
+        title: "여행 모집",
+        nickname: "야돈3",
+        country: "일본",
+        city: "오사카",
+        startDate: "2024-03-29",
+        endDate: "2024-03-30",
+        status: "모집 중",
+        thumbnail: "/images/logo.svg",
+        countOfComments: 3,
+        countOfBookmarks: 5,
+      },
+      {
+        id: 3,
+        title: "여행 모집",
+        nickname: "3",
+        country: "일본",
+        city: "오사카",
+        startDate: "2024-03-28",
+        endDate: "yyyy-mm-dd",
+        status: "모집 중",
+        thumbnail: "url",
+        countOfComments: 5,
+        countOfBookmarks: 5,
+      },
+      {
+        id: 5,
+        title: "여행모집10",
+        nickname: "2",
+        country: "한국",
+        city: "전주",
+        startDate: "2024-03-22",
+        endDate: "yyyy-mm-dd",
+        status: "모집 완료",
+        thumbnail: "url",
+        countOfComments: 10,
+        countOfBookmarks: 0,
+      },
+      {
+        id: 6,
+        title: "가까운여행",
+        nickname: "1",
+        country: "한국",
+        city: "전주",
+        startDate: "2024-03-21",
+        endDate: "yyyy-mm-dd",
+        status: "모집 완료",
+        thumbnail: "url",
+        countOfComments: 10,
+        countOfBookmarks: 0,
+      },
+    ];
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+    setCardOrigin(
+      newCardsOrigin.sort((a, b) => a.countOfComments - b.countOfComments),
+    );
+    if (search === "전체") {
+      setCardFilter(
+        newCardsOrigin.sort((a, b) => a.countOfComments - b.countOfComments),
+      );
+    }
+  }, [search, setCardFilter, setCardOrigin]);
+
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     if (window.innerWidth > 1200) {
+  //       setPageLimit(12);
+  //     } else if (window.innerWidth <= 1200 && window.innerWidth > 768) {
+  //       setPageLimit(9);
+  //     } else {
+  //       setPageLimit(6);
+  //     }
+  //   };
+  //   window.addEventListener("resize", handleResize);
+  //   handleResize();
+
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
 
   return (
     <>
       <div
-        className="grid gap-24 mb-40 mx-auto grid-flow-row auto-rows-max"
+        className="mx-auto mb-40 grid grid-flow-row auto-rows-max gap-24"
         style={{ gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}
       >
         <Card />
@@ -67,11 +142,11 @@ function CardGrid() {
         <Card />
       </div>
 
-      <div className="w-max m-auto gap-3 flex items-center">
-        <div className="relative w-24 h-24">
+      <div className="m-auto flex w-max items-center gap-3">
+        <div className="relative h-24 w-24">
           <Image src={"/icons/first_page.svg"} alt="첫페이지" fill />
         </div>
-        <div className="relative w-24 h-24 cursor-pointer" onClick={prevPage}>
+        <div className="relative h-24 w-24 cursor-pointer" onClick={prevPage}>
           <Image src={"/icons/keyboard_arrow_left.svg"} alt="이전페이지" fill />
         </div>
         <div className="flex gap-6 px-5 text-16 font-normal">
@@ -79,14 +154,14 @@ function CardGrid() {
           <GridNum num={2} />
           <GridNum num={3} />
         </div>
-        <div className="relative w-24 h-24 cursor-pointer" onClick={nextPage}>
+        <div className="relative h-24 w-24 cursor-pointer" onClick={nextPage}>
           <Image
             src={"/icons/keyboard_arrow_right.svg"}
             alt="다음페이지"
             fill
           />
         </div>
-        <div className="relative w-24 h-24">
+        <div className="relative h-24 w-24">
           <Image src={"/icons/last_page.svg"} alt="마지막페이지" fill />
         </div>
       </div>
