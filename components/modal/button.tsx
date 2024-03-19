@@ -24,6 +24,7 @@ export default function ModalButton({ modalType, onClose }: ModalButtonProps) {
     filledText = "확인";
   } else if (
     modalType === "writingCancel" ||
+    modalType === "writingDelete" ||
     modalType === "travelApply" ||
     modalType === "travelCancle"
   ) {
