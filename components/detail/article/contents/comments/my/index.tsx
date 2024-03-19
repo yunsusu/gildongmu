@@ -1,14 +1,23 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useOnClickOutside } from "usehooks-ts";
 
 import CommentOfComment from "@/components/detail/article/contents/comments/my/commentOfcomment";
 import OthersCommentOfComment from "@/components/detail/article/contents/comments/others/commentOfcomment";
+import Dropdown from "@/components/dropdown";
 import { Button } from "@/components/ui/button";
+import useToggle from "@/hooks/useToggle";
 
-//TODO: 수정하기, 삭제하기 기능이 포함된 드롭다운 추가
 export default function MyComment() {
   const [showReply, setShowReply] = useState(false);
   const [animationClass, setAnimationClass] = useState("");
+  const [dropDown, setDropDown, handleDropDown] = useToggle();
+
+  const ref = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside(ref, () => {
+    dropDown && handleDropDown();
+  });
 
   const toggleReply = () => {
     if (showReply) {
@@ -22,6 +31,12 @@ export default function MyComment() {
       setAnimationClass("animate-fade-down");
     }
   };
+
+  const edit = [
+    { name: "수정하기", handleBtn: () => {} },
+    { name: "삭제하기", handleBtn: () => {} },
+  ];
+
   return (
     <>
       <div className="flex flex-col items-start gap-8 self-stretch">
@@ -40,8 +55,16 @@ export default function MyComment() {
               {"내 닉네임"}
             </span>
           </div>
-          <div className="relative h-24 w-24 rounded-full">
-            <Image src={"/icons/more_vertical.svg"} alt="케밥 이미지" fill />
+          <div ref={ref} className="relative">
+            <div
+              className="relative h-24 w-24 cursor-pointer  rounded-full"
+              onClick={handleDropDown}
+            >
+              <Image src={"/icons/more_vertical.svg"} alt="케밥 이미지" fill />
+            </div>
+            {dropDown && (
+              <Dropdown buttons={edit} handleDropDown={handleDropDown} />
+            )}
           </div>
         </div>
         <div className="flex items-start gap-8 self-stretch overflow-auto py-12">
