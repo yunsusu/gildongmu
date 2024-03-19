@@ -118,7 +118,8 @@
     --tag-pink-100: #fce7f3;
     --tag-pink-500: #ec4899;
 
-
+    --sky-50: #f0f9ff;
+    --sky-200: #bae6fd;
   }
 
   .dark {
@@ -170,4 +171,9 @@
 .my-custom-slider .slick-arrow.slick-next,
 .my-custom-slider .slick-arrow.slick-prev {
   display: block !important;
+}
+
+.heartRotate {
+  transition: transform 0.6s ease-in-out;
+  transform: rotateY(180deg);
 }

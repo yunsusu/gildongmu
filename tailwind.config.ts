@@ -129,8 +129,18 @@ const config = {
         "tag-blue-500": "var(--tag-blue-500)",
         "tag-pink-100": "var(--tag-pink-100)",
         "tag-pink-500": "var(--tag-pink-500)",
+        "sky-50": "var(--sky-50)",
+        "sky-200": "var(--sky-200)",
       },
       keyframes: {
+        fadeDown: {
+          "0%": { opacity: "0", transform: "translateY(-20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        fadeOutDown: {
+          "0%": { opacity: "1", transform: "translateY(0px)" },
+          "100%": { opacity: "0", transform: "translateY(20px)" },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -143,6 +153,8 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-down": "fadeDown 0.5s ease-out",
+        "fade-out-down": "fadeOutDown 0.5s ease-out",
       },
     },
   },
