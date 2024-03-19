@@ -15,7 +15,7 @@ function Hammenu({ loginState, hamMenu, gnbColor }: LoginState) {
           ? { transform: "translateX(0%)" }
           : { transform: "translateX(100%)" }
       }
-      className="absolute right-0 top-0 z-0 h-screen w-5/12 bg-white transition-all duration-700 mobile:w-full"
+      className="absolute right-0 top-0 z-0 h-full w-5/12 bg-white transition-all duration-700 mobile:w-full"
     >
       <div className="h-72 w-full"></div>
       <div className="flex flex-col p-24">
