@@ -4,26 +4,11 @@ import React, { useEffect } from "react";
 
 interface GoogleMapProps {
   location: google.maps.LatLng | null | google.maps.LatLngLiteral;
-  pageType: string;
 }
 
-export default function GoogleMap({ pageType, location }: GoogleMapProps) {
+export default function GoogleMap({ location }: GoogleMapProps) {
   const mapRef = React.useRef<HTMLDivElement>(null);
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  let style = "";
-
-  switch (pageType) {
-    case "write":
-      style =
-        "h-[240px] w-[756px] bg-line-02 tablet:w-[672px] mobile:w-272 rounded-12";
-      break;
-    case "detail":
-      style =
-        "h-[500px] w-[892px] tablet:w-[672px] tablet:h-376 mobile:w-272 mobile:h-[152.5px] rounded-12";
-      break;
-    default:
-      break;
-  }
 
   useEffect(() => {
     const initMap = async () => {
@@ -50,5 +35,5 @@ export default function GoogleMap({ pageType, location }: GoogleMapProps) {
     initMap();
   }, [location, apiKey]);
 
-  return <div id="map" className={style} ref={mapRef} />;
+  return <div id="map" className="h-full w-full rounded-12" ref={mapRef} />;
 }

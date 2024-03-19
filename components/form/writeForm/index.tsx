@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-interface Location {
+export interface Location {
   lat: number;
   lng: number;
 }
@@ -68,7 +68,7 @@ function WriteForm() {
         })
         .catch(console.error);
     }
-  }, [search]);
+  }, [search, apiKey]);
 
   return (
     <>
@@ -97,8 +97,8 @@ function WriteForm() {
                 className="h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272"
                 onKeyPress={handleSearchLocation}
               />
-              <div className="h-[240px] w-[756px] bg-line-02 tablet:w-[672px] mobile:w-272">
-                <GoogleMap pageType="write" location={location} />
+              <div className="h-[240px] w-[756px] rounded-12 bg-line-02 tablet:w-[672px] mobile:w-272">
+                <GoogleMap location={location} />
               </div>
             </div>
             <div className="flex flex-col gap-8">
