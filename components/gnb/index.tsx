@@ -39,6 +39,18 @@ function Gnb() {
     };
   }, [setIsTablet]);
 
+  useEffect(() => {
+    const handleWheel = (event: { deltaY: any }) => {
+      setHamMenu(false);
+    };
+
+    window.addEventListener("wheel", handleWheel);
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+    };
+  }, [setHamMenu]);
+
   return (
     <div className="relative bg-white font-bold tracking-tight text-text-01">
       <nav className="relative z-30 mx-auto flex h-72 max-w-[1200px] items-center justify-between bg-white px-24 py-20 tablet:h-60">
@@ -127,7 +139,7 @@ function Gnb() {
       {isTablet && (
         <div
           style={{ pointerEvents: hamMenu ? "auto" : "none" }}
-          className="absolute top-0 z-20 h-screen w-full overflow-hidden"
+          className="fixed top-0 z-20 h-full w-full overflow-hidden"
           onClick={handleHamMenu}
         >
           <Hammenu
