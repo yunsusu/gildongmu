@@ -69,17 +69,17 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
             className="button flex h-44 w-44 items-center justify-center rounded-full border-[1.5px] border-[#0EA5E9] bg-white p-10 hover:bg-sky-100"
             onClick={previous}
           >
-            <div className="relative h-24 w-24">
-              <Image src="icons/chevron_left.svg" alt="캐러셀 다음 버튼" fill />
+            <div className="relative flex h-24 w-24 items-center justify-start">
+              <Image src="icons/chevron-left.svg" alt="캐러셀 다음 버튼" fill />
             </div>
           </button>
           <button
             className="button flex h-44 w-44 items-center justify-center rounded-full border-[1.5px] border-[#0EA5E9] bg-white p-10 hover:bg-sky-100"
             onClick={next}
           >
-            <div className="relative h-24 w-24">
+            <div className="relative flex h-24 w-24 items-center justify-start">
               <Image
-                src="icons/chevron_right.svg"
+                src="icons/chevron-right.svg"
                 alt="캐러셀 다음 버튼"
                 fill
               />
