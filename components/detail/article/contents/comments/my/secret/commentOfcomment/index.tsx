@@ -1,14 +1,22 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useOnClickOutside } from "usehooks-ts";
 
 import RegistCommentOfComment from "@/components/detail/article/contents/comments/register/commentOfcomment";
+import Dropdown from "@/components/dropdown";
 import { Button } from "@/components/ui/button";
+import useToggle from "@/hooks/useToggle";
 
-//TODO: 수정하기, 삭제하기 기능이 포함된 드롭다운 추가
 export default function SecretMyCommentOfComment() {
   const [showReply, setShowReply] = useState(false);
   const [animationClass, setAnimationClass] = useState("");
+  const [dropDown, setDropDown, handleDropDown] = useToggle();
 
+  const ref = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside(ref, () => {
+    dropDown && handleDropDown();
+  });
   const toggleReply = () => {
     if (showReply) {
       setAnimationClass("animate-fade-out-down");
@@ -21,6 +29,12 @@ export default function SecretMyCommentOfComment() {
       setAnimationClass("animate-fade-down");
     }
   };
+
+  const edit = [
+    { name: "수정하기", handleBtn: () => {} },
+    { name: "삭제하기", handleBtn: () => {} },
+  ];
+
   return (
     <>
       <div className="flex w-full items-start gap-12 rounded-12 bg-bg-02 px-20 py-16">
@@ -46,8 +60,20 @@ export default function SecretMyCommentOfComment() {
                 <Image src="/icons/lock.svg" alt="자물쇠 이미지" fill />
               </div>
             </div>
-            <div className="relative h-24 w-24 rounded-full">
-              <Image src={"/icons/more_vertical.svg"} alt="케밥 이미지" fill />
+            <div ref={ref} className="relative">
+              <div
+                className="relative h-24 w-24 cursor-pointer  rounded-full"
+                onClick={handleDropDown}
+              >
+                <Image
+                  src={"/icons/more_vertical.svg"}
+                  alt="케밥 이미지"
+                  fill
+                />
+              </div>
+              {dropDown && (
+                <Dropdown buttons={edit} handleDropDown={handleDropDown} />
+              )}
             </div>
           </div>
           <div className="flex items-start gap-8 self-stretch py-12">

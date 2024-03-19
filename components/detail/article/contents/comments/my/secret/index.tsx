@@ -7,7 +7,6 @@ import Dropdown from "@/components/dropdown";
 import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
 
-//TODO: 수정하기, 삭제하기 기능이 포함된 드롭다운 추가
 export default function SecretMyComment() {
   const [showReply, setShowReply] = useState(false);
   const [animationClass, setAnimationClass] = useState("");
