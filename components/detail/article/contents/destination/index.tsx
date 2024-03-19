@@ -1,6 +1,39 @@
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { geocode, RequestType, setKey } from "react-geocode";
 
-export default function Destination() {
+import { Location } from "@/components/form/writeForm";
+import GoogleMap from "@/components/googlemap";
+
+interface DestinationProps {
+  destination: string;
+}
+
+export default function Destination({}: DestinationProps) {
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+  const [location, setLocation] = useState<Location>({
+    lat: 37.5400456,
+    lng: 126.9921017,
+  });
+  const destination = "삿포로";
+
+  useEffect(() => {
+    if (destination.trim() !== "") {
+      setKey(String(apiKey));
+      geocode(RequestType.ADDRESS, destination)
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const { lat, lng } = results[0].geometry.location;
+            setLocation({
+              lat: lat,
+              lng: lng,
+            });
+          }
+        })
+        .catch(console.error);
+    }
+  }, [destination, apiKey]);
+
   return (
     <div
       id="destination"
@@ -13,16 +46,11 @@ export default function Destination() {
             <Image src="/icons/location_red.svg" alt="장소 표시 이미지" fill />
           </div>
           <span className="text-16 font-bold leading-[20.8px]">
-            {"영국, 런던"}
+            {destination}
           </span>
         </div>
-        <div className="relative h-[500px] w-[892px]">
-          <Image
-            className="rounded-16"
-            src="https://i.namu.wiki/i/EchoVcoRKArNn17MtwKZP5ZS2aJdhC5_S5mpoowWd3mdsvM-L0IC-nsITZqO1aW4a2g8FhP0QE7WBI41WEserhGZurYc5PPRt1Nl07mB40rxoUXO66P95Op0p8i0i4QIxQ4y50YbfRudX1k47GW75g.webp"
-            alt="여행 지도 이미지"
-            fill
-          />
+        <div className="tablet:h-376 h-[500px] w-[892px] rounded-12 tablet:w-[672px] mobile:h-[152.5px] mobile:w-272">
+          <GoogleMap location={location} />
         </div>
       </div>
     </div>
