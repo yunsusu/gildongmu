@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { MouseEventHandler, useRef } from "react";
-import { useOnClickOutside } from "usehooks-ts";
+import { MouseEventHandler } from "react";
 
 interface Btn {
   handleBtn: MouseEventHandler<HTMLDivElement> | undefined;
@@ -8,25 +7,15 @@ interface Btn {
   link?: string;
 }
 interface DropdownProps {
-  gnbColor?: string;
   buttons: Btn[];
   choiceSort?: string;
   handleDropDown: () => void;
 }
 
-function Dropdown({
-  gnbColor,
-  buttons,
-  choiceSort,
-  handleDropDown,
-}: DropdownProps) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useOnClickOutside(ref, () => handleDropDown());
+function Dropdown({ buttons, choiceSort, handleDropDown }: DropdownProps) {
   return (
     <div
-      ref={ref}
-      className="absolute right-24 top-76 z-10 flex min-h-96 min-w-119 flex-col justify-center rounded-16 bg-white p-16 text-16 shadow tablet:text-14"
+      className="absolute right-0 top-30 z-10 flex min-h-96 min-w-119 flex-col justify-center rounded-16 bg-white p-16 text-16 shadow tablet:text-14"
       onClick={handleDropDown}
     >
       {buttons.map((item, index) =>
@@ -34,7 +23,7 @@ function Dropdown({
           <Link
             key={index}
             href={item.link}
-            className={`h-29 w-max flex-1 ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"} cursor-pointer px-8 py-4`}
+            className={`"hover:text-primary-press" h-29 w-max flex-1 cursor-pointer px-8 py-4`}
           >
             <div
               onClick={item.handleBtn}
@@ -46,7 +35,7 @@ function Dropdown({
         ) : (
           <div
             key={index}
-            className={`h-29 w-max flex-1 ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"} cursor-pointer px-8 py-4`}
+            className={`"hover:text-primary-press" h-29 w-max  flex-1 cursor-pointer px-8 py-4`}
           >
             <div
               onClick={item.handleBtn}
