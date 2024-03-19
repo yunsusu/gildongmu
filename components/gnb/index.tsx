@@ -104,7 +104,7 @@ function Gnb() {
               </Link>
             </div>
           ) : (
-            <div ref={ref}>
+            <div ref={ref} className="relative">
               <div
                 onClick={handleDropDown}
                 className="flex cursor-pointer items-center text-18"

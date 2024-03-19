@@ -94,7 +94,7 @@ function PagingSetting() {
     <>
       <div className="mb-32 flex w-full justify-between">
         <div></div>
-        <div ref={ref}>
+        <div ref={ref} className="relative">
           <div
             onClick={handleDropDown}
             className="flex cursor-pointer items-center text-16 tablet:text-14"
