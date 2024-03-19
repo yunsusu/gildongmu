@@ -1,17 +1,17 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useRef } from "react";
+import { useOnClickOutside } from "usehooks-ts";
 
 import Dropdown from "@/components/dropdown";
 import useToggle from "@/hooks/useToggle";
 import useCardFilterStore from "@/store/cardfilter";
 import useSortStore from "@/store/choiceSort";
-import useGnbStore from "@/store/gnb";
 
 function PagingSetting() {
   const { choiceSort, setChoiceSort } = useSortStore();
   const { cards, cardsOrigin, setCardFilter } = useCardFilterStore();
 
-  const { gnbColor } = useGnbStore();
   const [dropDown, setDropDown, handleDropDown] = useToggle();
 
   const today = new Date().getTime();
@@ -85,33 +85,39 @@ function PagingSetting() {
       },
     },
   ];
+
+  const ref = useRef<HTMLDivElement>(null);
+  useOnClickOutside(ref, () => {
+    dropDown && handleDropDown();
+  });
   return (
     <>
       <div className="mb-32 flex w-full justify-between">
         <div></div>
-        <div
-          onClick={handleDropDown}
-          className="flex cursor-pointer items-center text-16 tablet:text-14"
-        >
-          {choiceSort} &nbsp;
-          <div className="relative h-16 w-16">
-            <Image
-              src={"/icons/chevron-down.svg"}
-              alt="드롭다운 버튼"
-              fill
-              className={dropDown ? "rotate-180" : ""}
-            />
+        <div ref={ref}>
+          <div
+            onClick={handleDropDown}
+            className="flex cursor-pointer items-center text-16 tablet:text-14"
+          >
+            {choiceSort} &nbsp;
+            <div className="relative h-16 w-16">
+              <Image
+                src={"/icons/chevron-down.svg"}
+                alt="드롭다운 버튼"
+                fill
+                className={dropDown ? "rotate-180" : ""}
+              />
+            </div>
           </div>
+          {dropDown && (
+            <Dropdown
+              buttons={travels}
+              choiceSort={choiceSort}
+              handleDropDown={handleDropDown}
+            />
+          )}
         </div>
       </div>
-      {dropDown && (
-        <Dropdown
-          gnbColor={gnbColor}
-          buttons={travels}
-          choiceSort={choiceSort}
-          handleDropDown={handleDropDown}
-        />
-      )}
     </>
   );
 }

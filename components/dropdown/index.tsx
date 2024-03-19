@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { MouseEventHandler, useRef } from "react";
-import { useOnClickOutside } from "usehooks-ts";
+import { MouseEventHandler } from "react";
 
 interface Btn {
   handleBtn: MouseEventHandler<HTMLDivElement> | undefined;
@@ -20,12 +19,10 @@ function Dropdown({
   choiceSort,
   handleDropDown,
 }: DropdownProps) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useOnClickOutside(ref, () => handleDropDown());
+  // useOnClickOutside(ref, () => handleDropDown());
   return (
     <div
-      ref={ref}
+      // ref={ref}
       className="absolute right-24 top-76 z-10 flex min-h-96 min-w-119 flex-col justify-center rounded-16 bg-white p-16 text-16 shadow tablet:text-14"
       onClick={handleDropDown}
     >
