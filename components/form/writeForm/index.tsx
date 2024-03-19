@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { geocode, RequestType, setKey } from "react-geocode";
 import { Controller, useForm } from "react-hook-form";
 
 import ContentTextarea from "@/components/form/input/ContentInput";
@@ -13,6 +14,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+interface Location {
+  lat: number;
+  lng: number;
+}
+
 function WriteForm() {
   const {
     register,
@@ -23,6 +29,13 @@ function WriteForm() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const [location, setLocation] = useState<Location>({
+    lat: 37.5400456,
+    lng: 126.9921017,
+  });
+
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   const handleWritingCancel = () => {
     setIsCancelModalOpen(true);
@@ -33,6 +46,29 @@ function WriteForm() {
     // 글쓰기 작성 성공 시
     setIsModalOpen(true);
   };
+
+  const handleSearchLocation = (e: any) => {
+    if (e.key === "Enter") {
+      setSearch(e.target.value);
+    }
+  };
+
+  useEffect(() => {
+    if (search.trim() !== "") {
+      setKey(String(apiKey));
+      geocode(RequestType.ADDRESS, search)
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const { lat, lng } = results[0].geometry.location;
+            setLocation({
+              lat: lat,
+              lng: lng,
+            });
+          }
+        })
+        .catch(console.error);
+    }
+  }, [search]);
 
   return (
     <>
@@ -59,9 +95,10 @@ function WriteForm() {
               <Input
                 placeholder="여행지 입력"
                 className="h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272"
+                onKeyPress={handleSearchLocation}
               />
               <div className="h-[240px] w-[756px] bg-line-02 tablet:w-[672px] mobile:w-272">
-                <GoogleMap />
+                <GoogleMap location={location} />
               </div>
             </div>
             <div className="flex flex-col gap-8">
@@ -75,7 +112,6 @@ function WriteForm() {
                 render={({ field }) => (
                   <RangeDatePickerInput
                     onChange={(date: any) => field.onChange(date)}
-                    value={field.value}
                     id={"date"}
                   />
                 )}
