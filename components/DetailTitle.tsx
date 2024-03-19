@@ -174,6 +174,7 @@ function DetailTitle() {
           modalType="writingDelete"
           onClose={() => {
             setIsDeleteModalOpen(false);
+            router.back();
           }}
         />
       )}
