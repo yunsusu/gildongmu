@@ -8,7 +8,7 @@ import MultipleImageUploadInput from "@/components/form/input/MultipleImageUploa
 import RadioInput from "@/components/form/input/RadioInput";
 import RangeDatePickerInput from "@/components/form/input/RangeDatePickerInput";
 import TagInput from "@/components/form/input/TagInput";
-import GoogleMap from "@/components/form/writeForm/googlemap";
+import GoogleMap from "@/components/googlemap";
 import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -98,7 +98,7 @@ function WriteForm() {
                 onKeyPress={handleSearchLocation}
               />
               <div className="h-[240px] w-[756px] bg-line-02 tablet:w-[672px] mobile:w-272">
-                <GoogleMap location={location} />
+                <GoogleMap pageType="write" location={location} />
               </div>
             </div>
             <div className="flex flex-col gap-8">
