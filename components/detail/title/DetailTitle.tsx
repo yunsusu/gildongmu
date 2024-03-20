@@ -9,7 +9,7 @@ import useToggle from "@/hooks/useToggle";
 function DetailTitle() {
   const router = useRouter();
 
-  const isOwner = true; // 작성자인지 아닌지
+  const isOwner = false; // 작성자인지 아닌지
   const isSubmit = false; // 신청했는지 아닌지
 
   //  데이터 예시
@@ -55,8 +55,8 @@ function DetailTitle() {
 
   return (
     <>
-      <div className="flex h-136 w-[956px] flex-col gap-16 rounded-24 bg-white px-32 py-24 tablet:h-128 tablet:w-[720px] mobile:h-194 mobile:w-[312px] mobile:px-20">
-        <div className="flex items-center justify-between mobile:flex-col mobile:items-start mobile:justify-normal mobile:relative">
+      <div className="mx-auto my-0 flex h-136 w-[956px] flex-col gap-16 rounded-24 bg-white px-32 py-24 tablet:h-128 tablet:w-[720px] mobile:h-194 mobile:w-[312px] mobile:px-20">
+        <div className="flex items-center justify-between mobile:relative mobile:flex-col mobile:items-start mobile:justify-normal">
           <div className="text-20 font-bold tablet:text-18">
             {titleData.title}
           </div>
