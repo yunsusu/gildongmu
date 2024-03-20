@@ -9,7 +9,7 @@ import useToggle from "@/hooks/useToggle";
 function DetailTitle() {
   const router = useRouter();
 
-  const isOwner = false; // 작성자인지 아닌지
+  const isOwner = true; // 작성자인지 아닌지
   const isSubmit = false; // 신청했는지 아닌지
 
   //  데이터 예시
@@ -55,14 +55,14 @@ function DetailTitle() {
 
   return (
     <>
-      <div className="flex h-136 w-[956px] flex-col gap-12 rounded-24 bg-white px-32 py-24 tablet:h-128 tablet:w-[720px] mobile:h-194 mobile:w-[312px] mobile:px-20">
-        <div className="flex items-center justify-between">
+      <div className="flex h-136 w-[956px] flex-col gap-16 rounded-24 bg-white px-32 py-24 tablet:h-128 tablet:w-[720px] mobile:h-194 mobile:w-[312px] mobile:px-20">
+        <div className="flex items-center justify-between mobile:flex-col mobile:items-start mobile:justify-normal mobile:relative">
           <div className="text-20 font-bold tablet:text-18">
             {titleData.title}
           </div>
-          <div className="flex gap-16">
+          <div>
             {isOwner ? (
-              <div className="flex h-44 items-center gap-8">
+              <div className="flex h-44 items-center gap-8 mobile:absolute mobile:right-0 mobile:top-110">
                 <button
                   type="button"
                   className="relative h-24 w-24"
@@ -89,7 +89,7 @@ function DetailTitle() {
                 </button>
               </div>
             ) : (
-              <div className="flex gap-16">
+              <div className="flex gap-16 mobile:absolute mobile:right-0 mobile:top-110">
                 <button
                   type="button"
                   className={`relative h-44 w-44 ${isRotating ? "heartRotate" : ""} tablet:h-36 tablet:w-36`}
@@ -117,7 +117,7 @@ function DetailTitle() {
                 ) : (
                   <Button
                     type="button"
-                    className="h-44 w-91 tablet:h-36 tablet:w-83 tablet:text-14"
+                    className="h-44 w-91 tablet:h-36 tablet:w-83 tablet:text-14 mobile:w-220"
                     onClick={handleModal}
                   >
                     신청하기
