@@ -1,9 +1,10 @@
 import "react-day-picker/dist/style.css";
 
-import { format } from "date-fns";
+import { differenceInCalendarDays, format } from "date-fns";
 import { ko } from "date-fns/locale";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { DateRange, DayPicker } from "react-day-picker";
+import { useOnClickOutside } from "usehooks-ts";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,14 +19,26 @@ function RangeDatePickerInput({
   const [range, setRange] = useState<DateRange | undefined>();
   const [inputValue, setInputValue] = useState("");
   const [isPickerOpen, setIsPickerOpen] = useState(false);
+  const [totalDays, setTotalDays] = useState(0);
 
   const today = new Date();
+  const disabledDays = { before: today };
+
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (range?.from && range?.to) {
-      const formattedFrom = format(range.from, "yyyy년 MM월 dd일");
-      const formattedTo = format(range.to, "yyyy년 MM월 dd일");
-      setInputValue(`${formattedFrom} – ${formattedTo}`);
+      const days = differenceInCalendarDays(range.to, range.from) + 1;
+      setTotalDays(days);
+
+      const formattedFrom = format(range.from, "yyyy년 MM월 dd일", {
+        locale: ko,
+      });
+      const formattedTo = format(range.to, "yyyy년 MM월 dd일", { locale: ko });
+      setInputValue(`${formattedFrom} – ${formattedTo} (${days}일)`);
+    } else {
+      setInputValue("");
+      setTotalDays(0);
     }
   }, [range]);
 
@@ -41,6 +54,14 @@ function RangeDatePickerInput({
       console.error("날짜 데이터 전송 오류");
     }
     setIsPickerOpen(false);
+  };
+
+  useOnClickOutside(ref, () => {
+    isPickerOpen && setIsPickerOpen(false);
+  });
+
+  const resetSelection = () => {
+    setRange(undefined);
   };
 
   const css = `
@@ -64,13 +85,14 @@ function RangeDatePickerInput({
         />
         <style>{css}</style>
         {isPickerOpen && (
-          <div className="absolute top-full z-10 bg-white">
+          <div ref={ref} className="absolute top-60 z-10 rounded-2xl bg-white">
             <div className="relative">
               <DayPicker
                 mode="range"
                 defaultMonth={today}
                 selected={range}
                 onSelect={setRange}
+                numberOfMonths={2}
                 fromYear={2024}
                 toYear={2035}
                 captionLayout="dropdown-buttons"
@@ -80,13 +102,22 @@ function RangeDatePickerInput({
                 modifiersClassNames={{
                   selected: "my-selected",
                 }}
-                className="h-[330px]"
+                className="h-[370px] rounded-2xl p-10 shadow-md"
+                disabled={disabledDays}
               />
               <Button
                 onClick={handleSelectButton}
-                className="absolute -bottom-10 right-20 h-25 w-35 rounded-15 text-xs"
+                className=" absolute bottom-10 right-10 h-35 w-50 rounded-2xl text-xs"
               >
                 선택
+              </Button>
+              <Button
+                type="button"
+                onClick={resetSelection}
+                className=" absolute bottom-10 right-70 h-35 w-70 rounded-2xl text-xs"
+                variant={"outline"}
+              >
+                날짜 초기화
               </Button>
             </div>
           </div>

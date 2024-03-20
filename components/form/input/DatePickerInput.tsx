@@ -2,8 +2,9 @@ import "react-day-picker/dist/style.css";
 
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { DayPicker } from "react-day-picker";
+import { useOnClickOutside } from "usehooks-ts";
 
 import { Input } from "@/components/ui/input";
 
@@ -12,11 +13,16 @@ function DatePickerInput({
   value,
   id,
 }: {
-  onChange: (dateString: string) => void; 
+  onChange: (dateString: string) => void;
   value: any;
   id: string;
 }) {
   const [isPickerOpen, setIsPickerOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  const today = new Date();
+  const disabledDays = { after: today };
+
   const formattedDate = value
     ? format(value, "yyyy년 MM월 dd일", { locale: ko })
     : "";
@@ -34,6 +40,10 @@ function DatePickerInput({
     setIsPickerOpen(false);
   };
 
+  useOnClickOutside(ref, () => {
+    isPickerOpen && setIsPickerOpen(false);
+  });
+
   const css = `
     .my-selected {
       color: #fff;
@@ -50,13 +60,14 @@ function DatePickerInput({
           readOnly
           onClick={handleInputClick}
           placeholder="생년월일 입력"
-          className="h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm"
+          className="h-52 w-[756px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm"
         />
         {isPickerOpen && (
-          <div className="absolute top-full z-10 bg-white">
+          <div ref={ref} className="absolute top-60 z-10 rounded-2xl bg-white">
             <style>{css}</style>
             <DayPicker
               mode="single"
+              defaultMonth={new Date(1990, 0)}
               selected={value}
               onSelect={handleDaySelect}
               fromYear={1900}
@@ -68,6 +79,8 @@ function DatePickerInput({
               modifiersClassNames={{
                 selected: "my-selected",
               }}
+              className="rounded-2xl p-10 shadow-md"
+              disabled={disabledDays}
             />
           </div>
         )}

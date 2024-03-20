@@ -267,6 +267,7 @@ function SignUpForm() {
                 render={({ field }) => (
                   <DatePickerInput
                     onChange={(date: any) => field.onChange(date)}
+                    value={field.value}
                     id={"date"}
                   />
                 )}
