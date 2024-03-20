@@ -25,10 +25,15 @@ export default function Login() {
     reValidateMode: "onBlur", // 포커스 아웃 시 재검증
   });
 
-  // 카카오 로그인 URL
+  // 카카오 로그인
   const kakaoClientName = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
   const kakaoRedirectUri = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${kakaoClientName}&redirect_uri=${kakaoRedirectUri}&response_type=code`;
+
+  // 구글 로그인
+  const googleClientName = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+  const googleRedirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
+  const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=${googleClientName}&redirect_uri=${googleRedirectUri}&scope=https://www.googleapis.com/auth/userinfo.email`;
 
   // 인풋이 비어있지 않을 때 로그인 버튼 활성화
   const email = watch("email");
@@ -55,19 +60,15 @@ export default function Login() {
   useEffect(() => {
     const sendDataToServer = async (data: any) => {
       try {
-        const response = await axiosInstance.post(
-          `/oauth2/authorization/${kakaoClientName}`,
-          {
-            data,
-          },
-        );
-        // 백엔드로부터의 응답 처리
-        console.log(response.data);
+        const response = await axiosInstance.post(`/oauth2/login`, {
+          data,
+        });
+        console.log("소설로그인 성공", response.data);
 
         router.push("/");
       } catch (error) {
         console.error("인증 코드 전송 실패:", error);
-        // 에러 처리 로직
+        // 에러 처리 로직 (토큰 만료, 서버 응답 없음 등)
       }
     };
 
@@ -185,19 +186,21 @@ export default function Login() {
                 </Button>
               </Link>
 
-              <Button
-                variant="destructive"
-                className="hover:bg-curent h-52 w-1/2 bg-bg-02 text-text-02"
-              >
-                <Image
-                  src="/icons/google.png"
-                  alt="google"
-                  width="32"
-                  height="32"
-                  className="pr-8"
-                />
-                구글
-              </Button>
+              <Link href={GOOGLE_AUTH_URL} className="w-1/2">
+                <Button
+                  variant="destructive"
+                  className="hover:bg-curent h-52 w-full bg-bg-02 text-text-02"
+                >
+                  <Image
+                    src="/icons/google.png"
+                    alt="google"
+                    width={32}
+                    height={32}
+                    className="pr-8"
+                  />
+                  구글
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
