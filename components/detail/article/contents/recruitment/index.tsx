@@ -1,11 +1,11 @@
 import Image from "next/image";
 
-export default function Recruitment() {
+export default function Recruitment({ recruitRef }: any) {
   const tags = ["태그1", "태그2", "태그3"];
   return (
     <div
       id="information"
-      className="flex w-full flex-col items-start gap-32 self-stretch pt-60"
+      className="relative flex w-full flex-col items-start gap-32 self-stretch pt-60"
     >
       <span>모집 정보</span>
       <div className="flex flex-col items-start gap-24 self-stretch text-16 font-normal">
@@ -46,6 +46,7 @@ export default function Recruitment() {
           </span>
         </div>
       </div>
+      <div ref={recruitRef} className="absolute top-[750px] h-1 w-full"></div>
     </div>
   );
 }

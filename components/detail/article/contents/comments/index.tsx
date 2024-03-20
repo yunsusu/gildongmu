@@ -4,11 +4,11 @@ import OthersComment from "@/components/detail/article/contents/comments/others"
 import RegisterComment from "@/components/detail/article/contents/comments/register";
 import SecretCommment from "@/components/detail/article/contents/comments/secret";
 
-export default function Comment() {
+export default function Comment({ commentRef }: any) {
   return (
     <div
       id="comment"
-      className="flex w-full flex-col items-start gap-32 self-stretch pt-60"
+      className="relative flex w-full flex-col items-start gap-32 self-stretch pt-60"
     >
       <span>댓글</span>
       <div className="flex w-full flex-col items-start gap-40 self-stretch">
@@ -20,6 +20,7 @@ export default function Comment() {
           <RegisterComment />
         </div>
       </div>
+      <div ref={commentRef} className="absolute top-[750px] h-1 w-full"></div>
     </div>
   );
 }
