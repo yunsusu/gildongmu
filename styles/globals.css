@@ -187,6 +187,13 @@
   --rdp-accent-color: #14b8a6; /* Accent color for the background of selected days. */
   --rdp-background-color: #2dd4bf; /* Background color for the hovered/focused elements. */
 }
+
+@media (max-width: 767px) {
+  * {
+    --rdp-cell-size: 36px; /* 모바일에서의 day cells 크기 조정 */
+  }
+}
+
 .rdp {
   margin: 0 !important;
 }

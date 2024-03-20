@@ -20,6 +20,7 @@ function RangeDatePickerInput({
   const [inputValue, setInputValue] = useState("");
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const [totalDays, setTotalDays] = useState(0);
+  const [numberOfMonths, setNumberOfMonths] = useState(2);
 
   const today = new Date();
   const disabledDays = { before: today };
@@ -41,6 +42,16 @@ function RangeDatePickerInput({
       setTotalDays(0);
     }
   }, [range]);
+
+  useEffect(() => {
+    function handleResize() {
+      setNumberOfMonths(window.innerWidth > 767 ? 2 : 1);
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleSelectButton = () => {
     if (range?.from && range?.to) {
@@ -92,7 +103,7 @@ function RangeDatePickerInput({
                 defaultMonth={today}
                 selected={range}
                 onSelect={setRange}
-                numberOfMonths={2}
+                numberOfMonths={numberOfMonths}
                 fromYear={2024}
                 toYear={2035}
                 captionLayout="dropdown-buttons"
@@ -102,19 +113,21 @@ function RangeDatePickerInput({
                 modifiersClassNames={{
                   selected: "my-selected",
                 }}
-                className="h-[370px] rounded-2xl p-10 shadow-md"
+                className="h-[370px] rounded-2xl p-10 shadow-md mobile:h-[350px] mobile:w-270"
                 disabled={disabledDays}
               />
               <Button
                 onClick={handleSelectButton}
-                className=" absolute bottom-10 right-10 h-35 w-50 rounded-2xl text-xs"
+                className=" absolute bottom-10 right-10 w-60 rounded-2xl text-xs"
+                size={"calendar"}
               >
                 선택
               </Button>
               <Button
                 type="button"
                 onClick={resetSelection}
-                className=" absolute bottom-10 right-70 h-35 w-70 rounded-2xl text-xs"
+                className=" absolute bottom-10 right-80 w-70 rounded-2xl text-xs"
+                size={"calendar"}
                 variant={"outline"}
               >
                 날짜 초기화
