@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import FilterBtn from "@/components/travel/contents/filterBtn";
 const filterMock = [
   "전체",
@@ -12,6 +14,7 @@ const filterMock = [
 // }
 
 function Filter() {
+  const [search, setSearch] = useState("전체");
   return (
     <div className="relative border-b border-line-02 bg-white font-bold tracking-tight text-text-01">
       <div
@@ -20,7 +23,12 @@ function Filter() {
       >
         <div className="m-auto flex w-max justify-center gap-12 px-36 py-20 mobile:justify-start">
           {filterMock.map((item, index) => (
-            <FilterBtn key={index} text={item} />
+            <FilterBtn
+              key={index}
+              text={item}
+              search={search}
+              setSearch={setSearch}
+            />
           ))}
         </div>
       </div>

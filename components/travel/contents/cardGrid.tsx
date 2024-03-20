@@ -13,12 +13,28 @@ function CardGrid() {
     useCardFilterStore();
   console.log(cards);
   const router = useRouter();
-  const { page, search } = router.query;
-
+  const { page, sort } = router.query;
   const currentPage = parseInt(page as string, 10) || 1;
 
-  const getTravel = async (page: number, pageLimit: number) => {
-    const res = await axios.get(`/posts?page=${page}&limit=${pageLimit}`);
+  const getTravelCard = async (
+    pageNum = page || 1,
+    limit = pageLimit,
+    sortBy = sort,
+  ) => {
+    try {
+      let res;
+      if (sortBy) {
+        res = await axios.get(
+          `/posts?page=${pageNum}&limit=${limit}&sort=${sortBy}`,
+        );
+      } else {
+        res = await axios.get(`/posts?page=${pageNum}&limit=${limit}`);
+      }
+      console.log(res);
+      setCardFilter(res.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const prevPage = () => {
@@ -94,33 +110,15 @@ function CardGrid() {
       },
     ];
 
-    setCardOrigin(
+    setCardFilter(
       newCardsOrigin.sort((a, b) => a.countOfComments - b.countOfComments),
     );
-    if (search === "전체") {
-      setCardFilter(
-        newCardsOrigin.sort((a, b) => a.countOfComments - b.countOfComments),
-      );
+    if (page === undefined && sort === undefined) {
+      getTravelCard(1, pageLimit);
+    } else {
+      getTravelCard(page, pageLimit, sort);
     }
-  }, [search, setCardFilter, setCardOrigin]);
-
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     if (window.innerWidth > 1200) {
-  //       setPageLimit(12);
-  //     } else if (window.innerWidth <= 1200 && window.innerWidth > 768) {
-  //       setPageLimit(9);
-  //     } else {
-  //       setPageLimit(6);
-  //     }
-  //   };
-  //   window.addEventListener("resize", handleResize);
-  //   handleResize();
-
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
+  }, [sort, setCardFilter, setCardOrigin, page, pageLimit]);
 
   return (
     <>
