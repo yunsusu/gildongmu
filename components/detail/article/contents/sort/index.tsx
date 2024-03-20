@@ -17,7 +17,7 @@ export default function DetailSort() {
     background: selectedId === id ? "white" : "#e0f2fe",
   });
   return (
-    <div className="sticky top-0 z-50 flex w-full items-start gap-4 text-20 font-bold text-sky-600">
+    <div className="sticky top-0 z-10 flex w-full items-start gap-4 text-20 font-bold text-sky-600">
       <a
         className="flex h-60 w-1/3 justify-around rounded-tl-32 rounded-tr-32 border-none"
         href="#information"
