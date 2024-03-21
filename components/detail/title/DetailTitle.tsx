@@ -6,10 +6,14 @@ import AlertModal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
 
+const content = {
+  id: 1,
+}
+
 function DetailTitle() {
   const router = useRouter();
 
-  const isOwner = false; // 작성자인지 아닌지
+  const isOwner = true; // 작성자인지 아닌지
   const isSubmit = false; // 신청했는지 아닌지
 
   //  데이터 예시
@@ -41,7 +45,7 @@ function DetailTitle() {
 
   const handleEdit = () => {
     // 수정하기 페이지로 이동
-    // router.push("/travel/[id]/detail/edit");
+    router.push(`/travel/${content.id}/detail/edit`);
   };
 
   const handleDelete = () => {
