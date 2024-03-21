@@ -47,6 +47,11 @@ export default function Login() {
         password: data.password,
       });
 
+      console.log("소설로그인 성공", response.data);
+
+      const { accessToken } = response.data;
+      document.cookie = `accessToken=${accessToken}; path=/; max-age=3600; secure; samesite=strict`;
+
       router.push("/");
     } catch (error: any) {
       if (error.response && error.response.status === 401) {
@@ -56,6 +61,9 @@ export default function Login() {
       console.log(error.message);
     }
   };
+
+  // const platform = "google";
+  // /oauth2/authorization/${platform}
 
   useEffect(() => {
     const sendDataToServer = async (data: any) => {
@@ -69,6 +77,7 @@ export default function Login() {
       } catch (error) {
         console.error("인증 코드 전송 실패:", error);
         // 에러 처리 로직 (토큰 만료, 서버 응답 없음 등)
+        // 로그인 인증이 안 되어 있을 때 회원가입으로 이동
       }
     };
 
