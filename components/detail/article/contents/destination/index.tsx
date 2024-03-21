@@ -6,10 +6,11 @@ import { Location } from "@/components/form/writeForm";
 import GoogleMap from "@/components/googlemap";
 
 interface DestinationProps {
+  destinationRef: any;
   destination: string;
 }
 
-export default function Destination({}: DestinationProps) {
+export default function Destination({ destinationRef }: DestinationProps) {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const [location, setLocation] = useState<Location>({
     lat: 37.5400456,
@@ -37,7 +38,7 @@ export default function Destination({}: DestinationProps) {
   return (
     <div
       id="destination"
-      className="flex w-full flex-col items-start gap-32 self-stretch pt-60"
+      className="relative flex w-full flex-col items-start gap-32 self-stretch pt-60"
     >
       <span>여행지</span>
       <div className="flex flex-col items-start gap-16 self-stretch">
@@ -53,6 +54,10 @@ export default function Destination({}: DestinationProps) {
           <GoogleMap location={location} />
         </div>
       </div>
+      <div
+        ref={destinationRef}
+        className="absolute top-[750px] h-1 w-full"
+      ></div>
     </div>
   );
 }
