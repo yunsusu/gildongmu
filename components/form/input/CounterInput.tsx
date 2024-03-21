@@ -46,7 +46,7 @@ function CounterInput({
       <Button
         type="button"
         variant={count <= 0 ? "ghost" : "outline"}
-        className="rounded-ful h-44 w-44 border-2 tablet:h-36 tablet:w-36"
+        className="h-44 w-44 rounded-full border-2 tablet:h-36 tablet:w-36"
         onClick={handleDecrement}
       >
         -

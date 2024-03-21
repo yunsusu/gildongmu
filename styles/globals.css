@@ -4,7 +4,8 @@
 
 @font-face {
   font-family: "NanumSquareRound";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff") format("woff");
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff")
+    format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -15,9 +16,11 @@
   }
 }
 
-@layer components {}
+@layer components {
+}
 
-@layer utilities {}
+@layer utilities {
+}
 
 @layer base {
   :root {
@@ -176,4 +179,21 @@
 .heartRotate {
   transition: transform 0.6s ease-in-out;
   transform: rotateY(180deg);
+}
+
+* {
+  --rdp-cell-size: 40px; /* Size of the day cells. */
+  --rdp-caption-font-size: 18px; /* Font size for the caption labels. */
+  --rdp-accent-color: #14b8a6; /* Accent color for the background of selected days. */
+  --rdp-background-color: #2dd4bf; /* Background color for the hovered/focused elements. */
+}
+
+@media (max-width: 767px) {
+  * {
+    --rdp-cell-size: 36px; /* 모바일에서의 day cells 크기 조정 */
+  }
+}
+
+.rdp {
+  margin: 0 !important;
 }

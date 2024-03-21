@@ -35,5 +35,5 @@ export default function GoogleMap({ location }: GoogleMapProps) {
     initMap();
   }, [location, apiKey]);
 
-  return <div id="map" className="h-full w-full rounded-12" ref={mapRef} />;
+  return <div id="map" className="h-full w-full rounded-2xl" ref={mapRef} />;
 }
