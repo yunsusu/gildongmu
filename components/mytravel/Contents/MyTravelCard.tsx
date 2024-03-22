@@ -18,8 +18,12 @@ const content = {
 
 export default function MyTravelCard() {
   const [favor, setFavor] = useState(true);
-
   const [isMobile, setIsMobile] = useToggle(true);
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  const handleFlip = () => {
+    setIsFlipped(!isFlipped);
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -35,11 +39,13 @@ export default function MyTravelCard() {
 
   return (
     // <Link href={`/travel/${content.id}/detail`}>
-    <div className="group [perspective:1000px]">
+    <div className="[perspective:1000px]">
       <div
         className={`tablet:h-270 ${
           isMobile ? "mobile:w-148" : "mobile:w-243"
-        } relative flex h-[320px] w-270 flex-col rounded-[20px] transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] tablet:w-227 mobile:h-176 `}
+        } relative flex h-[320px] w-270 flex-col rounded-[20px] transition-all duration-500 [transform-style:preserve-3d] ${
+          isFlipped ? "hover:[transform:rotateY(180deg)]" : ""
+        }  tablet:w-227 mobile:h-176 `}
       >
         <div className="absolute inset-0 p-24 tablet:p-20 mobile:p-12">
           <Image
@@ -85,7 +91,10 @@ export default function MyTravelCard() {
               </div>
             </div>
           </div>
-          <div className="absolute bottom-18 right-18 flex h-30 w-30 cursor-pointer items-center justify-center rounded-full bg-white p-2 tablet:bottom-14 tablet:right-16 mobile:bottom-8 mobile:right-10">
+          <div
+            className="absolute bottom-18 right-18 flex h-30 w-30 cursor-pointer items-center justify-center rounded-full bg-white p-2 tablet:bottom-14 tablet:right-16 mobile:bottom-8 mobile:right-10"
+            onClick={handleFlip}
+          >
             <Image
               src={"/icons/arrow-left-right.svg"}
               alt="뒤집기 아이콘"
@@ -170,7 +179,10 @@ export default function MyTravelCard() {
               </div>
             </div>
           </div>
-          <div className="absolute bottom-18 right-18 flex h-30 w-30 cursor-pointer items-center justify-center rounded-full bg-[#A5B4FC] p-2 tablet:bottom-14 tablet:right-16 mobile:bottom-8 mobile:right-10 ">
+          <div
+            className="absolute bottom-18 right-18 flex h-30 w-30 cursor-pointer items-center justify-center rounded-full bg-[#A5B4FC] p-2 tablet:bottom-14 tablet:right-16 mobile:bottom-8 mobile:right-10"
+            onClick={handleFlip}
+          >
             <Image
               src={"/icons/arrow-white-left-right.svg"}
               alt="뒤집기 아이콘"
