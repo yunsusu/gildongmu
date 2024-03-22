@@ -30,7 +30,6 @@ function Gnb() {
       handleBtn: () => {},
     },
   ];
-
   useEffect(() => {
     if (gnbColor === "travel") {
       setGnb("hover:text-blue-400");
@@ -39,6 +38,12 @@ function Gnb() {
     } else if (gnbColor === "mytravel") {
       setGnb("hover:text-indigo-500");
     }
+    const accessToken = document.cookie
+      .split("; ")
+      .find(row => row.startsWith("accessToken="))
+      ?.split("=")[1];
+
+    setLoginState(!!accessToken);
   }, [gnbColor]);
 
   useEffect(() => {
