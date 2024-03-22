@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-import AlertModal from "@/components/modal";
+import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
 
@@ -154,7 +154,7 @@ function DetailTitle() {
         </div>
       </div>
       {isModalOpen && (
-        <AlertModal
+        <Modal
           modalType="travelApply"
           onClose={() => {
             setIsModalOpen(false);
@@ -162,7 +162,7 @@ function DetailTitle() {
         />
       )}
       {isCancleModalOpen && (
-        <AlertModal
+        <Modal
           modalType="travelCancle"
           onClose={() => {
             setIsCancleModalOpen(false);
@@ -170,7 +170,7 @@ function DetailTitle() {
         />
       )}
       {isDeleteModalOpen && (
-        <AlertModal
+        <Modal
           modalType="writingDelete"
           onClose={() => {
             setIsDeleteModalOpen(false);
@@ -179,7 +179,7 @@ function DetailTitle() {
         />
       )}
       {isProfileModalOpen && (
-        <AlertModal
+        <Modal
           modalType="userProfile"
           onClose={() => {
             setIsProfileModalOpen(false);
