@@ -25,7 +25,7 @@ export default function OthersComment() {
       <div className="flex flex-col items-start gap-8 self-stretch">
         <div className="flex items-center self-stretch py-2">
           <div className="flex items-center gap-12">
-            <div className="relative h-32 w-32 rounded-full">
+            <div className="relative h-32 w-32 rounded-full tablet:h-24 tablet:w-24">
               <Image
                 src={
                   "https://i.namu.wiki/i/6b7_BVyszfYCyjDtIPE8tJK56XutqfO28xp9KdjZ8tXMP1JCmcYei0IN5vbAJ5JF2t3u4TxwsUrQew6xWfvWgg.webp"
@@ -34,7 +34,7 @@ export default function OthersComment() {
                 fill
               />
             </div>
-            <span className="text-18 leading-[27px] tracking-[-0.6px] text-text-01">
+            <span className="text-18 leading-[27px] tracking-[-0.6px] text-text-01 tablet:text-16 tablet:leading-[20.8px]">
               {"비챤"}
             </span>
           </div>

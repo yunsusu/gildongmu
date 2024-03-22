@@ -39,7 +39,7 @@ export default function SecretMyComment() {
       <div className="flex flex-col items-start gap-8 self-stretch">
         <div className="flex items-center justify-between self-stretch py-2">
           <div className="flex items-center gap-12">
-            <div className="relative h-32 w-32 rounded-full">
+            <div className="relative h-32 w-32 rounded-full tablet:h-24 tablet:w-24">
               <Image
                 src={
                   "https://i.namu.wiki/i/5i-kQ5O71eVdYRGVSfquZF5NmnBYYRNcK9bFMq-CD9OI5L-faMaFykGuua7N11FgAuTwiW8vlDrNlK9Yx8TGrA.webp"
@@ -48,7 +48,7 @@ export default function SecretMyComment() {
                 fill
               />
             </div>
-            <span className="text-18 leading-[27px] tracking-[-0.6px] text-text-01">
+            <span className="text-18 leading-[27px] tracking-[-0.6px] text-text-01 tablet:text-16 tablet:leading-[20.8px]">
               {"내 닉네임"}
             </span>
             <div className="relative h-20 w-20">

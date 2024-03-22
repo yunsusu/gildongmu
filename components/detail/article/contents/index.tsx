@@ -11,13 +11,13 @@ export default function Content() {
   const [destinationRef, destinationInView] = useInView();
   const [commentRef, commentInView] = useInView();
   return (
-    <div className="flex w-[956px] flex-col items-center">
+    <div className="flex w-full flex-col items-center">
       <Sort
         recruitInView={recruitInView}
         destinationInView={destinationInView}
         commentInView={commentInView}
       />
-      <div className="flex w-full flex-col items-start gap-60 rounded-bl-32 rounded-br-32 bg-white px-32 pb-80 pt-32 text-20 font-bold">
+      <div className="flex w-full flex-col items-start gap-60 rounded-bl-32 rounded-br-32 bg-white px-32 pb-80 pt-32 text-20 font-bold tablet:gap-40 tablet:px-24 tablet:pb-60 tablet:pt-24 mobile:px-20 mobile:pb-32 mobile:pt-24">
         <Recruitment recruitRef={recruitRef} />
         <Images />
         <Destination destinationRef={destinationRef} destination={""} />
