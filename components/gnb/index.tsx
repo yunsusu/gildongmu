@@ -13,6 +13,7 @@ function Gnb() {
   const [dropDown, setDropDown, handleDropDown] = useToggle();
   const [hamMenu, setHamMenu, handleHamMenu] = useToggle(false);
   const [isTablet, setIsTablet] = useToggle(true);
+  const [gnb, setGnb] = useState("hover:text-primary-press");
   const { gnbColor } = useGnbStore();
 
   const ref = useRef<HTMLDivElement>(null);
@@ -29,6 +30,16 @@ function Gnb() {
       handleBtn: () => {},
     },
   ];
+
+  useEffect(() => {
+    if (gnbColor === "travel") {
+      setGnb("hover:text-blue-400");
+    } else if (gnbColor === "community") {
+      setGnb("hover:text-blue-400");
+    } else if (gnbColor === "mytravel") {
+      setGnb("hover:text-indigo-500");
+    }
+  }, [gnbColor]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -58,7 +69,7 @@ function Gnb() {
     dropDown && handleDropDown();
   });
   return (
-    <div className="relative bg-white font-bold tracking-tight text-text-01">
+    <div className="relative border-b border-line-02 bg-white font-bold tracking-tight text-text-01">
       <nav className="relative z-30 mx-auto flex h-72 max-w-[1200px] items-center justify-between bg-white px-24 py-20 tablet:h-60">
         <div className="flex items-center gap-6">
           <Link href={"/"} className="relative h-30 w-120 overflow-hidden ">
@@ -72,20 +83,20 @@ function Gnb() {
           </Link>
           <Link
             href="/travel"
-            className={`px-4 text-18 tablet:hidden ${gnbColor === "travel" && "text-blue-400"} ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"}`}
+            className={`px-4 text-18 tablet:hidden ${gnbColor === "travel" && "text-blue-400"} ${gnb}`}
           >
             여행
           </Link>
           <Link
             href={"/community"}
-            className={`px-4 text-18 ${gnbColor === "community" && "text-primary-press"} ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"} tablet:hidden `}
+            className={`px-4 text-18 ${gnbColor === "community" && "text-primary-press"} ${gnb} tablet:hidden`}
           >
             소통공간
           </Link>
           {loginState && (
             <Link
               href={"/mytravel"}
-              className={`px-4 text-18 ${gnbColor === "mytravel" && "text-primary-press"} ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"} tablet:hidden `}
+              className={`px-4 text-18 ${gnbColor === "mytravel" && "text-indigo-500"} ${gnb} tablet:hidden `}
             >
               내 여행
             </Link>
@@ -152,7 +163,6 @@ function Gnb() {
           />
         </div>
       )}
-      <div className="absolute bottom-0 z-20 h-1 w-full bg-line-02"></div>
     </div>
   );
 }

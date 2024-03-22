@@ -16,6 +16,8 @@ export default function App({ Component, pageProps }: AppProps) {
       setGnbColor("travel");
     } else if (router.pathname.startsWith("/community")) {
       setGnbColor("community");
+    } else if (router.pathname.startsWith("/mytravel")) {
+      setGnbColor("mytravel");
     } else {
       setGnbColor("");
     }
