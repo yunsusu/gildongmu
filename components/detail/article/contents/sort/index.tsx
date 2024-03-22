@@ -1,7 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function DetailSort() {
+export default function DetailSort({
+  recruitInView,
+  destinationInView,
+  commentInView,
+}: any) {
   const [selectedId, setSelectedId] = useState("information");
+
+  useEffect(() => {
+    if (recruitInView) {
+      setSelectedId("information");
+    } else if (destinationInView) {
+      setSelectedId("destination");
+    } else if (commentInView) {
+      setSelectedId("comment");
+    }
+  }, [recruitInView, destinationInView, commentInView]);
 
   const handleClick =
     (id: string) => (event: { preventDefault: () => void }) => {
@@ -16,8 +30,9 @@ export default function DetailSort() {
   const getLinkStyle = (id: string) => ({
     background: selectedId === id ? "white" : "#e0f2fe",
   });
+
   return (
-    <div className="sticky top-0 z-50 flex w-full items-start gap-4 text-20 font-bold text-sky-600">
+    <div className="sticky top-0 z-10 flex w-full items-start gap-4 bg-sky-50 text-20 font-bold text-sky-600">
       <a
         className="flex h-60 w-1/3 justify-around rounded-tl-32 rounded-tr-32 border-none"
         href="#information"

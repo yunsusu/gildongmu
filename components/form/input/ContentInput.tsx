@@ -29,7 +29,7 @@ function ContentTextarea({
         id={id}
         value={text}
         onChange={e => setText(e.target.value)}
-        className={`h-[211px] w-full resize-none rounded-12 border border-line-02 bg-bg-02 px-16 py-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:h-[214px] mobile:text-sm ${isError && "border-0 bg-input-error"}`}
+        className={`h-[211px] w-full resize-none rounded-2xl border border-line-02 bg-bg-02 px-16 py-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:h-[214px] mobile:text-sm ${isError && "border-0 bg-input-error"}`}
         placeholder="모집 내용을 작성해 주세요"
       />
     </div>

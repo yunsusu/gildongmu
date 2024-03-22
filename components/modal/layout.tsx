@@ -1,6 +1,7 @@
 import Image from "next/image";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useOnClickOutside } from "usehooks-ts";
 
 import { ModalType } from "@/components/modal";
 import AlertModalButton from "@/components/modal/button";
@@ -31,11 +32,15 @@ export default function ModalLayout({
     };
   }, []);
 
+  const ref = useRef<HTMLDivElement>(null);
+  useOnClickOutside(ref, () => onClose());
+
   return (
     portalRoot &&
     createPortal(
       <div className="fixed inset-0 z-30 flex h-full w-full items-center justify-center bg-dim-60">
         <div
+          ref={ref}
           className={`flex flex-col items-center overflow-x-hidden rounded-32 bg-white shadow-md ${modalType === "userProfile" ? "relative w-[480px] gap-24 px-24 py-32 mobile:w-320" : "moblie:px-24 w-360 gap-32 px-40 py-48 mobile:w-288 mobile:gap-24 mobile:py-32"}`}
         >
           {modalType === "userProfile" && (
