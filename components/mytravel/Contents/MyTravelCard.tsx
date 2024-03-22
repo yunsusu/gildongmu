@@ -20,7 +20,7 @@ export default function MyTravelCard() {
   return (
     // <Link href={`/travel/${content.id}/detail`}>
     <div className="group [perspective:1000px]">
-      <div className="tablet:h-270 relative flex h-[320px] w-270 flex-col rounded-[20px] transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] tablet:w-227 mobile:h-176 mobile:w-243 mobile:min-w-148">
+      <div className="tablet:h-270 mobile:max-w-234 relative flex h-[320px] w-270 flex-col rounded-[20px] transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] tablet:w-227 mobile:h-176 mobile:w-148">
         <div className="absolute inset-0 p-24 tablet:p-20 mobile:p-12">
           <Image
             src={content.thumbnail}
@@ -65,16 +65,14 @@ export default function MyTravelCard() {
               </div>
             </div>
           </div>
-          {/* <div className="absolute bottom-24 right-24 flex h-30 w-30 items-center justify-center rounded-full bg-white p-2 tablet:bottom-20 tablet:right-20 mobile:bottom-12 mobile:right-12">
-            <button>
-              <Image
-                src={"/icons/arrow-left-right.svg"}
-                alt="뒤집기 아이콘"
-                width={18}
-                height={18}
-              />
-            </button>
-          </div> */}
+          <div className="absolute bottom-18 right-18 flex h-30 w-30 cursor-pointer items-center justify-center rounded-full bg-white p-2 tablet:bottom-14 tablet:right-16 mobile:bottom-8 mobile:right-10">
+            <Image
+              src={"/icons/arrow-left-right.svg"}
+              alt="뒤집기 아이콘"
+              width={18}
+              height={18}
+            />
+          </div>
         </div>
         <div className="absolute inset-0 flex flex-col justify-start rounded-[20px] border border-[#818CF8] bg-white p-24 [backface-visibility:hidden] [transform:rotateY(180deg)] tablet:p-20 mobile:p-12">
           <div className="mb-24 text-16 font-bold leading-5 tracking-tighter tablet:mb-16 tablet:text-14 mobile:mb-10">
@@ -122,7 +120,7 @@ export default function MyTravelCard() {
               </div>
             </div>
           </div>
-          <div className="mt-110 flex items-center justify-start tablet:mt-135 mobile:mt-40">
+          <div className="mt-110 flex items-center justify-start tablet:mt-135 mobile:mt-35">
             <div className="flex gap-12 text-12">
               <div className="flex items-center justify-center gap-4">
                 <Image
@@ -147,6 +145,14 @@ export default function MyTravelCard() {
                 </div>
               </div>
             </div>
+          </div>
+          <div className="absolute bottom-18 right-18 flex h-30 w-30 cursor-pointer items-center justify-center rounded-full bg-[#A5B4FC] p-2 tablet:bottom-14 tablet:right-16 mobile:bottom-8 mobile:right-10 ">
+            <Image
+              src={"/icons/arrow-white-left-right.svg"}
+              alt="뒤집기 아이콘"
+              width={18}
+              height={18}
+            />
           </div>
         </div>
       </div>
