@@ -21,10 +21,6 @@ export default function MyTravelCard() {
   const [isMobile, setIsMobile] = useToggle(true);
   const [isFlipped, setIsFlipped] = useState(false);
 
-  const handleFlip = () => {
-    setIsFlipped(!isFlipped);
-  };
-
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 492);
@@ -93,7 +89,7 @@ export default function MyTravelCard() {
           </div>
           <div
             className="absolute bottom-18 right-18 flex h-30 w-30 cursor-pointer items-center justify-center rounded-full bg-white p-2 tablet:bottom-14 tablet:right-16 mobile:bottom-8 mobile:right-10"
-            onClick={handleFlip}
+            onClick={() => setIsFlipped(!isFlipped)}
           >
             <Image
               src={"/icons/arrow-left-right.svg"}
@@ -181,7 +177,7 @@ export default function MyTravelCard() {
           </div>
           <div
             className="absolute bottom-18 right-18 flex h-30 w-30 cursor-pointer items-center justify-center rounded-full bg-[#A5B4FC] p-2 tablet:bottom-14 tablet:right-16 mobile:bottom-8 mobile:right-10"
-            onClick={handleFlip}
+            onClick={() => setIsFlipped(!isFlipped)}
           >
             <Image
               src={"/icons/arrow-white-left-right.svg"}
