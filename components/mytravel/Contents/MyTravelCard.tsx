@@ -1,5 +1,7 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import useToggle from "@/hooks/useToggle";
 
 const content = {
   id: 1,
@@ -17,10 +19,28 @@ const content = {
 export default function MyTravelCard() {
   const [favor, setFavor] = useState(true);
 
+  const [isMobile, setIsMobile] = useToggle(true);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 492);
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [setIsMobile]);
+
   return (
     // <Link href={`/travel/${content.id}/detail`}>
     <div className="group [perspective:1000px]">
-      <div className="tablet:h-270 mobile:max-w-234 relative flex h-[320px] w-270 flex-col rounded-[20px] transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] tablet:w-227 mobile:h-176 mobile:w-148">
+      <div
+        className={`tablet:h-270 ${
+          isMobile ? "mobile:w-148" : "mobile:w-243"
+        } relative flex h-[320px] w-270 flex-col rounded-[20px] transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] tablet:w-227 mobile:h-176 `}
+      >
         <div className="absolute inset-0 p-24 tablet:p-20 mobile:p-12">
           <Image
             src={content.thumbnail}
@@ -120,7 +140,11 @@ export default function MyTravelCard() {
               </div>
             </div>
           </div>
-          <div className="mt-110 flex items-center justify-start tablet:mt-135 mobile:mt-35">
+          <div
+            className={`mt-110 flex items-center justify-start tablet:mt-135 ${
+              isMobile ? "mobile:mt-4" : "mobile:mt-35"
+            } `}
+          >
             <div className="flex gap-12 text-12">
               <div className="flex items-center justify-center gap-4">
                 <Image

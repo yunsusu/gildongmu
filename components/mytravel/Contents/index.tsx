@@ -5,7 +5,7 @@ import MyTravelCard from "@/components/mytravel/Contents/MyTravelCard";
 export default function Contents() {
   return (
     <div className="z-10 flex w-full items-center justify-center">
-      <div className="mobile:max-w-360 relative w-full max-w-[1200px] rounded-t-48 bg-white py-80 tablet:max-w-[768px]">
+      <div className="mobile:max-w-360 relative w-full max-w-[1200px] rounded-t-48 bg-white py-80 tablet:max-w-[768px] tablet:py-64">
         <Image
           src={"/icons/motorcycle.svg"}
           alt="오도방구 아이콘"
