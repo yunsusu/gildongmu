@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import Card from "@/components/card";
 import GridNum from "@/components/travel/contents/gridNum";
@@ -16,26 +16,25 @@ function CardGrid() {
   const { page, sort } = router.query;
   const currentPage = parseInt(page as string, 10) || 1;
 
-  const getTravelCard = async (
-    pageNum = page || 1,
-    limit = pageLimit,
-    sortBy = sort,
-  ) => {
-    try {
-      let res;
-      if (sortBy) {
-        res = await axios.get(
-          `/posts?page=${pageNum}&limit=${limit}&sort=${sortBy}`,
-        );
-      } else {
-        res = await axios.get(`/posts?page=${pageNum}&limit=${limit}`);
+  const getTravelCard = useCallback(
+    async (pageNum = page || 1, limit = pageLimit, sortBy = sort) => {
+      try {
+        let res;
+        if (sortBy) {
+          res = await axios.get(
+            `/posts?page=${pageNum}&limit=${limit}&sort=${sortBy}`,
+          );
+        } else {
+          res = await axios.get(`/posts?page=${pageNum}&limit=${limit}`);
+        }
+        console.log(res);
+        setCardFilter(res.data);
+      } catch (error) {
+        console.error(error);
       }
-      console.log(res);
-      setCardFilter(res.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    },
+    [page, pageLimit, setCardFilter, sort],
+  );
 
   const prevPage = () => {
     if (currentPage > 1) {
@@ -110,15 +109,12 @@ function CardGrid() {
       },
     ];
 
-    setCardFilter(
-      newCardsOrigin.sort((a, b) => a.countOfComments - b.countOfComments),
-    );
     if (page === undefined && sort === undefined) {
       getTravelCard(1, pageLimit);
     } else {
       getTravelCard(page, pageLimit, sort);
     }
-  }, [sort, setCardFilter, setCardOrigin, page, pageLimit]);
+  }, [sort, setCardOrigin, page, pageLimit, getTravelCard]);
 
   return (
     <>
