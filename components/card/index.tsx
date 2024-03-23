@@ -29,7 +29,7 @@ function Card() {
   useEffect(() => {
     if (router.pathname === "/travel") {
       setWrap(
-        "mobile:max-w-[280px] mobile:min-w-264 mobile:w-full w-240 h-[310px] block bg-white rounded-16 border border-line-02 m-auto overflow-hidden",
+        "max-w-240 w-full h-[310px] block bg-white rounded-16 border border-line-02 m-auto overflow-hidden",
       );
     } else {
       setWrap(
