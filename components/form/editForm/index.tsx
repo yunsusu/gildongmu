@@ -282,7 +282,7 @@ function EditForm() {
             disabled={!isValid}
             className="h-52 w-180 tablet:h-44 tablet:w-128"
           >
-            작성하기
+            수정하기
           </Button>
         </div>
       </form>
