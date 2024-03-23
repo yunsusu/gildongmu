@@ -11,7 +11,7 @@ export default function Contents() {
           alt="오도방구 아이콘"
           width={100}
           height={100}
-          className="absolute -top-60 right-[8%] mobile:hidden"
+          className="absolute -top-70 right-[8%] h-100 w-100 mobile:hidden"
         />
         <div className="flex flex-wrap items-center justify-center gap-24 self-stretch">
           <MyTravelCard />
