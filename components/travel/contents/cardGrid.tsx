@@ -118,7 +118,10 @@ function CardGrid() {
 
   return (
     <>
-      <div className="mx-auto mb-40 grid grid-flow-row auto-rows-max grid-cols-4 gap-24 tablet:grid-cols-3 mobile:grid-cols-1">
+      <div
+        className="mx-auto mb-40 grid grid-flow-row auto-rows-max gap-24"
+        style={{ gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}
+      >
         <Card />
         <Card />
         <Card />
