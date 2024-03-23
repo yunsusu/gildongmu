@@ -34,7 +34,7 @@ function Gnb() {
     if (gnbColor === "travel") {
       setGnb("hover:text-blue-400");
     } else if (gnbColor === "community") {
-      setGnb("hover:text-blue-400");
+      setGnb("hover:text-lime-600");
     } else if (gnbColor === "mytravel") {
       setGnb("hover:text-indigo-500");
     }
@@ -94,7 +94,7 @@ function Gnb() {
           </Link>
           <Link
             href={"/community"}
-            className={`px-4 text-18 ${gnbColor === "community" && "text-primary-press"} ${gnb} tablet:hidden`}
+            className={`px-4 text-18 ${gnbColor === "community" && "text-lime-600"} ${gnb} tablet:hidden`}
           >
             소통공간
           </Link>
