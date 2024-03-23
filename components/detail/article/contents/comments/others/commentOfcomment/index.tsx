@@ -30,7 +30,7 @@ export default function OthersCommentOfComment() {
         <div className="flex w-full flex-col items-start gap-12 self-stretch">
           <div className="flex items-center justify-between self-stretch py-2">
             <div className="flex items-center gap-12">
-              <div className="relative h-32 w-32 rounded-full">
+              <div className="relative h-32 w-32 rounded-full tablet:h-24 tablet:w-24">
                 <Image
                   src={
                     "https://i.namu.wiki/i/x0p4O-TMPuCvZmIwxa2wDiSnePtAueSz5hHqEK1_f_2zU9btj3q2ORRvnzc6yqOnZIU-tB7im9pntDXUpPZyNg.webp"
@@ -39,7 +39,7 @@ export default function OthersCommentOfComment() {
                   fill
                 />
               </div>
-              <span className="text-18 leading-[27px] tracking-[-0.6px] text-text-01">
+              <span className="text-18 leading-[27px] tracking-[-0.6px] text-text-01 tablet:text-16 tablet:leading-[20.8px]">
                 {"주르르"}
               </span>
               {<WriterTag />}
