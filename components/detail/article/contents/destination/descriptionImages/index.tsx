@@ -10,11 +10,14 @@ export default function Images() {
     "https://i.namu.wiki/i/dCjb4uiGR2sCTd6AjNMLl8Oq7iN-k2ki8dqbPjERx4M0nOJBbq2pEieR7x8YbcOOWTqsCYeRFeAYUrazr2JiTg.webp",
   ];
   return (
-    <div className="flex w-full flex-col items-start gap-32 self-stretch">
-      <span>이미지</span>
-      <div className="flex flex-wrap gap-24">
+    <div className="flex w-full flex-col items-start gap-32 self-stretch tablet:gap-24">
+      <span className="text-20 tablet:text-18">이미지</span>
+      <div className="flex w-full flex-wrap gap-24 tablet:gap-20 mobile:gap-12">
         {travelImg.map((img, index) => (
-          <div key={index} className="relative h-[281px] w-[281px]">
+          <div
+            key={index}
+            className="relative h-[281px] w-[281px] tablet:h-[210px] tablet:w-[210px] mobile:h-[130px] mobile:w-[130px]"
+          >
             <Image className="rounded-16" src={img} alt="여행지 이미지" fill />
           </div>
         ))}
