@@ -156,10 +156,10 @@ function EditForm() {
               <Controller
                 control={control}
                 name="tripDate"
-                rules={{ required: true }}
+                rules={{ required: "여행 일정을 선택해 주세요" }}
                 render={({ field }) => (
                   <RangeDatePickerInput
-                    onChange={date => field.onChange(date)}
+                    onChange={dates => field.onChange(dates)}
                     value={field.value}
                     id={"date"}
                   />
@@ -183,19 +183,13 @@ function EditForm() {
                   validate: value =>
                     value > 0 || "모집 인원은 최소 1명 이상이어야 합니다",
                 }}
-                render={({ field, fieldState: { error } }) => (
-                  <>
-                    <CounterInput
-                      onChange={(member: number) => field.onChange(member)}
-                      isError={!!error}
-                      id={"member"}
-                    />
-                    {error && (
-                      <span className="text-12 text-system-error">
-                        {error.message}
-                      </span>
-                    )}
-                  </>
+                render={({ field }) => (
+                  <CounterInput
+                    value={field.value}
+                    onChange={value => field.onChange(value)}
+                    isError={!!errors.numberOfPeople}
+                    id={"member"}
+                  />
                 )}
               />
             </div>

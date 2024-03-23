@@ -46,8 +46,16 @@ function RangeDatePickerInput({
   }, [range]);
 
   useEffect(() => {
+    if (value?.startDate && value?.endDate) {
+      setRange({
+        from: new Date(value.startDate),
+        to: new Date(value.endDate),
+      });
+    }
+  }, [value]);
+
+  useEffect(() => {
     function handleResize() {
-      console.log(window.innerWidth);
       setNumberOfMonths(window.innerWidth > 767 ? 2 : 1);
     }
 
@@ -131,11 +139,11 @@ function RangeDatePickerInput({
               <Button
                 type="button"
                 onClick={resetSelection}
-                className=" absolute bottom-10 right-80 w-70 rounded-2xl text-xs"
+                className=" absolute bottom-10 right-80 w-60 rounded-2xl text-xs"
                 size={"calendar"}
                 variant={"outline"}
               >
-                날짜 초기화
+                초기화
               </Button>
             </div>
           </div>
