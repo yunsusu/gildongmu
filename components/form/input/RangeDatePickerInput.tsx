@@ -10,9 +10,11 @@ import { Input } from "@/components/ui/input";
 
 function RangeDatePickerInput({
   onChange,
+  value,
   id,
 }: {
   onChange: (range: { startDate: string; endDate: string }) => void;
+  value: { startDate: string; endDate: string };
   id: string;
 }) {
   const [range, setRange] = useState<DateRange | undefined>();
