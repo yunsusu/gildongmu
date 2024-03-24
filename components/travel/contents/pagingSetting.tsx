@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
 import Dropdown from "@/components/dropdown";
@@ -58,6 +58,26 @@ function PagingSetting() {
   useOnClickOutside(ref, () => {
     dropDown && handleDropDown();
   });
+
+  useEffect(() => {
+    switch (sort) {
+      case "latest":
+        setChoiceSort("최근 작성순");
+        break;
+      case "popular":
+        setChoiceSort("인기순");
+        break;
+      case "comment":
+        setChoiceSort("댓글 많은 순");
+        break;
+      case "latest-trip":
+        setChoiceSort("가까운 여행순");
+        break;
+
+      default:
+        break;
+    }
+  }, [setChoiceSort, sort]);
   return (
     <>
       <div className="mb-32 flex w-full justify-between">

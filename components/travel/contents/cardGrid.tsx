@@ -13,27 +13,38 @@ function CardGrid() {
     useCardFilterStore();
   console.log(cards);
   const router = useRouter();
-  const { page, sort } = router.query;
+  const { page, sort, filter } = router.query;
   const currentPage = parseInt(page as string, 10) || 1;
 
+  const buildUrl = (
+    pageNum: string | number | string[],
+    limit: number,
+    sortBy: string | string[] | undefined,
+    filters: string | string[] | undefined,
+  ) => {
+    let url = `/posts?page=${pageNum}&limit=${limit}`;
+    if (sortBy) url += `&sort=${sortBy}`;
+    if (filters) url += `&filter=${filters}`;
+    return url;
+  };
+
   const getTravelCard = useCallback(
-    async (pageNum = page || 1, limit = pageLimit, sortBy = sort) => {
+    async (
+      pageNum = page || 1,
+      limit = pageLimit,
+      sortBy = sort,
+      filters = filter,
+    ) => {
       try {
-        let res;
-        if (sortBy) {
-          res = await axios.get(
-            `/posts?page=${pageNum}&limit=${limit}&sort=${sortBy}`,
-          );
-        } else {
-          res = await axios.get(`/posts?page=${pageNum}&limit=${limit}`);
-        }
+        const url = buildUrl(pageNum, limit, sortBy, filters);
+        const res = await axios.get(url);
         console.log(res);
         setCardFilter(res.data);
       } catch (error) {
         console.error(error);
       }
     },
-    [page, pageLimit, setCardFilter, sort],
+    [filter, page, pageLimit, setCardFilter, sort],
   );
 
   const prevPage = () => {
@@ -109,12 +120,12 @@ function CardGrid() {
       },
     ];
 
-    if (page === undefined && sort === undefined) {
-      getTravelCard(1, pageLimit);
-    } else {
-      getTravelCard(page, pageLimit, sort);
-    }
-  }, [sort, setCardOrigin, page, pageLimit, getTravelCard]);
+    // if (page === undefined && sort === undefined && filter === undefined) {
+    //   getTravelCard(1, pageLimit);
+    // } else {
+    //   getTravelCard(page, pageLimit, sort, filter);
+    // }
+  }, [sort, setCardOrigin, page, pageLimit, getTravelCard, filter]);
 
   return (
     <>

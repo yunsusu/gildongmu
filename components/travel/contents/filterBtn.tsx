@@ -1,61 +1,61 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-import useCardFilterStore from "@/store/cardfilter";
 import useSortStore from "@/store/choiceSort";
 
 interface FilterBtnProps {
   text: string;
   search: string;
-  setSearch: any;
+  setSearch: (search: string) => void;
 }
 
 function FilterBtn({ text, search, setSearch }: FilterBtnProps) {
   const [choice, setChoice] = useState("bg-blue-200");
-  const { cards, cardsOrigin, setCardFilter } = useCardFilterStore();
+  // const { setCardFilter } = useCardFilterStore();
   const { setChoiceSort } = useSortStore();
-
   const router = useRouter();
-  const { sort } = router.query;
+  const { filter } = router.query;
 
-  const handleSort = (type: string) => {
-    const sortType = type;
-    router.push({
-      pathname: router.pathname,
-      query: { ...router.query, sort: sortType },
-    });
-  };
   useEffect(() => {
-    switch (sort) {
+    let updatedSearch = "";
+    switch (filter) {
+      case undefined:
+        updatedSearch = "전체";
+        break;
       case "woman":
-        setSearch("여자만");
+        updatedSearch = "여자만";
         break;
       case "man":
-        setSearch("남자만");
+        updatedSearch = "남자만";
         break;
-      case "woman":
-        setSearch("여자/남자");
-        break;
+      // case "man":
+      //   updatedSearch = "여자/남자";
+      //   break;
       case "open":
-        setSearch("모집 중");
+        updatedSearch = "모집 중";
         break;
       case "close":
-        setSearch("모집 완료");
+        updatedSearch = "모집 완료";
         break;
       default:
         break;
     }
-    if (search === text) {
-      setChoice("bg-yellow-300");
-    } else {
-      setChoice("bg-blue-200");
-    }
-  }, [search, setSearch, sort, text]);
+
+    if (updatedSearch) setSearch(updatedSearch);
+
+    setChoice(search === text ? "bg-yellow-300" : "bg-blue-200");
+  }, [filter, search, setSearch, text]);
+
+  const handleSort = (type: string) => {
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, filter: type },
+    });
+  };
 
   const handleFilter = () => {
     switch (text) {
       case "전체":
-        setCardFilter(cardsOrigin);
         router.push(`/travel`);
         break;
       case "여자만":
@@ -64,9 +64,10 @@ function FilterBtn({ text, search, setSearch }: FilterBtnProps) {
       case "남자만":
         handleSort("man");
         break;
-      case "여자/남자":
-        handleSort("woman");
-        break;
+      // "여자/남자" 경우는 어떻게 처리해야 할지 명확하지 않아 주석 처리함. 필요하다면 수정해야 함.
+      // case "여자/남자":
+      //   handleSort("both");
+      //   break;
       case "모집 중":
         handleSort("open");
         break;
@@ -76,8 +77,9 @@ function FilterBtn({ text, search, setSearch }: FilterBtnProps) {
       default:
         break;
     }
+
     setSearch(text);
-    setChoiceSort("최근 작성순");
+    setChoiceSort("최근 작성순"); // 필요하다면 주석 해제
   };
 
   return (
