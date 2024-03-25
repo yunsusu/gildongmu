@@ -1,4 +1,3 @@
-// import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -10,16 +9,6 @@ import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
 import axiosInstance from "@/lib/api/axios";
 import { regEmail, regPassword } from "@/lib/utils/regexp";
-
-interface SocialSignUp {
-  email: string;
-  nickname: string;
-  password: string;
-  gender?: "MALE" | "FEMALE";
-  dayOfBirth?: string;
-  favoriteSpots?: string[];
-  bio?: string;
-}
 
 export default function Login() {
   const router = useRouter();
@@ -46,8 +35,6 @@ export default function Login() {
   const googleRedirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
   const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=${googleClientName}&redirect_uri=${googleRedirectUri}&scope=https://www.googleapis.com/auth/userinfo.email`;
 
-  // const provider = new GoogleAuthProvider();
-
   // 인풋이 비어있지 않을 때 로그인 버튼 활성화
   const email = watch("email");
   const password = watch("password");
@@ -60,8 +47,6 @@ export default function Login() {
         password: data.password,
       });
 
-      console.log("로그인 성공", response.data);
-
       const { accessToken } = response.data;
       document.cookie = `accessToken=${accessToken}; path=/; max-age=3600; secure; samesite=strict`;
 
@@ -71,70 +56,32 @@ export default function Login() {
         setLoginErrorModal(true);
       }
 
-      console.log("로그인 실패", error.message);
+      console.log(error.message);
     }
   };
 
-  // const google = () => {
-  //   const auth = getAuth();
-  //   signInWithRedirect(auth, provider)
-  //     .then(result => {
-  //       // This gives you a Google Access Token. You can use it to access the Google API.
-  //       const credential = GoogleAuthProvider.credentialFromResult(result);
-  //       const token = credential.accessToken;
-  //       // The signed-in user info.
-  //       const user = result.user;
-  //       // IdP data available using getAdditionalUserInfo(result)
-  //       // ...
-  //     })
-  //     .catch(error => {
-  //       // Handle Errors here.
-  //       const errorCode = error.code;
-  //       const errorMessage = error.message;
-  //       // The email of the user's account used.
-  //       const email = error.customData.email;
-  //       // The AuthCredential type that was used.
-  //       const credential = GoogleAuthProvider.credentialFromError(error);
-  //       // ...
-  //     });
-  // };
-
   useEffect(() => {
-    // 에러 처리 로직 (토큰 만료, 서버 응답 없음 등)
-    // 로그인 인증이 안 되어 있을 때 회원가입으로 이동
-    const handleSocialLogin = async () => {
-      const authCode = new URL(window.location.href).searchParams.get("code");
+    const sendDataToServer = async (data: any) => {
+      try {
+        const response = await axiosInstance.post(`/oauth2/login`, {
+          data,
+        });
+        console.log("소설로그인 성공", response.data);
 
-      if (authCode) {
-        try {
-          const formData = new FormData();
-          formData.append("code", authCode);
-
-          const response = await axiosInstance.post(
-            `/oauth2/authorization/google`,
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            },
-          );
-          console.log("소설로그인 성공", response.data);
-          router.push("/");
-        } catch (error) {
-          console.log("소셜로그인 실패:", error);
-        }
+        router.push("/");
+      } catch (error) {
+        console.error("인증 코드 전송 실패:", error);
+        // 에러 처리 로직 (토큰 만료, 서버 응답 없음 등)
       }
     };
 
     // URL에서 인증 코드 추출
-
-    // if (authCode) {
-    //   // 인증 코드가 있으면 백엔드로 전송
-    //   sendDataToServer(authCode);
-    // }
-    handleSocialLogin();
-  }, [router]);
+    const authCode = new URL(window.location.href).searchParams.get("code");
+    if (authCode) {
+      // 인증 코드가 있으면 백엔드로 전송
+      sendDataToServer(authCode);
+    }
+  }, []);
 
   return (
     <>
