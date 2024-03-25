@@ -6,10 +6,14 @@ import AlertModal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
 
+const content = {
+  id: 1,
+};
+
 function DetailTitle() {
   const router = useRouter();
 
-  const isOwner = false; // 작성자인지 아닌지
+  const isOwner = true; // 작성자인지 아닌지
   const isSubmit = false; // 신청했는지 아닌지
 
   //  데이터 예시
@@ -41,7 +45,7 @@ function DetailTitle() {
 
   const handleEdit = () => {
     // 수정하기 페이지로 이동
-    // router.push("/travel/[id]/detail/edit");
+    router.push(`/travel/${content.id}/detail/edit`);
   };
 
   const handleDelete = () => {
@@ -55,7 +59,7 @@ function DetailTitle() {
 
   return (
     <>
-      <div className="mx-auto my-0 flex h-136 w-full flex-col gap-16 rounded-24 bg-white px-32 py-24 tablet:h-128 mobile:h-194 mobile:px-20">
+      <div className="mx-auto my-0 flex h-136 w-full flex-col gap-10 rounded-24 bg-white px-32 py-24 tablet:h-128 mobile:h-194 mobile:px-20">
         <div className="flex items-center justify-between mobile:relative mobile:flex-col mobile:items-start mobile:justify-normal">
           <div className="text-20 font-bold tablet:text-18">
             {titleData.title}

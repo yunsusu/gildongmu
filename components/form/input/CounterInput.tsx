@@ -1,14 +1,16 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 function CounterInput({
   onChange,
+  value,
   isError,
   id,
 }: {
   onChange: (value: number) => void;
+  value: number;
   isError: boolean;
   id: string;
 }) {
@@ -40,6 +42,12 @@ function CounterInput({
       }
     }
   };
+
+  useEffect(() => {
+    if (value) {
+      setCount(value);
+    }
+  }, [value]);
 
   return (
     <div className="flex items-center gap-12">
