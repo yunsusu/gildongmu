@@ -25,7 +25,7 @@ function RadioInput({
       {pageType === "write" && (
         <div className="flex h-24 w-121 items-center gap-12 mobile:w-100">
           <RadioGroupItem
-            value="none"
+            value="무관"
             id="none"
             className="h-24 w-24 border-line-01 mobile:h-20 mobile:w-20"
           />
@@ -34,7 +34,7 @@ function RadioInput({
       )}
       <div className="flex h-24 w-121 items-center gap-12 mobile:w-80">
         <RadioGroupItem
-          value="MALE"
+          value="남자만"
           id="MALE"
           className="h-24 w-24 border-line-01 mobile:h-20 mobile:w-20"
         />
@@ -42,7 +42,7 @@ function RadioInput({
       </div>
       <div className="flex h-24 w-121 items-center gap-12 mobile:w-80">
         <RadioGroupItem
-          value="FEMALE"
+          value="여자만"
           id="FEMALE"
           className="h-24 w-24 border-line-01 mobile:h-20 mobile:w-20"
         />
