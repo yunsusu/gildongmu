@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import Card from "@/components/card";
 import GridNum from "@/components/travel/contents/gridNum";
@@ -13,13 +13,39 @@ function CardGrid() {
     useCardFilterStore();
   console.log(cards);
   const router = useRouter();
-  const { page, search } = router.query;
-
+  const { page, sort, filter } = router.query;
   const currentPage = parseInt(page as string, 10) || 1;
 
-  const getTravel = async (page: number, pageLimit: number) => {
-    const res = await axios.get(`/posts?page=${page}&limit=${pageLimit}`);
+  const buildUrl = (
+    pageNum: string | number | string[],
+    limit: number,
+    sortBy: string | string[] | undefined,
+    filters: string | string[] | undefined,
+  ) => {
+    let url = `/posts?page=${pageNum}&size=${limit}`;
+    if (sortBy) url += `&sort=${sortBy}`;
+    if (filters) url += `&filter=${filters}`;
+    return url;
   };
+
+  const getTravelCard = useCallback(
+    async (
+      pageNum = page || 0,
+      limit = pageLimit,
+      sortBy = sort,
+      filters = filter,
+    ) => {
+      try {
+        const url = buildUrl(pageNum, limit, sortBy, filters);
+        const res = await axios.get(url);
+        console.log(res);
+        setCardFilter(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [filter, page, pageLimit, setCardFilter, sort],
+  );
 
   const prevPage = () => {
     if (currentPage > 1) {
@@ -94,33 +120,12 @@ function CardGrid() {
       },
     ];
 
-    setCardOrigin(
-      newCardsOrigin.sort((a, b) => a.countOfComments - b.countOfComments),
-    );
-    if (search === "전체") {
-      setCardFilter(
-        newCardsOrigin.sort((a, b) => a.countOfComments - b.countOfComments),
-      );
+    if (page === undefined && sort === undefined && filter === undefined) {
+      getTravelCard(0, pageLimit);
+    } else {
+      getTravelCard(page, pageLimit, sort, filter);
     }
-  }, [search, setCardFilter, setCardOrigin]);
-
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     if (window.innerWidth > 1200) {
-  //       setPageLimit(12);
-  //     } else if (window.innerWidth <= 1200 && window.innerWidth > 768) {
-  //       setPageLimit(9);
-  //     } else {
-  //       setPageLimit(6);
-  //     }
-  //   };
-  //   window.addEventListener("resize", handleResize);
-  //   handleResize();
-
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
+  }, [sort, setCardOrigin, page, pageLimit, getTravelCard, filter]);
 
   return (
     <>
