@@ -71,7 +71,7 @@ function Card({ content }: { content: any }) {
             <Image src={"/icons/calendar.svg"} alt="일정" fill />
           </div>
           <div>
-            {content.tripDate[0].startDate} ~ {content.tripDate[0].endDate}
+            {content.tripDate.startDate} ~ {content.tripDate.endDate}
           </div>
         </div>
 
