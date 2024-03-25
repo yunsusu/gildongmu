@@ -51,7 +51,7 @@ function Card({ content }: { content: any }) {
             )}
           </div>
 
-          <div className="mt-16 text-16 leading-tight text-white tablet:text-14">
+          <div className="mt-16 text-16 leading-tight text-white tablet:text-14 ">
             {content.title}
           </div>
           <div className="mt-1 text-14 text-white">{content.nickname}</div>

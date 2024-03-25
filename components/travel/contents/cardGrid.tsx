@@ -46,6 +46,12 @@ function CardGrid() {
       getTravelCard(currentPage, pageLimit, sortValue, filterValue),
   });
 
+  const firstLastPage = (num: number) => {
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, page: num },
+    });
+  };
   const prevPage = () => {
     if (currentPage > 1) {
       const prevPageNumber = currentPage - 1;
@@ -95,7 +101,10 @@ function CardGrid() {
       </div>
 
       <div className="m-auto flex w-max items-center gap-3">
-        <div className="relative h-24 w-24">
+        <div
+          className="relative h-24 w-24 cursor-pointer"
+          onClick={() => firstLastPage(0)}
+        >
           <Image src={"/icons/first_page.svg"} alt="첫페이지" fill />
         </div>
         <div className="relative h-24 w-24 cursor-pointer" onClick={prevPage}>
@@ -113,7 +122,10 @@ function CardGrid() {
             fill
           />
         </div>
-        <div className="relative h-24 w-24">
+        <div
+          className="relative h-24 w-24 cursor-pointer"
+          onClick={() => firstLastPage(3)}
+        >
           <Image src={"/icons/last_page.svg"} alt="마지막페이지" fill />
         </div>
       </div>
