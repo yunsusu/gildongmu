@@ -22,7 +22,7 @@ function CardGrid() {
     sortBy: string | string[] | undefined,
     filters: string | string[] | undefined,
   ) => {
-    let url = `/posts?page=${pageNum}&limit=${limit}`;
+    let url = `/posts?page=${pageNum}&size=${limit}`;
     if (sortBy) url += `&sort=${sortBy}`;
     if (filters) url += `&filter=${filters}`;
     return url;
@@ -120,11 +120,11 @@ function CardGrid() {
       },
     ];
 
-    // if (page === undefined && sort === undefined && filter === undefined) {
-    //   getTravelCard(1, pageLimit);
-    // } else {
-    //   getTravelCard(page, pageLimit, sort, filter);
-    // }
+    if (page === undefined && sort === undefined && filter === undefined) {
+      getTravelCard(0, pageLimit);
+    } else {
+      getTravelCard(page, pageLimit, sort, filter);
+    }
   }, [sort, setCardOrigin, page, pageLimit, getTravelCard, filter]);
 
   return (

@@ -11,7 +11,6 @@ interface FilterBtnProps {
 
 function FilterBtn({ text, search, setSearch }: FilterBtnProps) {
   const [choice, setChoice] = useState("bg-blue-200");
-  // const { setCardFilter } = useCardFilterStore();
   const { setChoiceSort } = useSortStore();
   const router = useRouter();
   const { filter } = router.query;
@@ -28,9 +27,9 @@ function FilterBtn({ text, search, setSearch }: FilterBtnProps) {
       case "man":
         updatedSearch = "남자만";
         break;
-      // case "man":
-      //   updatedSearch = "여자/남자";
-      //   break;
+      case "none":
+        updatedSearch = "여자/남자";
+        break;
       case "open":
         updatedSearch = "모집 중";
         break;
@@ -49,7 +48,7 @@ function FilterBtn({ text, search, setSearch }: FilterBtnProps) {
   const handleSort = (type: string) => {
     router.push({
       pathname: router.pathname,
-      query: { ...router.query, filter: type },
+      query: { filter: type },
     });
   };
 
@@ -64,10 +63,9 @@ function FilterBtn({ text, search, setSearch }: FilterBtnProps) {
       case "남자만":
         handleSort("man");
         break;
-      // "여자/남자" 경우는 어떻게 처리해야 할지 명확하지 않아 주석 처리함. 필요하다면 수정해야 함.
-      // case "여자/남자":
-      //   handleSort("both");
-      //   break;
+      case "여자/남자":
+        handleSort("none");
+        break;
       case "모집 중":
         handleSort("open");
         break;
@@ -79,7 +77,7 @@ function FilterBtn({ text, search, setSearch }: FilterBtnProps) {
     }
 
     setSearch(text);
-    setChoiceSort("최근 작성순"); // 필요하다면 주석 해제
+    setChoiceSort("최근 작성순");
   };
 
   return (
