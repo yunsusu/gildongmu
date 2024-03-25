@@ -6,13 +6,17 @@ import { useEffect, useState } from "react";
 const content = {
   id: 1,
   title: "여행 모집",
-  nickname: "야돈",
-  country: "일본",
-  city: "오사카",
-  startDate: "2024-03-15",
-  endDate: "2024-03-20",
+  nickname: "닉네임",
+  destination: "오사카",
+  tripDate: [
+    {
+      startDate: "2024-03-04",
+      endDate: "2024-03-22",
+    },
+  ],
   status: "모집 중",
   thumbnail: "/images/logo.svg",
+  tag: ["여자만", "단기"],
   countOfComments: 3,
   countOfBookmarks: 5,
 };
@@ -25,7 +29,7 @@ function Card() {
   useEffect(() => {
     if (router.pathname === "/travel") {
       setWrap(
-        "mobile:max-w-[280px] mobile:min-w-264 mobile:w-full w-240 h-[310px] block bg-white rounded-16 border border-line-02 m-auto overflow-hidden",
+        "max-w-240 w-full h-[310px] block bg-white rounded-16 border border-line-02 m-auto overflow-hidden",
       );
     } else {
       setWrap(
@@ -78,9 +82,7 @@ function Card() {
           <div className="relative h-16 w-16 tablet:h-12 tablet:w-12">
             <Image src={"/icons/location.svg"} alt="위치" fill />
           </div>
-          <div>
-            {content.country}, {content.city}
-          </div>
+          <div>{content.destination}</div>
         </div>
 
         <div className="flex flex-1 items-center gap-8">
@@ -88,7 +90,7 @@ function Card() {
             <Image src={"/icons/calendar.svg"} alt="일정" fill />
           </div>
           <div>
-            {content.startDate} ~ {content.endDate}
+            {content.tripDate[0].startDate} ~ {content.tripDate[0].endDate}
           </div>
         </div>
 
@@ -96,7 +98,16 @@ function Card() {
           <div className="relative h-16 w-16 tablet:h-12 tablet:w-12">
             <Image src={"/icons/tag.svg"} alt="태그" fill />
           </div>
-          <div>야돈만</div>
+          <div className="flex gap-6">
+            {content.tag.map((item, index) => (
+              <>
+                <div key={item}>
+                  {item}
+                  {index !== content.tag.length - 1 && ","}
+                </div>
+              </>
+            ))}
+          </div>
         </div>
 
         <div className="flex flex-1 gap-12 text-12">
