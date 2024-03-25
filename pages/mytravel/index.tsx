@@ -16,9 +16,16 @@ export default function MyTravel() {
   };
 
   useEffect(() => {
-    const getParticipatingCardData = async () => {
+    const getCardData = async () => {
       try {
-        const res = await axios.get("");
+        let res;
+        if (selectTab === "참여 중") {
+          res = await axios.get("/posts");
+        } else if (selectTab === "모집 중") {
+          res = await axios.get("");
+        } else {
+          res = await axios.get("/bookmarks");
+        }
         const {
           data: { content },
         } = res;
@@ -28,38 +35,10 @@ export default function MyTravel() {
       }
     };
 
-    const getRecruitingCardData = async () => {
-      try {
-        const res = await axios.get("");
-        const {
-          data: { content },
-        } = res;
-      } catch (error) {
-        console.error("Error fetching card data:", error);
-      }
-    };
+    getCardData();
+  }, [selectTab]);
 
-    const getSavingCardData = async () => {
-      try {
-        const res = await axios.get("/bookmarks");
-        const {
-          data: { bookmarks },
-        } = res;
-      } catch (error) {
-        console.error("Error fetching card data:", error);
-      }
-    };
-
-    if (selectTab === "참여 중") {
-      getParticipatingCardData();
-    } else if (selectTab === "모집 중") {
-      getRecruitingCardData();
-    } else {
-      getSavingCardData();
-    }
-  }, [cardData, selectTab]);
-
-  // console.log(cardData);
+  console.log(selectTab);
 
   return (
     <div className="relative flex flex-col items-center justify-center bg-[#818CF8]">
