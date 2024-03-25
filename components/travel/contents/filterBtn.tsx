@@ -21,10 +21,10 @@ function FilterBtn({ text, search, setSearch }: FilterBtnProps) {
       case undefined:
         updatedSearch = "전체";
         break;
-      case "woman":
+      case "female":
         updatedSearch = "여자만";
         break;
-      case "man":
+      case "male":
         updatedSearch = "남자만";
         break;
       case "none":
@@ -58,10 +58,10 @@ function FilterBtn({ text, search, setSearch }: FilterBtnProps) {
         router.push(`/travel`);
         break;
       case "여자만":
-        handleSort("woman");
+        handleSort("female");
         break;
       case "남자만":
-        handleSort("man");
+        handleSort("male");
         break;
       case "여자/남자":
         handleSort("none");

@@ -30,7 +30,7 @@ function CardGrid() {
 
   const getTravelCard = useCallback(
     async (
-      pageNum = page || 1,
+      pageNum = page || 0,
       limit = pageLimit,
       sortBy = sort,
       filters = filter,

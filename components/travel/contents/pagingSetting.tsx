@@ -42,7 +42,7 @@ function PagingSetting() {
       name: "댓글 많은 순",
       handleBtn: () => {
         setChoiceSort("댓글 많은 순");
-        handleSort("comment");
+        handleSort("countOfComments");
       },
     },
     {
