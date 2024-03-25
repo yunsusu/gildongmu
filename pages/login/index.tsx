@@ -47,6 +47,9 @@ export default function Login() {
         password: data.password,
       });
 
+      const { accessToken } = response.data;
+      document.cookie = `accessToken=${accessToken}; path=/; max-age=3600; secure; samesite=strict`;
+
       router.push("/");
     } catch (error: any) {
       if (error.response && error.response.status === 401) {
