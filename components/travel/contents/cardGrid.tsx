@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 import Card from "@/components/card";
 import GridNum from "@/components/travel/contents/gridNum";
@@ -30,6 +31,7 @@ export interface CardData {
 }
 
 function CardGrid() {
+  const [gridColumns, setGridColumns] = useState("grid-cols-4");
   const pageLimit = 12;
 
   const router = useRouter();
@@ -43,7 +45,6 @@ function CardGrid() {
     queryFn: () =>
       getTravelCard(currentPage, pageLimit, sortValue, filterValue),
   });
-  console.log(card);
 
   const prevPage = () => {
     if (currentPage > 1) {
@@ -62,15 +63,29 @@ function CardGrid() {
     });
   };
 
-  // useEffect(() => {
-  //   getTravelCard(currentPage, pageLimit, sortValue, filterValue);
-  // }, [currentPage, pageLimit, sort, filter, sortValue, filterValue]);
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth <= 572) {
+        setGridColumns("grid-cols-1");
+      } else if (window.innerWidth <= 768) {
+        setGridColumns("grid-cols-2");
+      } else if (window.innerWidth <= 1199) {
+        setGridColumns("grid-cols-3");
+      } else {
+        setGridColumns("grid-cols-4");
+      }
+    }
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <>
       <div
-        className="mx-auto mb-40 grid grid-flow-row auto-rows-max gap-24"
-        style={{ gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}
+        className={`mx-auto mb-40 grid grid-flow-row auto-rows-max gap-24 tablet:gap-20 ${gridColumns}`}
       >
         {Array.isArray(card?.content)
           ? card?.content.map((item: itemType, index: number) => (
