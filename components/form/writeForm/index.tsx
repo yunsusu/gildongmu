@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { geocode, RequestType, setKey } from "react-geocode";
 import { Controller, useForm } from "react-hook-form";
@@ -58,6 +59,8 @@ function WriteForm() {
     lng: 126.9921017,
   });
 
+  const router = useRouter();
+
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   const handleWritingCancel = () => {
@@ -67,12 +70,15 @@ function WriteForm() {
   const onSubmit = async (data: Write) => {
     const imagesWithThumbnail = data.images?.map((image, index) => {
       const url = image.url?.preview;
-  
-      if (typeof url !== 'string') {
-        console.error('Image URL is undefined or not in the expected format', image);
-        return { url: '', thumbnail: index === 0 };
+
+      if (typeof url !== "string") {
+        console.error(
+          "Image URL is undefined or not in the expected format",
+          image,
+        );
+        return { url: "", thumbnail: index === 0 };
       }
-  
+
       return {
         url: url,
         thumbnail: index === 0,
@@ -298,6 +304,7 @@ function WriteForm() {
           modalType="writingSuccess"
           onClose={() => {
             setIsModalOpen(false);
+            router.push("/travel");
           }}
         />
       )}
