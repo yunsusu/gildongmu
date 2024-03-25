@@ -35,7 +35,7 @@ function PagingSetting() {
       name: "인기순",
       handleBtn: () => {
         setChoiceSort("인기순");
-        handleSort("popular");
+        handleSort("countOfBookmarks");
       },
     },
     {

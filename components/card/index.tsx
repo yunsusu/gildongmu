@@ -3,29 +3,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const content = {
-  id: 1,
-  title: "여행 모집",
-  nickname: "닉네임",
-  destination: "오사카",
-  tripDate: [
-    {
-      startDate: "2024-03-04",
-      endDate: "2024-03-22",
-    },
-  ],
-  status: "모집 중",
-  thumbnail: "/images/logo.svg",
-  tag: ["여자만", "단기"],
-  countOfComments: 3,
-  countOfBookmarks: 5,
-};
-
-function Card() {
+function Card({ content }: { content: any }) {
   const [favor, setFavor] = useState(false);
   const [wrap, setWrap] = useState("");
   const router = useRouter();
-
   useEffect(() => {
     if (router.pathname === "/travel") {
       setWrap(
@@ -42,7 +23,7 @@ function Card() {
     <Link href={`/travel/${content.id}/detail`} className={wrap}>
       <div className="relative flex h-180 w-full flex-col overflow-hidden border p-16 tablet:p-12">
         <Image
-          src={content.thumbnail}
+          src={content.thumbnail ? content.thumbnail : "images/logo.svg"}
           alt="여행지 이미지"
           fill
           className="z-0 object-cover"
@@ -99,7 +80,7 @@ function Card() {
             <Image src={"/icons/tag.svg"} alt="태그" fill />
           </div>
           <div className="flex gap-6">
-            {content.tag.map((item, index) => (
+            {content.tag.map((item: any, index: number) => (
               <>
                 <div key={item}>
                   {item}
@@ -115,7 +96,9 @@ function Card() {
             <div className="relative h-12 w-12">
               <Image src={"/icons/heart.svg"} alt="좋아요 수" fill />
             </div>
-            <div>{content.countOfBookmarks}</div>
+            <div>
+              {content.countOfBookmarks === null ? 0 : content.countOfBookmarks}
+            </div>
           </div>
 
           <div className="flex items-center gap-4">
