@@ -1,8 +1,8 @@
 import Image from "next/image";
 
 import MyTravelHeader from "@/components/header/mytravel";
-import MyTravelCard from "@/components/mytravel/card";
-import TabMenu from "@/components/mytravel/tabMenu";
+import MyTravelCard from "@/components/mytravel/Card";
+import TabMenu from "@/components/mytravel/TabMenu";
 
 export default function MyTravel() {
   return (
