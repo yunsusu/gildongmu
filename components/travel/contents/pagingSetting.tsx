@@ -1,20 +1,17 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
 import Dropdown from "@/components/dropdown";
 import useToggle from "@/hooks/useToggle";
-import useCardFilterStore from "@/store/cardfilter";
 import useSortStore from "@/store/choiceSort";
 
 function PagingSetting() {
   const { choiceSort, setChoiceSort } = useSortStore();
-  const { cards, cardsOrigin, setCardFilter } = useCardFilterStore();
 
   const [dropDown, setDropDown, handleDropDown] = useToggle();
 
-  const today = new Date().getTime();
   const router = useRouter();
   const { sort } = router.query;
 
@@ -32,9 +29,6 @@ function PagingSetting() {
       handleBtn: () => {
         setChoiceSort("최근 작성순");
         handleSort("latest");
-        setCardFilter(
-          cards.sort((a: { id: number }, b: { id: number }) => b.id - a.id),
-        );
       },
     },
     {
@@ -42,46 +36,20 @@ function PagingSetting() {
       handleBtn: () => {
         setChoiceSort("인기순");
         handleSort("popular");
-        setCardFilter(
-          cards.sort(
-            (
-              a: { countOfBookmarks: number },
-              b: { countOfBookmarks: number },
-            ) => b.countOfBookmarks - a.countOfBookmarks,
-          ),
-        );
       },
     },
     {
       name: "댓글 많은 순",
       handleBtn: () => {
         setChoiceSort("댓글 많은 순");
-        handleSort("mostComments");
-        setCardFilter(
-          cards.sort(
-            (a: { countOfComments: number }, b: { countOfComments: number }) =>
-              b.countOfComments - a.countOfComments,
-          ),
-        );
+        handleSort("countOfComments");
       },
     },
     {
       name: "가까운 여행순",
       handleBtn: () => {
         setChoiceSort("가까운 여행순");
-        handleSort("distance");
-        setCardFilter(
-          cards.sort(
-            (
-              a: { startDate: string | number | Date },
-              b: { startDate: string | number | Date },
-            ) => {
-              const dateA = new Date(a.startDate).getTime();
-              const dateB = new Date(b.startDate).getTime();
-              return dateA - today - (dateB - today);
-            },
-          ),
-        );
+        handleSort("latest-trip");
       },
     },
   ];
@@ -90,6 +58,26 @@ function PagingSetting() {
   useOnClickOutside(ref, () => {
     dropDown && handleDropDown();
   });
+
+  useEffect(() => {
+    switch (sort) {
+      case "latest":
+        setChoiceSort("최근 작성순");
+        break;
+      case "popular":
+        setChoiceSort("인기순");
+        break;
+      case "comment":
+        setChoiceSort("댓글 많은 순");
+        break;
+      case "latest-trip":
+        setChoiceSort("가까운 여행순");
+        break;
+
+      default:
+        break;
+    }
+  }, [setChoiceSort, sort]);
   return (
     <>
       <div className="mb-32 flex w-full justify-between">
