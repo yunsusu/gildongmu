@@ -3,7 +3,6 @@ import "slick-carousel/slick/slick-theme.css";
 
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import Slider from "react-slick";
 
@@ -105,7 +104,7 @@ function SamplePrevArrow(props: { className: any; style: any; onClick: any }) {
   );
 }
 
-function TravelCarousel() {
+function TravelCarousel({ choice }: any) {
   var settings = {
     dots: false,
     infinite: true,
@@ -149,12 +148,10 @@ function TravelCarousel() {
       },
     ],
   };
-  const router = useRouter();
-  const { sort } = router.query;
-  const sortValue = Array.isArray(sort) ? sort[0] : sort;
+  console.log(choice);
   const { data: card } = useQuery({
-    queryKey: ["cards"],
-    queryFn: () => getTravelCard(0, 12, sortValue),
+    queryKey: ["cards", choice],
+    queryFn: () => getTravelCard(0, 12, choice),
   });
 
   return (
