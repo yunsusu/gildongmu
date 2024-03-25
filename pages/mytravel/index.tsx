@@ -20,7 +20,7 @@ export default function MyTravel() {
       try {
         let res;
         if (selectTab === "참여 중") {
-          res = await axios.get("/posts");
+          res = await axios.get("");
         } else if (selectTab === "모집 중") {
           res = await axios.get("");
         } else {

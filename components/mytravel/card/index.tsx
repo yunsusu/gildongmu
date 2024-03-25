@@ -49,7 +49,9 @@ export default function MyTravelCard({ data }: MyTravelCardProps) {
         />
         <div className="absolute left-0 top-0 h-full w-full rounded-[20px] bg-black opacity-20" />
         <div className="absolute flex flex-col items-start justify-between gap-16">
-          <div className="flex items-center justify-between self-stretch">
+          <div
+            className={`flex items-center justify-between gap-135 self-stretch tablet:gap-109 ${isMobile ? "mobile:gap-46" : "mobile:gap-140"}`}
+          >
             <RecruitmentStatus recruitmentStatus={data.status} />
             <Favor />
           </div>
@@ -72,42 +74,49 @@ export default function MyTravelCard({ data }: MyTravelCardProps) {
         <Title title={data.title} type="back" />
         <Image src={"/icons/dotline.svg"} alt="선" width={222} height={1} />
         <div
-          className={`mb-110 mt-24 flex flex-col justify-start tablet:mb-135 tablet:mt-16 mobile:mt-10 ${
-            isMobile ? "mobile:mb-4" : "mobile:mb-35"
+          className={`mb-115 mt-24 flex flex-col justify-start tablet:mb-140 tablet:mt-16 mobile:mt-10 ${
+            isMobile ? "mobile:mb-25" : "mobile:mb-20"
           } `}
         >
-          <div className="flex items-center gap-8">
-            <div className="tablet:h-12 tablet:w-12">
-              <Image
-                src={"/icons/location.svg"}
-                alt="위치"
-                width={16}
-                height={16}
-              />
+          <div className="flex flex-col items-start justify-center gap-8">
+            <div className="flex items-center justify-center gap-8">
+              <div className="tablet:h-12 tablet:w-12">
+                <Image
+                  src={"/icons/location.svg"}
+                  alt="위치"
+                  width={16}
+                  height={16}
+                />
+              </div>
+              <div className="text-14 font-normal leading-5 tracking-tighter text-text-02 tablet:text-12">
+                {data.destination}
+              </div>
             </div>
-            <div className="text-14 font-normal leading-5 tracking-tighter text-text-02 tablet:text-12">
-              {data.destination}
+            <div className="flex items-center justify-center gap-8">
+              <div className="tablet:h-12 tablet:w-12">
+                <Image
+                  src={"/icons/calendar.svg"}
+                  alt="일정"
+                  width={16}
+                  height={16}
+                />
+              </div>
+              <div className="text-14 font-normal leading-5 tracking-tighter text-text-02 tablet:text-12">
+                {data.startDate} ~ {data.endDate}
+              </div>
             </div>
-          </div>
-          <div className="flex items-center gap-8">
-            <div className="tablet:h-12 tablet:w-12">
-              <Image
-                src={"/icons/calendar.svg"}
-                alt="일정"
-                width={16}
-                height={16}
-              />
-            </div>
-            <div className="text-14 font-normal leading-5 tracking-tighter text-text-02 tablet:text-12">
-              {data.startDate} ~ {data.endDate}
-            </div>
-          </div>
-          <div className="flex items-center gap-8">
-            <div className="tablet:h-12 tablet:w-12">
-              <Image src={"/icons/tag.svg"} alt="태그" width={16} height={16} />
-            </div>
-            <div className="text-14 font-normal leading-5 tracking-tighter text-text-02 tablet:text-12">
-              야돈만
+            <div className="flex items-center justify-center gap-8">
+              <div className="tablet:h-12 tablet:w-12">
+                <Image
+                  src={"/icons/tag.svg"}
+                  alt="태그"
+                  width={16}
+                  height={16}
+                />
+              </div>
+              <div className="text-14 font-normal leading-5 tracking-tighter text-text-02 tablet:text-12">
+                야돈만
+              </div>
             </div>
           </div>
         </div>
