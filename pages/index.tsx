@@ -1,11 +1,17 @@
-export default function Home() {
+import WritingButton from "@/components/button/writing";
+import Header from "@/components/header";
+import Contents from "@/components/main/contents";
+import Footer from "@/components/main/footer";
+
+export default function Main() {
   return (
     <>
-      <div>
-        <span className="text-reds-600 tablet:text-blue-600 pc:text-green-600">
-          안녕하세요
-        </span>
-      </div>
+      <Header headerColor="bg-primary-press">
+        이번 여행, 어디로 떠나볼까요?
+      </Header>
+      <Contents />
+      <WritingButton />
+      <Footer />
     </>
   );
 }

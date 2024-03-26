@@ -17,6 +17,13 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "store/gnb.js",
+    "lib/api/axios.js",
+    "lib/utils/regexp.ts"
+  ],
   "exclude": ["node_modules"]
 }
