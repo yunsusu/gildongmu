@@ -28,10 +28,12 @@ interface itemType {
 }
 export interface CardData {
   content: itemType[];
+  totalPages: number;
 }
 
 function CardGrid() {
   const [gridColumns, setGridColumns] = useState("grid-cols-4");
+
   const pageLimit = 12;
 
   const router = useRouter();
@@ -52,6 +54,7 @@ function CardGrid() {
       query: { ...router.query, page: num },
     });
   };
+
   const prevPage = () => {
     if (currentPage > 1) {
       const prevPageNumber = currentPage - 1;
@@ -62,11 +65,13 @@ function CardGrid() {
     }
   };
   const nextPage = () => {
-    const prevPageNumber = currentPage + 1;
-    router.push({
-      pathname: router.pathname,
-      query: { ...router.query, page: prevPageNumber },
-    });
+    if (currentPage < Number(card?.totalPages) - 1) {
+      const prevPageNumber = currentPage + 1;
+      router.push({
+        pathname: router.pathname,
+        query: { ...router.query, page: prevPageNumber },
+      });
+    }
   };
 
   useEffect(() => {
@@ -111,9 +116,20 @@ function CardGrid() {
           <Image src={"/icons/keyboard_arrow_left.svg"} alt="이전페이지" fill />
         </div>
         <div className="flex gap-6 px-5 text-16 font-normal">
-          <GridNum num={1} />
-          <GridNum num={2} />
-          <GridNum num={3} />
+          {Array.from({ length: card?.totalPages || 0 }, (_, index) => {
+            let isWithinRange =
+              index >= Number(page) - 2 && index <= Number(page) + 2;
+
+            if (Number(page) === 0) {
+              isWithinRange = index < 5;
+            } else if (Number(page) === Number(card?.totalPages) - 1) {
+              isWithinRange = index <= Number(page) + 5;
+            }
+            console.log(isWithinRange);
+            return isWithinRange ? (
+              <GridNum key={index} num={index + 1} />
+            ) : null;
+          })}
         </div>
         <div className="relative h-24 w-24 cursor-pointer" onClick={nextPage}>
           <Image
@@ -124,7 +140,7 @@ function CardGrid() {
         </div>
         <div
           className="relative h-24 w-24 cursor-pointer"
-          onClick={() => firstLastPage(3)}
+          onClick={() => firstLastPage(Number(card?.totalPages) - 1)}
         >
           <Image src={"/icons/last_page.svg"} alt="마지막페이지" fill />
         </div>

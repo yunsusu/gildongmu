@@ -82,7 +82,7 @@ function Card({ content }: { content: any }) {
           <div className="flex gap-6">
             {content.tag.map((item: any, index: number) => (
               <>
-                <div key={item}>
+                <div key={index}>
                   {item}
                   {index !== content.tag.length - 1 && ","}
                 </div>
