@@ -109,7 +109,7 @@ export default function MyTravelModal({
                     모집글 자세히 보기
                   </span>
                   <Image
-                    src={"/icons/chevron-right.png"}
+                    src={"/icons/chevron-right-gray.png"}
                     alt="화살표 이미지"
                     width={20}
                     height={20}

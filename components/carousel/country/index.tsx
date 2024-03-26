@@ -90,7 +90,7 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
           >
             <div className="relative flex h-24 w-24 items-center justify-start">
               <Image
-                src={"/icons/chevron-right.png"}
+                src={"/icons/chevron-right-blue.png"}
                 alt="캐러셀 다음 버튼"
                 fill
               />
