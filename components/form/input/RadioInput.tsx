@@ -25,7 +25,7 @@ function RadioInput({
       {pageType === "write" && (
         <div className="flex h-24 w-121 items-center gap-12 mobile:w-100">
           <RadioGroupItem
-            value="none"
+            value="NONE"
             id="none"
             className="h-24 w-24 border-line-01 mobile:h-20 mobile:w-20"
           />
