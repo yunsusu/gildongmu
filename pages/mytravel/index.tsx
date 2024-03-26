@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import MyTravelHeader from "@/components/header/mytravel";
 import MyTravelCard from "@/components/mytravel/card";
-import TabMenu from "@/components/mytravel/TabMenu";
+import TabMenu from "@/components/mytravel/tabMenu";
 import axios from "@/lib/api/axios";
 import { scrollToTop } from "@/pages/travel/[Id]/detail";
 
@@ -21,9 +21,9 @@ export default function MyTravel() {
       try {
         let res;
         if (selectTab === "참여 중") {
-          res = await axios.get("");
+          res = await axios.get("/posts");
         } else if (selectTab === "모집 중") {
-          res = await axios.get("");
+          res = await axios.get("/posts");
         } else {
           res = await axios.get("/bookmarks");
         }
@@ -38,8 +38,6 @@ export default function MyTravel() {
 
     getCardData();
   }, [selectTab]);
-
-  // console.log(selectTab);
 
   return (
     <div className="relative flex flex-col items-center justify-center bg-[#818CF8]">
@@ -57,11 +55,11 @@ export default function MyTravel() {
           <div className="flex flex-wrap items-center justify-center gap-24 self-stretch">
             {cardData && cardData.length > 0 ? (
               cardData.map((card, index) => (
-                <MyTravelCard key={index} data={card} />
+                <MyTravelCard key={index} data={card} selectTab={selectTab} />
               ))
             ) : (
               <div className="flex min-h-screen w-full flex-col items-center justify-center gap-32 bg-white tablet:gap-24">
-                <div className="justify-cente flex flex-col items-center gap-24 tablet:gap-20">
+                <div className="flex flex-col items-center justify-center gap-24 tablet:gap-20">
                   <div className="h-160 w-240 bg-[#D9D9D9]" />
                   <div className="text-24 font-semibold leading-[31.2px] tracking-tighter text-text-01 tablet:text-20">
                     참여 중인 길동무 모임이 없어요!

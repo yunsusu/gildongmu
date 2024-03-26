@@ -10,9 +10,10 @@ import useToggle from "@/hooks/useToggle";
 
 interface MyTravelCardProps {
   data: any;
+  selectTab: string;
 }
 
-export default function MyTravelCard({ data }: MyTravelCardProps) {
+export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
   const [isMobile, setIsMobile] = useToggle(true);
   const [isFlipped, setIsFlipped] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -152,8 +153,28 @@ export default function MyTravelCard({ data }: MyTravelCardProps) {
           setIsFlipped={setIsFlipped}
         />
       </div>
-      {isModalOpen && (
+      {isModalOpen && selectTab === "참여 중" && (
         <MyTravelModal
+          data={data}
+          selectTab="참여 중"
+          onClose={() => {
+            setIsModalOpen(false);
+          }}
+        />
+      )}
+      {isModalOpen && selectTab === "모집 중" && (
+        <MyTravelModal
+          data={data}
+          selectTab="모집 중"
+          onClose={() => {
+            setIsModalOpen(false);
+          }}
+        />
+      )}
+      {isModalOpen && selectTab === "찜" && (
+        <MyTravelModal
+          data={data}
+          selectTab="찜"
           onClose={() => {
             setIsModalOpen(false);
           }}
