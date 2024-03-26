@@ -2,8 +2,10 @@ import SignUpForm from "@/components/form/signupForm";
 
 function Signup() {
   return (
-    <div className="bg-bg-06 flex flex-col justify-start items-center pb-80">
-      <h1 className="h-120 text-32 font-extrabold text-text-01 flex items-center tablet:h-100 tablet:text-24">회원가입</h1>
+    <div className="flex flex-col items-center justify-start bg-bg-06 pb-80">
+      <h1 className="flex h-120 items-center text-32 font-extrabold text-text-01 tablet:h-100 tablet:text-24">
+        회원가입
+      </h1>
       <SignUpForm />
     </div>
   );

@@ -10,7 +10,7 @@ import ImageUpload from "@/components/form/input/ImageUploadInput";
 import IntroTextarea from "@/components/form/input/IntroTextarea";
 import RadioInput from "@/components/form/input/RadioInput";
 import TagInput from "@/components/form/input/TagInput";
-import AlertModal from "@/components/modal";
+import Modal from "@/components/modal";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import axios from "@/lib/api/axios";
@@ -334,7 +334,7 @@ function SignUpForm() {
         </div>
       </form>
       {isModalOpen && (
-        <AlertModal
+        <Modal
           modalType="signupSuccess"
           onClose={() => {
             setIsModalOpen(false);
@@ -343,7 +343,7 @@ function SignUpForm() {
         />
       )}
       {isCheckEmailModalOpen && (
-        <AlertModal
+        <Modal
           modalType="emailInUse"
           onClose={() => {
             setIsCheckEmailModalOpen(false);

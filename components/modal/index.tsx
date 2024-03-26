@@ -72,7 +72,7 @@ export default function Modal({ modalType, onClose }: ModalProps) {
         </>
       );
       break;
-      case "writingDelete":
+    case "writingDelete":
       title = "글 삭제하기";
       message = (
         <>
