@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import Modal from "@/components/modal";
-import Favor from "@/components/mytravel/Card/Favor";
-import FilpButton from "@/components/mytravel/Card/FlipButton";
-import RecruitmentStatus from "@/components/mytravel/Card/RecruitmentStatus";
-import Title from "@/components/mytravel/Card/Title";
+import Favor from "@/components/mytravel/card/Favor";
+import FilpButton from "@/components/mytravel/card/FlipButton";
+import RecruitmentStatus from "@/components/mytravel/card/RecruitmentStatus";
+import Title from "@/components/mytravel/card/Title";
+import MyTravelModal from "@/components/mytravel/modal";
 import useToggle from "@/hooks/useToggle";
 
 interface MyTravelCardProps {
@@ -153,8 +153,7 @@ export default function MyTravelCard({ data }: MyTravelCardProps) {
         />
       </div>
       {isModalOpen && (
-        <Modal
-          modalType="signupSuccess"
+        <MyTravelModal
           onClose={() => {
             setIsModalOpen(false);
           }}

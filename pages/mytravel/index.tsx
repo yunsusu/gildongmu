@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import MyTravelHeader from "@/components/header/mytravel";
-import MyTravelCard from "@/components/mytravel/Card";
+import MyTravelCard from "@/components/mytravel/card";
 import TabMenu from "@/components/mytravel/TabMenu";
 import axios from "@/lib/api/axios";
 import { scrollToTop } from "@/pages/travel/[Id]/detail";
