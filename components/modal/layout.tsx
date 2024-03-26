@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { useOnClickOutside } from "usehooks-ts";
 
 import { ModalType } from "@/components/modal";
-import AlertModalButton from "@/components/modal/button";
+import ModalButton from "@/components/modal/button";
 
 interface ModalLayoutProps {
   modalMessage: string | ReactNode;
@@ -59,7 +59,7 @@ export default function ModalLayout({
           <span className="font-NanumSquareRound text-center text-18 font-normal leading-relaxed tracking-tight text-text-02 mobile:text-16">
             {modalMessage}
           </span>
-          <AlertModalButton modalType={modalType} onClose={onClose} />
+          <ModalButton modalType={modalType} onClose={onClose} />
         </div>
       </div>,
       document.body,

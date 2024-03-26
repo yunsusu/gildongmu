@@ -21,7 +21,7 @@ function Detail() {
 
 export default Detail;
 
-function scrollToTop() {
+export function scrollToTop() {
   window.scrollTo({
     top: 0,
     behavior: "smooth",
