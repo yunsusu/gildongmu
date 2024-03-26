@@ -14,7 +14,7 @@ const Custom404: NextPage = () => {
   return (
     <div
       style={{ height: "calc(100vh - 80px)" }}
-      className="flex w-full items-center justify-center p-40"
+      className="flex min-w-full items-center justify-center"
     >
       <div className="h-334 flex w-240 flex-col items-center justify-center gap-32">
         <div className="relative h-160 w-240">
