@@ -18,7 +18,7 @@ function GridNum({ num }: GridNumProps) {
 
   return (
     <div
-      className={`flex h-32 w-32 cursor-pointer items-center justify-center rounded-full ${Number(page) === num && "bg-line-05 text-blue-600"} ${page === undefined && num === 1 && "bg-line-05 text-blue-600"}`}
+      className={`flex h-32 w-32 cursor-pointer items-center justify-center rounded-full ${Number(page) === num - 1 && "bg-line-05 text-blue-600"} ${page === undefined && num === 1 && "bg-line-05 text-blue-600"}`}
       onClick={() => changePage(num - 1)}
     >
       {num}

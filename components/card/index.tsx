@@ -3,29 +3,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const content = {
-  id: 1,
-  title: "여행 모집",
-  nickname: "닉네임",
-  destination: "오사카",
-  tripDate: [
-    {
-      startDate: "2024-03-04",
-      endDate: "2024-03-22",
-    },
-  ],
-  status: "모집 중",
-  thumbnail: "/images/logo.svg",
-  tag: ["여자만", "단기"],
-  countOfComments: 3,
-  countOfBookmarks: 5,
-};
-
-function Card() {
+function Card({ content }: { content: any }) {
   const [favor, setFavor] = useState(false);
   const [wrap, setWrap] = useState("");
   const router = useRouter();
-
   useEffect(() => {
     if (router.pathname === "/travel") {
       setWrap(
@@ -42,7 +23,7 @@ function Card() {
     <Link href={`/travel/${content.id}/detail`} className={wrap}>
       <div className="relative flex h-180 w-full flex-col overflow-hidden border p-16 tablet:p-12">
         <Image
-          src={content.thumbnail}
+          src={content.thumbnail ? content.thumbnail : "images/logo.svg"}
           alt="여행지 이미지"
           fill
           className="z-0 object-cover"
@@ -70,7 +51,7 @@ function Card() {
             )}
           </div>
 
-          <div className="mt-16 text-16 leading-tight text-white tablet:text-14">
+          <div className="mt-16 text-16 leading-tight text-white tablet:text-14 ">
             {content.title}
           </div>
           <div className="mt-1 text-14 text-white">{content.nickname}</div>
@@ -90,7 +71,7 @@ function Card() {
             <Image src={"/icons/calendar.svg"} alt="일정" fill />
           </div>
           <div>
-            {content.tripDate[0].startDate} ~ {content.tripDate[0].endDate}
+            {content.tripDate.startDate} ~ {content.tripDate.endDate}
           </div>
         </div>
 
@@ -99,9 +80,9 @@ function Card() {
             <Image src={"/icons/tag.svg"} alt="태그" fill />
           </div>
           <div className="flex gap-6">
-            {content.tag.map((item, index) => (
+            {content.tag.map((item: any, index: number) => (
               <>
-                <div key={item}>
+                <div key={index}>
                   {item}
                   {index !== content.tag.length - 1 && ","}
                 </div>
@@ -115,7 +96,9 @@ function Card() {
             <div className="relative h-12 w-12">
               <Image src={"/icons/heart.svg"} alt="좋아요 수" fill />
             </div>
-            <div>{content.countOfBookmarks}</div>
+            <div>
+              {content.countOfBookmarks === null ? 0 : content.countOfBookmarks}
+            </div>
           </div>
 
           <div className="flex items-center gap-4">
