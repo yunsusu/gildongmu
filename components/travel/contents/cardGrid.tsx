@@ -120,7 +120,7 @@ function CardGrid() {
             let isWithinRange =
               index >= Number(page) - 2 && index <= Number(page) + 2;
 
-            if (Number(page) === 0) {
+            if (Number(page) === 0 || page === undefined) {
               isWithinRange = index < 5;
             } else if (Number(page) === Number(card?.totalPages) - 1) {
               isWithinRange = index <= Number(page) + 5;
