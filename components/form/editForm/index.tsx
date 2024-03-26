@@ -20,6 +20,28 @@ export interface Location {
   lng: number;
 }
 
+interface Edit {
+  title: string;
+  destination: string;
+  tripDate: {
+    startDate: string;
+    endDate: string;
+  };
+  numberOfPeople: number;
+  gender: string;
+  content: string;
+  tag: string[];
+  images: Image[];
+}
+
+interface Image {
+  url: {
+    file: File;
+    preview: string;
+  };
+  thumbnail: boolean;
+}
+
 const detailContent = {
   id: 2,
   title: "일본 동행구해요",
@@ -55,7 +77,7 @@ function EditForm() {
     handleSubmit,
     control,
     formState: { errors, isValid },
-  } = useForm({
+  } = useForm<Edit>({
     mode: "onBlur",
     defaultValues: {
       title: detailContent.title,
@@ -64,14 +86,14 @@ function EditForm() {
       numberOfPeople: detailContent.numberOfPeople,
       gender: detailContent.gender,
       content: detailContent.content,
-      tags: detailContent.tag,
+      tag: detailContent.tag,
       images: undefined, // images는 별도의 처리가 필요
     },
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
-  const [search, setSearch] = useState("");
+  const [destination, setDestination] = useState("");
   const [location, setLocation] = useState<Location>({
     lat: 37.5400456,
     lng: 126.9921017,
@@ -97,14 +119,14 @@ function EditForm() {
 
   const handleSearchLocation = (e: any) => {
     if (e.key === "Enter") {
-      setSearch(e.target.value);
+      setDestination(e.target.value);
     }
   };
 
   useEffect(() => {
-    if (search.trim() !== "") {
+    if (destination.trim() !== "") {
       setKey(String(apiKey));
-      geocode(RequestType.ADDRESS, search)
+      geocode(RequestType.ADDRESS, destination)
         .then(({ results }) => {
           if (results.length > 0) {
             const { lat, lng } = results[0].geometry.location;
@@ -116,7 +138,7 @@ function EditForm() {
         })
         .catch(console.error);
     }
-  }, [search, apiKey]);
+  }, [destination, apiKey]);
 
   return (
     <>
@@ -255,7 +277,7 @@ function EditForm() {
               <Label htmlFor="tags">태그</Label>
               <Controller
                 control={control}
-                name="tags"
+                name="tag"
                 render={({ field }) => (
                   <TagInput
                     onChange={(tags: any) => field.onChange(tags)}
