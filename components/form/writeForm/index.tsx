@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { geocode, RequestType, setKey } from "react-geocode";
 import { Controller, useForm } from "react-hook-form";
@@ -13,10 +14,33 @@ import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import axios from "@/lib/api/axios";
 
 export interface Location {
   lat: number;
   lng: number;
+}
+
+interface Write {
+  title: string;
+  destination: string;
+  tripDate: {
+    startDate: string;
+    endDate: string;
+  };
+  numberOfPeople: number;
+  gender: string;
+  content: string;
+  tag: string[];
+  images: Image[];
+}
+
+interface Image {
+  url: {
+    file: File;
+    preview: string;
+  };
+  thumbnail: boolean;
 }
 
 function WriteForm() {
@@ -25,15 +49,17 @@ function WriteForm() {
     handleSubmit,
     control,
     formState: { errors, isValid },
-  } = useForm({ mode: "onBlur" });
+  } = useForm<Write>({ mode: "onBlur" });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
-  const [search, setSearch] = useState("");
+  const [destination, setDestination] = useState("");
   const [location, setLocation] = useState<Location>({
     lat: 37.5400456,
     lng: 126.9921017,
   });
+
+  const router = useRouter();
 
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
@@ -41,22 +67,50 @@ function WriteForm() {
     setIsCancelModalOpen(true);
   };
 
-  const onSubmit = (data: any) => {
-    console.log(data);
-    // 글쓰기 작성 성공 시
-    setIsModalOpen(true);
+  const onSubmit = async (data: Write) => {
+    // const imagesWithThumbnail = data.images?.map((image, index) => {
+    //   const url = image.preview;
+
+    //   if (typeof url !== "string") {
+    //     console.error(
+    //       "Image URL is undefined or not in the expected format",
+    //       image,
+    //     );
+    //     return { url: "", thumbnail: index === 0 }; // url
+    //   }
+
+    //   return {
+    //     url: url,
+    //     thumbnail: index === 0,
+    //   };
+    // });
+
+    const updatedData = {
+      ...data,
+      // images: imagesWithThumbnail,
+      destination,
+    };
+
+    try {
+      const res = await axios.post("/posts", updatedData);
+      setIsModalOpen(true);
+      console.log(updatedData);
+    } catch (error) {
+      console.error("글쓰기 실패:", error);
+      console.log(updatedData);
+    }
   };
 
   const handleSearchLocation = (e: any) => {
     if (e.key === "Enter") {
-      setSearch(e.target.value);
+      setDestination(e.target.value);
     }
   };
 
   useEffect(() => {
-    if (search.trim() !== "") {
+    if (destination.trim() !== "") {
       setKey(String(apiKey));
-      geocode(RequestType.ADDRESS, search)
+      geocode(RequestType.ADDRESS, destination)
         .then(({ results }) => {
           if (results.length > 0) {
             const { lat, lng } = results[0].geometry.location;
@@ -68,7 +122,7 @@ function WriteForm() {
         })
         .catch(console.error);
     }
-  }, [search, apiKey]);
+  }, [destination, apiKey]);
 
   return (
     <>
@@ -78,7 +132,7 @@ function WriteForm() {
             <div className="mb-8 flex flex-col items-center">
               <Input
                 type="text"
-                className={`h-52 w-[756px] rounded-0 border-0 border-b px-24 pb-24 pt-12 text-center text-xl font-bold placeholder:text-text-05 focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 ${errors.email && "bg-input-error"}`}
+                className="h-52 w-[756px] rounded-0 border-0 border-b px-24 pb-24 pt-12 text-center text-xl font-bold placeholder:text-text-05 focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272"
                 placeholder="제목을 입력해 주세요"
                 {...register("title", { required: true })}
               />
@@ -112,6 +166,7 @@ function WriteForm() {
                 render={({ field }) => (
                   <RangeDatePickerInput
                     onChange={(date: any) => field.onChange(date)}
+                    value={field.value}
                     id={"date"}
                   />
                 )}
@@ -138,6 +193,7 @@ function WriteForm() {
                   <>
                     <CounterInput
                       onChange={(member: number) => field.onChange(member)}
+                      value={field.value}
                       isError={!!error}
                       id={"member"}
                     />
@@ -212,7 +268,7 @@ function WriteForm() {
               <Label htmlFor="tags">태그</Label>
               <Controller
                 control={control}
-                name="tags"
+                name="tag"
                 render={({ field }) => (
                   <TagInput
                     onChange={(tags: any) => field.onChange(tags)}
@@ -248,6 +304,7 @@ function WriteForm() {
           modalType="writingSuccess"
           onClose={() => {
             setIsModalOpen(false);
+            router.push("/travel");
           }}
         />
       )}

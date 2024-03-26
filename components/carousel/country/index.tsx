@@ -1,8 +1,10 @@
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import React, { useRef } from "react";
 import Slider from "react-slick";
 
 import Card from "@/components/card";
+import { getTravelCard } from "@/lib/api/travel";
 
 interface CountryCarouselProps {
   titleIcon: string;
@@ -49,6 +51,11 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
       },
     ],
   };
+  const { data: card } = useQuery({
+    queryKey: ["cards"],
+    queryFn: () => getTravelCard(0, 12),
+  });
+
   return (
     <div className="slider-container !flex w-full flex-col gap-40">
       <div
@@ -88,14 +95,11 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
         </div>
       </div>
       <Slider ref={sliderRef} {...settings}>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {Array.isArray(card?.content)
+          ? card?.content.map((item: any, index: number) => (
+              <Card key={index} content={item} />
+            ))
+          : null}
       </Slider>
     </div>
   );
