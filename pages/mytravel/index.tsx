@@ -6,6 +6,7 @@ import MyTravelHeader from "@/components/header/mytravel";
 import MyTravelCard from "@/components/mytravel/Card";
 import TabMenu from "@/components/mytravel/TabMenu";
 import axios from "@/lib/api/axios";
+import { scrollToTop } from "@/pages/travel/[Id]/detail";
 
 export default function MyTravel() {
   const [selectTab, setSelectTab] = useState("참여 중");
@@ -38,7 +39,7 @@ export default function MyTravel() {
     getCardData();
   }, [selectTab]);
 
-  console.log(selectTab);
+  // console.log(selectTab);
 
   return (
     <div className="relative flex flex-col items-center justify-center bg-[#818CF8]">
@@ -75,6 +76,12 @@ export default function MyTravel() {
             )}
           </div>
         </div>
+      </div>
+      <div
+        className="fixed bottom-40 right-40 z-10 h-64 w-64 animate-bounce cursor-pointer tablet:h-56 tablet:w-56 mobile:bottom-20 mobile:right-20"
+        onClick={scrollToTop}
+      >
+        <Image src="/icons/rocket.svg" alt="로켓 이미지" fill />
       </div>
     </div>
   );
