@@ -1,12 +1,14 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import React, { useEffect } from "react";
 import Slider from "react-slick";
 
 import Card from "@/components/card";
 import useToggle from "@/hooks/useToggle";
+import { getTravelCard } from "@/lib/api/travel";
 
 function SampleNextArrow(props: { className: any; style: any; onClick: any }) {
   const [isMobile, setIsMobile] = useToggle(true);
@@ -102,7 +104,7 @@ function SamplePrevArrow(props: { className: any; style: any; onClick: any }) {
   );
 }
 
-function TravelCarousel() {
+function TravelCarousel({ choice }: any) {
   var settings = {
     dots: false,
     infinite: true,
@@ -146,17 +148,20 @@ function TravelCarousel() {
       },
     ],
   };
+  console.log(choice);
+  const { data: card } = useQuery({
+    queryKey: ["cards", choice],
+    queryFn: () => getTravelCard(0, 12, choice),
+  });
+
   return (
     <div className="slider-container my-custom-slider relative">
       <Slider {...settings}>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {Array.isArray(card?.content)
+          ? card?.content.map((item: any, index: number) => (
+              <Card key={index} content={item} />
+            ))
+          : null}
       </Slider>
     </div>
   );
