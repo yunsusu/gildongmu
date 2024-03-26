@@ -5,21 +5,21 @@ import { useState } from "react";
 import AlertModal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
+import { DetailDataType } from "@/lib/api/detail/type";
 
 const content = {
   id: 1,
 };
 
-function DetailTitle() {
+function DetailTitle({ data }: DetailDataType) {
   const router = useRouter();
 
-  const isOwner = true; // 작성자인지 아닌지
-  const isSubmit = false; // 신청했는지 아닌지
+  const isOwner = true;
+  const isSubmit = false;
 
-  //  데이터 예시
   const titleData = {
-    title: "모집글입니다~",
-    nickname: "테스트유저",
+    title: data?.title,
+    nickname: data?.nickname,
   };
 
   const [isEmpty, isSetEmpty, heartToggle] = useToggle(false);
