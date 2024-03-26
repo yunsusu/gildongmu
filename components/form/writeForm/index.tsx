@@ -68,33 +68,33 @@ function WriteForm() {
   };
 
   const onSubmit = async (data: Write) => {
-    const imagesWithThumbnail = data.images?.map((image, index) => {
-      const url = image.url?.preview;
+    // const imagesWithThumbnail = data.images?.map((image, index) => {
+    //   const url = image.preview;
 
-      if (typeof url !== "string") {
-        console.error(
-          "Image URL is undefined or not in the expected format",
-          image,
-        );
-        return { url: "", thumbnail: index === 0 };
-      }
+    //   if (typeof url !== "string") {
+    //     console.error(
+    //       "Image URL is undefined or not in the expected format",
+    //       image,
+    //     );
+    //     return { url: "", thumbnail: index === 0 }; // url
+    //   }
 
-      return {
-        url: url,
-        thumbnail: index === 0,
-      };
-    });
+    //   return {
+    //     url: url,
+    //     thumbnail: index === 0,
+    //   };
+    // });
 
     const updatedData = {
       ...data,
-      images: imagesWithThumbnail,
-      tripDate: [data.tripDate],
+      // images: imagesWithThumbnail,
       destination,
     };
 
     try {
       const res = await axios.post("/posts", updatedData);
       setIsModalOpen(true);
+      console.log(updatedData);
     } catch (error) {
       console.error("글쓰기 실패:", error);
       console.log(updatedData);
