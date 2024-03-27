@@ -1,7 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+
+import Chip from "@/components/mytravel/modal/Chip";
 
 interface MyTravelModalProps {
   data: any;
@@ -42,7 +43,7 @@ export default function MyTravelModal({
     };
   }, []);
 
-  console.log(data);
+  // console.log(data);
 
   return (
     portalRoot &&
@@ -81,44 +82,102 @@ export default function MyTravelModal({
                   className="rounded-full"
                 />
                 <div className="flex flex-col gap-4">
-                  <span className="text-16 font-bold leading-[130%] tracking-[0.6px] text-text-03 tablet:text-14">
+                  <span className="text-16 font-bold leading-[130%] tracking-[-0.6px] text-text-03 tablet:text-14">
                     유저 이름
                   </span>
-                  <div className="text-18 font-bold leading-[130%] tracking-[0.6px] text-text-01 tablet:text-16">
+                  <div className="text-18 font-bold leading-[130%] tracking-[-0.6px] text-text-01 tablet:text-16">
                     길동무 모집 상세 페이지 제목
                   </div>
                 </div>
               </div>
               <div
-                className={`rounded-24 border bg-white px-16 py-7 text-16 leading-[130%] tracking-[0.6px] ${"border-stone-400 text-stone-400"} tablet:px-12 tablet:py-5 tablet:text-14`}
+                className={`rounded-24 border bg-white px-16 py-7 text-16 leading-[130%] tracking-[-0.6px] ${"border-stone-400 text-stone-400"} tablet:px-12 tablet:py-5 tablet:text-14`}
               >
                 모집완료
               </div>
             </div>
             <div className="mb-32 flex flex-col items-start gap-8 mobile:mb-24">
-              <div className="line-clamp-3 overflow-hidden text-16 font-normal leading-[150%] tracking-[0.6px] tablet:text-14">
+              <div className="line-clamp-3 overflow-hidden text-16 font-normal leading-[150%] tracking-[-0.6px] tablet:text-14">
                 여행은 새로운 경험과 추억을 선사하지만, 올바른 준비가
                 필수입니다. 이번 블로그 포스트에서는 여행자가 가져가야 할 10가지
                 필수 아이템을 상세히 소개합니다. 첫째, 편안한 여행을 위한 양질의
                 여행 가방. 두 번째는 다양한 환경에 대비할 수 있는 다용도 의류.
                 세 번
               </div>
-              <Link href={`/travel/${data.id}/detail`}>
-                <div className="flex cursor-pointer items-center justify-center gap-4">
-                  <span className="text-16 font-bold leading-[130%] tracking-[0.6px] text-text-04">
-                    모집글 자세히 보기
-                  </span>
-                  <Image
-                    src={"/icons/chevron-right-gray.png"}
-                    alt="화살표 이미지"
-                    width={20}
-                    height={20}
-                  />
-                </div>
-              </Link>
+              {/* <Link href={`/travel/${data.id}/detail`}> */}
+              <div className="flex cursor-pointer items-center justify-center gap-4">
+                <span className="text-16 font-bold leading-[130%] tracking-[-0.6px] text-text-04">
+                  모집글 자세히 보기
+                </span>
+                <Image
+                  src={"/icons/chevron-right-gray.png"}
+                  alt="화살표 이미지"
+                  width={20}
+                  height={20}
+                />
+              </div>
+              {/* </Link> */}
             </div>
-            {selectTab === "참여 중" && <></>}
-            {selectTab === "모집 중" && <></>}
+            {selectTab === "참여 중" && (
+              <div className="flex w-full flex-col items-start justify-center rounded-24 border border-line-02">
+                <div className="flex h-63 w-full items-center justify-start rounded-t-24 bg-line-02 px-32 py-20 text-16 font-semibold leading-[130%] tracking-[-0.6px] tablet:px-24 tablet:py-16 mobile:px-20">
+                  {`현재 인원 (n / n)`}
+                </div>
+                <div className="flex w-full flex-col justify-center gap-10 px-32 py-24 tablet:px-24 tablet:py-20 mobile:px-20 mobile:py-16">
+                  {
+                    <div className="flex w-full items-center justify-between">
+                      <div className="flex items-center justify-center gap-12">
+                        <Image
+                          src={"/icons/모몽가2.png"}
+                          alt="프로필 이미지"
+                          width={32}
+                          height={32}
+                          className="rounded-full"
+                        />
+                        <Chip chip="leader" />
+                        <span className="text-16 font-normal leading-[130%] tracking-[-0.6px] text-text-01 mobile:truncate mobile:text-14">
+                          유저 이름
+                        </span>
+                      </div>
+                      <button className="flex h-36 items-center justify-center rounded-32 bg-primary px-16 py-10 text-center font-bold leading-[20px] text-white hover:bg-primary-press mobile:h-32">
+                        신청 취소
+                      </button>
+                    </div>
+                  }
+                </div>
+              </div>
+            )}
+            {selectTab === "모집 중" && (
+              <div>
+                <div className="flex w-full flex-col items-start justify-center rounded-24 border border-line-02">
+                  <div className="flex h-63 w-full items-center justify-start rounded-t-24 bg-line-02 px-32 py-20 text-16 font-semibold leading-[130%] tracking-[-0.6px] tablet:px-24 tablet:py-16 mobile:px-20">
+                    {`현재 인원 (n / n)`}
+                  </div>
+                  <div className="flex w-full flex-col justify-center gap-10 px-32 py-24 tablet:px-24 tablet:py-20 mobile:px-20 mobile:py-16">
+                    {
+                      <div className="flex w-full items-center justify-between">
+                        <div className="flex items-center justify-center gap-12">
+                          <Image
+                            src={"/icons/모몽가2.png"}
+                            alt="프로필 이미지"
+                            width={32}
+                            height={32}
+                            className="rounded-full"
+                          />
+                          <Chip chip="leader" />
+                          <span className="text-16 font-normal leading-[130%] tracking-[-0.6px] text-text-01 mobile:truncate mobile:text-14">
+                            유저 이름
+                          </span>
+                        </div>
+                        <button className="flex h-36 items-center justify-center rounded-32 bg-primary px-16 py-10 text-center font-bold leading-[20px] text-white hover:bg-primary-press mobile:h-32">
+                          신청 취소
+                        </button>
+                      </div>
+                    }
+                  </div>
+                </div>
+              </div>
+            )}
             {selectTab === "찜" && (
               <div className="mt-20 flex w-full items-center justify-center gap-20 tablet:mt-16 mobile:mt-12 mobile:gap-12">
                 <button className="flex h-52 w-180 items-center justify-center rounded-12 border-[1.5px] border-primary font-bold leading-[22px] text-primary hover:border-primary-press hover:text-primary-press mobile:h-44 mobile:w-90 mobile:text-16">
