@@ -2,9 +2,9 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
+import BookmarkContent from "@/components/mytravel/modal/content/Bookmark";
 import ParticipatingContent from "@/components/mytravel/modal/content/Participating";
 import RecruitingContent from "@/components/mytravel/modal/content/Recruiting";
-import SavingContent from "@/components/mytravel/modal/content/Saving";
 
 interface MyTravelModalProps {
   data: any;
@@ -122,7 +122,7 @@ export default function MyTravelModal({
             </div>
             {selectTab === "참여 중" && <ParticipatingContent />}
             {selectTab === "모집 중" && <RecruitingContent />}
-            {selectTab === "찜" && <SavingContent />}
+            {selectTab === "찜" && <BookmarkContent />}
           </div>
         </div>
       </div>,
