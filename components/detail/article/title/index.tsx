@@ -14,7 +14,7 @@ const content = {
 function DetailTitle({ data }: DetailDataType) {
   const router = useRouter();
 
-  const isOwner = true;
+  const isOwner = false;
   const isSubmit = false;
 
   const titleData = {
@@ -33,6 +33,7 @@ function DetailTitle({ data }: DetailDataType) {
     heartToggle();
     setIsRotating(true);
     setTimeout(() => setIsRotating(false), 500);
+    //TODO: 찜하기 기능 추가
   };
 
   const handleModal = () => {

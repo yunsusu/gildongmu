@@ -4,7 +4,7 @@ import { RecruitmentProps } from "@/lib/api/detail/type";
 
 export default function Recruitment({ data, recruitRef }: RecruitmentProps) {
   const tags = data?.tag;
-  let genderText = "상관없음";
+  let genderText = "남여 상관없음";
 
   if (data && data.gender) {
     if (data.gender === "MALE") {
@@ -54,16 +54,19 @@ export default function Recruitment({ data, recruitRef }: RecruitmentProps) {
           <div className="flex w-full items-start gap-12 tablet:gap-8">
             {tags[0] && (
               <span className="flex items-center justify-center rounded-24 bg-tag-orange-100 px-12 pb-4 pt-5 text-16 text-tag-orange-500 mobile:text-14">
+                {"#"}
                 {tags[0]}
               </span>
             )}
             {tags[1] && (
               <span className="flex items-center justify-center rounded-24 bg-tag-blue-100 px-12 pb-4 pt-5 text-16 text-tag-blue-500 mobile:text-14">
+                {"#"}
                 {tags[1]}
               </span>
             )}
             {tags[2] && (
               <span className="flex items-center justify-center rounded-24 bg-tag-pink-100 px-12 pb-4 pt-5 text-16 text-tag-pink-500 mobile:text-14">
+                {"#"}
                 {tags[2]}
               </span>
             )}
