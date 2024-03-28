@@ -1,22 +1,43 @@
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
 import Dropdown from "@/components/dropdown";
 import Hammenu from "@/components/gnb/Hammenu";
 import useToggle from "@/hooks/useToggle";
+import { getUserMe } from "@/lib/api/userMe";
 import useGnbStore from "@/store/gnb";
 
 function Gnb() {
-  const [loginState, setLoginState] = useState(true);
+  const [loginState, setLoginState] = useState(false);
   const [dropDown, setDropDown, handleDropDown] = useToggle();
   const [hamMenu, setHamMenu, handleHamMenu] = useToggle(false);
   const [isTablet, setIsTablet] = useToggle(true);
   const [gnb, setGnb] = useState("hover:text-primary-press");
   const { gnbColor } = useGnbStore();
+  const router = useRouter();
 
   const ref = useRef<HTMLDivElement>(null);
+
+  const deleteCookie = () => {
+    document.cookie =
+      "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+
+    if (router.pathname === "/") {
+      router.reload();
+    } else {
+      router.push("/");
+    }
+  };
+
+  const { data: userData } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => getUserMe(),
+    enabled: loginState,
+  });
 
   const gnbs = [
     {
@@ -27,9 +48,12 @@ function Gnb() {
     {
       name: "로그아웃",
       link: "",
-      handleBtn: () => {},
+      handleBtn: () => {
+        deleteCookie();
+      },
     },
   ];
+
   useEffect(() => {
     if (gnbColor === "travel") {
       setGnb("hover:text-blue-400");
@@ -38,13 +62,15 @@ function Gnb() {
     } else if (gnbColor === "mytravel") {
       setGnb("hover:text-indigo-500");
     }
+  }, [gnbColor]);
+
+  useEffect(() => {
     const accessToken = document.cookie
       .split("; ")
       .find(row => row.startsWith("accessToken="))
       ?.split("=")[1];
-
     setLoginState(!!accessToken);
-  }, [gnbColor]);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -92,12 +118,14 @@ function Gnb() {
           >
             여행
           </Link>
-          <Link
-            href={"/community"}
-            className={`px-4 text-18 ${gnbColor === "community" && "text-lime-600"} ${gnb} tablet:hidden`}
-          >
-            소통공간
-          </Link>
+          {loginState && (
+            <Link
+              href={"/community"}
+              className={`px-4 text-18 ${gnbColor === "community" && "text-lime-600"} ${gnb} tablet:hidden`}
+            >
+              소통공간
+            </Link>
+          )}
           {loginState && (
             <Link
               href={"/mytravel"}
@@ -125,7 +153,19 @@ function Gnb() {
                 onClick={handleDropDown}
                 className="flex cursor-pointer items-center text-18"
               >
-                야돈 님 &nbsp;
+                <div className="relative mr-12 h-36 w-36 overflow-hidden rounded-full border">
+                  <Image
+                    src={
+                      userData?.profilePath
+                        ? userData.profilePath
+                        : "/icons/defaultProfile.png"
+                    }
+                    alt="유저 프로필"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                {userData?.nickname} 님 &nbsp;
                 <div className="relative h-16 w-16">
                   <Image
                     src={"/icons/chevron-down.svg"}
@@ -166,6 +206,7 @@ function Gnb() {
             hamMenu={hamMenu}
             gnbColor={gnbColor}
             gnb={gnb}
+            userData={userData}
           />
         </div>
       )}

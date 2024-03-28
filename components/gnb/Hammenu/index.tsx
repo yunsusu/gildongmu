@@ -6,9 +6,17 @@ interface LoginState {
   hamMenu: boolean;
   gnbColor: string;
   gnb: string;
+  userData: {
+    id: number;
+    email: string;
+    nickname: string;
+    profilePath: string;
+    bio: string;
+    favoriteSpots: string[];
+  };
 }
 
-function Hammenu({ loginState, hamMenu, gnbColor, gnb }: LoginState) {
+function Hammenu({ loginState, hamMenu, gnbColor, gnb, userData }: LoginState) {
   return (
     <div
       style={
@@ -32,15 +40,19 @@ function Hammenu({ loginState, hamMenu, gnbColor, gnb }: LoginState) {
           </div>
         ) : (
           <div className="flex items-center gap-12">
-            <div className="relative h-36 w-36 overflow-hidden rounded-full">
+            <div className="relative h-36 w-36 overflow-hidden rounded-full border">
               <Image
-                src={"/images/logo.svg"}
+                src={
+                  userData?.profilePath
+                    ? userData.profilePath
+                    : "/icons/defaultProfile.png"
+                }
                 alt="유저 프로필"
                 fill
                 className="object-cover"
               />
             </div>
-            야돈 님
+            {userData?.nickname} 님
           </div>
         )}
         <div
