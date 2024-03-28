@@ -18,7 +18,8 @@ export default function ModalButton({ modalType, onClose }: ModalButtonProps) {
     modalType === "signupSuccess" ||
     modalType === "writingSuccess" ||
     modalType === "emailInUse" ||
-    modalType === "userProfile"
+    modalType === "userProfile" ||
+    modalType === "profileEdit"
   ) {
     filledStyle = `text-18 h-52 mobile:h-44  ${modalType === "userProfile" ? "w-240 mobile:w-full" : "w-full"}`;
     filledText = "확인";
@@ -26,7 +27,8 @@ export default function ModalButton({ modalType, onClose }: ModalButtonProps) {
     modalType === "writingCancel" ||
     modalType === "writingDelete" ||
     modalType === "travelApply" ||
-    modalType === "travelCancle"
+    modalType === "travelCancle" ||
+    modalType === "memberExile"
   ) {
     filledStyle = "w-full text-18 h-52 mobile:h-44";
     ghostStyle = "w-full text-18 h-52 mobile:h-44";
