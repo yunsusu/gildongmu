@@ -5,9 +5,10 @@ interface LoginState {
   loginState: boolean;
   hamMenu: boolean;
   gnbColor: string;
+  gnb: string;
 }
 
-function Hammenu({ loginState, hamMenu, gnbColor }: LoginState) {
+function Hammenu({ loginState, hamMenu, gnbColor, gnb }: LoginState) {
   return (
     <div
       style={
@@ -43,20 +44,20 @@ function Hammenu({ loginState, hamMenu, gnbColor }: LoginState) {
           </div>
         )}
         <div
-          className={`mt-32 w-max text-16 ${gnbColor === "travel" && "text-blue-400"} ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"}`}
+          className={`mt-32 w-max text-16 ${gnbColor === "travel" && "text-blue-400"} ${gnb}`}
         >
           <Link href={"/travel"}>여행</Link>
         </div>
         <div
-          className={`mt-20 w-max text-16 ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"}`}
+          className={`mt-20 w-max text-16 ${gnbColor === "community" && "text-lime-600"} ${gnb}`}
         >
           <Link href={"/community"}>소통공간</Link>
         </div>
         {loginState && (
           <div
-            className={`mt-20 w-max text-16 ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"}`}
+            className={`mt-20 w-max text-16 ${gnbColor === "mytravel" && "text-indigo-500"} ${gnb}`}
           >
-            <Link href={"/community"}>내 여행</Link>
+            <Link href={"/mytravel"}>내 여행</Link>
           </div>
         )}
       </div>
@@ -64,13 +65,11 @@ function Hammenu({ loginState, hamMenu, gnbColor }: LoginState) {
         <div className="absolute bottom-0 mb-32 w-full px-24 pt-24">
           <Link
             href={"/mypage"}
-            className={`${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"} cursor-pointer py-4 text-16`}
+            className={`${gnb} cursor-pointer py-4 text-16`}
           >
             마이페이지
           </Link>
-          <div
-            className={`w-max ${gnbColor === "travel" ? "hover:text-blue-400" : "hover:text-primary-press"} mt-12 cursor-pointer py-4 text-16`}
-          >
+          <div className={`w-max ${gnb} mt-12 cursor-pointer py-4 text-16`}>
             로그아웃
           </div>
           <div className="absolute left-1/2 top-0 w-11/12 -translate-x-1/2 border-t border-line-03"></div>

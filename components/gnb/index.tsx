@@ -165,6 +165,7 @@ function Gnb() {
             loginState={loginState}
             hamMenu={hamMenu}
             gnbColor={gnbColor}
+            gnb={gnb}
           />
         </div>
       )}
