@@ -43,7 +43,7 @@ export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
     >
       <div className="absolute inset-0 p-24 tablet:p-20 mobile:p-12">
         <Image
-          src={data.thumbnail}
+          src={data.thumbnail || "/icons/모몽가2.png"}
           alt="여행지 이미지"
           fill
           className="rounded-[20px] object-cover"
