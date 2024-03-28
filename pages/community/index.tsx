@@ -1,4 +1,4 @@
-import CommuList from "@/components/community/commulist";
+import CommuList from "@/components/community/commuList";
 import CommuHeader from "@/components/community/header";
 
 function Community() {

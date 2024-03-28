@@ -4,22 +4,23 @@ import { geocode, RequestType, setKey } from "react-geocode";
 
 import { Location } from "@/components/form/writeForm";
 import GoogleMap from "@/components/googlemap";
+import { DestinationProps } from "@/lib/api/detail/type";
 
-interface DestinationProps {
-  destinationRef: any;
-  destination: string;
-}
-
-export default function Destination({ destinationRef }: DestinationProps) {
+export default function Destination({
+  data,
+  destinationRef,
+}: DestinationProps) {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const [location, setLocation] = useState<Location>({
     lat: 37.5400456,
     lng: 126.9921017,
   });
-  const destination = "삿포로";
+  const destination = data?.destination;
 
   useEffect(() => {
-    if (destination.trim() !== "") {
+    const trimmedDestination = destination ? destination.trim() : "";
+
+    if (trimmedDestination !== "") {
       setKey(String(apiKey));
       geocode(RequestType.ADDRESS, destination)
         .then(({ results }) => {

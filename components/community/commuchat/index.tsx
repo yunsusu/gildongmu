@@ -2,7 +2,12 @@ import Image from "next/image";
 
 function CommuChat() {
   return (
-    <div className="flex h-92 w-full justify-between gap-10 px-40 py-16 hover:bg-yellow-50 tablet:px-20">
+    <div
+      onClick={() =>
+        window.open(`/community/${1}`, "_blank", "width=400,height=700")
+      }
+      className="flex h-92 w-full cursor-pointer justify-between gap-10 px-40 py-16 hover:bg-yellow-50 tablet:px-20"
+    >
       <div className="flex flex-1 gap-24 ">
         <div className="relative h-60 w-60 tablet:h-48 tablet:w-48">
           <Image src={"/images/logo.svg"} alt="대표이미지" fill />
@@ -12,7 +17,7 @@ function CommuChat() {
             <div className="line-clamp-1">제목제목제목제목제목제목제목</div>
             <div className="flex text-16 tablet:text-14">
               <div className="relative h-20 w-20">
-                <Image src={"icons/profile.svg"} alt="인원수" fill />
+                <Image src={"/icons/profile.svg"} alt="인원수" fill />
               </div>
               10
             </div>
