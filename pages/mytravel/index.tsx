@@ -21,17 +21,22 @@ export default function MyTravel() {
       try {
         let res;
         if (selectTab === "참여 중") {
-          res = await axios.get("/posts/me?type=PARTICIPANT");
+          const temp = await axios.get(
+            "/posts/me?page=&size=99&sort=&type=PARTICIPANT",
+          );
+          res = temp.data.content;
         } else if (selectTab === "모집 중") {
-          res = await axios.get("/posts/me?type=LEADER");
+          const temp = await axios.get(
+            "/posts/me?page=&size=99&sort=&type=LEADER",
+          );
+          res = temp.data.content;
         } else {
-          res = await axios.get("/bookmarks");
+          const temp = await axios.get("/bookmarks");
+          res = temp.data;
         }
-        const {
-          data: { content },
-        } = res;
 
-        setCardData(content);
+        setCardData(res);
+        console.log(res);
       } catch (error) {
         console.error("Error fetching card data:", error);
       }

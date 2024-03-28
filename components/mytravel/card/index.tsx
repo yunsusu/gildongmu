@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import Favor from "@/components/mytravel/card/Favor";
+import Bookmark from "@/components/mytravel/card/Bookmark";
 import FilpButton from "@/components/mytravel/card/FlipButton";
 import RecruitmentStatus from "@/components/mytravel/card/RecruitmentStatus";
 import Title from "@/components/mytravel/card/Title";
@@ -54,7 +54,7 @@ export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
             className={`flex items-center justify-between gap-135 self-stretch tablet:gap-109 ${isMobile ? "mobile:gap-46" : "mobile:gap-140"}`}
           >
             <RecruitmentStatus recruitmentStatus={data.status} />
-            <Favor />
+            <Bookmark data={data} />
           </div>
           <div
             className={`mb-160 flex flex-col gap-4 tablet:mb-170 ${isMobile ? "mobile:mb-25" : "mobile:mb-50"} `}
