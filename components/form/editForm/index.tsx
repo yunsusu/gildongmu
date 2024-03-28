@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { geocode, RequestType, setKey } from "react-geocode";
 import { Controller, useForm } from "react-hook-form";
@@ -14,7 +14,7 @@ import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { getDetail } from "@/lib/api/detail";
+// import { getDetail } from "@/lib/api/detail";
 // import axios from "@/lib/api/axios";
 
 export interface Location {
@@ -44,49 +44,13 @@ interface Image {
   thumbnail: boolean;
 }
 
-const detailContent = {
-  id: 2,
-  title: "일본 동행구해요",
-  nickname: "닉네임",
-  destination: "일본",
-  tripDate: [
-    {
-      startDate: "2024-03-04",
-      endDate: "2024-03-22",
-    },
-  ],
-  numberOfPeople: 8,
-  gender: "MALE",
-  content: "일본여행가요~",
-
-  tag: ["도쿄", "오사카", "삿포로"],
-  thumbnail: { id: 101, url: "url" },
-  images: [
-    {
-      id: 101,
-      url: "url",
-    },
-    {
-      id: 102,
-      url: "url",
-    },
-  ],
-};
-
 function EditForm() {
-  const postid = 80; // 예를 들어 postid가 80이라고 가정합니다.
-
-  const { data } = useQuery({
-    queryKey: ["postDetail", postid],
-    queryFn: () => getDetail(postid),
-  });
-
   const {
     register,
     handleSubmit,
     control,
     formState: { errors, isValid },
-    reset, // useForm에서 reset 함수를 가져옵니다.
+    reset,
   } = useForm<Edit>({
     mode: "onBlur",
   });
@@ -140,24 +104,6 @@ function EditForm() {
     }
   }, [destination, apiKey]);
 
-  // useEffect(() => {
-  //   if (data) {
-  //     reset({
-  //       title: data.title,
-  //       destination: data.destination,
-  //       tripDate: {
-  //         startDate: data.tripDate.startDate,
-  //         endDate: data.tripDate.endDate,
-  //       },
-  //       numberOfPeople: data.numberOfPeople,
-  //       gender: data.gender,
-  //       content: data.content,
-  //       tag: data.tag,
-  //       images: data.images, // images 처리에 대해서는 추가적인 로직이 필요할 수 있습니다.
-  //     });
-  //   }
-  // }, [data, reset]);
-
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -183,8 +129,8 @@ function EditForm() {
               <Input
                 placeholder="여행지 입력"
                 className="h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272"
-                value={destination}
-                onChange={e => setDestination(e.target.value)}
+                defaultValue={destination}
+                onKeyUp={handleSearchLocation}
               />
               <div className="h-[240px] w-[756px] rounded-12 bg-line-02 tablet:w-[672px] mobile:w-272">
                 <GoogleMap location={location} />
