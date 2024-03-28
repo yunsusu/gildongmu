@@ -1,11 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import MyTravelHeader from "@/components/header/mytravel";
 import MyTravelCard from "@/components/mytravel/card";
 import TabMenu from "@/components/mytravel/tabMenu";
-import axios from "@/lib/api/axios";
 import { scrollToTop } from "@/pages/travel/[Id]/detail";
 
 export default function MyTravel() {
@@ -16,34 +15,34 @@ export default function MyTravel() {
     setSelectTab(tab);
   };
 
-  useEffect(() => {
-    const getCardData = async () => {
-      try {
-        let res;
-        if (selectTab === "참여 중") {
-          res = await axios.get("/posts");
-        } else if (selectTab === "모집 중") {
-          res = await axios.get("/posts");
-        } else {
-          res = await axios.get("/bookmarks");
-        }
-        const {
-          data: { content },
-        } = res;
-        setCardData(content);
-      } catch (error) {
-        console.error("Error fetching card data:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const getCardData = async () => {
+  //     try {
+  //       let res;
+  //       if (selectTab === "참여 중") {
+  //         res = await axios.get("/posts");
+  //       } else if (selectTab === "모집 중") {
+  //         res = await axios.get("/posts");
+  //       } else {
+  //         res = await axios.get("/bookmarks");
+  //       }
+  //       const {
+  //         data: { content },
+  //       } = res;
+  //       setCardData(content);
+  //     } catch (error) {
+  //       console.error("Error fetching card data:", error);
+  //     }
+  //   };
 
-    getCardData();
-  }, [selectTab]);
+  //   getCardData();
+  // }, [selectTab]);
 
   return (
     <div className="relative flex flex-col items-center justify-center bg-[#818CF8]">
       <MyTravelHeader />
       <TabMenu selectTab={selectTab} onTabChange={handleTabChange} />
-      <div className="z-10 flex w-full items-center justify-center">
+      <div className="z-5 flex w-full items-center justify-center">
         <div className="mobile:max-w-360 relative w-full max-w-[1200px] rounded-t-48 bg-white py-80 tablet:max-w-[768px] tablet:py-64">
           <Image
             src={"/icons/motorcycle.svg"}
