@@ -203,6 +203,7 @@ function Gnb() {
             gnbColor={gnbColor}
             gnb={gnb}
             userData={userData}
+            deleteCookie={deleteCookie}
           />
         </div>
       )}
