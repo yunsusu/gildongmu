@@ -19,6 +19,7 @@ function Gnb() {
   const [gnb, setGnb] = useState("hover:text-primary-press");
   const { gnbColor } = useGnbStore();
   const router = useRouter();
+  const accessToken = useCookie("accessToken");
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -26,11 +27,10 @@ function Gnb() {
     document.cookie =
       "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
 
-    if (router.pathname === "/") {
-      router.reload();
-    } else {
+    if (router.pathname !== "/") {
       router.push("/");
     }
+    setLoginState(false);
   };
 
   const { data: userData } = useQuery({
@@ -65,12 +65,8 @@ function Gnb() {
   }, [gnbColor]);
 
   useEffect(() => {
-    const accessToken = document.cookie
-      .split("; ")
-      .find(row => row.startsWith("accessToken="))
-      ?.split("=")[1];
     setLoginState(!!accessToken);
-  }, []);
+  }, [accessToken]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -215,3 +211,30 @@ function Gnb() {
 }
 
 export default Gnb;
+
+function useCookie(name: string) {
+  const [cookie, setCookie] = useState(null);
+
+  useEffect(() => {
+    const checkCookieChange = () => {
+      const match = document.cookie.match(
+        new RegExp("(^| )" + name + "=([^;]+)"),
+      );
+      const cookieValue: string | any = match ? match[2] : null;
+
+      if (cookie !== cookieValue) {
+        setCookie(cookieValue);
+      }
+    };
+
+    // 초기 쿠키 값 설정
+    checkCookieChange();
+
+    // 주기적으로 쿠키 변경 체크
+    const intervalId = setInterval(checkCookieChange, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [name, cookie]);
+
+  return cookie;
+}
