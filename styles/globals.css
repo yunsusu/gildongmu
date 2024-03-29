@@ -4,8 +4,7 @@
 
 @font-face {
   font-family: "NanumSquareRound";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff")
-    format("woff");
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -16,11 +15,9 @@
   }
 }
 
-@layer components {
-}
+@layer components {}
 
-@layer utilities {
-}
+@layer utilities {}
 
 @layer base {
   :root {
@@ -182,18 +179,81 @@
 }
 
 * {
-  --rdp-cell-size: 40px; /* Size of the day cells. */
-  --rdp-caption-font-size: 18px; /* Font size for the caption labels. */
-  --rdp-accent-color: #14b8a6; /* Accent color for the background of selected days. */
-  --rdp-background-color: #2dd4bf; /* Background color for the hovered/focused elements. */
+  --rdp-cell-size: 40px;
+  /* Size of the day cells. */
+  --rdp-caption-font-size: 18px;
+  /* Font size for the caption labels. */
+  --rdp-accent-color: #14b8a6;
+  /* Accent color for the background of selected days. */
+  --rdp-background-color: #2dd4bf;
+  /* Background color for the hovered/focused elements. */
 }
 
 @media (max-width: 767px) {
   * {
-    --rdp-cell-size: 36px; /* 모바일에서의 day cells 크기 조정 */
+    --rdp-cell-size: 36px;
+    /* 모바일에서의 day cells 크기 조정 */
   }
 }
 
 .rdp {
   margin: 0 !important;
+}
+
+::-webkit-scrollbar {
+  display: block;
+  height: 8px;
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(219, 219, 219);
+  /* 스크롤바 핸들의 배경 색상 (Violet) */
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1effd;
+  /* 스크롤바 트랙의 배경 색상 */
+}
+
+.scrollbar-hide {
+  scrollbar-gutter: stable both-edges;
+}
+
+/* 스크롤바 숨김 */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* 호버 시 스크롤바 표시 - WebKit 기반 브라우저용 */
+.scrollbar-hide:hover::-webkit-scrollbar {
+  display: block;
+  width: 8px;
+  height: 8px;
+}
+
+/* 호버 시 스크롤바 표시 - Firefox용 */
+.scrollbar-hide:hover {
+  scrollbar-width: auto;
+}
+
+/* 스크롤바 트랙 스타일 */
+.scrollbar-hide::-webkit-scrollbar-track {
+  background: #f1effd;
+  /* 스크롤바 트랙의 배경 색상 */
+}
+
+/* 스크롤바 핸들 스타일 */
+.scrollbar-hide::-webkit-scrollbar-thumb {
+  background-color: rgb(219, 219, 219);
+  /* 스크롤바 핸들의 배경 색상 (Violet) */
+  border-radius: 8px;
+}
+
+/* 호버 시 스크롤바 핸들 스타일 변경 */
+.scrollbar-hide:hover::-webkit-scrollbar-thumb {
+  background-color: rgb(219, 219, 219);
+  ;
+  /* 호버 시 스크롤바 핸들의 배경 색상을 어둡게 조정 */
 }

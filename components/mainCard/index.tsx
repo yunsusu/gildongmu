@@ -1,20 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
 
 import { deleteBookMarks, postBookMarks } from "@/lib/api/bookmarks";
 
-function Card({ content }: { content: any }) {
-  const router = useRouter();
+function MainCard({ content, is }: { content: any; is: string }) {
   const [favor, setFavor] = useState(true);
   const wrap = useMemo(() => {
-    if (router.pathname === "/travel") {
-      return "max-w-240 w-full h-[310px] block bg-white rounded-16 border border-line-02 m-auto overflow-hidden";
-    } else {
-      return "tablet:w-196 mobile:max-w-[280px] mobile:min-w-264 mobile:w-full w-240 h-[310px] block bg-white rounded-16  m-auto overflow-hidden";
+    if (is === "main") {
+      return "max-w-240 w-full h-[310px] block bg-white rounded-16 m-auto overflow-hidden px-3";
+    } else if (is === "sub") {
+      return "mobile:min-w-264 border border-line-02 w-11/12 h-[310px] block bg-white rounded-16 m-auto overflow-hidden";
     }
-  }, [router.pathname]);
+  }, [is]);
+
   const gender = useMemo(() => {
     switch (content.gender) {
       case "MALE":
@@ -30,7 +29,9 @@ function Card({ content }: { content: any }) {
 
   return (
     <Link href={`/travel/${content.id}/detail`} className={wrap}>
-      <div className="relative flex h-180 w-full flex-col overflow-hidden border p-16 tablet:p-12">
+      <div
+        className={`relative flex h-180 w-full flex-col overflow-hidden border p-16 tablet:p-12 ${is === "main" && "rounded-16"}`}
+      >
         <Image
           src={content.thumbnail ? content.thumbnail : "images/logo.svg"}
           alt="여행지 이미지"
@@ -137,4 +138,4 @@ function Card({ content }: { content: any }) {
   );
 }
 
-export default Card;
+export default MainCard;

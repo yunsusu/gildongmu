@@ -98,7 +98,7 @@ function Gnb() {
   return (
     <div className="relative border-b border-line-02 bg-white font-bold tracking-tight text-text-01">
       <nav className="relative z-30 mx-auto flex h-72 max-w-[1200px] items-center justify-between bg-white px-24 py-20 tablet:h-60">
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-40">
           <Link href={"/"} className="relative h-30 w-120 overflow-hidden ">
             <Image
               src={"/images/logo.svg"}
