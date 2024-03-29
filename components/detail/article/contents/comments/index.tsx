@@ -17,7 +17,7 @@ export default function Comment({ commentRef }: any) {
           <RegisterComment />
         </div>
       </div>
-      <div ref={commentRef} className="absolute top-[670px] h-1 w-full"></div>
+      <div ref={commentRef} className="absolute top-[610px] h-1 w-full"></div>
     </div>
   );
 }

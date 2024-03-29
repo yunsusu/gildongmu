@@ -59,7 +59,7 @@ export default function Destination({
         </div>
         <div
           ref={destinationRef}
-          className="absolute top-[670px] h-1 w-full"
+          className="absolute top-[620px] h-1 w-full"
         ></div>
       </div>
       <div id="comment" className="-translate-y-25"></div>
