@@ -5,9 +5,9 @@ export default function Foreign() {
 
   return (
     <div className="flex flex-col bg-white">
-      <div className="flex flex-col self-stretch max-w-[1200px] tablet:max-w-[768px] mobile:max-w-360 m-auto w-full gap-40 px-24 py-60 tablet:py-40">
-        <div className="flex items-center justify-between w-full">
-          <div className="flex items-center justify-center w-full">
+      <div className="m-auto flex w-full max-w-[1200px] flex-col gap-40 self-stretch px-24 py-60 tablet:py-40">
+        <div className="flex w-full items-center justify-between">
+          <div className="flex w-full items-center justify-center">
             <CountryCarousel titleIcon={titleIcon}>해외 여행</CountryCarousel>
           </div>
         </div>

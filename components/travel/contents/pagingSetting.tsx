@@ -35,14 +35,14 @@ function PagingSetting() {
       name: "인기순",
       handleBtn: () => {
         setChoiceSort("인기순");
-        handleSort("countOfBookmarks");
+        handleSort("popular");
       },
     },
     {
       name: "댓글 많은 순",
       handleBtn: () => {
         setChoiceSort("댓글 많은 순");
-        handleSort("countOfComments");
+        handleSort("comment");
       },
     },
     {

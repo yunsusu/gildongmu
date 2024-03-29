@@ -14,9 +14,17 @@ interface LoginState {
     bio: string;
     favoriteSpots: string[];
   };
+  deleteCookie: () => void;
 }
 
-function Hammenu({ loginState, hamMenu, gnbColor, gnb, userData }: LoginState) {
+function Hammenu({
+  loginState,
+  hamMenu,
+  gnbColor,
+  gnb,
+  userData,
+  deleteCookie,
+}: LoginState) {
   return (
     <div
       style={
@@ -60,11 +68,13 @@ function Hammenu({ loginState, hamMenu, gnbColor, gnb, userData }: LoginState) {
         >
           <Link href={"/travel"}>여행</Link>
         </div>
-        <div
-          className={`mt-20 w-max text-16 ${gnbColor === "community" && "text-lime-600"} ${gnb}`}
-        >
-          <Link href={"/community"}>소통공간</Link>
-        </div>
+        {loginState && (
+          <div
+            className={`mt-20 w-max text-16 ${gnbColor === "community" && "text-lime-600"} ${gnb}`}
+          >
+            <Link href={"/community"}>소통공간</Link>
+          </div>
+        )}
         {loginState && (
           <div
             className={`mt-20 w-max text-16 ${gnbColor === "mytravel" && "text-indigo-500"} ${gnb}`}
@@ -81,7 +91,10 @@ function Hammenu({ loginState, hamMenu, gnbColor, gnb, userData }: LoginState) {
           >
             마이페이지
           </Link>
-          <div className={`w-max ${gnb} mt-12 cursor-pointer py-4 text-16`}>
+          <div
+            className={`w-max ${gnb} mt-12 cursor-pointer py-4 text-16`}
+            onClick={deleteCookie}
+          >
             로그아웃
           </div>
           <div className="absolute left-1/2 top-0 w-11/12 -translate-x-1/2 border-t border-line-03"></div>
