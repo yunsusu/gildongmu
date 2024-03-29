@@ -2,7 +2,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import DatePickerInput from "@/components/form/input/DatePickerInput";
@@ -14,13 +14,12 @@ import Modal from "@/components/modal";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import axios from "@/lib/api/axios";
-import { regEmail, regPassword } from "@/lib/utils/regexp";
+import { regPassword } from "@/lib/utils/regexp";
 
 interface SignUp {
   bio?: string;
   confirmPassword: string;
   dayOfBirth: string;
-  email: string;
   favoriteSpots?: string[];
   gender: "MALE" | "FEMALE";
   nickname: string;
@@ -28,7 +27,7 @@ interface SignUp {
   profile?: string;
 }
 
-function SocialSignUpForm({ oauth2Email }: { oauth2Email: string }) {
+function SocialSignUpForm() {
   const {
     register,
     handleSubmit,
@@ -45,6 +44,8 @@ function SocialSignUpForm({ oauth2Email }: { oauth2Email: string }) {
   const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCheckEmailModalOpen, setIsCheckEmailModalOpen] = useState(false);
+
+  const [oauthEmail, setOauthEmail] = useState("default@email.com");
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown => !passwordShown);
@@ -83,6 +84,21 @@ function SocialSignUpForm({ oauth2Email }: { oauth2Email: string }) {
     onSubmit(data);
   };
 
+  useEffect(() => {
+    const fetchLoginStatus = async () => {
+      try {
+        const response = await axios.get("/oauth2/siginup");
+        setOauthEmail(response.data.email);
+
+        console.log("oauth2 이메일 조회 성공! ", response.data.email);
+      } catch (error) {
+        console.error("oauth2 이메일 조회 실패", error);
+      }
+    };
+
+    fetchLoginStatus();
+  }, [oauthEmail, router]);
+
   return (
     <>
       <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -96,15 +112,12 @@ function SocialSignUpForm({ oauth2Email }: { oauth2Email: string }) {
           </div>
           <div className="flex flex-col gap-24">
             <div className="flex flex-col gap-8">
-              <Label htmlFor="email">
-                이메일<span className="text-pink-500">*</span>
-              </Label>
+              <Label htmlFor="email">이메일</Label>
               <Input
                 id="email"
                 type="email"
                 className={`h-52 w-[756px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.email && "border-0 bg-input-error"}`}
-                value={oauth2Email}
-                {...register("email", { required: true, pattern: regEmail })}
+                placeholder={oauthEmail}
                 disabled
               />
             </div>
