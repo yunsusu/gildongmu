@@ -60,37 +60,40 @@ export default function ParticipatingContent({ data }: Data) {
       <div className="flex h-[400px] w-full flex-col gap-10 overflow-scroll overflow-x-hidden px-32 py-24 tablet:h-[550px] tablet:px-24 tablet:py-20 mobile:h-[500px] mobile:px-20 mobile:py-16">
         {participants &&
           participants.length > 0 &&
-          participants.map((member, index) => (
-            <div
-              className="flex w-full items-center justify-between"
-              key={index}
-            >
-              <div className="flex items-center justify-center gap-12">
-                {member.profilePath && (
-                  <Image
-                    src={member.profilePath}
-                    alt="프로필 이미지"
-                    width={32}
-                    height={32}
-                    className="rounded-full"
-                  />
+          participants
+            .slice()
+            .reverse()
+            .map((member, index) => (
+              <div
+                className="flex w-full items-center justify-between"
+                key={index}
+              >
+                <div className="flex items-center justify-center gap-12">
+                  {member.profilePath && (
+                    <Image
+                      src={member.profilePath}
+                      alt="프로필 이미지"
+                      width={32}
+                      height={32}
+                      className="rounded-full"
+                    />
+                  )}
+                  {member.isLeader && <Chip chip="leader" />}
+                  {member.isMe && <Chip chip="me" />}
+                  <span className="text-16 font-normal leading-[130%] tracking-[-0.6px] text-text-01 mobile:truncate mobile:text-14">
+                    {member.user.nickname}
+                  </span>
+                </div>
+                {data.status && member.isMe && (
+                  <button
+                    className="flex h-36 items-center justify-center rounded-32 bg-primary px-16 py-10 text-center font-bold leading-[20px] text-white hover:bg-primary-press mobile:h-32"
+                    onClick={cancelApplication}
+                  >
+                    신청 취소
+                  </button>
                 )}
-                {member.isLeader && <Chip chip="leader" />}
-                {member.isMe && <Chip chip="me" />}
-                <span className="text-16 font-normal leading-[130%] tracking-[-0.6px] text-text-01 mobile:truncate mobile:text-14">
-                  {member.user.nickname}
-                </span>
               </div>
-              {data.status && member.isMe && (
-                <button
-                  className="flex h-36 items-center justify-center rounded-32 bg-primary px-16 py-10 text-center font-bold leading-[20px] text-white hover:bg-primary-press mobile:h-32"
-                  onClick={cancelApplication}
-                >
-                  신청 취소
-                </button>
-              )}
-            </div>
-          ))}
+            ))}
       </div>
     </div>
   );

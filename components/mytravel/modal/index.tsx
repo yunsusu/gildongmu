@@ -117,7 +117,9 @@ export default function MyTravelModal({
             </div>
             {selectTab === "참여 중" && <ParticipatingContent data={data} />}
             {selectTab === "모집 중" && <RecruitingContent data={data} />}
-            {selectTab === "찜" && <BookmarkContent data={data} />}
+            {selectTab === "찜" && (
+              <BookmarkContent data={data} onClose={onClose} />
+            )}
           </div>
         </div>
       </div>,

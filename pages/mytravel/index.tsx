@@ -45,15 +45,13 @@ export default function MyTravel() {
     getCardData();
   }, [selectTab]);
 
-  console.log(cardData);
-
   return (
     <div className="relative flex flex-col items-center justify-center bg-[#818CF8]">
       <MyTravelHeader />
       <TabMenu selectTab={selectTab} onTabChange={handleTabChange} />
       <div className="z-5 mt-40 flex w-full items-center justify-center">
         <div
-          className={`relative flex min-h-screen w-full justify-center rounded-t-48 bg-white ${cardData && cardData.length > 0 ? "py-80" : "py-[250px]"} px-24 tablet:py-64`}
+          className={`relative flex min-h-screen w-full justify-center rounded-t-48 bg-white ${cardData && cardData.length > 0 ? "py-80 tablet:py-64" : "py-[250px]"} px-24 `}
         >
           <Image
             src={"/icons/motorcycle.svg"}
