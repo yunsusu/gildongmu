@@ -21,7 +21,7 @@ function Filter() {
         className="m-auto w-full max-w-[1200px] mobile:overflow-x-scroll"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        <div className="m-auto flex w-max justify-center gap-12 px-36 py-20 mobile:justify-start">
+        <div className="m-auto flex w-max justify-center gap-12 px-36 py-20 mobile:justify-start mobile:gap-8 mobile:px-24 mobile:py-12">
           {filterMock.map((item, index) => (
             <FilterBtn
               key={index}
