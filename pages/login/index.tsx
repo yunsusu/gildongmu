@@ -42,9 +42,7 @@ export default function Login() {
 
       router.push("/");
     } catch (error: any) {
-      if (error.response && error.response.status === 401) {
-        setLoginErrorModal(true);
-      }
+      setLoginErrorModal(true);
 
       console.log(error.message);
     }
