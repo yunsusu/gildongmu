@@ -12,7 +12,7 @@ export default function Images({ data }: DetailDataType) {
           {travelImg?.map(({ url, id }) => (
             <div
               key={id}
-              className="relative h-[281px] w-[281px] tablet:h-[210px] tablet:w-[210px] mobile:h-[130px] mobile:w-[130px]"
+              className="relative h-[281px] w-[281px] rounded-16 border border-line-02 tablet:h-[210px] tablet:w-[210px] mobile:h-[130px] mobile:w-[130px]"
             >
               <Image
                 className="rounded-16 object-cover"
