@@ -6,7 +6,7 @@ import Image from "next/image";
 import React, { useEffect } from "react";
 import Slider from "react-slick";
 
-import Card from "@/components/card";
+import MainCard from "@/components/mainCard";
 import useToggle from "@/hooks/useToggle";
 import { getTravelCard } from "@/lib/api/travel";
 
@@ -141,6 +141,14 @@ function TravelCarousel({ choice }: any) {
       {
         breakpoint: 767,
         settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 570,
+        settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
           infinite: true,
@@ -159,7 +167,7 @@ function TravelCarousel({ choice }: any) {
       <Slider {...settings}>
         {Array.isArray(card?.content)
           ? card?.content.map((item: any, index: number) => (
-              <Card key={index} content={item} />
+              <MainCard key={index} content={item} is={"main"} />
             ))
           : null}
       </Slider>

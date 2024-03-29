@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { useRef } from "react";
 import Slider from "react-slick";
 
-import Card from "@/components/card";
+import MainCard from "@/components/mainCard";
 import { getTravelCard } from "@/lib/api/travel";
 
 interface CountryCarouselProps {
@@ -43,6 +43,14 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
       },
       {
         breakpoint: 767,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 570,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -101,7 +109,7 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
       <Slider ref={sliderRef} {...settings}>
         {Array.isArray(card?.content)
           ? card?.content.map((item: any, index: number) => (
-              <Card key={index} content={item} />
+              <MainCard key={index} content={item} is={"sub"} />
             ))
           : null}
       </Slider>
