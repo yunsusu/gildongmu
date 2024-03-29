@@ -9,6 +9,10 @@ import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
 import axiosInstance from "@/lib/api/axios";
 import { regEmail, regPassword } from "@/lib/utils/regexp";
+interface FormValues {
+  email: string;
+  password: string;
+}
 
 export default function Login() {
   const router = useRouter();
@@ -19,7 +23,7 @@ export default function Login() {
     handleSubmit,
     watch,
     formState: { isValid, errors },
-  } = useForm({
+  } = useForm<FormValues>({
     mode: "onBlur", // 포커스 아웃 시 유효성 검사
     criteriaMode: "all", // 모든 유효성 검사 규칙 체크
     reValidateMode: "onBlur", // 포커스 아웃 시 재검증
@@ -81,7 +85,7 @@ export default function Login() {
       // 인증 코드가 있으면 백엔드로 전송
       sendDataToServer(authCode);
     }
-  }, []);
+  }, [router]);
 
   return (
     <>
