@@ -10,7 +10,7 @@ import ImageUpload from "@/components/form/input/ImageUploadInput";
 import IntroTextarea from "@/components/form/input/IntroTextarea";
 import RadioInput from "@/components/form/input/RadioInput";
 import TagInput from "@/components/form/input/TagInput";
-import AlertModal from "@/components/modal";
+import Modal from "@/components/modal";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import axios from "@/lib/api/axios";
@@ -28,7 +28,7 @@ interface SignUp {
   profile?: string;
 }
 
-function SignUpForm() {
+function SocialSignUpForm({ oauth2Email }: { oauth2Email: string }) {
   const {
     register,
     handleSubmit,
@@ -52,21 +52,6 @@ function SignUpForm() {
 
   const toggleConfirmPasswordVisibility = () => {
     setConfirmPasswordShown(confirmPasswordShown => !confirmPasswordShown);
-  };
-
-  const checkEmail = async (data: SignUp) => {
-    try {
-      const emailCheckResponse = await axios.post("/auth/check-email", {
-        email: data.email,
-      });
-      if (emailCheckResponse.data.isUsable) {
-        await onSubmit(data);
-      } else {
-        setIsCheckEmailModalOpen(true);
-      }
-    } catch (error) {
-      console.error("이메일 확인 중 오류 발생:", error);
-    }
   };
 
   const onSubmit = async (data: SignUp) => {
@@ -95,7 +80,7 @@ function SignUpForm() {
   };
 
   const handleFormSubmit = (data: SignUp) => {
-    checkEmail(data);
+    onSubmit(data);
   };
 
   return (
@@ -117,20 +102,11 @@ function SignUpForm() {
               <Input
                 id="email"
                 type="email"
-                className={`h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.email && "border-0 bg-input-error"}`}
-                placeholder="이메일을 입력해 주세요"
+                className={`h-52 w-[756px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.email && "border-0 bg-input-error"}`}
+                value={oauth2Email}
                 {...register("email", { required: true, pattern: regEmail })}
+                disabled
               />
-              {errors.email && errors.email.type === "required" && (
-                <span className="text-12 text-system-error">
-                  이메일을 입력해 주세요
-                </span>
-              )}
-              {errors.email && errors.email.type === "pattern" && (
-                <span className="text-12 text-system-error">
-                  이메일 형식으로 작성해 주세요
-                </span>
-              )}
             </div>
             <div className="flex flex-col gap-8">
               <Label htmlFor="nickname">
@@ -139,7 +115,7 @@ function SignUpForm() {
               <Input
                 id="nickname"
                 type="text"
-                className={`h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.nickname && "border-0 bg-input-error"}`}
+                className={`h-52 w-[756px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.nickname && "border-0 bg-input-error"}`}
                 placeholder="닉네임을 입력해 주세요"
                 {...register("nickname", {
                   required: true,
@@ -171,7 +147,7 @@ function SignUpForm() {
                 <Input
                   id="password"
                   type={passwordShown ? "text" : "password"}
-                  className={`h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.password && "border-0 bg-input-error text-text-02"}`}
+                  className={`h-52 w-[756px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.password && "border-0 bg-input-error text-text-02"}`}
                   placeholder="비밀번호를 입력해 주세요"
                   {...register("password", {
                     required: true,
@@ -211,7 +187,7 @@ function SignUpForm() {
                 <Input
                   id="confimPassword"
                   type={confirmPasswordShown ? "text" : "password"}
-                  className={`h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.confirmPassword && "border-0 bg-input-error"}`}
+                  className={`h-52 w-[756px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.confirmPassword && "border-0 bg-input-error"}`}
                   placeholder="비밀번호를 다시 입력해 주세요"
                   {...register("confirmPassword", {
                     required: true,
@@ -334,7 +310,7 @@ function SignUpForm() {
         </div>
       </form>
       {isModalOpen && (
-        <AlertModal
+        <Modal
           modalType="signupSuccess"
           onClose={() => {
             setIsModalOpen(false);
@@ -343,7 +319,7 @@ function SignUpForm() {
         />
       )}
       {isCheckEmailModalOpen && (
-        <AlertModal
+        <Modal
           modalType="emailInUse"
           onClose={() => {
             setIsCheckEmailModalOpen(false);
@@ -354,4 +330,4 @@ function SignUpForm() {
   );
 }
 
-export default SignUpForm;
+export default SocialSignUpForm;

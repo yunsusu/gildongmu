@@ -24,7 +24,6 @@ export default function Login() {
     reValidateMode: "onBlur", // 포커스 아웃 시 재검증
   });
   const router = useRouter();
-  const { code } = router.query; // URL에서 'code' 쿼리 파라미터 가져오기
 
   // 인풋이 비어있지 않을 때 로그인 버튼 활성화
   const email = watch("email");

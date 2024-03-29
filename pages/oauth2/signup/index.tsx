@@ -1,17 +1,18 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import SocialSignUpForm from "@/components/form/socialSignupForm";
 import axios from "@/lib/api/axios";
 
 export default function Oauth2Signup() {
   const router = useRouter();
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     const fetchLoginStatus = async () => {
       try {
         const response = await axios.get("/oauth2/siginup");
-        const oauth2Email = response.data.email;
+        setEmail(response.data.email);
 
         console.log("oauth2 이메일 조회 성공! ", response.data);
       } catch (error) {
@@ -27,7 +28,7 @@ export default function Oauth2Signup() {
       <h1 className="flex h-120 items-center text-32 font-extrabold text-text-01 tablet:h-100 tablet:text-24">
         회원 추가 정보
       </h1>
-      <SocialSignUpForm />
+      <SocialSignUpForm oauth2Email={email} />
     </div>
   );
 }
