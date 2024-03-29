@@ -12,7 +12,7 @@ export default function Oauth2Login() {
         const response = await axios.get("/oauth2/login");
 
         const { oauth2Token } = response.data;
-        document.cookie = `accessToken=${oauth2Token}; path=/; max-age=3600; secure; samesite=strict`;
+        document.cookie = `accessToken=${oauth2Token}; path=/; max-age=86400; secure; samesite=strict`;
 
         console.log("oauth2 토큰 저장 성공!");
         router.push("/");
