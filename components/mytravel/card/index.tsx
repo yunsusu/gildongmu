@@ -112,7 +112,11 @@ export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
                 />
               </div>
               <div className="text-14 font-normal leading-5 tracking-tighter text-text-02 tablet:text-12">
-                야돈만
+                {data.gender === "MALE"
+                  ? "남자만"
+                  : data.gender === "FEMALE"
+                    ? "여자만"
+                    : "상관없음"}
               </div>
             </div>
           </div>
