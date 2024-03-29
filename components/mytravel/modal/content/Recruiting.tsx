@@ -2,9 +2,10 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import Chip from "@/components/mytravel/modal/Chip";
+import { Data } from "@/components/mytravel/modal/content/Participating";
 import useToggle from "@/hooks/useToggle";
 
-export default function RecruitingContent() {
+export default function RecruitingContent({ data }: Data) {
   const [isMobile, setIsMobile] = useToggle(true);
   const [pass, setPass] = useState(true);
 
