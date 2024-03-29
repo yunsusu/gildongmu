@@ -14,25 +14,35 @@ export default function Bookmark({ data }: BookmarkProp) {
     <>
       {data.bookmark || bookmark ? (
         <div
-          className="relative h-24 w-24 cursor-pointer"
+          className="h-24 w-24 cursor-pointer"
           onClick={e => {
             e.stopPropagation();
             postBookMarks(data.id);
             setIsBookmark(prev => !prev);
           }}
         >
-          <Image src={"/icons/heartOn.svg"} alt="하트 아이콘" fill />
+          <Image
+            src={"/icons/heartOn.svg"}
+            alt="하트 아이콘"
+            width={24}
+            height={24}
+          />
         </div>
       ) : (
         <div
-          className="relative h-24 w-24 cursor-pointer"
+          className="h-24 w-24 cursor-pointer"
           onClick={e => {
             e.stopPropagation();
             deleteBookMarks(data.id);
             setIsBookmark(prev => !prev);
           }}
         >
-          <Image src={"/icons/heartOff.svg"} alt="빈하트 아이콘" fill />
+          <Image
+            src={"/icons/heartOff.svg"}
+            alt="빈하트 아이콘"
+            width={24}
+            height={24}
+          />
         </div>
       )}
     </>

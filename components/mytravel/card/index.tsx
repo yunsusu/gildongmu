@@ -32,16 +32,14 @@ export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
 
   return (
     <div
-      className={`tablet:h-270 ${
+      className={`tablet:h-270 relative flex h-[320px] w-270 cursor-pointer flex-col transition-all duration-500 [transform-style:preserve-3d] tablet:w-227 ${
         isMobile ? "mobile:w-148" : "mobile:w-243"
-      } relative flex h-[320px] w-270 cursor-pointer flex-col transition-all duration-500 [transform-style:preserve-3d] ${
-        isFlipped ? "[transform:rotateY(180deg)]" : ""
-      }  tablet:w-227 mobile:h-176 `}
+      } ${isFlipped ? "[transform:rotateY(180deg)]" : ""}  mobile:h-176 `}
       onClick={() => {
         setIsModalOpen(!isModalOpen);
       }}
     >
-      <div className="absolute inset-0 p-24 tablet:p-20 mobile:p-12">
+      <div className="absolute inset-0 w-full p-24 tablet:p-20 mobile:p-12">
         <Image
           src={data.thumbnail || "/icons/모몽가2.png"}
           alt="여행지 이미지"
@@ -49,10 +47,8 @@ export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
           className="rounded-[20px] object-cover"
         />
         <div className="absolute left-0 top-0 h-full w-full rounded-[20px] bg-black opacity-20" />
-        <div className="absolute flex flex-col items-start justify-between gap-16">
-          <div
-            className={`flex items-center justify-between gap-135 self-stretch tablet:gap-109 ${isMobile ? "mobile:gap-46" : "mobile:gap-140"}`}
-          >
+        <div className="absolute flex flex-col items-start justify-center gap-16">
+          <div className="flex items-center justify-between">
             <RecruitmentStatus recruitmentStatus={data.status} />
             <Bookmark data={data} />
           </div>
@@ -71,16 +67,16 @@ export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
           setIsFlipped={setIsFlipped}
         />
       </div>
-      <div className="absolute inset-0 flex flex-col justify-start rounded-[20px] border border-[#818CF8] bg-white p-24 [transform:rotateY(180deg)] [backface-visibility:hidden] tablet:p-20 mobile:p-12">
+      <div className="absolute inset-0 flex flex-col items-start rounded-[20px] border border-[#818CF8] bg-white p-24 [transform:rotateY(180deg)] [backface-visibility:hidden] tablet:p-20 mobile:p-12">
         <Title title={data.title} type="back" />
         <Image src={"/icons/dotline.svg"} alt="선" width={222} height={1} />
         <div
-          className={`mb-115 mt-24 flex flex-col justify-start tablet:mb-140 tablet:mt-16 mobile:mt-10 ${
+          className={`mb-115 mt-24 flex flex-col tablet:mb-140 tablet:mt-16 mobile:mt-10 ${
             isMobile ? "mobile:mb-25" : "mobile:mb-20"
           } `}
         >
-          <div className="flex flex-col items-start justify-center gap-8">
-            <div className="flex items-center justify-center gap-8">
+          <div className="flex flex-col gap-8">
+            <div className="flex items-center gap-8">
               <div className="tablet:h-12 tablet:w-12">
                 <Image
                   src={"/icons/location.svg"}
@@ -93,7 +89,7 @@ export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
                 {data.destination}
               </div>
             </div>
-            <div className="flex items-center justify-center gap-8">
+            <div className="flex items-center gap-8">
               <div className="tablet:h-12 tablet:w-12">
                 <Image
                   src={"/icons/calendar.svg"}
@@ -106,7 +102,7 @@ export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
                 {data.startDate} ~ {data.endDate}
               </div>
             </div>
-            <div className="flex items-center justify-center gap-8">
+            <div className="flex items-center gap-8">
               <div className="tablet:h-12 tablet:w-12">
                 <Image
                   src={"/icons/tag.svg"}
@@ -121,9 +117,9 @@ export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-start">
+        <div className="flex items-center">
           <div className="flex gap-12 text-12">
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex items-center gap-4">
               <Image
                 src={"/icons/heart.svg"}
                 alt="좋아요 수"
@@ -134,7 +130,7 @@ export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
                 {data.countOfBookmarks}
               </div>
             </div>
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex items-center gap-4">
               <Image
                 src={"/icons/comment.svg"}
                 alt="댓글 수"

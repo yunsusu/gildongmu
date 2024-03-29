@@ -45,14 +45,12 @@ export default function MyTravelModal({
     };
   }, []);
 
-  // console.log(data);
-
   return (
     portalRoot &&
     createPortal(
       <div className="fixed inset-0 z-30 flex h-full w-full items-center justify-center bg-dim-60">
         <div
-          className={`relative flex ${selectTab === "찜" ? "h-auto w-[565px] rounded-32 mobile:w-[320px]" : `h-[90%] ${selectTab === "모집 중" && "w-[1120px]"} w-[760px] tablet:min-h-screen tablet:w-full tablet:rounded-0`} flex-col items-center overflow-x-hidden rounded-32 bg-white shadow-md`}
+          className={`relative flex ${selectTab === "찜" ? "h-auto w-[565px] rounded-32 mobile:w-[320px]" : `h-[90%] ${selectTab === "모집 중" && "w-[1200px]"} w-[760px] tablet:min-h-screen tablet:w-full tablet:rounded-0`} flex-col items-center overflow-x-hidden rounded-32 bg-white shadow-md`}
           onClick={e => e.stopPropagation()}
         >
           <div className="flex w-full items-center justify-between border border-b-[#D4D4D4] py-24 pl-40 pr-32 tablet:py-16 tablet:pl-32 tablet:pr-24">

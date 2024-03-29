@@ -8,7 +8,7 @@ export default function ParticipatingContent() {
       <div className="flex h-63 w-full items-center justify-start rounded-t-24 bg-line-02 px-32 py-20 text-16 font-semibold leading-[130%] tracking-[-0.6px] tablet:px-24 tablet:py-16 mobile:px-20">
         {`현재 인원 (n / n)`}
       </div>
-      <div className="flex w-full flex-col justify-center gap-10 px-32 py-24 tablet:px-24 tablet:py-20 mobile:px-20 mobile:py-16">
+      <div className="flex h-[400px] w-full flex-col gap-10 overflow-scroll overflow-x-hidden px-32 py-24 tablet:h-[550px] tablet:px-24 tablet:py-20 mobile:h-[500px] mobile:px-20 mobile:py-16">
         {
           <div className="flex w-full items-center justify-between">
             <div className="flex items-center justify-center gap-12">

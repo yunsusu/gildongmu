@@ -51,9 +51,9 @@ export default function MyTravel() {
     <div className="relative flex flex-col items-center justify-center bg-[#818CF8]">
       <MyTravelHeader />
       <TabMenu selectTab={selectTab} onTabChange={handleTabChange} />
-      <div className="z-5 flex w-full items-center justify-center">
+      <div className="z-5 mt-40 flex w-full items-center justify-center">
         <div
-          className={`mobile:max-w-360 relative min-h-screen w-full max-w-[1200px] rounded-t-48 bg-white ${cardData && cardData.length > 0 ? "py-80" : "py-[250px]"} px-24 tablet:max-w-[768px] tablet:py-64`}
+          className={`relative flex min-h-screen w-full justify-center rounded-t-48 bg-white ${cardData && cardData.length > 0 ? "py-80" : "py-[250px]"} px-24 tablet:py-64`}
         >
           <Image
             src={"/icons/motorcycle.svg"}
@@ -63,7 +63,7 @@ export default function MyTravel() {
             className="absolute -top-70 right-[8%] h-100 w-100 mobile:hidden"
           />
           <div
-            className={`gap-24 ${cardData && cardData.length > 0 ? "grid grid-cols-4 tablet:grid-cols-3 mobile:grid-cols-2" : "flex flex-wrap items-center justify-center self-stretch"}`}
+            className={`gap-24 ${cardData && cardData.length > 0 ? "grid grid-flow-row auto-rows-max grid-cols-4 tablet:grid-cols-3 mobile:grid-cols-2" : "flex flex-wrap items-center justify-center self-stretch"}`}
           >
             {cardData && cardData.length > 0 ? (
               cardData.map((card, index) => (
