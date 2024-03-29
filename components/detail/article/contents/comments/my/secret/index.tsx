@@ -83,10 +83,7 @@ export default function SecretMyComment() {
         </Button>
       </div>
       <SecretMyCommentOfComment />
-      <div
-        className="h-[1px] self-stretch"
-        style={{ borderTop: "1px dashed #7DD3FC" }}
-      ></div>
+      <div className="h-[1px] self-stretch bg-sky-200"></div>
     </>
   );
 }
