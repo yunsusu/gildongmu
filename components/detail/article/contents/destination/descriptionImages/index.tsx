@@ -14,7 +14,7 @@ export default function Images({ data }: DetailDataType) {
             className="relative h-[281px] w-[281px] tablet:h-[210px] tablet:w-[210px] mobile:h-[130px] mobile:w-[130px]"
           >
             <Image
-              className="rounded-16"
+              className="rounded-16 object-cover"
               src={url}
               alt="여행지 이미지"
               fill

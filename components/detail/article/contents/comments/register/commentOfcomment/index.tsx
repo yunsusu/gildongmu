@@ -35,9 +35,6 @@ export default function RegistCommentOfComment() {
               {"내 닉네임"}
             </span>
           </div>
-          <div className="relative h-24 w-24 rounded-full">
-            <Image src={"/icons/more_vertical.svg"} alt="케밥 이미지" fill />
-          </div>
         </div>
         <div className="flex flex-col items-end gap-4 self-stretch overflow-auto">
           <Textarea
