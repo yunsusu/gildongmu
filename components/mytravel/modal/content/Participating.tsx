@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+import Modal from "@/components/modal";
 import Chip from "@/components/mytravel/modal/Chip";
 import axios from "@/lib/api/axios";
 
@@ -22,6 +23,7 @@ export interface Participant {
 
 export default function ParticipatingContent({ data, onClose }: any) {
   const [participants, setParticipants] = useState<Participant[]>();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getParticipantData = async () => {
     try {
@@ -43,6 +45,8 @@ export default function ParticipatingContent({ data, onClose }: any) {
       const res = temp.data;
       setParticipants(res);
       getParticipantData();
+      setIsModalOpen(!isModalOpen);
+      onClose();
     } catch (error) {
       console.error("Error fetching card data:", error);
     }
@@ -85,16 +89,24 @@ export default function ParticipatingContent({ data, onClose }: any) {
                   </span>
                 </div>
                 {data.status && member.user.isCurrentUser && (
-                  <button
-                    className="flex h-36 items-center justify-center rounded-32 bg-primary px-16 py-10 text-center font-bold leading-[20px] text-white hover:bg-primary-press mobile:h-32"
-                    onClick={e => {
-                      e.stopPropagation();
-                      cancelApplication();
-                      onClose();
-                    }}
-                  >
-                    신청 취소
-                  </button>
+                  <>
+                    <button
+                      className="flex h-36 items-center justify-center rounded-32 bg-primary px-16 py-10 text-center font-bold leading-[20px] text-white hover:bg-primary-press mobile:h-32"
+                      onClick={() => setIsModalOpen(!isModalOpen)}
+                    >
+                      신청 취소
+                    </button>
+                    {isModalOpen && (
+                      <Modal
+                        modalType="travelCancle"
+                        onClose={() => setIsModalOpen(!isModalOpen)}
+                        onConfirm={() => {
+                          cancelApplication();
+                        }}
+                        onCancel={() => setIsModalOpen(!isModalOpen)}
+                      />
+                    )}
+                  </>
                 )}
               </div>
             ))}

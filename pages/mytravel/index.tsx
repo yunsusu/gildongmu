@@ -64,9 +64,12 @@ export default function MyTravel() {
             className={`gap-24 ${cardData && cardData.length > 0 ? "grid grid-flow-row auto-rows-max grid-cols-4 tablet:grid-cols-3 mobile:grid-cols-2" : "flex flex-wrap items-center justify-center self-stretch"}`}
           >
             {cardData && cardData.length > 0 ? (
-              cardData.map((card, index) => (
-                <MyTravelCard key={index} data={card} selectTab={selectTab} />
-              ))
+              cardData
+                .slice()
+                .reverse()
+                .map((card, index) => (
+                  <MyTravelCard key={index} data={card} selectTab={selectTab} />
+                ))
             ) : (
               <div className="flex h-screen w-full flex-col items-center gap-32 bg-white tablet:gap-24">
                 <div className="flex flex-col items-center justify-center gap-24 tablet:gap-20">

@@ -24,9 +24,16 @@ interface ModalProps {
   nickname?: string;
   profilePath?: string;
   onClose: () => void;
+  onConfirm?: () => void;
+  onCancel?: () => void;
 }
 
-export default function Modal({ modalType, onClose }: ModalProps) {
+export default function Modal({
+  modalType,
+  onClose,
+  onConfirm,
+  onCancel,
+}: ModalProps) {
   let title: string = "";
   let message: string | ReactNode = "";
 
@@ -157,6 +164,8 @@ export default function Modal({ modalType, onClose }: ModalProps) {
         modalTitle={title}
         modalMessage={message}
         onClose={onClose}
+        onConfirm={onConfirm}
+        onCancel={onCancel}
       />
     </>
   );

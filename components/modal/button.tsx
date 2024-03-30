@@ -3,10 +3,17 @@ import { Button } from "@/components/ui/button";
 
 interface ModalButtonProps {
   modalType: ModalType;
-  onClose: () => void;
+  onClose?: () => void;
+  onConfirm?: () => void;
+  onCancel?: () => void;
 }
 
-export default function ModalButton({ modalType, onClose }: ModalButtonProps) {
+export default function ModalButton({
+  modalType,
+  onConfirm,
+  onCancel,
+  onClose,
+}: ModalButtonProps) {
   let filledStyle: string = "";
   let ghostStyle: string = "";
   let filledText: string = "";
@@ -40,10 +47,10 @@ export default function ModalButton({ modalType, onClose }: ModalButtonProps) {
     <>
       {ghostStyle && ghostText ? (
         <div className="flex items-start justify-center gap-12 self-stretch">
-          <Button variant={"outline"} className={ghostStyle} onClick={onClose}>
+          <Button variant={"outline"} className={ghostStyle} onClick={onCancel}>
             {ghostText}
           </Button>
-          <Button className={filledStyle} onClick={onClose}>
+          <Button className={filledStyle} onClick={onConfirm}>
             {filledText}
           </Button>
         </div>
