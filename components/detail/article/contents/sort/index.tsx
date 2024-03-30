@@ -32,6 +32,8 @@ export default function DetailSort({
   });
 
   return (
+    <>
+    <div id='information'></div>
     <div className="sticky top-0 z-10 flex w-full items-start gap-4 bg-sky-50 text-20 font-bold text-sky-600 tablet:text-18 mobile:text-16">
       <a
         className="flex h-60 w-1/3 justify-around rounded-tl-24 rounded-tr-24 border-none tablet:h-56 mobile:h-44"
@@ -58,5 +60,6 @@ export default function DetailSort({
         <span className="flex items-center">댓글</span>
       </a>
     </div>
+    </>
   );
 }

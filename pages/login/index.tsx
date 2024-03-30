@@ -9,6 +9,10 @@ import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
 import axios from "@/lib/api/axios";
 import { regEmail, regPassword } from "@/lib/utils/regexp";
+interface FormValues {
+  email: string;
+  password: string;
+}
 
 export default function Login() {
   const [loginErrorModal, setLoginErrorModal] = useState(false);
@@ -18,7 +22,7 @@ export default function Login() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormValues>({
     mode: "onBlur", // 포커스 아웃 시 유효성 검사
     criteriaMode: "all", // 모든 유효성 검사 규칙 체크
     reValidateMode: "onBlur", // 포커스 아웃 시 재검증

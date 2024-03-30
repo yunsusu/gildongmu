@@ -1,15 +1,17 @@
 import Image from "next/image";
 import { SubmitHandler, useForm } from "react-hook-form";
 
+// import io from "socket.io-client";
 import ChatCome from "@/components/community/chatCome";
 import ChatDate from "@/components/community/chatDate";
 import ChatHeader from "@/components/community/chatHeader";
 import MyChat from "@/components/community/myChat";
 import UserChat from "@/components/community/userChat";
-
 interface IFormInput {
   message: string;
 }
+
+// const socket = io("서버주소");
 
 function Chat() {
   const { register, handleSubmit, watch } = useForm<IFormInput>();
