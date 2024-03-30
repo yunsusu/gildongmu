@@ -1,4 +1,6 @@
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 // import io from "socket.io-client";
@@ -7,6 +9,7 @@ import ChatDate from "@/components/community/chatDate";
 import ChatHeader from "@/components/community/chatHeader";
 import MyChat from "@/components/community/myChat";
 import UserChat from "@/components/community/userChat";
+import { getChatPrev, getChatStatus } from "@/lib/api/chat";
 interface IFormInput {
   message: string;
 }
@@ -14,36 +17,40 @@ interface IFormInput {
 // const socket = io("서버주소");
 
 function Chat() {
+  const router = useRouter();
   const { register, handleSubmit, watch } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = data => console.log(data);
 
+  const { id } = router.query;
+
+  const { data: chatHeader } = useQuery({
+    queryKey: ["chat", { id }],
+    queryFn: () => getChatStatus(Number(id)),
+  });
+
+  const { data: chatPrev } = useQuery({
+    queryKey: ["chatPrev", { id }],
+    queryFn: () => getChatPrev(Number(1)),
+  });
+
   const nickname = "닉네임";
   const date = "2023년 3월 24일(일)";
-  const user = {
-    chatId: 24,
-    roomId: 1,
-    message: "hi",
-    chatType: "MESSAGE",
-    createdAt: "2024-03-23T20:23:48.714",
-    user: {
-      nickname: "우사기",
-      userId: "1",
-      profilePath:
-        "https://i.namu.wiki/i/GhX-s08WRsBKrZeRfuqTR4XHo_GwXCKBLgYz1egU9AA74IrRIHp0TytqZm4YZgVd59l4e9pogbDnKcBz86souE-v-O_yCu2cAFjX0ulvem_eYMY3jrOA12ENwaGuH9pKsptVVHgE_xSmlxJBTgySDg.webp",
-      isCurrentUser: false,
-    },
-  };
 
   return (
     <div className="fixed top-0 z-50 h-full w-full bg-white">
-      <ChatHeader />
+      <ChatHeader chatHeader={chatHeader} />
       <div className="flex flex-col gap-20 overflow-x-hidden overflow-y-scroll p-20">
         <div className="flex flex-col items-center gap-20">
           <ChatDate text={date} />
           <ChatCome text={`${nickname}님이 참가했습니다.`} />
         </div>
-        <UserChat user={user} />
-        <MyChat user={user} />
+        {chatPrev?.content.map((item: any, index: number) =>
+          item?.sender.isCurrentUser ? (
+            <MyChat key={index} user={item} />
+          ) : (
+            <UserChat key={index} user={item} />
+          ),
+        )}
       </div>
 
       <div className="fixed bottom-0 w-full bg-stone-100 p-20">

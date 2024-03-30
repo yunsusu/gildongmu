@@ -3,24 +3,38 @@ import { useState } from "react";
 
 import ChatUserList from "@/components/community/chatUserList";
 
-function ChatHeader() {
+interface chatHeaderProp {
+  chatHeader: {
+    id: number;
+    headCount: number;
+    thumbnail: string;
+    title: string;
+  };
+}
+
+function ChatHeader({ chatHeader }: chatHeaderProp) {
   const [hammenu, setHammenu] = useState(true);
 
   return (
     <div className="flex items-center justify-between gap-16 border-b border-line-01 p-20">
       <div className="relative h-52 w-52 overflow-hidden rounded-16">
-        <Image src={"/images/logo.svg"} alt="대표이미지" fill />
+        <Image
+          src={
+            chatHeader?.thumbnail ? chatHeader.thumbnail : `/images/logo.svg`
+          }
+          alt="대표이미지"
+          fill
+          className="object-cover"
+        />
       </div>
 
       <div className="flex-1">
-        <div className="mb-8 line-clamp-1">
-          건강한 라이프스타일을 위한 스트스트스튼ㅇ랑ㄴ
-        </div>
+        <div className="mb-8 line-clamp-1">{chatHeader?.title}</div>
         <div className="flex text-16 tablet:text-14">
           <div className="relative h-20 w-20">
             <Image src={"/icons/profile.svg"} alt="인원수" fill />
           </div>
-          10
+          {chatHeader?.headCount}
         </div>
       </div>
 
