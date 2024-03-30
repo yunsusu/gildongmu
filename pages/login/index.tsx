@@ -46,9 +46,7 @@ export default function Login() {
 
       router.push("/");
     } catch (error: any) {
-      if (error.response && error.response.status === 401) {
-        setLoginErrorModal(true);
-      }
+      setLoginErrorModal(true);
 
       console.log(error.message);
     }
@@ -65,7 +63,7 @@ export default function Login() {
       <div className="flex" style={{ height: "calc(100vh - 72px)" }}>
         <div className="h-full w-1/2 bg-kakao text-50 tablet:hidden"></div>
         <div className="flex h-full w-1/2 items-center justify-center bg-bg-06 text-14 tablet:w-full">
-          <div className="flex h-5/6 max-h-[617px] w-[434px] flex-col items-center rounded-32 bg-white p-40 tablet:mt-[81.5px] mobile:mx-24 mobile:mt-[50.5px] mobile:w-full">
+          <div className="flex h-5/6 max-h-[617px] w-[434px] flex-col items-center justify-center rounded-32 bg-white p-40 tablet:mt-[81.5px] mobile:mx-24 mobile:mt-[50.5px] mobile:w-full">
             <h1 className="mb-40 text-32 font-extrabold text-text-01">
               로그인
             </h1>
@@ -129,7 +127,7 @@ export default function Login() {
             <Link href="/signup" className="mb-40 mt-20 w-full text-18">
               <Button
                 variant="ghost"
-                className="h-52 w-full border-[1.5px] !text-primary hover:bg-primary-press hover:!text-primary-foreground"
+                className="h-52 w-full border-[1.5px] border-primary text-primary hover:bg-primary hover:text-primary-foreground"
               >
                 회원 가입하기
               </Button>
@@ -143,14 +141,14 @@ export default function Login() {
               <div className="w-1/3 border-b border-line-01"></div>
             </div>
 
-            <div className="flex w-full items-center justify-between text-18">
+            <div className="flex w-full items-center justify-between text-18 mobile:text-16">
               <Link
                 href={"http://3.38.76.39:8080/oauth2/authorization/kakao"}
                 className="mr-20 w-1/2"
               >
                 <Button
                   variant="destructive"
-                  className="hover:bg-curent h-52 w-full bg-kakao text-text-02"
+                  className="hover:bg-curent h-52 w-full bg-kakao py-10 text-text-02 mobile:h-44"
                 >
                   <Image
                     src="/icons/kakao.png"
@@ -169,7 +167,7 @@ export default function Login() {
               >
                 <Button
                   variant="destructive"
-                  className="hover:bg-curent h-52 w-full bg-bg-02 text-text-02"
+                  className="hover:bg-curent h-52 w-full bg-bg-02 py-10 text-text-02 mobile:h-44"
                 >
                   <Image
                     src="/icons/google.png"
