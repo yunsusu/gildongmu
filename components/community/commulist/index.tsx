@@ -66,7 +66,7 @@ function CommuList() {
       style={{ height: "calc(100% - 120px)" }}
       className="m-auto h-full w-full max-w-[1200px] px-40 pb-40 tablet:px-20 tablet:pb-20"
     >
-      <div className="border-Dimensions-05 h-full w-full overflow-hidden rounded-32 border-2 bg-white px-32 py-40">
+      <div className="h-full w-full overflow-hidden rounded-32 border-2 border-lime-300 bg-white  py-40">
         <div className="h-full w-full overflow-y-scroll bg-white">
           {rooms?.content[0] ? (
             <>

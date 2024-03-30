@@ -30,7 +30,7 @@ function MainCard({ content, is }: { content: any; is: string }) {
   return (
     <Link href={`/travel/${content.id}/detail`} className={wrap}>
       <div
-        className={`relative flex h-180 w-full flex-col overflow-hidden border p-16 tablet:p-12 ${is === "main" && "rounded-16"}`}
+        className={`relative flex h-180 w-full flex-col overflow-hidden p-16 tablet:p-12 ${is === "main" && "rounded-16"}`}
       >
         <Image
           src={content.thumbnail ? content.thumbnail : "images/logo.svg"}
