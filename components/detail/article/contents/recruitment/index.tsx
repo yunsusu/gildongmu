@@ -16,10 +16,7 @@ export default function Recruitment({ data, recruitRef }: RecruitmentProps) {
 
   return (
     data && (
-      <div
-        id="information"
-        className="relative flex w-full flex-col items-start gap-32 self-stretch pt-60 tablet:gap-24"
-      >
+      <div className="relative flex w-full flex-col items-start gap-32 self-stretch tablet:gap-24">
         <span className="text-20 tablet:text-18">모집 정보</span>
         <div className="flex flex-col items-start gap-24 self-stretch text-16 font-normal">
           <div className="flex flex-col items-start gap-16 self-stretch">
