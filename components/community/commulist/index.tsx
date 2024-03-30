@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-import CommuChat from "@/components/community/commuChat";
+import CommuChat from "@/components/community/commuchat";
 import useCookie from "@/hooks/useCookie";
 import { getChatList } from "@/lib/api/chat";
 
