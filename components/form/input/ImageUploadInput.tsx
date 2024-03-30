@@ -40,6 +40,7 @@ function ImageUpload({
             src={imageSrc || "/icons/defaultProfile.png"}
             alt="Profile"
             fill
+            priority
             className="rounded-full object-cover"
           />
         </div>

@@ -13,7 +13,9 @@ export type ModalType =
   | "writingDelete"
   | "userProfile"
   | "travelApply"
-  | "travelCancle";
+  | "travelCancle"
+  | "failCheckPassword"
+  | "changeProfileSuccess";
 
 interface ModalProps {
   modalType: ModalType;
@@ -129,6 +131,14 @@ export default function Modal({ modalType, onClose }: ModalProps) {
     case "travelCancle":
       title = "취소하기";
       message = "이 길동무 신청을 취소하시겠습니까?";
+      break;
+    case "failCheckPassword":
+      title = "";
+      message = "비밀번호가 일치하지 않습니다.";
+      break;
+    case "changeProfileSuccess":
+      title = "";
+      message = "회원 정보 변경을 완료했습니다.";
       break;
     default:
       break;
