@@ -19,6 +19,7 @@ export default function MyTravelModal({
   selectTab,
 }: MyTravelModalProps) {
   const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
+
   let title = "";
 
   switch (selectTab) {
@@ -34,6 +35,8 @@ export default function MyTravelModal({
     default:
       break;
   }
+
+  console.log(data);
 
   useEffect(() => {
     const body = document.body;
@@ -76,11 +79,11 @@ export default function MyTravelModal({
             <div className="mb-20 flex w-full items-center justify-between mobile:flex-col-reverse mobile:items-start mobile:gap-12">
               <div className="flex items-center justify-center gap-12">
                 <Image
-                  src={"/icons/모몽가2.png"}
+                  src={data.thumbnail || "/icons/모몽가2.png"}
                   alt="프로필 이미지"
                   width={48}
                   height={48}
-                  className="rounded-full"
+                  className="h-48 w-48 rounded-full object-cover"
                 />
                 <div className="flex flex-col gap-4">
                   <span className="text-16 font-bold leading-[130%] tracking-[-0.6px] text-text-03 tablet:text-14">
@@ -92,7 +95,7 @@ export default function MyTravelModal({
                 </div>
               </div>
               <div
-                className={`rounded-24 border bg-white px-16 py-7 text-16 leading-[130%] tracking-[-0.6px] ${data.status === "모집 중" ? "bg-[#FCE7F3] text-[#EC4899]" : "border-stone-400 text-stone-400"} tablet:px-12 tablet:py-5 tablet:text-14`}
+                className={`rounded-24 border bg-white px-16 py-7 text-16 leading-[130%] tracking-[-0.6px] ${data.status === "모집 중" ? "border-[#FCE7F3] bg-[#FCE7F3] text-[#EC4899]" : "border-stone-400 text-stone-400"} tablet:px-12 tablet:py-5 tablet:text-14`}
               >
                 {data.status}
               </div>
@@ -115,7 +118,9 @@ export default function MyTravelModal({
                 </div>
               </Link>
             </div>
-            {selectTab === "참여 중" && <ParticipatingContent data={data} />}
+            {selectTab === "참여 중" && (
+              <ParticipatingContent data={data} onClose={onClose} />
+            )}
             {selectTab === "모집 중" && <RecruitingContent data={data} />}
             {selectTab === "찜" && (
               <BookmarkContent data={data} onClose={onClose} />

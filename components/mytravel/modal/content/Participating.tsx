@@ -8,7 +8,7 @@ export interface Data {
   data: any;
 }
 
-interface Participant {
+export interface Participant {
   id: number;
   isLeader: boolean;
   isAccepted: boolean;
@@ -20,7 +20,7 @@ interface Participant {
   };
 }
 
-export default function ParticipatingContent({ data }: Data) {
+export default function ParticipatingContent({ data, onClose }: any) {
   const [participants, setParticipants] = useState<Participant[]>();
 
   const getParticipantData = async () => {
@@ -69,25 +69,29 @@ export default function ParticipatingContent({ data }: Data) {
                 key={index}
               >
                 <div className="flex items-center justify-center gap-12">
-                  {member.profilePath && (
+                  {member.user.profilePath && (
                     <Image
-                      src={member.profilePath}
+                      src={member.user.profilePath || "/icons/모몽가2.png"}
                       alt="프로필 이미지"
                       width={32}
                       height={32}
-                      className="rounded-full"
+                      className="h-32 w-32 rounded-full object-cover"
                     />
                   )}
                   {member.isLeader && <Chip chip="leader" />}
-                  {member.isMe && <Chip chip="me" />}
+                  {member.user.isCurrentUser && <Chip chip="me" />}
                   <span className="text-16 font-normal leading-[130%] tracking-[-0.6px] text-text-01 mobile:truncate mobile:text-14">
                     {member.user.nickname}
                   </span>
                 </div>
-                {data.status && member.isMe && (
+                {data.status && member.user.isCurrentUser && (
                   <button
                     className="flex h-36 items-center justify-center rounded-32 bg-primary px-16 py-10 text-center font-bold leading-[20px] text-white hover:bg-primary-press mobile:h-32"
-                    onClick={cancelApplication}
+                    onClick={e => {
+                      e.stopPropagation();
+                      cancelApplication();
+                      onClose();
+                    }}
                   >
                     신청 취소
                   </button>

@@ -47,8 +47,12 @@ export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
           className="rounded-[20px] object-cover"
         />
         <div className="absolute left-0 top-0 h-full w-full rounded-[20px] bg-black opacity-20" />
-        <div className="absolute flex flex-col items-start justify-center gap-16">
-          <div className="flex items-center justify-between">
+        <div className="absolute flex  flex-col items-start justify-center gap-16">
+          <div
+            className={`flex w-[222px] items-center justify-between tablet:w-187 ${
+              isMobile ? "mobile:w-124" : "mobile:w-219"
+            }`}
+          >
             <RecruitmentStatus recruitmentStatus={data.status} />
             <Bookmark data={data} />
           </div>
@@ -99,7 +103,7 @@ export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
                 />
               </div>
               <div className="text-14 font-normal leading-5 tracking-tighter text-text-02 tablet:text-12">
-                {data.startDate} ~ {data.endDate}
+                {data.tripDate.startDate} ~ {data.tripDate.endDate}
               </div>
             </div>
             <div className="flex items-center gap-8">
