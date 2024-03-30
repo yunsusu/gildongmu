@@ -30,7 +30,7 @@ function Card({ content }: { content: any }) {
 
   return (
     <Link href={`/travel/${content.id}/detail`} className={wrap}>
-      <div className="relative flex h-180 w-full flex-col overflow-hidden border p-16 tablet:p-12">
+      <div className="relative flex h-180 w-full flex-col overflow-hidden p-16 tablet:p-12">
         <Image
           src={content.thumbnail ? content.thumbnail : "images/logo.svg"}
           alt="여행지 이미지"

@@ -60,7 +60,7 @@ export default function CommentOfComment() {
             </div>
             <div ref={ref} className="relative">
               <div
-                className="relative h-24 w-24 cursor-pointer  rounded-full"
+                className="relative h-24 w-24 cursor-pointer rounded-full mobile:h-20 mobile:w-20"
                 onClick={handleDropDown}
               >
                 <Image

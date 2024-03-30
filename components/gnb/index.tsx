@@ -7,6 +7,7 @@ import { useOnClickOutside } from "usehooks-ts";
 
 import Dropdown from "@/components/dropdown";
 import Hammenu from "@/components/gnb/Hammenu";
+import useCookie from "@/hooks/useCookie";
 import useToggle from "@/hooks/useToggle";
 import { getUserMe } from "@/lib/api/userMe";
 import useGnbStore from "@/store/gnb";
@@ -172,7 +173,9 @@ function Gnb() {
                 </div>
               </div>
               {dropDown && (
-                <Dropdown buttons={gnbs} handleDropDown={handleDropDown} />
+                <div className="relative -top-15">
+                  <Dropdown buttons={gnbs} handleDropDown={handleDropDown} />
+                </div>
               )}
             </div>
           )
@@ -212,30 +215,3 @@ function Gnb() {
 }
 
 export default Gnb;
-
-function useCookie(name: string) {
-  const [cookie, setCookie] = useState(null);
-
-  useEffect(() => {
-    const checkCookieChange = () => {
-      const match = document.cookie.match(
-        new RegExp("(^| )" + name + "=([^;]+)"),
-      );
-      const cookieValue: string | any = match ? match[2] : null;
-
-      if (cookie !== cookieValue) {
-        setCookie(cookieValue);
-      }
-    };
-
-    // 초기 쿠키 값 설정
-    checkCookieChange();
-
-    // 주기적으로 쿠키 변경 체크
-    const intervalId = setInterval(checkCookieChange, 1000);
-
-    return () => clearInterval(intervalId);
-  }, [name, cookie]);
-
-  return cookie;
-}

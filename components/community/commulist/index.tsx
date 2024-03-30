@@ -1,22 +1,82 @@
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
-import CommuChat from "@/components/community/commuChat";
+import CommuChat from "@/components/community/commuchat";
+import useCookie from "@/hooks/useCookie";
+import { getChatList } from "@/lib/api/chat";
+
+interface Room {
+  id: number;
+  lastChatMessage: string;
+  lastChatAt: string;
+  headCount: number;
+  thumbnail: string;
+  title: string;
+}
+
+// const roo = [
+//   {
+//     id: 2,
+//     lastChatMessage: "안녕하세요",
+//     lastChatAt: "2024-03-27T07:07:44",
+//     headCount: 3,
+//     thumbnail: "string",
+//     title: "제목",
+//   },
+//   {
+//     id: 5,
+//     lastChatMessage: "안녕하세요",
+//     lastChatAt: "2024-03-28T19:07:44",
+//     headCount: 3,
+//     thumbnail: "string",
+//     title: "제목",
+//   },
+//   {
+//     id: 1,
+//     lastChatMessage: "안녕하세요",
+//     lastChatAt: "2024-03-29T15:36:49.238412",
+//     headCount: 1,
+//     thumbnail: "string",
+//     title: "안녕하세요",
+//   },
+// ];
 
 function CommuList() {
+  const accessToken = useCookie("accessToken");
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (!accessToken && !isLoading) {
+      router.push("/");
+    } else {
+      setIsLoading(false);
+    }
+  }, [accessToken, isLoading, router]);
+
+  const { data: rooms } = useQuery({
+    queryKey: ["rooms"],
+    queryFn: () => getChatList(),
+  });
+
   return (
     <div
       style={{ height: "calc(100% - 120px)" }}
       className="m-auto h-full w-full max-w-[1200px] px-40 pb-40 tablet:px-20 tablet:pb-20"
     >
-      <div className="border-Dimensions-05 h-full w-full overflow-hidden rounded-32 border-2 bg-white px-32 py-40">
+      <div className="h-full w-full overflow-hidden rounded-32 border-2 border-lime-300 bg-white  py-40">
         <div className="h-full w-full overflow-y-scroll bg-white">
-          {/* 나중에 리스트 데이터 받아오면 true 수정 */}
-          {true ? (
+          {rooms?.content[0] ? (
             <>
-              <CommuChat />
-              <CommuChat />
-              <CommuChat />
-              <CommuChat />
+              {/* {roo.map((item: Room, index: number) => (
+                <CommuChat key={index} item={item} />
+              ))} */}
+
+              {rooms.content.map((item: Room, index: number) => (
+                <CommuChat key={index} item={item} />
+              ))}
             </>
           ) : (
             <div className="flex h-full w-full flex-col items-center justify-center gap-32 bg-white tablet:gap-24">
