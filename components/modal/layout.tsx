@@ -22,6 +22,8 @@ export default function ModalLayout({
   const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
+    document.body.style.overflow = "hidden";
+
     const body = document.body;
     const modalRoot = document.createElement("div");
     modalRoot.setAttribute("id", "modal");
@@ -29,6 +31,7 @@ export default function ModalLayout({
     setPortalRoot(modalRoot);
     return () => {
       body.removeChild(modalRoot);
+      document.body.style.overflow = "auto";
     };
   }, []);
 

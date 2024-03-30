@@ -36,9 +36,9 @@ export default function MyTravelModal({
       break;
   }
 
-  console.log(data);
-
   useEffect(() => {
+    document.body.style.overflow = "hidden";
+
     const body = document.body;
     const modalRoot = document.createElement("div");
     modalRoot.setAttribute("id", "modal");
@@ -46,6 +46,7 @@ export default function MyTravelModal({
     setPortalRoot(modalRoot);
     return () => {
       body.removeChild(modalRoot);
+      document.body.style.overflow = "auto";
     };
   }, []);
 
@@ -95,7 +96,7 @@ export default function MyTravelModal({
                 </div>
               </div>
               <div
-                className={`rounded-24 border bg-white px-16 py-7 text-16 leading-[130%] tracking-[-0.6px] ${data.status === "모집 중" ? "border-[#FCE7F3] bg-[#FCE7F3] text-[#EC4899]" : "border-stone-400 text-stone-400"} tablet:px-12 tablet:py-5 tablet:text-14`}
+                className={`rounded-24 border bg-white px-16 py-7 text-16 leading-[130%] tracking-[-0.6px] ${data.status === "모집 중" ? "border-pink-100 bg-pink-100 text-pink-500" : "border-stone-400 text-stone-400"} tablet:px-12 tablet:py-5 tablet:text-14`}
               >
                 {data.status}
               </div>
