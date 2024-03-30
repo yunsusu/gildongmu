@@ -1,13 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
-import axiosInstance from "@/lib/api/axios";
+import axios from "@/lib/api/axios";
 import { regEmail, regPassword } from "@/lib/utils/regexp";
 interface FormValues {
   email: string;
@@ -15,29 +15,19 @@ interface FormValues {
 }
 
 export default function Login() {
-  const router = useRouter();
   const [loginErrorModal, setLoginErrorModal] = useState(false);
   const [eye, setEye, toggleEye] = useToggle(true);
   const {
     register,
     handleSubmit,
     watch,
-    formState: { isValid, errors },
+    formState: { errors },
   } = useForm<FormValues>({
     mode: "onBlur", // 포커스 아웃 시 유효성 검사
     criteriaMode: "all", // 모든 유효성 검사 규칙 체크
     reValidateMode: "onBlur", // 포커스 아웃 시 재검증
   });
-
-  // 카카오 로그인
-  const kakaoClientName = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
-  const kakaoRedirectUri = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${kakaoClientName}&redirect_uri=${kakaoRedirectUri}&response_type=code`;
-
-  // 구글 로그인
-  const googleClientName = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-  const googleRedirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
-  const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=${googleClientName}&redirect_uri=${googleRedirectUri}&scope=https://www.googleapis.com/auth/userinfo.email`;
+  const router = useRouter();
 
   // 인풋이 비어있지 않을 때 로그인 버튼 활성화
   const email = watch("email");
@@ -46,13 +36,13 @@ export default function Login() {
 
   const onSubmit = async (data: any) => {
     try {
-      const response = await axiosInstance.post("/auth/login", {
+      const response = await axios.post("/auth/login", {
         email: data.email,
         password: data.password,
       });
 
       const { accessToken } = response.data;
-      document.cookie = `accessToken=${accessToken}; path=/; max-age=3600; secure; samesite=strict`;
+      document.cookie = `accessToken=${accessToken}; path=/; max-age=86400; secure; samesite=strict`;
 
       router.push("/");
     } catch (error: any) {
@@ -63,29 +53,6 @@ export default function Login() {
       console.log(error.message);
     }
   };
-
-  useEffect(() => {
-    const sendDataToServer = async (data: any) => {
-      try {
-        const response = await axiosInstance.post(`/oauth2/login`, {
-          data,
-        });
-        console.log("소설로그인 성공", response.data);
-
-        router.push("/");
-      } catch (error) {
-        console.error("인증 코드 전송 실패:", error);
-        // 에러 처리 로직 (토큰 만료, 서버 응답 없음 등)
-      }
-    };
-
-    // URL에서 인증 코드 추출
-    const authCode = new URL(window.location.href).searchParams.get("code");
-    if (authCode) {
-      // 인증 코드가 있으면 백엔드로 전송
-      sendDataToServer(authCode);
-    }
-  }, [router]);
 
   return (
     <>
@@ -177,7 +144,10 @@ export default function Login() {
             </div>
 
             <div className="flex w-full items-center justify-between text-18">
-              <Link href={KAKAO_AUTH_URL} className="mr-20 w-1/2">
+              <Link
+                href={"http://3.38.76.39:8080/oauth2/authorization/kakao"}
+                className="mr-20 w-1/2"
+              >
                 <Button
                   variant="destructive"
                   className="hover:bg-curent h-52 w-full bg-kakao text-text-02"
@@ -193,7 +163,10 @@ export default function Login() {
                 </Button>
               </Link>
 
-              <Link href={GOOGLE_AUTH_URL} className="w-1/2">
+              <Link
+                href={"http://3.38.76.39:8080/oauth2/authorization/google"}
+                className="w-1/2"
+              >
                 <Button
                   variant="destructive"
                   className="hover:bg-curent h-52 w-full bg-bg-02 text-text-02"
