@@ -1,27 +1,36 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
+
+import { deleteBookMarks, postBookMarks } from "@/lib/api/bookmarks";
 
 function Card({ content }: { content: any }) {
-  const [favor, setFavor] = useState(false);
-  const [wrap, setWrap] = useState("");
   const router = useRouter();
-  useEffect(() => {
+  const [favor, setFavor] = useState(true);
+  const wrap = useMemo(() => {
     if (router.pathname === "/travel") {
-      setWrap(
-        "max-w-240 w-full h-[310px] block bg-white rounded-16 border border-line-02 m-auto overflow-hidden",
-      );
+      return "max-w-240 w-full h-[310px] block bg-white rounded-16 border border-line-02 m-auto overflow-hidden";
     } else {
-      setWrap(
-        "tablet:w-196 mobile:max-w-[280px] mobile:min-w-264 mobile:w-full w-240 h-[310px] block bg-white rounded-16 border border-line-02 m-auto overflow-hidden",
-      );
+      return "tablet:w-196 mobile:max-w-[280px] mobile:min-w-264 mobile:w-full w-240 h-[310px] block bg-white rounded-16  m-auto overflow-hidden";
     }
   }, [router.pathname]);
+  const gender = useMemo(() => {
+    switch (content.gender) {
+      case "MALE":
+        return "남자만";
+
+      case "FEMALE":
+        return "여자만";
+
+      default:
+        return "여자/남자";
+    }
+  }, [content.gender]);
 
   return (
     <Link href={`/travel/${content.id}/detail`} className={wrap}>
-      <div className="relative flex h-180 w-full flex-col overflow-hidden border p-16 tablet:p-12">
+      <div className="relative flex h-180 w-full flex-col overflow-hidden p-16 tablet:p-12">
         <Image
           src={content.thumbnail ? content.thumbnail : "images/logo.svg"}
           alt="여행지 이미지"
@@ -41,11 +50,25 @@ function Card({ content }: { content: any }) {
               </div>
             )}
             {favor ? (
-              <div className="relative h-24 w-24 cursor-pointer">
+              <div
+                className="relative h-24 w-24 cursor-pointer"
+                onClick={e => {
+                  e.preventDefault();
+                  postBookMarks(content.id);
+                  setFavor(prev => !prev);
+                }}
+              >
                 <Image src={"/icons/heartOff.svg"} alt="하트" fill />
               </div>
             ) : (
-              <div className="relative h-24 w-24">
+              <div
+                className="relative h-24 w-24"
+                onClick={e => {
+                  e.preventDefault();
+                  deleteBookMarks(content.id);
+                  setFavor(prev => !prev);
+                }}
+              >
                 <Image src={"/icons/heartOn.svg"} alt="하트" fill />
               </div>
             )}
@@ -80,14 +103,15 @@ function Card({ content }: { content: any }) {
             <Image src={"/icons/tag.svg"} alt="태그" fill />
           </div>
           <div className="flex gap-6">
-            {content.tag.map((item: any, index: number) => (
+            {/* {content.tag.map((item: any, index: number) => (
               <>
                 <div key={index}>
                   {item}
                   {index !== content.tag.length - 1 && ","}
                 </div>
               </>
-            ))}
+            ))} */}
+            {gender}
           </div>
         </div>
 
