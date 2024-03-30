@@ -85,9 +85,9 @@ function SocialSignUpForm() {
   };
 
   useEffect(() => {
-    const fetchLoginStatus = async () => {
+    const getOauthEmail = async () => {
       try {
-        const response = await axios.get("/oauth2/siginup");
+        const response = await axios.get("/oauth2/signup");
         setOauthEmail(response.data.email);
 
         console.log("oauth2 이메일 조회 성공! ", response.data.email);
@@ -96,7 +96,7 @@ function SocialSignUpForm() {
       }
     };
 
-    fetchLoginStatus();
+    getOauthEmail();
   }, [oauthEmail, router]);
 
   return (
