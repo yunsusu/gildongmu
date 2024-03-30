@@ -141,6 +141,7 @@ export default function Modal({ modalType, onClose }: ModalProps) {
     case "changeProfileSuccess":
       title = "";
       message = "회원 정보 변경을 완료했습니다.";
+      break;
     case "profileEdit":
       title = "수정 완료";
       message = "프로필 정보가 수정되었습니다.";
