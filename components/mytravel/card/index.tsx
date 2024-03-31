@@ -1,18 +1,19 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import Modal from "@/components/modal";
-import Favor from "@/components/mytravel/Card/Favor";
-import FilpButton from "@/components/mytravel/Card/FlipButton";
-import RecruitmentStatus from "@/components/mytravel/Card/RecruitmentStatus";
-import Title from "@/components/mytravel/Card/Title";
+import Favor from "@/components/mytravel/card/Favor";
+import FilpButton from "@/components/mytravel/card/FlipButton";
+import RecruitmentStatus from "@/components/mytravel/card/RecruitmentStatus";
+import Title from "@/components/mytravel/card/Title";
+import MyTravelModal from "@/components/mytravel/modal";
 import useToggle from "@/hooks/useToggle";
 
 interface MyTravelCardProps {
   data: any;
+  selectTab: string;
 }
 
-export default function MyTravelCard({ data }: MyTravelCardProps) {
+export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
   const [isMobile, setIsMobile] = useToggle(true);
   const [isFlipped, setIsFlipped] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -152,9 +153,28 @@ export default function MyTravelCard({ data }: MyTravelCardProps) {
           setIsFlipped={setIsFlipped}
         />
       </div>
-      {isModalOpen && (
-        <Modal
-          modalType="signupSuccess"
+      {isModalOpen && selectTab === "참여 중" && (
+        <MyTravelModal
+          data={data}
+          selectTab="참여 중"
+          onClose={() => {
+            setIsModalOpen(false);
+          }}
+        />
+      )}
+      {isModalOpen && selectTab === "모집 중" && (
+        <MyTravelModal
+          data={data}
+          selectTab="모집 중"
+          onClose={() => {
+            setIsModalOpen(false);
+          }}
+        />
+      )}
+      {isModalOpen && selectTab === "찜" && (
+        <MyTravelModal
+          data={data}
+          selectTab="찜"
           onClose={() => {
             setIsModalOpen(false);
           }}
