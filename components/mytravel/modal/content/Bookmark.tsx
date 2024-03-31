@@ -13,7 +13,6 @@ export default function BookmarkContent({ data, onClose }: any) {
     }
   };
 
-  console.log(postid);
   return (
     <div className="mt-20 flex w-full items-center justify-center gap-20 tablet:mt-16 mobile:mt-12 mobile:gap-12">
       <button

@@ -33,7 +33,6 @@ export default function ParticipatingContent({ data, onClose }: any) {
       const res = temp.data;
 
       setParticipants(res);
-      console.log(res);
     } catch (error) {
       console.error("Error fetching card data:", error);
     }

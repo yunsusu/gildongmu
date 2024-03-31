@@ -1,16 +1,20 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+import Modal from "@/components/modal";
 import Chip from "@/components/mytravel/modal/Chip";
 import { Participant } from "@/components/mytravel/modal/content/Participating";
 import useToggle from "@/hooks/useToggle";
 import axios from "@/lib/api/axios";
 
-export default function RecruitingContent({ data, onClose }: any) {
+export default function RecruitingContent({ data }: any) {
   const [isMobile, setIsMobile] = useToggle(true);
   const [pass, setPass] = useState(true);
   const [participants, setParticipants] = useState<any>();
   const [applicants, setApplicants] = useState<any>();
+  const [isExileModalOpen, setIsExileModalOpen] = useState(false);
+  const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
+  const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false);
 
   const getParticipantData = async () => {
     try {
@@ -18,8 +22,8 @@ export default function RecruitingContent({ data, onClose }: any) {
         `/posts/${data.id}/participants?status=ACCEPTED`,
       );
       const res = temp.data;
-      setParticipants(res);
       console.log(res);
+      setParticipants(res);
     } catch (error) {
       console.error("Error fetching card data:", error);
     }
@@ -32,7 +36,26 @@ export default function RecruitingContent({ data, onClose }: any) {
       );
       const res = temp.data;
       setApplicants(res);
-      // console.log(res);
+    } catch (error) {
+      console.error("Error fetching card data:", error);
+    }
+  };
+
+  const participantExile = async (type: any) => {
+    try {
+      const res = await axios.delete(
+        `/posts/${data.id}/participants/${type.id}`,
+      );
+      return res;
+    } catch (error) {
+      console.error("Error fetching card data:", error);
+    }
+  };
+
+  const applicationAccept = async (type: any) => {
+    try {
+      const res = await axios.put(`/posts/${data.id}/participants/${type.id}`);
+      return res;
     } catch (error) {
       console.error("Error fetching card data:", error);
     }
@@ -131,12 +154,30 @@ export default function RecruitingContent({ data, onClose }: any) {
                   text === "participants" &&
                   !participant.isLeader &&
                   participant.isAccepted && (
-                    <button
-                      key={participant.id}
-                      className="flex h-36 items-center justify-center py-10 text-center font-bold leading-[20px] text-stone-700 hover:text-stone-500 mobile:h-32"
-                    >
-                      {isMobile ? "추방" : "추방하기"}
-                    </button>
+                    <>
+                      <button
+                        key={`participant_button_${index}`}
+                        className="flex h-36 items-center justify-center py-10 text-center font-bold leading-[20px] text-stone-700 hover:text-stone-500 mobile:h-32"
+                        onClick={() => {
+                          setIsExileModalOpen(!isExileModalOpen);
+                        }}
+                      >
+                        {isMobile ? "추방" : "추방하기"}
+                      </button>
+                      {isExileModalOpen && (
+                        <Modal
+                          modalType="participantExile"
+                          onClose={() => setIsExileModalOpen(!isExileModalOpen)}
+                          onCancel={() =>
+                            setIsExileModalOpen(!isExileModalOpen)
+                          }
+                          onConfirm={() => {
+                            participantExile(participant);
+                            setIsExileModalOpen(!isExileModalOpen);
+                          }}
+                        />
+                      )}
+                    </>
                   )}
               </div>
             ))
@@ -173,17 +214,56 @@ export default function RecruitingContent({ data, onClose }: any) {
                     {text === "applicants" && !applicant.user.isCurrentUser && (
                       <div className="flex gap-10">
                         <button
-                          key={applicant.id}
                           className="flex h-36 items-center justify-center py-10 text-center font-bold leading-[20px] text-stone-700 hover:text-stone-500 mobile:h-32"
+                          key={`applicant_declineButton_${index}`}
+                          onClick={() =>
+                            setIsRejectModalOpen(!isRejectModalOpen)
+                          }
                         >
                           거절
                         </button>
-                        <button
-                          key={applicant.id}
-                          className="flex h-36 items-center justify-center py-10 text-center font-bold leading-[20px] text-primary hover:text-primary-press mobile:h-32"
-                        >
-                          수락
-                        </button>
+                        {isRejectModalOpen && (
+                          <Modal
+                            modalType="applicationReject"
+                            onClose={() =>
+                              setIsRejectModalOpen(!isRejectModalOpen)
+                            }
+                            onCancel={() =>
+                              setIsRejectModalOpen(!isRejectModalOpen)
+                            }
+                            onConfirm={() => {
+                              participantExile(applicant);
+                              setIsRejectModalOpen(!isRejectModalOpen);
+                            }}
+                          />
+                        )}
+                        {data.numberOfPeople >=
+                          data.numberOfPeople - participants?.length && (
+                          <button
+                            className="flex h-36 items-center justify-center py-10 text-center font-bold leading-[20px] text-primary hover:text-primary-press mobile:h-32"
+                            key={`applicant_acceptButtonn_${index}`}
+                            onClick={() =>
+                              setIsAcceptModalOpen(!isAcceptModalOpen)
+                            }
+                          >
+                            수락
+                          </button>
+                        )}
+                        {isAcceptModalOpen && (
+                          <Modal
+                            modalType="applicationAccept"
+                            onClose={() =>
+                              setIsAcceptModalOpen(!isAcceptModalOpen)
+                            }
+                            onCancel={() =>
+                              setIsAcceptModalOpen(!isAcceptModalOpen)
+                            }
+                            onConfirm={() => {
+                              applicationAccept(applicant);
+                              setIsAcceptModalOpen(!isAcceptModalOpen);
+                            }}
+                          />
+                        )}
                       </div>
                     )}
                   </div>
