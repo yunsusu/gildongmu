@@ -80,7 +80,11 @@ export default function MyTravelModal({
             <div className="mb-20 flex w-full items-center justify-between mobile:flex-col-reverse mobile:items-start mobile:gap-12">
               <div className="flex items-center justify-center gap-12">
                 <Image
-                  src={data.thumbnail || "/icons/모몽가2.png"}
+                  src={
+                    data.thumbnail
+                      ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${data.thumbnail}`
+                      : "/icons/모몽가2.png"
+                  }
                   alt="프로필 이미지"
                   width={48}
                   height={48}
@@ -96,7 +100,7 @@ export default function MyTravelModal({
                 </div>
               </div>
               <div
-                className={`rounded-24 border bg-white px-16 py-7 text-16 leading-[130%] tracking-[-0.6px] ${data.status === "모집 중" ? "border-pink-100 bg-pink-100 text-pink-500" : "border-stone-400 text-stone-400"} tablet:px-12 tablet:py-5 tablet:text-14`}
+                className={`rounded-24 border bg-white px-16 py-7 text-16 leading-[130%] tracking-[-0.6px] ${data.status === "모집 중" ? "border-pink-100 bg-[#FCE7F3] text-pink-500" : "border-stone-400 text-stone-400"} tablet:px-12 tablet:py-5 tablet:text-14`}
               >
                 {data.status}
               </div>
@@ -122,7 +126,9 @@ export default function MyTravelModal({
             {selectTab === "참여 중" && (
               <ParticipatingContent data={data} onClose={onClose} />
             )}
-            {selectTab === "모집 중" && <RecruitingContent data={data} />}
+            {selectTab === "모집 중" && (
+              <RecruitingContent data={data} onClose={onClose} />
+            )}
             {selectTab === "찜" && (
               <BookmarkContent data={data} onClose={onClose} />
             )}

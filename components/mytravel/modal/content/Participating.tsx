@@ -75,7 +75,11 @@ export default function ParticipatingContent({ data, onClose }: any) {
                 <div className="flex items-center justify-center gap-12">
                   {member.user.profilePath && (
                     <Image
-                      src={member.user.profilePath || "/icons/모몽가2.png"}
+                      src={
+                        member.user.profilePath
+                          ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${member.user.profilePath}`
+                          : "/icons/모몽가2.png"
+                      }
                       alt="프로필 이미지"
                       width={32}
                       height={32}

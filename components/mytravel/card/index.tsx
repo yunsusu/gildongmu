@@ -41,7 +41,11 @@ export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
     >
       <div className="absolute inset-0 w-full p-24 tablet:p-20 mobile:p-12">
         <Image
-          src={data.thumbnail || "/icons/모몽가2.png"}
+          src={
+            data.thumbnail
+              ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${data.thumbnail}`
+              : "/icons/모몽가2.png"
+          }
           alt="여행지 이미지"
           fill
           className="rounded-[20px] object-cover"
