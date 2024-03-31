@@ -19,6 +19,8 @@ export default function ModalButton({ modalType, onClose }: ModalButtonProps) {
     modalType === "writingSuccess" ||
     modalType === "emailInUse" ||
     modalType === "userProfile" ||
+    modalType === "failCheckPassword" ||
+    modalType === "changeProfileSuccess" ||
     modalType === "profileEdit"
   ) {
     filledStyle = `text-18 h-52 mobile:h-44  ${modalType === "userProfile" ? "w-240 mobile:w-full" : "w-full"}`;
