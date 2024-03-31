@@ -82,13 +82,17 @@ function MyPageForm() {
       try {
         const response = await axios.get("/users/me");
         if (response.data) {
+          const imagePath = `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${response.data.profilePath}`;
+
           reset({
             bio: response.data.bio,
             email: response.data.email,
             favoriteSpots: response.data.favoriteSpots,
             nickname: response.data.nickname,
-            profile: response.data.profilePath,
+            profile: imagePath,
           });
+
+          console.log(imagePath);
         }
       } catch (error) {
         console.error("회원정보 가져오기 실패:", error);
@@ -106,7 +110,6 @@ function MyPageForm() {
     if (newPassword && newPassword !== currentPassword) {
       submitData.isPasswordChanged = true;
       submitData.password = newPassword;
-      
     } else {
       submitData.isPasswordChanged = false;
       submitData.password = "asdf1234!";

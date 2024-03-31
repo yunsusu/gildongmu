@@ -5,7 +5,7 @@ function ImageUpload({
   onChange,
   value,
 }: {
-  onChange: (value: string) => void;
+  onChange: (file: File | null) => void;
   value: string;
 }) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -16,18 +16,20 @@ function ImageUpload({
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (!file) return;
+    if (!file) {
+      onChange(null);
+      return;
+    }
 
     const reader = new FileReader();
     reader.onloadend = () => {
-      const result = reader.result;
-      if (typeof result === "string") {
-        setImageSrc(result);
-        onChange(result);
-      }
+      setImageSrc(reader.result as string);
     };
     reader.readAsDataURL(file);
+
+    onChange(file); // 여기서 파일 객체를 전달합니다.
   };
+
 
   const triggerFileInput = () => document.getElementById("fileInput")?.click();
 
