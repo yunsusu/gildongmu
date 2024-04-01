@@ -5,15 +5,15 @@ import useSortStore from "@/store/choiceSort";
 
 interface FilterBtnProps {
   text: string;
-  search: string;
-  setSearch: (search: string) => void;
+  searchText: string;
+  setSearch: (searchText: string) => void;
 }
 
-function FilterBtn({ text, search, setSearch }: FilterBtnProps) {
+function FilterBtn({ text, searchText, setSearch }: FilterBtnProps) {
   const [choice, setChoice] = useState("bg-blue-200");
   const { setChoiceSort } = useSortStore();
   const router = useRouter();
-  const { filter } = router.query;
+  const { filter, search } = router.query;
 
   useEffect(() => {
     let updatedSearch = "";
@@ -42,14 +42,21 @@ function FilterBtn({ text, search, setSearch }: FilterBtnProps) {
 
     if (updatedSearch) setSearch(updatedSearch);
 
-    setChoice(search === text ? "bg-yellow-300" : "bg-blue-200");
-  }, [filter, search, setSearch, text]);
+    setChoice(searchText === text ? "bg-yellow-300" : "bg-blue-200");
+  }, [filter, searchText, setSearch, text]);
 
   const handleSort = (type: string) => {
-    router.push({
-      pathname: router.pathname,
-      query: { filter: type },
-    });
+    if (search) {
+      router.push({
+        pathname: router.pathname,
+        query: { ...router.query, filter: type },
+      });
+    } else {
+      router.push({
+        pathname: router.pathname,
+        query: { filter: type },
+      });
+    }
   };
 
   const handleFilter = () => {
