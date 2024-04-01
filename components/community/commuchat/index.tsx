@@ -43,7 +43,11 @@ function CommuChat({ item }: itemType) {
       <div className="flex flex-1 gap-24 ">
         <div className="relative h-60 w-60 tablet:h-48 tablet:w-48">
           <Image
-            src={item.thumbnail ? item.thumbnail : "/images/logo.svg"}
+            src={
+              item.thumbnail
+                ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${item.thumbnail}`
+                : "/images/logo.svg"
+            }
             alt="대표이미지"
             fill
             objectFit="cover"

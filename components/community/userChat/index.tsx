@@ -28,7 +28,7 @@ function UserChat({ user }: ChatProps) {
         <Image
           src={
             user.sender?.profilePath
-              ? user.sender?.profilePath
+              ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${user.sender?.profilePath}`
               : "/images/logo.svg"
           }
           alt={`${user.sender?.nickname}의 프로필`}

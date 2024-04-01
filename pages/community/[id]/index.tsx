@@ -23,7 +23,8 @@ function Chat() {
   const { register, handleSubmit, watch, reset } = useForm<IFormInput>();
   const [messages, setMessages] = useState<string[]>([]);
   const stompClient = useRef<Client | null>(null);
-
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  console.log(messages);
   const onSubmit: SubmitHandler<IFormInput> = data => {
     if (stompClient.current?.connected && accessToken) {
       const messageToSend = { message: data.message };
@@ -51,7 +52,8 @@ function Chat() {
             stompClient.current.subscribe(
               `/chat/rooms/${id}/message`,
               message => {
-                setMessages(prev => [...prev, message.body]);
+                const newMessage = JSON.parse(message.body);
+                setMessages(prev => [...prev, newMessage]);
               },
             );
           }
@@ -71,6 +73,13 @@ function Chat() {
     }
   }, [accessToken, id]);
 
+  // useEffect(() => {
+  //   const scroll = scrollRef.current as HTMLDivElement;
+  //   if (scroll) {
+  //     scroll.scrollTop = scroll.scrollHeight;
+  //   }
+  // }, [messages]);
+
   const { data: chatHeader } = useQuery({
     queryKey: ["chat", { id }],
     queryFn: () => getChatStatus(Number(id)),
@@ -80,11 +89,12 @@ function Chat() {
     queryKey: ["chatPrev", { id }],
     queryFn: () => getChatPrev(Number(id)),
   });
-  console.log(chatPrev);
+
   return (
     <div className="fixed top-0 z-50 h-full w-full bg-white pb-60">
       <ChatHeader chatHeader={chatHeader} />
       <div
+        ref={scrollRef}
         className="h-full overflow-y-scroll"
         style={{ height: "calc(100vh - 200px)" }}
       >
