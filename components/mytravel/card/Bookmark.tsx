@@ -8,43 +8,36 @@ interface BookmarkProp {
 }
 
 export default function Bookmark({ data }: BookmarkProp) {
-  const [bookmark, setIsBookmark] = useState(true);
+  const [isBookmark, setIsBookmark] = useState(true);
+
+  const handleBookmarkToggle = () => {
+    if (data.myBookmark) {
+      deleteBookMarks(data.id);
+      setIsBookmark(false);
+    } else {
+      postBookMarks(data.id);
+      setIsBookmark(true);
+    }
+  };
 
   return (
-    <>
-      {data.bookmark || bookmark ? (
-        <div
-          className="h-24 w-24 cursor-pointer"
-          onClick={e => {
-            e.stopPropagation();
-            postBookMarks(data.id);
-            setIsBookmark(prev => !prev);
-          }}
-        >
-          <Image
-            src={"/icons/heartOn.svg"}
-            alt="하트 아이콘"
-            width={24}
-            height={24}
-          />
-        </div>
-      ) : (
-        <div
-          className="h-24 w-24 cursor-pointer"
-          onClick={e => {
-            e.stopPropagation();
-            deleteBookMarks(data.id);
-            setIsBookmark(prev => !prev);
-          }}
-        >
-          <Image
-            src={"/icons/heartOff.svg"}
-            alt="빈하트 아이콘"
-            width={24}
-            height={24}
-          />
-        </div>
-      )}
-    </>
+    <div
+      className="h-24 w-24 cursor-pointer"
+      onClick={e => {
+        e.stopPropagation();
+        handleBookmarkToggle();
+      }}
+    >
+      <Image
+        src={
+          data.myBookmark && isBookmark
+            ? "/icons/heartOn.svg"
+            : "/icons/heartOff.svg"
+        }
+        alt={data.myBookmark && isBookmark ? "하트 아이콘" : "빈하트 아이콘"}
+        width={24}
+        height={24}
+      />
+    </div>
   );
 }

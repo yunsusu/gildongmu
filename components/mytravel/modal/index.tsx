@@ -83,7 +83,7 @@ export default function MyTravelModal({
                   src={
                     data.thumbnail
                       ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${data.thumbnail}`
-                      : "/icons/모몽가2.png"
+                      : "/icons/defaultProfile.png"
                   }
                   alt="프로필 이미지"
                   width={48}

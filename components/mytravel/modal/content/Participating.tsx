@@ -43,7 +43,6 @@ export default function ParticipatingContent({ data, onClose }: any) {
       const temp = await axios.delete(`/posts/${data.id}/participants`);
       const res = temp.data;
       setParticipants(res);
-      getParticipantData();
       setIsModalOpen(!isModalOpen);
       onClose();
     } catch (error) {
@@ -77,7 +76,7 @@ export default function ParticipatingContent({ data, onClose }: any) {
                       src={
                         member.user.profilePath
                           ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${member.user.profilePath}`
-                          : "/icons/모몽가2.png"
+                          : "/icons/defaultProfile.png"
                       }
                       alt="프로필 이미지"
                       width={32}

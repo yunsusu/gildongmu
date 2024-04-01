@@ -26,11 +26,13 @@ export default function BookmarkContent({ data, onClose }: any) {
         찜 취소
       </button>
       <button
-        className="flex h-52 w-full items-center justify-center rounded-12 bg-primary font-bold leading-[22px] text-white hover:bg-primary-press mobile:h-44 mobile:text-16"
+        className={`flex h-52 w-full items-center justify-center ${data.status === "모집 완료" && "cursor-not-allowed bg-stone-200 text-[#737373] hover:bg-stone-200 hover:text-[#737373]"} rounded-12 bg-primary font-bold leading-[22px] text-white hover:bg-primary-press mobile:h-44 mobile:text-16`}
         onClick={e => {
           e.stopPropagation();
-          travelApply();
-          onClose();
+          if (data.status !== "모집 완료") {
+            travelApply();
+            onClose();
+          }
         }}
       >
         길동무 신청하기

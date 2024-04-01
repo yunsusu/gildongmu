@@ -1,6 +1,7 @@
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 import MyTravelHeader from "@/components/header/mytravel";
 import MyTravelCard from "@/components/mytravel/card";
@@ -10,40 +11,30 @@ import { scrollToTop } from "@/pages/travel/[Id]/detail";
 
 export default function MyTravel() {
   const [selectTab, setSelectTab] = useState("참여 중");
-  const [cardData, setCardData] = useState([]);
 
   const handleTabChange = (tab: string) => {
     setSelectTab(tab);
   };
 
-  useEffect(() => {
-    const getCardData = async () => {
-      try {
-        let res;
-        if (selectTab === "참여 중") {
-          const temp = await axios.get(
-            "/posts/me?page=&size=99&sort=&type=PARTICIPANT",
-          );
-          res = temp.data.content;
-        } else if (selectTab === "모집 중") {
-          const temp = await axios.get(
-            "/posts/me?page=&size=99&sort=&type=LEADER",
-          );
-          res = temp.data.content;
-        } else {
-          const temp = await axios.get("/bookmarks");
-          res = temp.data;
-        }
-
-        setCardData(res);
-        console.log(res);
-      } catch (error) {
-        console.error("Error fetching card data:", error);
-      }
-    };
-
-    getCardData();
+  const getCardData = useCallback(async () => {
+    if (selectTab === "참여 중") {
+      const temp = await axios.get(
+        "/posts/me?page=&size=99&sort=&type=PARTICIPANT",
+      );
+      return temp.data.content;
+    } else if (selectTab === "모집 중") {
+      const temp = await axios.get("/posts/me?page=&size=99&sort=&type=LEADER");
+      return temp.data.content;
+    } else {
+      const temp = await axios.get("/bookmarks");
+      return temp.data;
+    }
   }, [selectTab]);
+
+  const { data: cardData } = useQuery<any>({
+    queryKey: ["cards", selectTab],
+    queryFn: getCardData,
+  });
 
   return (
     <div className="relative flex flex-col items-center justify-center bg-[#818CF8]">
@@ -51,7 +42,11 @@ export default function MyTravel() {
       <TabMenu selectTab={selectTab} onTabChange={handleTabChange} />
       <div className="z-5 mt-40 flex w-full items-center justify-center">
         <div
-          className={`relative flex min-h-screen w-full justify-center rounded-t-48 bg-white ${cardData && cardData.length > 0 ? "py-80 tablet:py-64" : "py-[250px]"} px-24 `}
+          className={`relative flex min-h-screen w-full justify-center rounded-t-48 bg-white ${
+            cardData && cardData.length > 0
+              ? "py-80 tablet:py-64"
+              : "py-[250px]"
+          } px-24 `}
         >
           <Image
             src={"/icons/motorcycle.svg"}
@@ -61,19 +56,29 @@ export default function MyTravel() {
             className="absolute -top-70 right-[8%] h-100 w-100 mobile:hidden"
           />
           <div
-            className={`gap-24 ${cardData && cardData.length > 0 ? "grid grid-flow-row auto-rows-max grid-cols-4 tablet:grid-cols-3 mobile:grid-cols-2" : "flex flex-wrap items-center justify-center self-stretch"}`}
+            className={`gap-24 ${
+              cardData && cardData.length > 0
+                ? "grid grid-flow-row auto-rows-max grid-cols-4 tablet:grid-cols-3 mobile:grid-cols-2"
+                : "flex flex-wrap items-center justify-center self-stretch"
+            }`}
           >
             {cardData && cardData.length > 0 ? (
               cardData
                 .slice()
                 .reverse()
-                .map((card, index) => (
+                .map((card: any, index: number) => (
                   <MyTravelCard key={index} data={card} selectTab={selectTab} />
                 ))
             ) : (
               <div className="flex h-screen w-full flex-col items-center gap-32 bg-white tablet:gap-24">
                 <div className="flex flex-col items-center justify-center gap-24 tablet:gap-20">
-                  <div className="h-160 w-240 bg-[#D9D9D9]" />
+                  <Image
+                    src={"/images/Image_Travel.png"}
+                    alt="내여행 이미지"
+                    width={240}
+                    height={160}
+                    className="h-160 w-240"
+                  />
                   <div className="text-24 font-semibold leading-[31.2px] tracking-tighter text-text-01 tablet:text-20">
                     참여 중인 길동무 모임이 없어요!
                   </div>

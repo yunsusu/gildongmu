@@ -44,7 +44,7 @@ export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
           src={
             data.thumbnail
               ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${data.thumbnail}`
-              : "/icons/모몽가2.png"
+              : "/images/Image_DefaultCard.png"
           }
           alt="여행지 이미지"
           fill
