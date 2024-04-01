@@ -12,7 +12,7 @@ interface itemType {
   };
 }
 
-// const socket = io("서버주소");
+// const socket = io(`http://3.38.76.39:8080/rooms/${1}`);
 
 function CommuChat({ item }: itemType) {
   const [prevTime, setPrevTime] = useState("");
@@ -32,7 +32,7 @@ function CommuChat({ item }: itemType) {
       setPrevTime(`${month}월 ${date}일`);
     }
   }, [item.lastChatAt]);
-
+  console.log(item);
   return (
     <div
       onClick={() =>
@@ -42,7 +42,12 @@ function CommuChat({ item }: itemType) {
     >
       <div className="flex flex-1 gap-24 ">
         <div className="relative h-60 w-60 tablet:h-48 tablet:w-48">
-          <Image src={"/images/logo.svg"} alt="대표이미지" fill />
+          <Image
+            src={item.thumbnail ? item.thumbnail : "/images/logo.svg"}
+            alt="대표이미지"
+            fill
+            objectFit="cover"
+          />
         </div>
         <div className="flex-1">
           <div className="flex gap-16 text-18 text-text-01 tablet:text-16">

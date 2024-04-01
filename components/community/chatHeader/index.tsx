@@ -16,7 +16,7 @@ function ChatHeader({ chatHeader }: chatHeaderProp) {
   const [hammenu, setHammenu] = useState(true);
 
   return (
-    <div className="flex items-center justify-between gap-16 border-b border-line-01 p-20">
+    <div className="sticky top-0 z-10 flex items-center justify-between gap-16 border-b border-line-01 bg-white p-20">
       <div className="relative h-52 w-52 overflow-hidden rounded-16">
         <Image
           src={

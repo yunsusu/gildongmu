@@ -6,7 +6,7 @@ interface ChatProps {
     id: string;
     content: string;
     createdAt: string;
-    isMessageType: boolean;
+    type: string;
     sender: {
       id: number;
       nickname: string;
@@ -16,7 +16,7 @@ interface ChatProps {
   };
 }
 function UserChat({ user }: ChatProps) {
-  const sendDate = parseISO(user.createdAt).toLocaleTimeString("ko-KR", {
+  const sendDate = parseISO(user?.createdAt).toLocaleTimeString("ko-KR", {
     hour: "2-digit",
     minute: "2-digit",
     hour12: true,
