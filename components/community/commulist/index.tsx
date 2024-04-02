@@ -70,10 +70,6 @@ function CommuList() {
         <div className="h-full w-full overflow-y-scroll bg-white">
           {rooms?.content[0] ? (
             <>
-              {/* {roo.map((item: Room, index: number) => (
-                <CommuChat key={index} item={item} />
-              ))} */}
-
               {rooms.content.map((item: Room, index: number) => (
                 <CommuChat key={index} item={item} />
               ))}
