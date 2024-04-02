@@ -17,6 +17,7 @@ interface FormValues {
 export default function Login() {
   const [loginErrorModal, setLoginErrorModal] = useState(false);
   const [eye, setEye, toggleEye] = useToggle(true);
+  const [errorType, setErrorType] = useState(0);
   const {
     register,
     handleSubmit,
@@ -46,19 +47,38 @@ export default function Login() {
 
       router.push("/");
     } catch (error: any) {
-      setLoginErrorModal(true);
-
-      console.log(error.message);
+      if (
+        error.response.status === 404 &&
+        error.response.data.message === "해당하는 유저가 없습니다."
+      ) {
+        setErrorType(0);
+        setLoginErrorModal(true);
+      } else if (
+        error.response.status === 400 &&
+        error.response.data.message === "비밀번호가 일치하지 않습니다."
+      ) {
+        setErrorType(1);
+        setLoginErrorModal(true);
+      } else {
+        console.log(error.message);
+      }
     }
   };
 
   return (
     <>
       {loginErrorModal ? (
-        <Modal
-          modalType={"emailNotFound"}
-          onClose={() => setLoginErrorModal(false)}
-        />
+        errorType === 0 ? (
+          <Modal
+            modalType={"emailNotFound"}
+            onClose={() => setLoginErrorModal(false)}
+          />
+        ) : (
+          <Modal
+            modalType={"passwordMismatch"}
+            onClose={() => setLoginErrorModal(false)}
+          />
+        )
       ) : null}
       <div className="flex" style={{ height: "calc(100vh - 72px)" }}>
         <div className="relative h-full w-1/2 bg-kakao text-50 tablet:hidden">
