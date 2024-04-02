@@ -7,7 +7,7 @@ import Dropdown from "@/components/dropdown";
 import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
 
-export default function SecretMyCommentOfComment() {
+export default function SecretMyCommentOfComment({ data, user, cardId }: any) {
   const [showReply, setShowReply] = useState(false);
   const [animationClass, setAnimationClass] = useState("");
   const [dropDown, setDropDown, handleDropDown] = useToggle();
@@ -94,7 +94,7 @@ export default function SecretMyCommentOfComment() {
       </div>
       {showReply && (
         <div className={`${animationClass} w-full`}>
-          <RegistCommentOfComment />
+          <RegistCommentOfComment data={data} user={user} cardId={cardId} />
         </div>
       )}
     </>
