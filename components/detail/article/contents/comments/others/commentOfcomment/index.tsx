@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
+import CommentOfComment from "@/components/detail/article/contents/comments/others/commentOfcomment";
 import RegistCommentOfComment from "@/components/detail/article/contents/comments/register/commentOfcomment";
 import SecretCommentOfComment from "@/components/detail/article/contents/comments/secret/commentOfcomment";
 import WriterTag from "@/components/detail/tag";
@@ -27,6 +28,8 @@ export default function OthersCommentOfComment({ data, user, cardId }: any) {
     (data.secret &&
       (user?.id === cardId || user?.nickname === data.nickname)) ||
     !data.secret;
+
+  const commentOfcomment = data.children;
 
   return shouldDisplay ? (
     <>
@@ -80,6 +83,14 @@ export default function OthersCommentOfComment({ data, user, cardId }: any) {
           <RegistCommentOfComment data={data} user={user} cardId={cardId} />
         </div>
       )}
+      {commentOfcomment?.map((item: any) => (
+        <CommentOfComment
+          key={item.id}
+          data={item}
+          user={user}
+          cardId={cardId}
+        />
+      ))}
     </>
   ) : (
     <SecretCommentOfComment />

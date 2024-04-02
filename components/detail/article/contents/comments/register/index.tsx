@@ -1,6 +1,5 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { useState } from "react";
 
 import Checkbox from "@/components/detail/secretCheckbox";
@@ -20,13 +19,16 @@ export default function RegisterComment({
   const [secret, setSecret] = useState(false);
   const maxLength = 100;
   const charCount = comment.length;
-  const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
     mutationFn: ({ postid, commentText, commentSecret }: any) =>
       postComment(postid, commentText, commentSecret),
     onSuccess: () => {
-      router.reload();
+      queryClient.invalidateQueries({
+        queryKey: ["commentList", data?.id],
+      });
+      setComment("");
     },
   });
 

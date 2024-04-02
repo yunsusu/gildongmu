@@ -1,6 +1,5 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
@@ -21,13 +20,15 @@ export default function MyComment({ data, user, cardId }: any) {
   const [animationClass, setAnimationClass] = useState("");
   const [dropDown, setDropDown, handleDropDown] = useToggle();
 
-  const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
     mutationFn: ({ postid, commentId }: any) =>
       deleteComment(postid, commentId),
     onSuccess: () => {
-      router.reload();
+      queryClient.invalidateQueries({
+        queryKey: ["commentList"],
+      });
     },
   });
 
@@ -60,10 +61,16 @@ export default function MyComment({ data, user, cardId }: any) {
   ];
 
   const commentOfcomment = data.children;
+
   return (
     <>
       {contentEdit ? (
-        <EditComment data={data} user={user} cardId={cardId} />
+        <EditComment
+          data={data}
+          user={user}
+          cardId={cardId}
+          setContentEdit={setContentEdit}
+        />
       ) : (
         <div className="flex flex-col items-start gap-8 self-stretch">
           <div className="flex items-center justify-between self-stretch py-2">
@@ -141,6 +148,7 @@ export default function MyComment({ data, user, cardId }: any) {
           }}
           onApprove={() => {
             commentDelete();
+            setIsDeleteModalOpen(false);
           }}
         />
       )}

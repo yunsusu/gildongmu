@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -14,22 +14,28 @@ export default function EditComment({
   data,
   user,
   cardId,
+  setContentEdit,
 }: {
   data: DetailDataType;
   user: any;
   cardId: number;
+  setContentEdit: any;
 }) {
   const [comment, setComment] = useState(data.content || "");
   const [secret, setSecret] = useState(false);
   const maxLength = 100;
   const charCount = comment.length;
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
     mutationFn: ({ postid, commentText, commentSecret, commentId }: any) =>
       editComment(postid, commentText, commentSecret, commentId),
     onSuccess: () => {
-      router.reload();
+      queryClient.invalidateQueries({
+        queryKey: ["commentList", data?.id],
+      });
+      setContentEdit(false);
     },
   });
 
