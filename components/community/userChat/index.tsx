@@ -1,5 +1,6 @@
 import { parseISO } from "date-fns";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface ChatProps {
   user: {
@@ -16,11 +17,18 @@ interface ChatProps {
   };
 }
 function UserChat({ user }: ChatProps) {
-  const sendDate = parseISO(user?.createdAt).toLocaleTimeString("ko-KR", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  });
+  const [sendDate, setSendDate] = useState("");
+
+  useEffect(() => {
+    if (user?.createdAt) {
+      const date = parseISO(user.createdAt).toLocaleTimeString("ko-KR", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
+      setSendDate(date);
+    }
+  }, [user?.createdAt]);
 
   return (
     <div className="flex w-full justify-start gap-8">
@@ -43,7 +51,9 @@ function UserChat({ user }: ChatProps) {
           <div className="min-h-35 max-w-max flex-1 rounded-6 bg-stone-100 px-8 py-4 text-18 text-text-01">
             {user?.content}
           </div>
-          <div className="text-12 text-text-04">{sendDate}</div>
+          {user?.createdAt && (
+            <div className="text-12 text-text-04">{sendDate}</div>
+          )}
         </div>
         {/* 이 부분 반복..? */}
       </div>

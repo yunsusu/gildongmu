@@ -38,7 +38,7 @@ function CommuChat({ item }: itemType) {
       onClick={() =>
         window.open(`/community/${item.id}`, "_blank", "width=400,height=700")
       }
-      className="flex h-92 w-full cursor-pointer justify-between gap-10 px-40 py-16 hover:bg-yellow-50 tablet:px-20"
+      className="flex h-92 w-full cursor-pointer justify-between gap-10 rounded-16 px-40 py-16 hover:bg-yellow-50 tablet:px-20"
     >
       <div className="flex flex-1 gap-24 ">
         <div className="relative h-60 w-60 tablet:h-48 tablet:w-48">
@@ -54,7 +54,7 @@ function CommuChat({ item }: itemType) {
           />
         </div>
         <div className="flex-1">
-          <div className="flex gap-16 text-18 text-text-01 tablet:text-16">
+          <div className="flex items-center gap-16 text-18 text-text-01 tablet:text-16">
             <div className="line-clamp-1">{item.title}</div>
             <div className="flex text-16 tablet:text-14">
               <div className="relative h-20 w-20">
