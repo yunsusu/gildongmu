@@ -29,7 +29,6 @@ export default function OthersComment({ data, user, cardId }: any) {
     (data.secret &&
       (user?.id === cardId || user?.nickname === data.nickname)) ||
     !data.secret;
-
   return shouldDisplay ? (
     <>
       <div className="flex flex-col items-start gap-8 self-stretch">
@@ -52,7 +51,7 @@ export default function OthersComment({ data, user, cardId }: any) {
                 <Image src="/icons/lock.svg" alt="자물쇠 이미지" fill />
               </div>
             )}
-            {user?.id === cardId && <WriterTag />}
+            {data?.id === cardId && <WriterTag />}
           </div>
         </div>
         <div className="flex items-start gap-8 self-stretch overflow-auto py-12">

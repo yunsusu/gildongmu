@@ -62,6 +62,7 @@ export default function MyComment({ data, user, cardId }: any) {
                 <Image src="/icons/lock.svg" alt="자물쇠 이미지" fill />
               </div>
             )}
+            {user?.id === cardId && <WriterTag />}
           </div>
           <div ref={ref} className="relative">
             <div
@@ -79,7 +80,6 @@ export default function MyComment({ data, user, cardId }: any) {
           <span className="text-16 font-normal leading-6 tracking-[-0.6px]">
             {data.content}
           </span>
-          {user?.id === cardId && <WriterTag />}
         </div>
         <Button
           variant={"outline"}

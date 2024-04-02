@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 import RegistCommentOfComment from "@/components/detail/article/contents/comments/register/commentOfcomment";
+import SecretCommentOfComment from "@/components/detail/article/contents/comments/secret/commentOfcomment";
 import WriterTag from "@/components/detail/tag";
 import { Button } from "@/components/ui/button";
 
@@ -22,7 +23,12 @@ export default function OthersCommentOfComment({ data, user, cardId }: any) {
     }
   };
 
-  return (
+  const shouldDisplay =
+    (data.secret &&
+      (user?.id === cardId || user?.nickname === data.nickname)) ||
+    !data.secret;
+
+  return shouldDisplay ? (
     <>
       <div className="flex w-full items-start gap-12 rounded-12 bg-bg-02 px-20 py-16">
         <div className="relative h-32 w-24">
@@ -75,5 +81,7 @@ export default function OthersCommentOfComment({ data, user, cardId }: any) {
         </div>
       )}
     </>
+  ) : (
+    <SecretCommentOfComment />
   );
 }
