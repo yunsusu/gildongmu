@@ -22,7 +22,6 @@ export default function Comment({ data, commentRef }: CommentProps) {
     },
   });
   const commentList = commentListData?.data;
-  console.log(commentList);
 
   return (
     <div className="relative flex w-full flex-col items-start gap-32 self-stretch tablet:gap-24">

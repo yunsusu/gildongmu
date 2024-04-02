@@ -22,7 +22,7 @@ export type ModalType =
   | "profileEdit"
   | "memberExile"
   | "deleteComment"
-  | "cancelEditing";
+  | "cancelEditing"
   | "participantExile"
   | "applicationAccept"
   | "applicationReject";

@@ -151,7 +151,10 @@ export default function MyComment({ data, user, cardId }: any) {
           onClose={() => {
             setIsDeleteModalOpen(false);
           }}
-          onApprove={() => {
+          onCancel={() => {
+            setIsDeleteModalOpen(false);
+          }}
+          onConfirm={() => {
             commentDelete();
             setIsDeleteModalOpen(false);
           }}

@@ -29,6 +29,7 @@ export default function OthersComment({ data, user, cardId }: any) {
     (data.secret &&
       (user?.id === cardId || user?.nickname === data.nickname)) ||
     !data.secret;
+
   return shouldDisplay ? (
     <>
       <div className="flex flex-col items-start gap-8 self-stretch">
