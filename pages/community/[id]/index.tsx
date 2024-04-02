@@ -17,6 +17,9 @@ interface IFormInput {
 }
 
 function Chat() {
+  const [chatPage, setChatPage] = useState(0);
+  const [prevPage, setPrevPage] = useState(20);
+  const [next, setNext] = useState(true);
   const accessToken = useCookie("accessToken");
   const router = useRouter();
   const { id } = router.query;
@@ -24,7 +27,7 @@ function Chat() {
   const [messages, setMessages] = useState<string[]>([]);
   const stompClient = useRef<Client | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
-  console.log(messages);
+
   const onSubmit: SubmitHandler<IFormInput> = data => {
     if (stompClient.current?.connected && accessToken) {
       const messageToSend = { message: data.message };
@@ -38,7 +41,6 @@ function Chat() {
       console.error("STOMP 클라이언트가 연결되지 않았습니다.");
     }
   };
-
   useEffect(() => {
     if (accessToken && id) {
       stompClient.current = new Client({
@@ -49,13 +51,10 @@ function Chat() {
         onConnect: () => {
           console.log("STOMP 연결 성공!");
           if (stompClient.current) {
-            stompClient.current.subscribe(
-              `/chat/rooms/${id}/message`,
-              message => {
-                const newMessage = JSON.parse(message.body);
-                setMessages(prev => [...prev, newMessage]);
-              },
-            );
+            stompClient.current.subscribe(`/rooms/${id}`, message => {
+              const newMessage = JSON.parse(message.body);
+              setMessages(prev => [...prev, newMessage]);
+            });
           }
         },
         onDisconnect: () => {
@@ -73,22 +72,47 @@ function Chat() {
     }
   }, [accessToken, id]);
 
-  // useEffect(() => {
-  //   const scroll = scrollRef.current as HTMLDivElement;
-  //   if (scroll) {
-  //     scroll.scrollTop = scroll.scrollHeight;
-  //   }
-  // }, [messages]);
-
   const { data: chatHeader } = useQuery({
     queryKey: ["chat", { id }],
     queryFn: () => getChatStatus(Number(id)),
   });
 
   const { data: chatPrev } = useQuery({
-    queryKey: ["chatPrev", { id }],
-    queryFn: () => getChatPrev(Number(id)),
+    queryKey: ["chatPrev", { id, chatPage, prevPage }],
+    queryFn: () => getChatPrev(Number(id), chatPage, prevPage),
   });
+
+  let num = 0;
+  for (let i = 0; i < chatPrev?.content.length; i++) {
+    num += chatPrev.content[i].chats.length;
+  }
+
+  const scrollToBottom = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  };
+
+  const scrollToTop = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  useEffect(() => {
+    if (num < prevPage) {
+      setNext(false);
+    } else {
+      setNext(true);
+    }
+    if (prevPage <= 20) {
+      scrollToBottom();
+    }
+  }, [num, prevPage]);
 
   return (
     <div className="fixed top-0 z-50 h-full w-full bg-white pb-60">
@@ -98,34 +122,61 @@ function Chat() {
         className="h-full overflow-y-scroll"
         style={{ height: "calc(100vh - 200px)" }}
       >
-        {chatPrev?.content?.map((item: any, index: number) => (
-          <div key={index}>
-            <div className="flex flex-col gap-20 overflow-x-hidden p-20">
-              <div className="flex flex-col items-center gap-20">
-                <ChatDate text={item?.date} />
-              </div>
-              {item.chats?.isLoading ? (
-                <p>메시지 로딩 중...</p>
-              ) : item.chats?.isError ? (
-                <p>메시지를 불러오는 데 실패했습니다.</p>
-              ) : (
-                item?.chats.map((item: any, index: number) => {
-                  if (item?.sender === undefined) {
-                    return (
-                      <div key={index} className="flex justify-center">
-                        <ChatCome text={item.content} />
-                      </div>
-                    );
-                  } else if (item.sender.isCurrentUser) {
+        {next && (
+          <div
+            className="w-full cursor-pointer p-20 text-center opacity-30 hover:opacity-100"
+            onClick={() => {
+              setPrevPage(prev => prev + 30);
+              scrollToTop();
+            }}
+          >
+            이전 채팅 불러오기
+          </div>
+        )}
+        {chatPrev?.content
+          .slice()
+          .reverse()
+          .map((item: any, index: number) => (
+            <div key={index}>
+              <div className="flex flex-col gap-20 overflow-x-hidden p-20">
+                <div className="flex flex-col items-center gap-20">
+                  <ChatDate text={item?.date} />
+                </div>
+                {item.chats?.isLoading ? (
+                  <p>메시지 로딩 중...</p>
+                ) : item.chats?.isError ? (
+                  <p>메시지를 불러오는 데 실패했습니다.</p>
+                ) : (
+                  item?.chats
+                    .slice()
+                    .reverse()
+                    .map((item: any, index: number) => {
+                      if (!item?.sender) {
+                        return (
+                          <div
+                            key={item.id || index}
+                            className="flex justify-center"
+                          >
+                            <ChatCome text={item.content} />
+                          </div>
+                        );
+                      } else if (item.sender.isCurrentUser) {
+                        return <MyChat key={item.id || index} user={item} />;
+                      } else {
+                        return <UserChat key={item.id || index} user={item} />;
+                      }
+                    })
+                )}
+                {messages.map((item: any, index: number) => {
+                  if (item.sender.isCurrentUser) {
                     return <MyChat key={index} user={item} />;
                   } else {
                     return <UserChat key={index} user={item} />;
                   }
-                })
-              )}
+                })}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
 
       <div className="fixed bottom-0 w-full bg-stone-100 p-20">
@@ -134,8 +185,9 @@ function Chat() {
           className="flex h-60 w-full items-center gap-6 overflow-hidden rounded-32 bg-white pr-8"
         >
           <input
+            autoComplete="off"
             type="text"
-            className="h-full flex-1 rounded-32 px-20"
+            className="h-full flex-1 rounded-32 px-20 outline-none"
             placeholder="메시지 보내기"
             {...register("message")}
           />
