@@ -34,7 +34,8 @@ export default function ModalButton({
     modalType === "travelApply" ||
     modalType === "travelCancle" ||
     modalType === "memberExile" ||
-    modalType === "deleteComment"
+    modalType === "deleteComment" ||
+    modalType === "cancelEditing"
   ) {
     filledStyle = "w-full text-18 h-52 mobile:h-44";
     ghostStyle = "w-full text-18 h-52 mobile:h-44";

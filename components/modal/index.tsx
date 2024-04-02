@@ -16,7 +16,8 @@ export type ModalType =
   | "travelCancle"
   | "profileEdit"
   | "memberExile"
-  | "deleteComment";
+  | "deleteComment"
+  | "cancelEditing";
 
 interface ModalProps {
   modalType: ModalType;
@@ -69,6 +70,16 @@ export default function Modal({ modalType, onClose, onApprove }: ModalProps) {
     case "deleteComment":
       title = "댓글 삭제";
       message = "댓글을 삭제하시겠습니까?";
+      break;
+    case "cancelEditing":
+      title = "수정 취소";
+      message = (
+        <>
+          작성 중인 댓글은 저장되지 않습니다.
+          <br />
+          취소하시겠습니까?
+        </>
+      );
       break;
     case "writingCancel":
       title = "글쓰기 취소";
