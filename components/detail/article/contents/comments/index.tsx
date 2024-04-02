@@ -13,7 +13,6 @@ export default function Comment({ data, commentRef }: CommentProps) {
     queryFn: () => getUserMe(),
   });
   const cardId = data?.id;
-  console.log(userData);
 
   const { data: commentListData } = useQuery({
     queryKey: ["commentList", data?.id],
@@ -22,16 +21,16 @@ export default function Comment({ data, commentRef }: CommentProps) {
       return res;
     },
   });
-
   const commentList = commentListData?.data;
-  
+  console.log(commentList);
+
   return (
     <div className="relative flex w-full flex-col items-start gap-32 self-stretch tablet:gap-24">
       <span className="text-20 tablet:text-18">댓글</span>
       <div className="flex w-full flex-col items-start gap-40 self-stretch">
         <div className="flex w-full flex-col items-start gap-20 self-stretch">
           {commentList?.map((item: any) =>
-            userData.nickname === item.nickname ? (
+            userData?.nickname === item.nickname ? (
               <MyComment
                 key={item.id}
                 data={item}

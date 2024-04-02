@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 import Checkbox from "@/components/detail/secretCheckbox";
+import WriterTag from "@/components/detail/tag";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { postCommentOfComment } from "@/lib/api/detail";
@@ -81,6 +82,7 @@ export default function RegistCommentOfComment({
             <span className="text-18 leading-[27px] tracking-[-0.6px] text-text-01 tablet:text-16 tablet:leading-[20.8px]">
               {user?.nickname}
             </span>
+            {data.owner && <WriterTag />}
           </div>
         </div>
         <div className="flex flex-col items-end gap-4 self-stretch overflow-auto">

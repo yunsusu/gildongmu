@@ -51,7 +51,7 @@ export default function OthersComment({ data, user, cardId }: any) {
                 <Image src="/icons/lock.svg" alt="자물쇠 이미지" fill />
               </div>
             )}
-            {data?.id === cardId && <WriterTag />}
+            {data.owner && <WriterTag />}
           </div>
         </div>
         <div className="flex items-start gap-8 self-stretch overflow-auto py-12">

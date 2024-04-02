@@ -22,6 +22,19 @@ export const postComment = async (
   return res.data;
 };
 
+export const editComment = async (
+  postid: number,
+  commentText: string,
+  commentSecret: boolean,
+  commentId: number,
+) => {
+  const res = await axios.put(`/posts/${postid}/comments/${commentId}`, {
+    content: commentText,
+    secret: commentSecret,
+  });
+  return res.data;
+};
+
 export const postCommentOfComment = async (
   postid: number,
   commentText: string,

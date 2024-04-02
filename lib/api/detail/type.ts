@@ -1,6 +1,9 @@
 export interface DetailDataType {
+  secret: any;
+  content: string | undefined;
   id: any;
   data: {
+    secret: any;
     data: any;
     id: number;
     title: string;
