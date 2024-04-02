@@ -18,6 +18,7 @@ export default function Oauth2Login() {
         router.push("/");
       } catch (error) {
         console.error("oauth2 토큰 저장 실패", error);
+        router.push("/login");
       }
     };
 
