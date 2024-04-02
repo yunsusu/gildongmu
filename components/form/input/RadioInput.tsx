@@ -18,7 +18,7 @@ function RadioInput({
   return (
     <RadioGroup
       id={id}
-      defaultValue={value}
+      value={value}
       className="flex gap-5"
       onValueChange={handleChange}
     >

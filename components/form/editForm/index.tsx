@@ -1,4 +1,6 @@
 // import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { geocode, RequestType, setKey } from "react-geocode";
 import { Controller, useForm } from "react-hook-form";
@@ -14,8 +16,7 @@ import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-// import { getDetail } from "@/lib/api/detail";
-// import axios from "@/lib/api/axios";
+import { getDetail } from "@/lib/api/detail";
 
 export interface Location {
   lat: number;
@@ -33,27 +34,59 @@ interface Edit {
   gender: string;
   content: string;
   tag: string[];
-  images: Image[];
+  images: any;
 }
 
-interface Image {
-  url: {
-    file: File;
-    preview: string;
-  };
-  thumbnail: boolean;
-}
+// interface Image {
+//   url: {
+//     file: File;
+//     preview: string;
+//   };
+//   thumbnail: boolean;
+// }
 
 function EditForm() {
   const {
     register,
     handleSubmit,
     control,
-    formState: { errors, isValid },
     reset,
+    formState: { errors, isValid },
   } = useForm<Edit>({
     mode: "onBlur",
   });
+
+  const router = useRouter();
+  const { Id: postId } = router.query;
+  const { data: writeData } = useQuery({
+    queryKey: ["detail", postId],
+    queryFn: async () => {
+      const res = await getDetail(Number(postId));
+      return res;
+    },
+    enabled: !!postId,
+  });
+
+  useEffect(() => {
+    if (writeData) {
+      const formattedImages = writeData.images.map((image: any) => ({
+        url: `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${image.url}`,
+      }));
+      reset({
+        title: writeData.title,
+        tripDate: {
+          startDate: writeData.tripDate.startDate,
+          endDate: writeData.tripDate.endDate,
+        },
+        numberOfPeople: writeData.numberOfPeople,
+        tag: writeData.tag,
+        content: writeData.content,
+        gender: writeData.gender,
+        images: formattedImages,
+      });
+    }
+  }, [writeData, reset]);
+  console.log(writeData);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
@@ -88,7 +121,9 @@ function EditForm() {
   };
 
   useEffect(() => {
-    if (destination.trim() !== "") {
+    const trimmedDestination = destination ? destination.trim() : "";
+
+    if (trimmedDestination !== "") {
       setKey(String(apiKey));
       geocode(RequestType.ADDRESS, destination)
         .then(({ results }) => {
@@ -190,10 +225,10 @@ function EditForm() {
                 rules={{ required: true }}
                 render={({ field }) => (
                   <RadioInput
-                    onChange={(gender: any) => field.onChange(gender)}
+                    onChange={value => field.onChange(value)}
                     value={field.value}
                     pageType="write"
-                    id={"gender"}
+                    id="gender"
                   />
                 )}
               />
@@ -234,6 +269,7 @@ function EditForm() {
                 render={({ field }) => (
                   <MultipleImageUploadInput
                     onChange={imagesUrl => field.onChange(imagesUrl)}
+                    value={field.value}
                   />
                 )}
               />
