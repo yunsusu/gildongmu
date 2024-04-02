@@ -30,6 +30,7 @@ interface itemType {
 export interface CardData {
   content: itemType[];
   totalPages: number;
+  numberOfElements: number;
 }
 
 function CardGrid() {
@@ -38,7 +39,7 @@ function CardGrid() {
   const pageLimit = 12;
 
   const router = useRouter();
-  const { page, sort, filter, search } = router.query;
+  const { page, sortby, filter, search } = router.query;
   const currentPage = parseInt(page as string, 10) || 0;
   const sortValue = Array.isArray(sortby) ? sortby[0] : sortby;
   const filterValue = Array.isArray(filter) ? filter[0] : filter;
