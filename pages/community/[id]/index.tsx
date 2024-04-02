@@ -24,7 +24,7 @@ function Chat() {
   const [messages, setMessages] = useState<string[]>([]);
   const stompClient = useRef<Client | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
-  console.log(messages);
+
   const onSubmit: SubmitHandler<IFormInput> = data => {
     if (stompClient.current?.connected && accessToken) {
       const messageToSend = { message: data.message };
@@ -49,13 +49,10 @@ function Chat() {
         onConnect: () => {
           console.log("STOMP 연결 성공!");
           if (stompClient.current) {
-            stompClient.current.subscribe(
-              `/chat/rooms/${id}/message`,
-              message => {
-                const newMessage = JSON.parse(message.body);
-                setMessages(prev => [...prev, newMessage]);
-              },
-            );
+            stompClient.current.subscribe(`/rooms/${id}`, message => {
+              const newMessage = JSON.parse(message.body);
+              setMessages(prev => [...prev, newMessage]);
+            });
           }
         },
         onDisconnect: () => {
@@ -73,13 +70,6 @@ function Chat() {
     }
   }, [accessToken, id]);
 
-  // useEffect(() => {
-  //   const scroll = scrollRef.current as HTMLDivElement;
-  //   if (scroll) {
-  //     scroll.scrollTop = scroll.scrollHeight;
-  //   }
-  // }, [messages]);
-
   const { data: chatHeader } = useQuery({
     queryKey: ["chat", { id }],
     queryFn: () => getChatStatus(Number(id)),
@@ -89,6 +79,16 @@ function Chat() {
     queryKey: ["chatPrev", { id }],
     queryFn: () => getChatPrev(Number(id)),
   });
+
+  useEffect(() => {
+    const scrollToBottom = () => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      }
+    };
+
+    scrollToBottom();
+  }, [messages, chatPrev]);
 
   return (
     <div className="fixed top-0 z-50 h-full w-full bg-white pb-60">
@@ -123,6 +123,13 @@ function Chat() {
                   }
                 })
               )}
+              {messages.map((item: any, index: number) => {
+                if (item.sender.isCurrentUser) {
+                  return <MyChat key={index} user={item} />;
+                } else {
+                  return <UserChat key={index} user={item} />;
+                }
+              })}
             </div>
           </div>
         ))}
@@ -134,8 +141,9 @@ function Chat() {
           className="flex h-60 w-full items-center gap-6 overflow-hidden rounded-32 bg-white pr-8"
         >
           <input
+            autoComplete="off"
             type="text"
-            className="h-full flex-1 rounded-32 px-20"
+            className="h-full flex-1 rounded-32 px-20 outline-none"
             placeholder="메시지 보내기"
             {...register("message")}
           />
