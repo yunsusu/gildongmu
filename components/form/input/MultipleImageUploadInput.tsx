@@ -23,7 +23,7 @@ function MultipleImageUploadInput({
 
       const newImages = [...imagesPreview, ...newImagesPreview].slice(0, 5);
       setImagesPreview(newImages);
-      onChange(newImages); // 새로운 이미지 배열을 부모 컴포넌트로 전달
+      onChange(newImages);
     }
   };
 

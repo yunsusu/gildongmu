@@ -19,7 +19,7 @@ function PagingSetting() {
     const sortType = type;
     router.push({
       pathname: router.pathname,
-      query: { ...router.query, sort: sortType },
+      query: { ...router.query, sortby: sortType },
     });
   };
 
@@ -49,7 +49,7 @@ function PagingSetting() {
       name: "가까운 여행순",
       handleBtn: () => {
         setChoiceSort("가까운 여행순");
-        handleSort("latest-trip");
+        handleSort("trip");
       },
     },
   ];

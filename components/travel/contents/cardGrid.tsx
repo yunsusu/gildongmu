@@ -25,6 +25,7 @@ interface itemType {
   thumbnail: string;
   countOfComments: number;
   countOfBookmarks: number;
+  myBookmark: boolean;
 }
 export interface CardData {
   content: itemType[];
@@ -37,15 +38,25 @@ function CardGrid() {
   const pageLimit = 12;
 
   const router = useRouter();
-  const { page, sort, filter } = router.query;
+  const { page, sort, filter, search } = router.query;
   const currentPage = parseInt(page as string, 10) || 0;
-  const sortValue = Array.isArray(sort) ? sort[0] : sort;
+  const sortValue = Array.isArray(sortby) ? sortby[0] : sortby;
   const filterValue = Array.isArray(filter) ? filter[0] : filter;
+  const searchValue = Array.isArray(search) ? search[0] : search;
 
   const { data: card } = useQuery<CardData>({
-    queryKey: ["cards", { page, sort: sortValue, filter: filterValue }],
+    queryKey: [
+      "cards",
+      { page, sort: sortValue, filter: filterValue, searchValue },
+    ],
     queryFn: () =>
-      getTravelCard(currentPage, pageLimit, sortValue, filterValue),
+      getTravelCard(
+        currentPage,
+        pageLimit,
+        sortValue,
+        filterValue,
+        searchValue,
+      ),
   });
 
   const firstLastPage = (num: number) => {
@@ -92,18 +103,29 @@ function CardGrid() {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+  console.log(card);
   return (
     <>
-      <div
-        className={`mx-auto mb-40 grid grid-flow-row auto-rows-max gap-24 tablet:gap-20 ${gridColumns}`}
-      >
-        {Array.isArray(card?.content)
-          ? card?.content.map((item: itemType, index: number) => (
-              <Card key={index} content={item} />
-            ))
-          : null}
-      </div>
+      {card?.numberOfElements ? (
+        <div
+          className={`mx-auto mb-40 grid grid-flow-row auto-rows-max gap-24 tablet:gap-20 ${gridColumns}`}
+        >
+          {card?.content.map((item: itemType, index: number) => (
+            <Card key={index} content={item} />
+          ))}
+        </div>
+      ) : (
+        <div className="h-[450px] w-full">
+          <div className="relative left-1/2 top-1/3 h-200 w-300 -translate-x-1/2 -translate-y-1/2">
+            <Image
+              src={"/images/image_none.png"}
+              objectFit="cover"
+              fill
+              alt="이미지 없음"
+            />
+          </div>
+        </div>
+      )}
 
       <div className="m-auto flex w-max items-center gap-3">
         <div
