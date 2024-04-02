@@ -6,8 +6,8 @@ export function buildUrl(
   sortBy?: string,
   filters?: string,
 ): string {
-  let url = `/posts?page=${pageNum}&size=${limit}`;
-  if (sortBy) url += `&sort=${sortBy}`;
+  let url = `/posts?page=${pageNum}&size=${limit}&sort=`;
+  if (sortBy) url += `&sortby=${sortBy}`;
   if (filters) url += `&filter=${filters}`;
   return url;
 }

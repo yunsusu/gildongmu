@@ -27,7 +27,7 @@ function FilterBtn({ text, search, setSearch }: FilterBtnProps) {
       case "male":
         updatedSearch = "남자만";
         break;
-      case "none":
+      case "":
         updatedSearch = "여자/남자";
         break;
       case "open":
@@ -64,7 +64,7 @@ function FilterBtn({ text, search, setSearch }: FilterBtnProps) {
         handleSort("male");
         break;
       case "여자/남자":
-        handleSort("none");
+        handleSort("");
         break;
       case "모집 중":
         handleSort("open");
