@@ -17,7 +17,9 @@ export type ModalType =
   | "failCheckPassword"
   | "changeProfileSuccess"
   | "profileEdit"
-  | "memberExile";
+  | "participantExile"
+  | "applicationAccept"
+  | "applicationReject";
 
 interface ModalProps {
   modalType: ModalType;
@@ -26,9 +28,16 @@ interface ModalProps {
   nickname?: string;
   profilePath?: string;
   onClose: () => void;
+  onConfirm?: () => void;
+  onCancel?: () => void;
 }
 
-export default function Modal({ modalType, onClose }: ModalProps) {
+export default function Modal({
+  modalType,
+  onClose,
+  onConfirm,
+  onCancel,
+}: ModalProps) {
   let title: string = "";
   let message: string | ReactNode = "";
 
@@ -146,13 +155,33 @@ export default function Modal({ modalType, onClose }: ModalProps) {
       title = "수정 완료";
       message = "프로필 정보가 수정되었습니다.";
       break;
-    case "memberExile":
+    case "participantExile":
       title = "내보내기";
       message = (
         <>
           현재 참여 중인 길동무를
           <br />
           내보내시겠습니까?
+        </>
+      );
+      break;
+    case "applicationAccept":
+      title = "신청 수락";
+      message = (
+        <>
+          현재 신청 중인 길동무를
+          <br />
+          수락하시겠습니까?
+        </>
+      );
+      break;
+    case "applicationReject":
+      title = "신청 거절";
+      message = (
+        <>
+          현재 신청 중인 길동무를
+          <br />
+          거절하시겠습니까?
         </>
       );
       break;
@@ -167,6 +196,8 @@ export default function Modal({ modalType, onClose }: ModalProps) {
         modalTitle={title}
         modalMessage={message}
         onClose={onClose}
+        onConfirm={onConfirm}
+        onCancel={onCancel}
       />
     </>
   );

@@ -43,7 +43,7 @@ function Card({ content }: { content: any }) {
         />
         <div className="absolute left-0 top-0 h-full w-full bg-black opacity-20"></div>
         <div className="z-1 relative w-full">
-          <div className="flex justify-between">
+          <div className="flex items-center justify-between">
             {content.status === "모집 완료" ? (
               <div className="w-max rounded-24 bg-stone-100 px-12 py-5 text-14 text-stone-500 tablet:px-10 tablet:py-3 tablet:text-12">
                 모집 완료
