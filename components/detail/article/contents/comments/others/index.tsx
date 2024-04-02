@@ -38,7 +38,9 @@ export default function OthersComment({ data, user, cardId }: any) {
             <div className="relative h-32 w-32 rounded-full tablet:h-24 tablet:w-24">
               <Image
                 src={
-                  "https://i.namu.wiki/i/6b7_BVyszfYCyjDtIPE8tJK56XutqfO28xp9KdjZ8tXMP1JCmcYei0IN5vbAJ5JF2t3u4TxwsUrQew6xWfvWgg.webp"
+                  data?.profilePath
+                    ? data.profilePath
+                    : "/icons/defaultProfile.png"
                 }
                 alt="댓글 작성자 이미지"
                 fill

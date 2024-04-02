@@ -78,8 +78,8 @@ export default function MyComment({ data, user, cardId }: any) {
               <div className="relative h-32 w-32 rounded-full tablet:h-24 tablet:w-24">
                 <Image
                   src={
-                    user?.profilePath
-                      ? user.profilePath
+                    data?.profilePath
+                      ? data.profilePath
                       : "/icons/defaultProfile.png"
                   }
                   alt="댓글 작성자 이미지"
