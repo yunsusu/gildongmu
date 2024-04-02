@@ -1,5 +1,7 @@
 export interface DetailDataType {
+  id: any;
   data: {
+    data: any;
     id: number;
     title: string;
     nickname: string;
@@ -32,4 +34,8 @@ export interface RecruitmentProps extends DetailDataType {
 
 export interface DestinationProps extends DetailDataType {
   destinationRef: (node?: Element | null) => void;
+}
+
+export interface CommentProps extends DetailDataType {
+  commentRef: (node?: Element | null) => void;
 }

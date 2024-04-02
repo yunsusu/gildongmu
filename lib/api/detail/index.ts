@@ -9,3 +9,34 @@ export const deleteDetail = async (postid: Number) => {
   const res = await axios.delete(`/posts/${postid}`);
   return res.data;
 };
+
+export const postComment = async (
+  postid: number,
+  commentText: string,
+  commentSecret: boolean,
+) => {
+  const res = await axios.post(`/posts/${postid}/comments`, {
+    content: commentText,
+    secret: commentSecret,
+  });
+  return res.data;
+};
+
+export const postCommentOfComment = async (
+  postid: number,
+  commentText: string,
+  commentSecret: boolean,
+  commentParentId: number,
+) => {
+  const res = await axios.post(`/posts/${postid}/comments`, {
+    content: commentText,
+    secret: commentSecret,
+    parentId: commentParentId,
+  });
+  return res.data;
+};
+
+export const getCommentList = async (postid: Number) => {
+  const res = await axios.get(`/posts/${postid}/comments`);
+  return res;
+};

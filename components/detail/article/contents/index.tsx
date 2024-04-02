@@ -19,10 +19,14 @@ export default function Content({ data }: DetailDataType) {
         commentInView={commentInView}
       />
       <div className="flex w-full flex-col items-start gap-60 rounded-bl-32 rounded-br-32 bg-white px-32 pb-80 pt-32 text-20 font-bold tablet:gap-40 tablet:px-24 tablet:pb-60 tablet:pt-24 mobile:px-20 mobile:pb-32 mobile:pt-24">
-        <Recruitment data={data} recruitRef={recruitRef} />
-        <Images data={data} />
-        <Destination data={data} destinationRef={destinationRef} />
-        <Comment commentRef={commentRef} />
+        <Recruitment id={data?.id} data={data} recruitRef={recruitRef} />
+        <Images id={data?.id} data={data} />
+        <Destination
+          id={data?.id}
+          data={data}
+          destinationRef={destinationRef}
+        />
+        <Comment id={data?.id} data={data} commentRef={commentRef} />
       </div>
     </div>
   );

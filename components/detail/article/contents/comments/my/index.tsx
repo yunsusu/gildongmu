@@ -2,13 +2,14 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
-import CommentOfComment from "@/components/detail/article/contents/comments/my/commentOfcomment";
-import OthersCommentOfComment from "@/components/detail/article/contents/comments/others/commentOfcomment";
+import CommentOfComment from "@/components/detail/article/contents/comments/others/commentOfcomment";
+import RegistCommentOfComment from "@/components/detail/article/contents/comments/register/commentOfcomment";
+import WriterTag from "@/components/detail/tag";
 import Dropdown from "@/components/dropdown";
 import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
 
-export default function MyComment() {
+export default function MyComment({ data, user, cardId }: any) {
   const [showReply, setShowReply] = useState(false);
   const [animationClass, setAnimationClass] = useState("");
   const [dropDown, setDropDown, handleDropDown] = useToggle();
@@ -37,6 +38,8 @@ export default function MyComment() {
     { name: "삭제하기", handleBtn: () => {} },
   ];
 
+  const commentOfcomment = data.children;
+
   return (
     <>
       <div className="flex flex-col items-start gap-8 self-stretch">
@@ -52,8 +55,13 @@ export default function MyComment() {
               />
             </div>
             <span className="text-18 leading-[27px] tracking-[-0.6px] text-text-01 tablet:text-16 tablet:leading-[20.8px]">
-              {"내 닉네임"}
+              {data.nickname}
             </span>
+            {data.secret && (
+              <div className="relative h-20 w-20">
+                <Image src="/icons/lock.svg" alt="자물쇠 이미지" fill />
+              </div>
+            )}
           </div>
           <div ref={ref} className="relative">
             <div
@@ -69,10 +77,9 @@ export default function MyComment() {
         </div>
         <div className="flex items-start gap-8 self-stretch overflow-auto py-12">
           <span className="text-16 font-normal leading-6 tracking-[-0.6px]">
-            {
-              "댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용댓글 내용"
-            }
+            {data.content}
           </span>
+          {user?.id === cardId && <WriterTag />}
         </div>
         <Button
           variant={"outline"}
@@ -81,9 +88,20 @@ export default function MyComment() {
         >
           <span className="text-14 font-extrabold leading-5">답글</span>
         </Button>
+        {showReply && (
+          <div className={`${animationClass} w-full`}>
+            <RegistCommentOfComment data={data} user={user} cardId={cardId} />
+          </div>
+        )}
       </div>
-      <CommentOfComment />
-      <OthersCommentOfComment />
+      {commentOfcomment?.map((item: any) => (
+        <CommentOfComment
+          key={item.id}
+          data={item}
+          user={user}
+          cardId={cardId}
+        />
+      ))}
       <div className="h-[1px] self-stretch bg-sky-200"></div>
     </>
   );
