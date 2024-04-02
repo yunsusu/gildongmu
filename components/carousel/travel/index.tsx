@@ -156,7 +156,6 @@ function TravelCarousel({ choice }: any) {
       },
     ],
   };
-  console.log(choice);
   const { data: card } = useQuery({
     queryKey: ["cards", choice],
     queryFn: () => getTravelCard(0, 12, choice),

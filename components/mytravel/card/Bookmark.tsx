@@ -31,7 +31,7 @@ export default function Bookmark({ data }: BookmarkProp) {
   });
 
   const handleBookmarkToggle = () => {
-    if (isBookmark) {
+    if (data.myBookmark) {
       removeBookmark.mutate(postid);
     } else {
       addBookmark.mutate(postid);

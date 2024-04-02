@@ -1,6 +1,6 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import Modal from "@/components/modal";
 import Chip from "@/components/mytravel/modal/Chip";
@@ -23,23 +23,25 @@ export interface Participant {
 }
 
 export default function ParticipatingContent({ data }: any) {
-  const [participants, setParticipants] = useState<Participant[]>();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const queryClient = useQueryClient();
 
   const getParticipantData = async () => {
     try {
-      const temp = await axios.get(
+      const res = await axios.get(
         `/posts/${data.id}/participants?status=ACCEPTED`,
       );
-      const res = temp.data;
-
-      setParticipants(res);
+      return res.data;
     } catch (error) {
       console.error("Error fetching card data:", error);
     }
   };
+
+  const { data: participants } = useQuery({
+    queryKey: ["participants"],
+    queryFn: () => getParticipantData(),
+  });
 
   const cancelApplication = useMutation({
     mutationFn: () => axios.delete(`/posts/${data.id}/participants`),
@@ -48,10 +50,6 @@ export default function ParticipatingContent({ data }: any) {
       queryClient.invalidateQueries();
     },
   });
-
-  useEffect(() => {
-    getParticipantData();
-  }, []);
 
   return (
     <div className="flex w-full flex-col items-start justify-center rounded-24 border border-line-02">
@@ -64,17 +62,17 @@ export default function ParticipatingContent({ data }: any) {
           participants
             .slice()
             .reverse()
-            .map((member, index) => (
+            .map((participant: any, index: number) => (
               <div
                 className="flex w-full items-center justify-between"
                 key={index}
               >
                 <div className="flex items-center justify-center gap-12">
-                  {member.user.profilePath && (
+                  {participant.user.profilePath && (
                     <Image
                       src={
-                        member.user.profilePath
-                          ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${member.user.profilePath}`
+                        participant.user.profilePath
+                          ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${participant.user.profilePath}`
                           : "/icons/defaultProfile.png"
                       }
                       alt="프로필 이미지"
@@ -83,13 +81,13 @@ export default function ParticipatingContent({ data }: any) {
                       className="h-32 w-32 rounded-full object-cover"
                     />
                   )}
-                  {member.isLeader && <Chip chip="leader" />}
-                  {member.user.isCurrentUser && <Chip chip="me" />}
+                  {participant.isLeader && <Chip chip="leader" />}
+                  {participant.user.isCurrentUser && <Chip chip="me" />}
                   <span className="text-16 font-normal leading-[130%] tracking-[-0.6px] text-text-01 mobile:truncate mobile:text-14">
-                    {member.user.nickname}
+                    {participant.user.nickname}
                   </span>
                 </div>
-                {data.status && member.user.isCurrentUser && (
+                {data.status && participant.user.isCurrentUser && (
                   <>
                     <button
                       className="flex h-36 items-center justify-center rounded-32 bg-primary px-16 py-10 text-center font-bold leading-[20px] text-white hover:bg-primary-press mobile:h-32"

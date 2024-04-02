@@ -94,18 +94,15 @@ export default function MyTravel() {
           >
             {cardData && cardData.pages?.[0].length > 0 && (
               <>
-                {cardData.pages
-                  .slice()
-                  .reverse()
-                  .map(page =>
-                    page.map((card: any, index: number) => (
-                      <MyTravelCard
-                        key={index}
-                        data={card}
-                        selectTab={selectTab}
-                      />
-                    )),
-                  )}
+                {cardData.pages.map(page =>
+                  page.map((card: any, index: number) => (
+                    <MyTravelCard
+                      key={index}
+                      data={card}
+                      selectTab={selectTab}
+                    />
+                  )),
+                )}
               </>
             )}
 

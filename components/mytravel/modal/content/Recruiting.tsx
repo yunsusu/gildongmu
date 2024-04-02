@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -11,8 +11,6 @@ import axios from "@/lib/api/axios";
 export default function RecruitingContent({ data }: any) {
   const [isMobile, setIsMobile] = useToggle(true);
   const [pass, setPass] = useState(true);
-  const [participants, setParticipants] = useState<any>();
-  const [applicants, setApplicants] = useState<any>();
   const [isExileModalOpen, setIsExileModalOpen] = useState(false);
   const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false);
 
@@ -20,11 +18,10 @@ export default function RecruitingContent({ data }: any) {
 
   const getParticipantData = async () => {
     try {
-      const temp = await axios.get(
+      const res = await axios.get(
         `/posts/${data.id}/participants?status=ACCEPTED`,
       );
-      const res = temp.data;
-      setParticipants(res);
+      return res.data;
     } catch (error) {
       console.error("Error fetching card data:", error);
     }
@@ -32,20 +29,24 @@ export default function RecruitingContent({ data }: any) {
 
   const getApplicantData = async () => {
     try {
-      const temp = await axios.get(
+      const res = await axios.get(
         `/posts/${data.id}/participants?status=PENDING`,
       );
-      const res = temp.data;
-      setApplicants(res);
+      return res.data;
     } catch (error) {
       console.error("Error fetching card data:", error);
     }
   };
 
-  useEffect(() => {
-    getParticipantData();
-    getApplicantData();
-  }, []);
+  const { data: participants } = useQuery({
+    queryKey: ["participants"],
+    queryFn: () => getParticipantData(),
+  });
+
+  const { data: applicants } = useQuery({
+    queryKey: ["participants"],
+    queryFn: () => getApplicantData(),
+  });
 
   const participantExile = useMutation({
     mutationFn: (type: any) =>
