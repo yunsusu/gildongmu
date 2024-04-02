@@ -185,6 +185,7 @@ function DetailTitle({ data }: DetailDataType) {
       )}
       {isProfileModalOpen && (
         <AlertModal
+          data={data}
           modalType="userProfile"
           onClose={() => {
             setIsProfileModalOpen(false);

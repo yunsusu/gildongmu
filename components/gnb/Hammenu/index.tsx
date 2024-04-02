@@ -52,7 +52,7 @@ function Hammenu({
               <Image
                 src={
                   userData?.profilePath
-                    ? userData.profilePath
+                    ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${userData.profilePath}`
                     : "/icons/defaultProfile.png"
                 }
                 alt="유저 프로필"

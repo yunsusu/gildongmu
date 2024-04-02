@@ -16,6 +16,7 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
+    domains: ['gildongmuu.s3.ap-northeast-2.amazonaws.com'],
   },
 };
 

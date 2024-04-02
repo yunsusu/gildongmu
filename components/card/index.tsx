@@ -7,7 +7,7 @@ import { deleteBookMarks, postBookMarks } from "@/lib/api/bookmarks";
 
 function Card({ content }: { content: any }) {
   const router = useRouter();
-  const [favor, setFavor] = useState(true);
+  const [favor, setFavor] = useState(!content.myBookmark);
   const wrap = useMemo(() => {
     if (router.pathname === "/travel") {
       return "max-w-240 w-full h-[310px] block bg-white rounded-16 border border-line-02 m-auto overflow-hidden";
@@ -32,14 +32,18 @@ function Card({ content }: { content: any }) {
     <Link href={`/travel/${content.id}/detail`} className={wrap}>
       <div className="relative flex h-180 w-full flex-col overflow-hidden p-16 tablet:p-12">
         <Image
-          src={content.thumbnail ? content.thumbnail : "images/logo.svg"}
+          src={
+            content.thumbnail
+              ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${content.thumbnail}`
+              : "images/logo.svg"
+          }
           alt="여행지 이미지"
           fill
           className="z-0 object-cover"
         />
         <div className="absolute left-0 top-0 h-full w-full bg-black opacity-20"></div>
         <div className="z-1 relative w-full">
-          <div className="flex justify-between">
+          <div className="flex items-center justify-between">
             {content.status === "모집 완료" ? (
               <div className="w-max rounded-24 bg-stone-100 px-12 py-5 text-14 text-stone-500 tablet:px-10 tablet:py-3 tablet:text-12">
                 모집 완료

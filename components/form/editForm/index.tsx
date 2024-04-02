@@ -1,3 +1,6 @@
+// import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { geocode, RequestType, setKey } from "react-geocode";
 import { Controller, useForm } from "react-hook-form";
@@ -13,65 +16,81 @@ import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-// import axios from "@/lib/api/axios";
+import { getDetail } from "@/lib/api/detail";
 
 export interface Location {
   lat: number;
   lng: number;
 }
 
-const detailContent = {
-  id: 2,
-  title: "일본 동행구해요",
-  nickname: "닉네임",
-  destination: "일본, 오사카",
-  tripDate: [
-    {
-      startDate: "2024-03-04",
-      endDate: "2024-03-22",
-    },
-  ],
-  numberOfPeople: 8,
-  gender: "MALE",
-  content: "일본여행가요~",
+interface Edit {
+  title: string;
+  destination: string;
+  tripDate: {
+    startDate: string;
+    endDate: string;
+  };
+  numberOfPeople: number;
+  gender: string;
+  content: string;
+  tag: string[];
+  images: any;
+}
 
-  tag: ["도쿄", "오사카", "삿포로"],
-  thumbnail: { id: 101, url: "url" },
-  images: [
-    {
-      id: 101,
-      url: "url",
-    },
-    {
-      id: 102,
-      url: "url",
-    },
-  ],
-};
+// interface Image {
+//   url: {
+//     file: File;
+//     preview: string;
+//   };
+//   thumbnail: boolean;
+// }
 
 function EditForm() {
   const {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors, isValid },
-  } = useForm({
+  } = useForm<Edit>({
     mode: "onBlur",
-    defaultValues: {
-      title: detailContent.title,
-      destination: detailContent.destination,
-      tripDate: detailContent.tripDate[0],
-      numberOfPeople: detailContent.numberOfPeople,
-      gender: detailContent.gender,
-      content: detailContent.content,
-      tags: detailContent.tag,
-      images: undefined, // images는 별도의 처리가 필요
-    },
   });
+
+  const router = useRouter();
+  const { Id: postId } = router.query;
+  const { data: writeData } = useQuery({
+    queryKey: ["detail", postId],
+    queryFn: async () => {
+      const res = await getDetail(Number(postId));
+      return res;
+    },
+    enabled: !!postId,
+  });
+
+  useEffect(() => {
+    if (writeData) {
+      const formattedImages = writeData.images.map((image: any) => ({
+        url: `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${image.url}`,
+      }));
+      reset({
+        title: writeData.title,
+        tripDate: {
+          startDate: writeData.tripDate.startDate,
+          endDate: writeData.tripDate.endDate,
+        },
+        numberOfPeople: writeData.numberOfPeople,
+        tag: writeData.tag,
+        content: writeData.content,
+        gender: writeData.gender,
+        images: formattedImages,
+      });
+    }
+  }, [writeData, reset]);
+  console.log(writeData);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
-  const [search, setSearch] = useState("");
+  const [destination, setDestination] = useState("");
   const [location, setLocation] = useState<Location>({
     lat: 37.5400456,
     lng: 126.9921017,
@@ -97,14 +116,16 @@ function EditForm() {
 
   const handleSearchLocation = (e: any) => {
     if (e.key === "Enter") {
-      setSearch(e.target.value);
+      setDestination(e.target.value);
     }
   };
 
   useEffect(() => {
-    if (search.trim() !== "") {
+    const trimmedDestination = destination ? destination.trim() : "";
+
+    if (trimmedDestination !== "") {
       setKey(String(apiKey));
-      geocode(RequestType.ADDRESS, search)
+      geocode(RequestType.ADDRESS, destination)
         .then(({ results }) => {
           if (results.length > 0) {
             const { lat, lng } = results[0].geometry.location;
@@ -116,7 +137,7 @@ function EditForm() {
         })
         .catch(console.error);
     }
-  }, [search, apiKey]);
+  }, [destination, apiKey]);
 
   return (
     <>
@@ -143,7 +164,8 @@ function EditForm() {
               <Input
                 placeholder="여행지 입력"
                 className="h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272"
-                onKeyPress={handleSearchLocation}
+                defaultValue={destination}
+                onKeyUp={handleSearchLocation}
               />
               <div className="h-[240px] w-[756px] rounded-12 bg-line-02 tablet:w-[672px] mobile:w-272">
                 <GoogleMap location={location} />
@@ -203,10 +225,10 @@ function EditForm() {
                 rules={{ required: true }}
                 render={({ field }) => (
                   <RadioInput
-                    onChange={(gender: any) => field.onChange(gender)}
+                    onChange={value => field.onChange(value)}
                     value={field.value}
                     pageType="write"
-                    id={"gender"}
+                    id="gender"
                   />
                 )}
               />
@@ -247,6 +269,7 @@ function EditForm() {
                 render={({ field }) => (
                   <MultipleImageUploadInput
                     onChange={imagesUrl => field.onChange(imagesUrl)}
+                    value={field.value}
                   />
                 )}
               />
@@ -255,7 +278,7 @@ function EditForm() {
               <Label htmlFor="tags">태그</Label>
               <Controller
                 control={control}
-                name="tags"
+                name="tag"
                 render={({ field }) => (
                   <TagInput
                     onChange={(tags: any) => field.onChange(tags)}

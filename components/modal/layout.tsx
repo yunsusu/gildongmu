@@ -11,7 +11,8 @@ interface ModalLayoutProps {
   modalTitle: string;
   modalType: ModalType;
   onClose: () => void;
-  onApprove?: () => void;
+  onConfirm?: () => void;
+  onCancel?: () => void;
 }
 
 export default function ModalLayout({
@@ -19,11 +20,14 @@ export default function ModalLayout({
   modalTitle,
   modalType,
   onClose,
-  onApprove,
+  onConfirm,
+  onCancel,
 }: ModalLayoutProps) {
   const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
+    document.body.style.overflow = "hidden";
+
     const body = document.body;
     const modalRoot = document.createElement("div");
     modalRoot.setAttribute("id", "modal");
@@ -31,6 +35,7 @@ export default function ModalLayout({
     setPortalRoot(modalRoot);
     return () => {
       body.removeChild(modalRoot);
+      document.body.style.overflow = "auto";
     };
   }, []);
 
@@ -64,7 +69,8 @@ export default function ModalLayout({
           <ModalButton
             modalType={modalType}
             onClose={onClose}
-            onApprove={onApprove}
+            onConfirm={onConfirm}
+            onCancel={onCancel}
           />
         </div>
       </div>,

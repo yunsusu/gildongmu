@@ -9,7 +9,7 @@ export default function MyTravelHeader() {
   };
 
   return (
-    <div className="flex h-160 w-full items-center justify-center self-stretch bg-[#818CF8] px-24 pb-42 pt-36 tablet:h-152">
+    <div className="flex h-120 w-full items-center justify-center self-stretch bg-[#818CF8] px-24 py-36 tablet:py-42">
       <div className="mobile:max-w-360 relative flex max-w-[1200px] items-center gap-18 tablet:max-w-[768px]">
         <button className="absolute -left-32" onClick={goBack}>
           <Image

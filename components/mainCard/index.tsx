@@ -33,7 +33,11 @@ function MainCard({ content, is }: { content: any; is: string }) {
         className={`relative flex h-180 w-full flex-col overflow-hidden p-16 tablet:p-12 ${is === "main" && "rounded-16"}`}
       >
         <Image
-          src={content.thumbnail ? content.thumbnail : "images/logo.svg"}
+          src={
+            content.thumbnail
+              ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${content.thumbnail}`
+              : "images/logo.svg"
+          }
           alt="여행지 이미지"
           fill
           className="z-0 object-cover"

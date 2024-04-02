@@ -12,7 +12,7 @@ interface itemType {
   };
 }
 
-// const socket = io("서버주소");
+// const socket = io(`http://3.38.76.39:8080/rooms/${1}`);
 
 function CommuChat({ item }: itemType) {
   const [prevTime, setPrevTime] = useState("");
@@ -32,20 +32,29 @@ function CommuChat({ item }: itemType) {
       setPrevTime(`${month}월 ${date}일`);
     }
   }, [item.lastChatAt]);
-
+  console.log(item);
   return (
     <div
       onClick={() =>
         window.open(`/community/${item.id}`, "_blank", "width=400,height=700")
       }
-      className="flex h-92 w-full cursor-pointer justify-between gap-10 px-40 py-16 hover:bg-yellow-50 tablet:px-20"
+      className="flex h-92 w-full cursor-pointer justify-between gap-10 rounded-16 px-40 py-16 hover:bg-yellow-50 tablet:px-20"
     >
       <div className="flex flex-1 gap-24 ">
         <div className="relative h-60 w-60 tablet:h-48 tablet:w-48">
-          <Image src={"/images/logo.svg"} alt="대표이미지" fill />
+          <Image
+            src={
+              item.thumbnail
+                ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${item.thumbnail}`
+                : "/images/logo.svg"
+            }
+            alt="대표이미지"
+            fill
+            objectFit="cover"
+          />
         </div>
         <div className="flex-1">
-          <div className="flex gap-16 text-18 text-text-01 tablet:text-16">
+          <div className="flex items-center gap-16 text-18 text-text-01 tablet:text-16">
             <div className="line-clamp-1">{item.title}</div>
             <div className="flex text-16 tablet:text-14">
               <div className="relative h-20 w-20">

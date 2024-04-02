@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ImagePreview {
   file: File;
@@ -8,10 +8,22 @@ interface ImagePreview {
 
 function MultipleImageUploadInput({
   onChange,
+  value,
 }: {
   onChange: (images: ImagePreview[]) => void;
+  value: any;
 }) {
   const [imagesPreview, setImagesPreview] = useState<ImagePreview[]>([]);
+
+  useEffect(() => {
+    if (value && value.length > 0) {
+      const previews = value.map((url: any) => ({
+        file: null,
+        preview: url,
+      }));
+      setImagesPreview(previews);
+    }
+  }, [value]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -23,7 +35,7 @@ function MultipleImageUploadInput({
 
       const newImages = [...imagesPreview, ...newImagesPreview].slice(0, 5);
       setImagesPreview(newImages);
-      onChange(newImages); // 새로운 이미지 배열을 부모 컴포넌트로 전달
+      onChange(newImages);
     }
   };
 
@@ -31,7 +43,7 @@ function MultipleImageUploadInput({
     const newImages = imagesPreview.filter((_, i) => i !== index);
     setImagesPreview(newImages);
     URL.revokeObjectURL(imagesPreview[index].preview);
-    onChange(newImages); // 변경된 이미지 배열을 부모 컴포넌트로 전달
+    onChange(newImages);
   };
 
   const ImagePreviewComponent = ({
@@ -81,7 +93,7 @@ function MultipleImageUploadInput({
     </label>
   );
 
-  const TitleBage = () => (
+  const TitleBadge = () => (
     <div className="absolute left-8 top-8 flex h-24 w-42 items-center justify-center rounded-24 bg-tag-orange-100 text-xs text-tag-orange-500 mobile:left-10">
       대표
     </div>
@@ -103,7 +115,7 @@ function MultipleImageUploadInput({
           </div>
         ))}
       </div>
-      <TitleBage />
+      <TitleBadge />
     </div>
   );
 }
