@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -13,16 +13,19 @@ export default function RegistCommentOfComment({
   data,
   user,
   cardId,
+  setShowReply,
 }: {
   data: any;
   user: any;
   cardId: number;
+  setShowReply: any;
 }) {
   const [comment, setComment] = useState("");
   const [secret, setSecret] = useState(false);
   const maxLength = 100;
   const charCount = comment.length;
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
     mutationFn: ({
@@ -33,7 +36,10 @@ export default function RegistCommentOfComment({
     }: any) =>
       postCommentOfComment(postid, commentText, commentSecret, commentParentId),
     onSuccess: () => {
-      router.reload();
+      queryClient.invalidateQueries({
+        queryKey: ["commentList", cardId],
+      });
+      setShowReply(false);
     },
   });
 

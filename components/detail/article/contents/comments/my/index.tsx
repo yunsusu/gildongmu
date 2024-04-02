@@ -126,7 +126,12 @@ export default function MyComment({ data, user, cardId }: any) {
           </Button>
           {showReply && (
             <div className={`${animationClass} w-full`}>
-              <RegistCommentOfComment data={data} user={user} cardId={cardId} />
+              <RegistCommentOfComment
+                data={data}
+                user={user}
+                cardId={cardId}
+                setShowReply={setShowReply}
+              />
             </div>
           )}
         </div>

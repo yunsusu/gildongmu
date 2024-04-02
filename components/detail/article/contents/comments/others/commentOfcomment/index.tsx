@@ -80,7 +80,12 @@ export default function OthersCommentOfComment({ data, user, cardId }: any) {
       </div>
       {showReply && (
         <div className={`${animationClass} w-full`}>
-          <RegistCommentOfComment data={data} user={user} cardId={cardId} />
+          <RegistCommentOfComment
+            data={data}
+            user={user}
+            cardId={cardId}
+            setShowReply={setShowReply}
+          />
         </div>
       )}
       {commentOfcomment?.map((item: any) => (
