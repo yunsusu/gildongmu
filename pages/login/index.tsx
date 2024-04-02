@@ -68,17 +68,10 @@ export default function Login() {
   return (
     <>
       {loginErrorModal ? (
-        errorType === 0 ? (
-          <Modal
-            modalType={"emailNotFound"}
-            onClose={() => setLoginErrorModal(false)}
-          />
-        ) : (
-          <Modal
-            modalType={"passwordMismatch"}
-            onClose={() => setLoginErrorModal(false)}
-          />
-        )
+        <Modal
+          modalType={errorType === 0 ? "emailNotFound" : "passwordMismatch"}
+          onClose={() => setLoginErrorModal(false)}
+        />
       ) : null}
       <div className="flex" style={{ height: "calc(100vh - 72px)" }}>
         <div className="relative h-full w-1/2 bg-kakao text-50 tablet:hidden">
