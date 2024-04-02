@@ -11,6 +11,7 @@ interface ModalLayoutProps {
   modalTitle: string;
   modalType: ModalType;
   onClose: () => void;
+  onApprove?: () => void;
 }
 
 export default function ModalLayout({
@@ -18,6 +19,7 @@ export default function ModalLayout({
   modalTitle,
   modalType,
   onClose,
+  onApprove,
 }: ModalLayoutProps) {
   const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
 
@@ -59,7 +61,11 @@ export default function ModalLayout({
           <span className="font-NanumSquareRound text-center text-18 font-normal leading-relaxed tracking-tight text-text-02 mobile:text-16">
             {modalMessage}
           </span>
-          <ModalButton modalType={modalType} onClose={onClose} />
+          <ModalButton
+            modalType={modalType}
+            onClose={onClose}
+            onApprove={onApprove}
+          />
         </div>
       </div>,
       document.body,

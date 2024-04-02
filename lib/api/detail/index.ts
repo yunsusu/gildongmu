@@ -49,6 +49,11 @@ export const postCommentOfComment = async (
   return res.data;
 };
 
+export const deleteComment = async (postid: number, commentId: number) => {
+  const res = await axios.delete(`/posts/${postid}/comments/${commentId}`);
+  return res.data;
+};
+
 export const getCommentList = async (postid: Number) => {
   const res = await axios.get(`/posts/${postid}/comments`);
   return res;

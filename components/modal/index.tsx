@@ -15,7 +15,8 @@ export type ModalType =
   | "travelApply"
   | "travelCancle"
   | "profileEdit"
-  | "memberExile";
+  | "memberExile"
+  | "deleteComment";
 
 interface ModalProps {
   modalType: ModalType;
@@ -24,9 +25,10 @@ interface ModalProps {
   nickname?: string;
   profilePath?: string;
   onClose: () => void;
+  onApprove?: () => void;
 }
 
-export default function Modal({ modalType, onClose }: ModalProps) {
+export default function Modal({ modalType, onClose, onApprove }: ModalProps) {
   let title: string = "";
   let message: string | ReactNode = "";
 
@@ -63,6 +65,10 @@ export default function Modal({ modalType, onClose }: ModalProps) {
     case "writingSuccess":
       title = "";
       message = "모집글 작성을 완료했습니다.";
+      break;
+    case "deleteComment":
+      title = "댓글 삭제";
+      message = "댓글을 삭제하시겠습니까?";
       break;
     case "writingCancel":
       title = "글쓰기 취소";
@@ -157,6 +163,7 @@ export default function Modal({ modalType, onClose }: ModalProps) {
         modalTitle={title}
         modalMessage={message}
         onClose={onClose}
+        onApprove={onApprove}
       />
     </>
   );

@@ -1,4 +1,6 @@
+import { useMutation } from "@tanstack/react-query";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
@@ -7,14 +9,27 @@ import CommentOfComment from "@/components/detail/article/contents/comments/othe
 import RegistCommentOfComment from "@/components/detail/article/contents/comments/register/commentOfcomment";
 import WriterTag from "@/components/detail/tag";
 import Dropdown from "@/components/dropdown";
+import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
+import { deleteComment } from "@/lib/api/detail";
 
 export default function MyComment({ data, user, cardId }: any) {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [showReply, setShowReply] = useState(false);
   const [contentEdit, setContentEdit] = useState(false);
   const [animationClass, setAnimationClass] = useState("");
   const [dropDown, setDropDown, handleDropDown] = useToggle();
+
+  const router = useRouter();
+
+  const { mutate } = useMutation({
+    mutationFn: ({ postid, commentId }: any) =>
+      deleteComment(postid, commentId),
+    onSuccess: () => {
+      router.reload();
+    },
+  });
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -35,9 +50,13 @@ export default function MyComment({ data, user, cardId }: any) {
     }
   };
 
+  const commentDelete = () => {
+    mutate({ postid: cardId, commentId: data.id });
+  };
+
   const edit = [
     { name: "수정하기", handleBtn: () => setContentEdit(prev => !prev) },
-    { name: "삭제하기", handleBtn: () => {} },
+    { name: "삭제하기", handleBtn: () => setIsDeleteModalOpen(true) },
   ];
 
   const commentOfcomment = data.children;
@@ -114,6 +133,17 @@ export default function MyComment({ data, user, cardId }: any) {
         />
       ))}
       <div className="h-[1px] self-stretch bg-sky-200"></div>
+      {isDeleteModalOpen && (
+        <Modal
+          modalType="deleteComment"
+          onClose={() => {
+            setIsDeleteModalOpen(false);
+          }}
+          onApprove={() => {
+            commentDelete();
+          }}
+        />
+      )}
     </>
   );
 }
