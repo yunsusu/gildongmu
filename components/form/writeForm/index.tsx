@@ -260,6 +260,7 @@ function WriteForm() {
                 render={({ field }) => (
                   <MultipleImageUploadInput
                     onChange={imagesUrl => field.onChange(imagesUrl)}
+                    value={field.value}
                   />
                 )}
               />
