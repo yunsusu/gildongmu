@@ -69,9 +69,9 @@ function EditForm() {
 
   useEffect(() => {
     if (writeData) {
-      const formattedImages = writeData.images.map((image: any) => ({
-        url: `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${image.url}`,
-      }));
+      // const formattedImages = writeData.images.map((image: any) => ({
+      //   url: `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${image.url}`,
+      // }));
       reset({
         title: writeData.title,
         tripDate: {
@@ -82,7 +82,7 @@ function EditForm() {
         tag: writeData.tag,
         content: writeData.content,
         gender: writeData.gender,
-        images: formattedImages,
+        images: writeData.images,
       });
     }
   }, [writeData, reset]);
