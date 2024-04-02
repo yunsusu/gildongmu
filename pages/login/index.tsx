@@ -61,7 +61,14 @@ export default function Login() {
         />
       ) : null}
       <div className="flex" style={{ height: "calc(100vh - 72px)" }}>
-        <div className="h-full w-1/2 bg-kakao text-50 tablet:hidden"></div>
+        <div className="relative h-full w-1/2 bg-kakao text-50 tablet:hidden">
+          <Image
+            src="/images/Image_Login.png"
+            alt="login main image"
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
         <div className="flex h-full w-1/2 items-center justify-center bg-bg-06 text-14 tablet:w-full">
           <div className="flex h-5/6 max-h-[617px] w-[434px] flex-col items-center justify-center rounded-32 bg-white p-40 tablet:mt-[81.5px] mobile:mx-24 mobile:mt-[50.5px] mobile:w-full">
             <h1 className="mb-40 text-32 font-extrabold text-text-01">
