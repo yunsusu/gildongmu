@@ -1,3 +1,4 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -13,8 +14,9 @@ export default function RecruitingContent({ data }: any) {
   const [participants, setParticipants] = useState<any>();
   const [applicants, setApplicants] = useState<any>();
   const [isExileModalOpen, setIsExileModalOpen] = useState(false);
-  const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
   const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false);
+
+  const queryClient = useQueryClient();
 
   const getParticipantData = async () => {
     try {
@@ -22,7 +24,6 @@ export default function RecruitingContent({ data }: any) {
         `/posts/${data.id}/participants?status=ACCEPTED`,
       );
       const res = temp.data;
-      console.log(res);
       setParticipants(res);
     } catch (error) {
       console.error("Error fetching card data:", error);
@@ -41,30 +42,28 @@ export default function RecruitingContent({ data }: any) {
     }
   };
 
-  const participantExile = async (type: any) => {
-    try {
-      const res = await axios.delete(
-        `/posts/${data.id}/participants/${type.id}`,
-      );
-      return res;
-    } catch (error) {
-      console.error("Error fetching card data:", error);
-    }
-  };
-
-  const applicationAccept = async (type: any) => {
-    try {
-      const res = await axios.put(`/posts/${data.id}/participants/${type.id}`);
-      return res;
-    } catch (error) {
-      console.error("Error fetching card data:", error);
-    }
-  };
-
   useEffect(() => {
     getParticipantData();
     getApplicantData();
   }, []);
+
+  const participantExile = useMutation({
+    mutationFn: (type: any) =>
+      axios.delete(`/posts/${data.id}/participants/${type.id}`),
+    onSuccess: () => {
+      setIsExileModalOpen(!isExileModalOpen);
+      queryClient.invalidateQueries();
+    },
+  });
+
+  const applicationAccept = useMutation({
+    mutationFn: (type: any) =>
+      axios.put(`/posts/${data.id}/participants/${type.id}`),
+    onSuccess: () => {
+      setIsAcceptModalOpen(!isAcceptModalOpen);
+      queryClient.invalidateQueries();
+    },
+  });
 
   useEffect(() => {
     const handleResize = () => {
@@ -172,8 +171,7 @@ export default function RecruitingContent({ data }: any) {
                             setIsExileModalOpen(!isExileModalOpen)
                           }
                           onConfirm={() => {
-                            participantExile(participant);
-                            setIsExileModalOpen(!isExileModalOpen);
+                            participantExile.mutate(participant);
                           }}
                         />
                       )}
@@ -216,24 +214,21 @@ export default function RecruitingContent({ data }: any) {
                         <button
                           className="flex h-36 items-center justify-center py-10 text-center font-bold leading-[20px] text-stone-700 hover:text-stone-500 mobile:h-32"
                           key={`applicant_declineButton_${index}`}
-                          onClick={() =>
-                            setIsRejectModalOpen(!isRejectModalOpen)
-                          }
+                          onClick={() => setIsExileModalOpen(!isExileModalOpen)}
                         >
                           거절
                         </button>
-                        {isRejectModalOpen && (
+                        {isExileModalOpen && (
                           <Modal
                             modalType="applicationReject"
                             onClose={() =>
-                              setIsRejectModalOpen(!isRejectModalOpen)
+                              setIsExileModalOpen(!isExileModalOpen)
                             }
                             onCancel={() =>
-                              setIsRejectModalOpen(!isRejectModalOpen)
+                              setIsExileModalOpen(!isExileModalOpen)
                             }
                             onConfirm={() => {
-                              participantExile(applicant);
-                              setIsRejectModalOpen(!isRejectModalOpen);
+                              participantExile.mutate(applicant);
                             }}
                           />
                         )}
@@ -259,8 +254,7 @@ export default function RecruitingContent({ data }: any) {
                               setIsAcceptModalOpen(!isAcceptModalOpen)
                             }
                             onConfirm={() => {
-                              applicationAccept(applicant);
-                              setIsAcceptModalOpen(!isAcceptModalOpen);
+                              applicationAccept.mutate(applicant);
                             }}
                           />
                         )}

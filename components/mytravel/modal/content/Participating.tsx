@@ -1,3 +1,4 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -21,9 +22,11 @@ export interface Participant {
   };
 }
 
-export default function ParticipatingContent({ data, onClose }: any) {
+export default function ParticipatingContent({ data }: any) {
   const [participants, setParticipants] = useState<Participant[]>();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const queryClient = useQueryClient();
 
   const getParticipantData = async () => {
     try {
@@ -38,17 +41,13 @@ export default function ParticipatingContent({ data, onClose }: any) {
     }
   };
 
-  const cancelApplication = async () => {
-    try {
-      const temp = await axios.delete(`/posts/${data.id}/participants`);
-      const res = temp.data;
-      setParticipants(res);
-      setIsModalOpen(!isModalOpen);
-      onClose();
-    } catch (error) {
-      console.error("Error fetching card data:", error);
-    }
-  };
+  const cancelApplication = useMutation({
+    mutationFn: () => axios.delete(`/posts/${data.id}/participants`),
+    onSuccess: () => {
+      setIsModalOpen(false);
+      queryClient.invalidateQueries();
+    },
+  });
 
   useEffect(() => {
     getParticipantData();
@@ -103,7 +102,7 @@ export default function ParticipatingContent({ data, onClose }: any) {
                         modalType="travelCancle"
                         onClose={() => setIsModalOpen(!isModalOpen)}
                         onConfirm={() => {
-                          cancelApplication();
+                          cancelApplication.mutate();
                         }}
                         onCancel={() => setIsModalOpen(!isModalOpen)}
                       />

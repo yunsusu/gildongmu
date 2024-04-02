@@ -1,3 +1,4 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -8,15 +9,32 @@ interface BookmarkProp {
 }
 
 export default function Bookmark({ data }: BookmarkProp) {
-  const [isBookmark, setIsBookmark] = useState(true);
+  const [isBookmark, setIsBookmark] = useState(data.myBookmark);
+  const postid = data.id;
+
+  const queryClient = useQueryClient();
+
+  const addBookmark = useMutation({
+    mutationFn: postBookMarks,
+    onSuccess: () => {
+      setIsBookmark(true);
+      queryClient.invalidateQueries();
+    },
+  });
+
+  const removeBookmark = useMutation({
+    mutationFn: deleteBookMarks,
+    onSuccess: () => {
+      setIsBookmark(false);
+      queryClient.invalidateQueries();
+    },
+  });
 
   const handleBookmarkToggle = () => {
-    if (data.myBookmark) {
-      deleteBookMarks(data.id);
-      setIsBookmark(false);
+    if (isBookmark) {
+      removeBookmark.mutate(postid);
     } else {
-      postBookMarks(data.id);
-      setIsBookmark(true);
+      addBookmark.mutate(postid);
     }
   };
 
@@ -29,12 +47,8 @@ export default function Bookmark({ data }: BookmarkProp) {
       }}
     >
       <Image
-        src={
-          data.myBookmark && isBookmark
-            ? "/icons/heartOn.svg"
-            : "/icons/heartOff.svg"
-        }
-        alt={data.myBookmark && isBookmark ? "하트 아이콘" : "빈하트 아이콘"}
+        src={data.myBookmark ? "/icons/heartOn.svg" : "/icons/heartOff.svg"}
+        alt={data.myBookmark ? "하트 아이콘" : "빈하트 아이콘"}
         width={24}
         height={24}
       />

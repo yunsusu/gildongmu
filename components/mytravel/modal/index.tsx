@@ -100,7 +100,7 @@ export default function MyTravelModal({
                 </div>
               </div>
               <div
-                className={`rounded-24 border bg-white px-16 py-7 text-16 leading-[130%] tracking-[-0.6px] ${data.status === "모집 중" ? "border-none bg-[#FCE7F3] text-pink-500" : "border-stone-400 text-stone-400"} tablet:px-12 tablet:py-5 tablet:text-14`}
+                className={`rounded-24 border bg-white px-16 py-7 text-16 leading-[130%] tracking-[-0.6px] ${data.status === "모집 중" ? "border-none bg-pink-200 text-pink-600" : "border-stone-400 text-stone-400"} tablet:px-12 tablet:py-5 tablet:text-14`}
               >
                 {data.status}
               </div>
