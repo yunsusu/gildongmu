@@ -28,7 +28,8 @@ export default function ModalButton({
     modalType === "userProfile" ||
     modalType === "failCheckPassword" ||
     modalType === "changeProfileSuccess" ||
-    modalType === "profileEdit"
+    modalType === "profileEdit" ||
+    modalType === "loginRequired"
   ) {
     filledStyle = `text-18 h-52 mobile:h-44  ${modalType === "userProfile" ? "w-240 mobile:w-full" : "w-full"}`;
     filledText = "확인";
