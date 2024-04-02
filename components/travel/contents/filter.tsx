@@ -14,7 +14,7 @@ const filterMock = [
 // }
 
 function Filter() {
-  const [search, setSearch] = useState("전체");
+  const [searchText, setSearch] = useState("전체");
   return (
     <div className="relative border-b border-line-02 bg-white font-bold tracking-tight text-text-01">
       <div
@@ -26,7 +26,7 @@ function Filter() {
             <FilterBtn
               key={index}
               text={item}
-              search={search}
+              searchText={searchText}
               setSearch={setSearch}
             />
           ))}

@@ -38,15 +38,25 @@ function CardGrid() {
   const pageLimit = 12;
 
   const router = useRouter();
-  const { page, sortby, filter } = router.query;
+  const { page, sort, filter, search } = router.query;
   const currentPage = parseInt(page as string, 10) || 0;
   const sortValue = Array.isArray(sortby) ? sortby[0] : sortby;
   const filterValue = Array.isArray(filter) ? filter[0] : filter;
+  const searchValue = Array.isArray(search) ? search[0] : search;
 
   const { data: card } = useQuery<CardData>({
-    queryKey: ["cards", { page, sort: sortValue, filter: filterValue }],
+    queryKey: [
+      "cards",
+      { page, sort: sortValue, filter: filterValue, searchValue },
+    ],
     queryFn: () =>
-      getTravelCard(currentPage, pageLimit, sortValue, filterValue),
+      getTravelCard(
+        currentPage,
+        pageLimit,
+        sortValue,
+        filterValue,
+        searchValue,
+      ),
   });
 
   const firstLastPage = (num: number) => {
