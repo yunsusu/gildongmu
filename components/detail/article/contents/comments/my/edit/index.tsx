@@ -35,7 +35,7 @@ export default function EditComment({
       editComment(postid, commentText, commentSecret, commentId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["commentList", data?.id],
+        queryKey: ["commentList", cardId],
       });
       setContentEdit(false);
     },
