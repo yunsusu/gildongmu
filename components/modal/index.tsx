@@ -65,7 +65,7 @@ export default function Modal({
 
   switch (modalType) {
     case "loginRequired":
-      title = "로그인 필요";
+      title = "";
       message = "로그인이 필요합니다.";
       break;
     case "emailNotFound":
