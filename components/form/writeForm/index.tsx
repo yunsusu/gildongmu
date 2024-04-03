@@ -68,36 +68,29 @@ function WriteForm() {
   };
 
   const onSubmit = async (data: Write) => {
-    // const imagesWithThumbnail = data.images?.map((image, index) => {
-    //   const url = image.preview;
+    const formData = new FormData();
 
-    //   if (typeof url !== "string") {
-    //     console.error(
-    //       "Image URL is undefined or not in the expected format",
-    //       image,
-    //     );
-    //     return { url: "", thumbnail: index === 0 }; // url
-    //   }
+    const { images, ...submitData } = data;
+    formData.append(
+      "postCreateRequest",
+      new Blob([JSON.stringify(submitData)], { type: "application/json" }),
+    );
 
-    //   return {
-    //     url: url,
-    //     thumbnail: index === 0,
-    //   };
-    // });
-
-    const updatedData = {
-      ...data,
-      // images: imagesWithThumbnail,
-      destination,
-    };
+    if (images && images.length > 0) {
+      images.forEach((image: any) => {
+        formData.append("images", image.file);
+      });
+    }
 
     try {
-      const res = await axios.post("/posts", updatedData);
+      const res = await axios.post("/posts", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       setIsModalOpen(true);
-      console.log(updatedData);
     } catch (error) {
-      console.error("글쓰기 실패:", error);
-      console.log(updatedData);
+      console.error("회원가입 실패:", error);
     }
   };
 
@@ -147,7 +140,11 @@ function WriteForm() {
                 여행지<span className="text-pink-500">*</span>
               </Label>
               <Input
+                type="text"
                 placeholder="여행지 입력"
+                {...register("destination", {
+                  required: "여행지를 입력해 주세요.",
+                })}
                 className="h-52 w-[756px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272"
                 onKeyUp={handleSearchLocation}
               />
