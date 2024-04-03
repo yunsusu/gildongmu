@@ -87,15 +87,8 @@ function SocialSignUpForm() {
   useEffect(() => {
     const getOauthEmail = async () => {
       try {
-        const response = await axiosInstance.get("/oauth2/signup", {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "access-control-allow-credentials": "true",
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await axiosInstance.get("/oauth2/signup");
         setOauthEmail(response.data.email);
-
         console.log("oauth2 이메일 조회 성공! ", response.data);
       } catch (error) {
         console.error("oauth2 이메일 조회 실패", error);
