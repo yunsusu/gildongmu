@@ -25,7 +25,8 @@ export type ModalType =
   | "cancelEditing"
   | "participantExile"
   | "applicationAccept"
-  | "applicationReject";
+  | "applicationReject"
+  | "editingSuccess";
 
 interface ModalProps {
   modalType: ModalType;
@@ -218,6 +219,10 @@ export default function Modal({
           거절하시겠습니까?
         </>
       );
+      break;
+      case "editingSuccess":
+      title = "수정 완료";
+      message = "모집글이 수정되었습니다.";
       break;
     default:
       break;

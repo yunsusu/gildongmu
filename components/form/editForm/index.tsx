@@ -37,14 +37,6 @@ interface Edit {
   images: any;
 }
 
-// interface Image {
-//   url: {
-//     file: File;
-//     preview: string;
-//   };
-//   thumbnail: boolean;
-// }
-
 function EditForm() {
   const {
     register,
@@ -74,6 +66,7 @@ function EditForm() {
       // }));
       reset({
         title: writeData.title,
+        destination: writeData.destination,
         tripDate: {
           startDate: writeData.tripDate.startDate,
           endDate: writeData.tripDate.endDate,
@@ -158,13 +151,14 @@ function EditForm() {
               )}
             </div>
             <div className="flex flex-col gap-8">
-              <Label>
+              <Label htmlFor="destination">
                 여행지<span className="text-pink-500">*</span>
               </Label>
               <Input
+                id="destination"
                 placeholder="여행지 입력"
                 className="h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272"
-                defaultValue={destination}
+                {...register("destination", { required: true })}
                 onKeyUp={handleSearchLocation}
               />
               <div className="h-[240px] w-[756px] rounded-12 bg-line-02 tablet:w-[672px] mobile:w-272">
@@ -311,7 +305,7 @@ function EditForm() {
       </form>
       {isModalOpen && (
         <Modal
-          modalType="writingSuccess"
+          modalType="editingSuccess"
           onClose={() => {
             setIsModalOpen(false);
           }}
@@ -320,6 +314,13 @@ function EditForm() {
       {isCancelModalOpen && (
         <Modal
           modalType="writingCancel"
+          onCancel={() => {
+            setIsCancelModalOpen(false);
+          }}
+          onConfirm={() => {
+            setIsCancelModalOpen(false);
+            router.back();
+          }}
           onClose={() => {
             setIsCancelModalOpen(false);
           }}
