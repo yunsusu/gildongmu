@@ -34,7 +34,7 @@ function CommuList() {
     queryKey: ["rooms"],
     queryFn: () => getChatList(),
   });
-  console.log(rooms);
+
   return (
     <div
       style={{ height: "calc(100% - 120px)" }}
