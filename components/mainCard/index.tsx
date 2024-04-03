@@ -48,7 +48,7 @@ function MainCard({ content, is }: { content: any; is: string }) {
           src={
             content.thumbnail
               ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${content.thumbnail}`
-              : "images/logo.svg"
+              : "/images/Image_DefaultCard.png"
           }
           alt="여행지 이미지"
           fill
