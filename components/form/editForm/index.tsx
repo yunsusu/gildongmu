@@ -43,7 +43,7 @@ function EditForm() {
     handleSubmit,
     control,
     reset,
-    formState: { errors, isValid },
+    formState: { errors, isDirty },
   } = useForm<Edit>({
     mode: "onBlur",
   });
@@ -61,9 +61,6 @@ function EditForm() {
 
   useEffect(() => {
     if (writeData) {
-      // const formattedImages = writeData.images.map((image: any) => ({
-      //   url: `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${image.url}`,
-      // }));
       reset({
         title: writeData.title,
         destination: writeData.destination,
@@ -156,6 +153,7 @@ function EditForm() {
               </Label>
               <Input
                 id="destination"
+                type="text"
                 placeholder="여행지 입력"
                 className="h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272"
                 {...register("destination", { required: true })}
@@ -296,7 +294,7 @@ function EditForm() {
           </Button>
           <Button
             type="submit"
-            disabled={!isValid}
+            disabled={!isDirty}
             className="h-52 w-180 tablet:h-44 tablet:w-128"
           >
             수정하기
