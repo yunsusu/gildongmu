@@ -126,7 +126,10 @@ export default function EditComment({
           onClose={() => {
             setIsCancelModalOpen(false);
           }}
-          onApprove={() => {
+          onCancel={() => {
+            setIsCancelModalOpen(false);
+          }}
+          onConfirm={() => {
             setIsCancelModalOpen(false);
             setContentEdit(false);
           }}
