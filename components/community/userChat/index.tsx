@@ -27,6 +27,13 @@ function UserChat({ user }: ChatProps) {
         hour12: true,
       });
       setSendDate(date);
+    } else {
+      const now = new Date();
+      const date = now.toLocaleTimeString("ko-KR", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      setSendDate(date);
     }
   }, [user?.createdAt]);
 
@@ -46,16 +53,12 @@ function UserChat({ user }: ChatProps) {
 
       <div className="flex flex-1 flex-col gap-4 break-all">
         <div className="text-14 text-text-03">{user.sender?.nickname}</div>
-        {/* 메세지가 여러개면 */}
         <div className="flex w-full items-end gap-8">
           <div className="min-h-35 max-w-max flex-1 rounded-6 bg-stone-100 px-8 py-4 text-18 text-text-01">
             {user?.content}
           </div>
-          {user?.createdAt && (
-            <div className="text-12 text-text-04">{sendDate}</div>
-          )}
+          <div className="text-12 text-text-04">{sendDate}</div>
         </div>
-        {/* 이 부분 반복..? */}
       </div>
     </div>
   );
