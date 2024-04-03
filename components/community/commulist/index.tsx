@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -77,7 +78,14 @@ function CommuList() {
           ) : (
             <div className="flex h-full w-full flex-col items-center justify-center gap-32 bg-white tablet:gap-24">
               <div className="justify-cente flex flex-col items-center gap-24 tablet:gap-20">
-                <div className="h-160 w-240 bg-[#D9D9D9]" />
+                <div className="relative h-160 w-240 tablet:h-128 tablet:w-192">
+                  <Image
+                    src={"/images/Image_Chat.png"}
+                    fill
+                    alt={"채팅 없음"}
+                    objectFit="cover"
+                  />
+                </div>
                 <div className="text-24 font-semibold leading-[31.2px] tracking-tighter text-text-01 tablet:text-20">
                   참여 중인 길동무 모임이 없어요!
                 </div>
