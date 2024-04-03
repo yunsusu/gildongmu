@@ -72,15 +72,16 @@ function WriteForm() {
 
     const { images, ...submitData } = data;
     formData.append(
-      "request",
+      "postCreateRequest",
       new Blob([JSON.stringify(submitData)], { type: "application/json" }),
     );
 
-    if (data.images) {
-      data.images.forEach((image, index) => {
-        formData.append(`images[${index}]`, image.url.file);
+    if (images && images.length > 0) {
+      images.forEach((image: any) => {
+        formData.append("images", image.file);
       });
     }
+
     try {
       const res = await axios.post("/posts", formData, {
         headers: {
@@ -88,10 +89,8 @@ function WriteForm() {
         },
       });
       setIsModalOpen(true);
-      console.log(formData)
     } catch (error) {
       console.error("회원가입 실패:", error);
-      console.log(formData)
     }
   };
 
@@ -143,6 +142,9 @@ function WriteForm() {
               <Input
                 type="text"
                 placeholder="여행지 입력"
+                {...register("destination", {
+                  required: "여행지를 입력해 주세요.",
+                })}
                 className="h-52 w-[756px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272"
                 onKeyUp={handleSearchLocation}
               />

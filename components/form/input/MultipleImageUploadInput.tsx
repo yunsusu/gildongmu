@@ -23,13 +23,10 @@ function MultipleImageUploadInput({
     }
   }, [value]);
 
-  console.log(value);
-  console.log(imagesPreview);
-
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
-      const newImagesPreview: ImagePreview[] = files.map(file => ({
+      const newImagesPreview: any = files.map(file => ({
         file,
         preview: URL.createObjectURL(file),
       }));
