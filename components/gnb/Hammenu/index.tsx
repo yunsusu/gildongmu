@@ -66,20 +66,26 @@ function Hammenu({
         <div
           className={`mt-32 w-max text-16 ${gnbColor === "travel" && "text-blue-400"} ${gnb}`}
         >
-          <Link href={"/travel"}>여행</Link>
+          <Link href={"/travel"} className="p-10 pl-0 pr-20">
+            여행
+          </Link>
         </div>
         {loginState && (
           <div
             className={`mt-20 w-max text-16 ${gnbColor === "community" && "text-lime-600"} ${gnb}`}
           >
-            <Link href={"/community"}>소통공간</Link>
+            <Link href={"/community"} className="p-10 pl-0 pr-20">
+              소통공간
+            </Link>
           </div>
         )}
         {loginState && (
           <div
             className={`mt-20 w-max text-16 ${gnbColor === "mytravel" && "text-indigo-500"} ${gnb}`}
           >
-            <Link href={"/mytravel"}>내 여행</Link>
+            <Link href={"/mytravel"} className="p-10 pl-0 pr-20">
+              내 여행
+            </Link>
           </div>
         )}
       </div>

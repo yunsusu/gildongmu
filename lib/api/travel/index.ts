@@ -12,7 +12,11 @@ export function buildUrl(
     url = `/search?page=${pageNum}&size=${limit}`;
   }
 
-  if (sortBy) url += `&sort=${sortBy}`;
+  if (sortBy) {
+    url += `&sortby=${sortBy}`;
+  } else {
+    url += `&sortby=latest`;
+  }
   if (filters) url += `&filter=${filters}`;
   if (search) url += `&search=${search}`;
   return url;

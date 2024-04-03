@@ -1,13 +1,13 @@
-import Domestic from "@/components/main/contents/domestic";
-import Foreign from "@/components/main/contents/foreign";
+import Hot from "@/components/main/contents/hot";
+import Imminent from "@/components/main/contents/imminent";
 import Travel from "@/components/main/contents/travel";
 
 export default function Contents() {
   return (
     <>
       <Travel />
-      <Domestic />
-      <Foreign />
+      <Hot />
+      <Imminent />
     </>
   );
 }
