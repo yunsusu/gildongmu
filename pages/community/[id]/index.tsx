@@ -9,6 +9,7 @@ import ChatCome from "@/components/community/chatCome";
 import ChatDate from "@/components/community/chatDate";
 import ChatHeader from "@/components/community/chatHeader";
 import MyChat from "@/components/community/myChat";
+import NickNameChange from "@/components/community/nicknameChange";
 import UserChat from "@/components/community/userChat";
 import useCookie from "@/hooks/useCookie";
 import { getChatPrev, getChatStatus } from "@/lib/api/chat";
@@ -77,7 +78,7 @@ function Chat() {
     queryKey: ["myData"],
     queryFn: () => getUserMe(),
   });
-  console.log(myData?.nickname);
+
   const { data: chatHeader } = useQuery({
     queryKey: ["chat", { id }],
     queryFn: () => getChatStatus(Number(id)),
@@ -179,6 +180,15 @@ function Chat() {
                   </div>
                 )}
                 {messages.map((item: any, index: number) => {
+                  if (item.type === "USER_PROFILE_CHANGED") {
+                    return (
+                      <NickNameChange
+                        key={index}
+                        user={item}
+                        chatHeader={chatHeader}
+                      />
+                    );
+                  }
                   if (item.sender.isCurrentUser) {
                     return <MyChat key={index} user={item} />;
                   } else {

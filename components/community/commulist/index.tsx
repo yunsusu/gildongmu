@@ -17,33 +17,6 @@ interface Room {
   title: string;
 }
 
-// const roo = [
-//   {
-//     id: 2,
-//     lastChatMessage: "안녕하세요",
-//     lastChatAt: "2024-03-27T07:07:44",
-//     headCount: 3,
-//     thumbnail: "string",
-//     title: "제목",
-//   },
-//   {
-//     id: 5,
-//     lastChatMessage: "안녕하세요",
-//     lastChatAt: "2024-03-28T19:07:44",
-//     headCount: 3,
-//     thumbnail: "string",
-//     title: "제목",
-//   },
-//   {
-//     id: 1,
-//     lastChatMessage: "안녕하세요",
-//     lastChatAt: "2024-03-29T15:36:49.238412",
-//     headCount: 1,
-//     thumbnail: "string",
-//     title: "안녕하세요",
-//   },
-// ];
-
 function CommuList() {
   const accessToken = useCookie("accessToken");
   const router = useRouter();
@@ -61,7 +34,7 @@ function CommuList() {
     queryKey: ["rooms"],
     queryFn: () => getChatList(),
   });
-
+  console.log(rooms);
   return (
     <div
       style={{ height: "calc(100% - 120px)" }}
