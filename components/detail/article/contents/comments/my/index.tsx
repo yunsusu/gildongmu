@@ -79,7 +79,7 @@ export default function MyComment({ data, user, cardId }: any) {
                 <Image
                   src={
                     data?.profilePath
-                      ? data.profilePath
+                      ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${data.profilePath}`
                       : "/icons/defaultProfile.png"
                   }
                   alt="댓글 작성자 이미지"

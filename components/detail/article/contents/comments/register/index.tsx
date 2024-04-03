@@ -54,7 +54,7 @@ export default function RegisterComment({
             <Image
               src={
                 user?.profilePath
-                  ? user.profilePath
+                  ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${user.profilePath}`
                   : "/icons/defaultProfile.png"
               }
               alt="댓글 작성자 이미지"
