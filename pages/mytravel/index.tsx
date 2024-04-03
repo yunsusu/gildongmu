@@ -115,7 +115,7 @@ export default function MyTravel() {
                       alt="내여행 이미지"
                       width={240}
                       height={160}
-                      className="h-160 w-240"
+                      className="h-160 w-240 tablet:h-128 tablet:w-192"
                     />
                     <div className="text-24 font-semibold leading-[31.2px] tracking-tighter text-text-01 tablet:text-20">
                       참여 중인 길동무 모임이 없어요!
