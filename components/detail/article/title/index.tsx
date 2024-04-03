@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -6,22 +6,36 @@ import { useState } from "react";
 import AlertModal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
-import { deleteBookMarks, postBookMarks } from "@/lib/api/bookmarks";
+import {
+  deleteBookMarks,
+  getBookMarks,
+  postBookMarks,
+} from "@/lib/api/bookmarks";
+import { deleteParticipants, postParticipants } from "@/lib/api/detail";
 import { DetailDataType } from "@/lib/api/detail/type";
 import { getUserMe } from "@/lib/api/userMe";
 
 function DetailTitle({ data }: DetailDataType) {
+  const queryClient = useQueryClient();
   const { data: userData } = useQuery({
     queryKey: ["user"],
     queryFn: () => getUserMe(),
   });
   const router = useRouter();
+
   const isOwner = userData?.id === data?.id;
   const isSubmit = false;
+
   const titleData = {
     title: data?.title,
     nickname: data?.nickname,
   };
+
+  const { data: bookMarkData } = useQuery({
+    queryKey: ["mybookmark"],
+    queryFn: () => getBookMarks(),
+  });
+  const myBookMark = bookMarkData?.[0]?.myBookmark ?? false;
 
   const [isEmpty, isSetEmpty, heartToggle] = useToggle(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,15 +43,55 @@ function DetailTitle({ data }: DetailDataType) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isRotating, setIsRotating] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(myBookMark);
+
+  const { mutate: applyMutate } = useMutation({
+    mutationFn: () => postParticipants(data.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+
+  const { mutate: cancelMutate } = useMutation({
+    mutationFn: () => deleteParticipants(data.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+
+  const { mutate: postbookmark } = useMutation({
+    mutationFn: () => postBookMarks(data.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+
+  const { mutate: deletebookmark } = useMutation({
+    mutationFn: () => deleteBookMarks(data.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+
+  const applyParticipants = (e: any) => {
+    e.preventDefault();
+    applyMutate();
+  };
+
+  const cancelParticipants = (e: any) => {
+    e.preventDefault();
+    cancelMutate();
+  };
+
+  console.log(myBookMark);
 
   const toggleBookmark = (e: any) => {
-    if (isBookmarked) {
+    if (myBookMark) {
       e.preventDefault();
-      deleteBookMarks(data.id);
+      deletebookmark();
     } else {
       e.preventDefault();
-      postBookMarks(data.id);
+      postbookmark();
     }
     setIsBookmarked(!isBookmarked);
   };
@@ -113,9 +167,9 @@ function DetailTitle({ data }: DetailDataType) {
                 >
                   <Image
                     src={
-                      !isEmpty
-                        ? "/icons/heart-empty.svg"
-                        : "/icons/heart-notEmpty.svg"
+                      myBookMark
+                        ? "/icons/heart-notEmpty.svg"
+                        : "/icons/heart-empty.svg"
                     }
                     alt="찜 버튼"
                     fill
@@ -174,6 +228,12 @@ function DetailTitle({ data }: DetailDataType) {
           modalType="travelApply"
           onClose={() => {
             setIsModalOpen(false);
+          }}
+          onCancel={() => {
+            setIsModalOpen(false);
+          }}
+          onConfirm={() => {
+            applyParticipants;
           }}
         />
       )}
