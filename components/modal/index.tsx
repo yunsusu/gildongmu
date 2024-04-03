@@ -20,9 +20,13 @@ export type ModalType =
   | "failCheckPassword"
   | "changeProfileSuccess"
   | "profileEdit"
+  | "memberExile"
+  | "deleteComment"
+  | "cancelEditing"
   | "participantExile"
   | "applicationAccept"
-  | "applicationReject";
+  | "applicationReject"
+  | "editingSuccess";
 
 interface ModalProps {
   modalType: ModalType;
@@ -87,6 +91,20 @@ export default function Modal({
     case "writingSuccess":
       title = "";
       message = "모집글 작성을 완료했습니다.";
+      break;
+    case "deleteComment":
+      title = "댓글 삭제";
+      message = "댓글을 삭제하시겠습니까?";
+      break;
+    case "cancelEditing":
+      title = "수정 취소";
+      message = (
+        <>
+          작성 중인 댓글은 저장되지 않습니다.
+          <br />
+          취소하시겠습니까?
+        </>
+      );
       break;
     case "writingCancel":
       title = "글쓰기 취소";
@@ -201,6 +219,10 @@ export default function Modal({
           거절하시겠습니까?
         </>
       );
+      break;
+      case "editingSuccess":
+      title = "수정 완료";
+      message = "모집글이 수정되었습니다.";
       break;
     default:
       break;

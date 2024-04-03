@@ -16,7 +16,7 @@ export default function Images({ data }: DetailDataType) {
             >
               <Image
                 className="rounded-16 object-cover"
-                src={url}
+                src={`https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${url}`}
                 alt="여행지 이미지"
                 fill
               />

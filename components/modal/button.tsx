@@ -29,7 +29,8 @@ export default function ModalButton({
     modalType === "failCheckPassword" ||
     modalType === "changeProfileSuccess" ||
     modalType === "profileEdit" ||
-    modalType === "loginRequired"
+    modalType === "loginRequired" ||
+    modalType === "editingSuccess"
   ) {
     filledStyle = `text-18 h-52 mobile:h-44  ${modalType === "userProfile" ? "w-240 mobile:w-full" : "w-full"}`;
     filledText = "확인";
@@ -38,6 +39,9 @@ export default function ModalButton({
     modalType === "writingDelete" ||
     modalType === "travelApply" ||
     modalType === "travelCancle" ||
+    modalType === "memberExile" ||
+    modalType === "deleteComment" ||
+    modalType === "cancelEditing" ||
     modalType === "participantExile" ||
     modalType === "applicationAccept" ||
     modalType === "applicationReject"

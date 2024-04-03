@@ -17,12 +17,16 @@ function Detail() {
       return res;
     },
   });
-  console.log(data);
 
   return (
     <div className="flex w-full flex-col bg-sky-50">
       <Header />
-      <Article data={data} />
+      <Article
+        id={data?.id}
+        data={data}
+        secret={data?.secret}
+        content={data?.content}
+      />
       <div
         className="fixed bottom-40 right-40 h-64 w-64 animate-bounce cursor-pointer tablet:h-56 tablet:w-56 mobile:bottom-20 mobile:right-20"
         onClick={scrollToTop}
