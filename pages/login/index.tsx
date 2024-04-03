@@ -80,7 +80,7 @@ export default function Login() {
                       message: "올바른 이메일을 입력해주세요.",
                     },
                   })}
-                  className={`flex h-52 w-full items-center justify-end gap-8 self-stretch rounded-xl bg-bg-02 px-16 ${errors.email ? "bg-rose-50" : ""}`}
+                  className={`flex h-52 w-full items-center justify-end gap-8 self-stretch rounded-xl bg-bg-02 px-16 outline-none ${errors.email ? "bg-rose-50" : ""}`}
                 />
                 <p className="ml-12 mt-4 text-system-error">
                   {errors.email?.message}
@@ -98,7 +98,7 @@ export default function Login() {
                       message: "올바른 비밀번호를 입력해주세요.",
                     },
                   })}
-                  className={`flex h-52 w-full items-center justify-end gap-8 self-stretch rounded-xl bg-bg-02 px-16 ${errors.password ? "bg-rose-50" : ""}`}
+                  className={`flex h-52 w-full items-center justify-end gap-8 self-stretch rounded-xl bg-bg-02 px-16 outline-none ${errors.password ? "bg-rose-50" : ""}`}
                 />
                 <Image
                   src={eye ? "/icons/eye-off.png" : "/icons/eye-on.png"}

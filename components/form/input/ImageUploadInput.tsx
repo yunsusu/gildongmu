@@ -27,7 +27,7 @@ function ImageUpload({
     };
     reader.readAsDataURL(file);
 
-    onChange(file); // 여기서 파일 객체를 전달합니다.
+    onChange(file);
   };
 
 
