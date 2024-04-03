@@ -12,6 +12,7 @@ export default function RecruitingContent({ data }: any) {
   const [isMobile, setIsMobile] = useToggle(true);
   const [pass, setPass] = useState(true);
   const [isExileModalOpen, setIsExileModalOpen] = useState(false);
+  const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
   const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false);
 
   const queryClient = useQueryClient();
@@ -44,7 +45,7 @@ export default function RecruitingContent({ data }: any) {
   });
 
   const { data: applicants } = useQuery({
-    queryKey: ["participants"],
+    queryKey: ["applicants"],
     queryFn: () => getApplicantData(),
   });
 
@@ -52,7 +53,8 @@ export default function RecruitingContent({ data }: any) {
     mutationFn: (type: any) =>
       axios.delete(`/posts/${data.id}/participants/${type.id}`),
     onSuccess: () => {
-      setIsExileModalOpen(!isExileModalOpen);
+      if (isExileModalOpen) setIsExileModalOpen(!isExileModalOpen);
+      if (isRejectModalOpen) setIsRejectModalOpen(!isRejectModalOpen);
       queryClient.invalidateQueries();
     },
   });
@@ -215,18 +217,20 @@ export default function RecruitingContent({ data }: any) {
                         <button
                           className="flex h-36 items-center justify-center py-10 text-center font-bold leading-[20px] text-stone-700 hover:text-stone-500 mobile:h-32"
                           key={`applicant_declineButton_${index}`}
-                          onClick={() => setIsExileModalOpen(!isExileModalOpen)}
+                          onClick={() =>
+                            setIsRejectModalOpen(!isRejectModalOpen)
+                          }
                         >
                           거절
                         </button>
-                        {isExileModalOpen && (
+                        {isRejectModalOpen && (
                           <Modal
                             modalType="applicationReject"
                             onClose={() =>
-                              setIsExileModalOpen(!isExileModalOpen)
+                              setIsRejectModalOpen(!isRejectModalOpen)
                             }
                             onCancel={() =>
-                              setIsExileModalOpen(!isExileModalOpen)
+                              setIsRejectModalOpen(!isRejectModalOpen)
                             }
                             onConfirm={() => {
                               participantExile.mutate(applicant);
