@@ -40,17 +40,17 @@ export default function OthersCommentOfComment({ data, user, cardId }: any) {
         <div className="flex w-full flex-col items-start gap-12 self-stretch">
           <div className="flex items-center justify-between self-stretch py-2">
             <div className="flex items-center gap-12">
-              {data.owner && (
-                <div className="relative h-32 w-32 rounded-full tablet:h-24 tablet:w-24">
-                  <Image
-                    src={
-                      "https://i.namu.wiki/i/x0p4O-TMPuCvZmIwxa2wDiSnePtAueSz5hHqEK1_f_2zU9btj3q2ORRvnzc6yqOnZIU-tB7im9pntDXUpPZyNg.webp"
-                    }
-                    alt="댓글 작성자 이미지"
-                    fill
-                  />
-                </div>
-              )}
+              <div className="relative h-32 w-32 rounded-full tablet:h-24 tablet:w-24">
+                <Image
+                  src={
+                    data?.profilePath
+                      ? data.profilePath
+                      : "/icons/defaultProfile.png"
+                  }
+                  alt="댓글 작성자 이미지"
+                  fill
+                />
+              </div>
               <span className="text-18 leading-[27px] tracking-[-0.6px] text-text-01 tablet:text-16 tablet:leading-[20.8px]">
                 {data.nickname}
               </span>

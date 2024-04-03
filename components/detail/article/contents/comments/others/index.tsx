@@ -29,6 +29,7 @@ export default function OthersComment({ data, user, cardId }: any) {
     (data.secret &&
       (user?.id === cardId || user?.nickname === data.nickname)) ||
     !data.secret;
+
   return shouldDisplay ? (
     <>
       <div className="flex flex-col items-start gap-8 self-stretch">
@@ -37,7 +38,9 @@ export default function OthersComment({ data, user, cardId }: any) {
             <div className="relative h-32 w-32 rounded-full tablet:h-24 tablet:w-24">
               <Image
                 src={
-                  "https://i.namu.wiki/i/6b7_BVyszfYCyjDtIPE8tJK56XutqfO28xp9KdjZ8tXMP1JCmcYei0IN5vbAJ5JF2t3u4TxwsUrQew6xWfvWgg.webp"
+                  data?.profilePath
+                    ? data.profilePath
+                    : "/icons/defaultProfile.png"
                 }
                 alt="댓글 작성자 이미지"
                 fill

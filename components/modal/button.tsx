@@ -40,7 +40,7 @@ export default function ModalButton({
     modalType === "travelCancle" ||
     modalType === "memberExile" ||
     modalType === "deleteComment" ||
-    modalType === "cancelEditing"
+    modalType === "cancelEditing" ||
     modalType === "participantExile" ||
     modalType === "applicationAccept" ||
     modalType === "applicationReject"
