@@ -181,13 +181,7 @@ function Chat() {
                 )}
                 {messages.map((item: any, index: number) => {
                   if (item.type === "USER_PROFILE_CHANGED") {
-                    return (
-                      <NickNameChange
-                        key={index}
-                        user={item}
-                        chatHeader={chatHeader}
-                      />
-                    );
+                    return <NickNameChange key={index} user={item} />;
                   }
                   if (item.sender.isCurrentUser) {
                     return <MyChat key={index} user={item} />;
