@@ -30,6 +30,10 @@ export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
     };
   }, [setIsMobile]);
 
+  useEffect(() => {
+    setIsFlipped(false);
+  }, [selectTab]);
+
   return (
     <div
       className={`tablet:h-270 relative flex h-[320px] w-270 cursor-pointer flex-col transition-all duration-500 [transform-style:preserve-3d] tablet:w-227 ${

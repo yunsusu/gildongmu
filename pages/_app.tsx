@@ -37,20 +37,28 @@ export default function App({ Component, pageProps }: AppProps) {
   };
 
   useEffect(() => {
-    if (router.pathname === "/community" && !accessToken) {
-      setIsModalOpen(true);
-    } else if (router.pathname.startsWith("/mytravel") && !accessToken) {
-      setIsModalOpen(true);
-    } else if (router.pathname.startsWith("/login") && accessToken) {
+    let timer: NodeJS.Timeout;
+
+    if (
+      (router.pathname === "/community" ||
+        router.pathname.startsWith("/mytravel") ||
+        router.pathname.startsWith("/mypage") ||
+        router.pathname.startsWith("/write")) &&
+      !accessToken
+    ) {
+      timer = setTimeout(() => {
+        setIsModalOpen(true);
+      }, 10000);
+    } else if (
+      (router.pathname.startsWith("/login") ||
+        router.pathname.startsWith("/signup")) &&
+      accessToken
+    ) {
       router.push("/");
-    } else if (router.pathname.startsWith("/signup") && accessToken) {
-      router.push("/");
-    } else if (router.pathname.startsWith("/mypage") && !accessToken) {
-      setIsModalOpen(true);
-    } else if (router.pathname.startsWith("/write") && !accessToken) {
-      setIsModalOpen(true);
     }
-  }, [accessToken, router, router.pathname, setGnbColor]);
+
+    return () => clearTimeout(timer);
+  }, [accessToken, router]);
 
   return (
     <QueryClientProvider client={queryClient}>

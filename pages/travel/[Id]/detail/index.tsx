@@ -19,7 +19,7 @@ function Detail() {
   });
 
   return (
-    <div className="flex w-full flex-col bg-sky-50">
+    <div className="flex min-h-screen w-full flex-col bg-sky-50">
       <Header />
       <Article
         id={data?.id}

@@ -5,7 +5,8 @@ import { useMemo, useState } from "react";
 import { deleteBookMarks, postBookMarks } from "@/lib/api/bookmarks";
 
 function MainCard({ content, is }: { content: any; is: string }) {
-  const [favor, setFavor] = useState(true);
+  const [favor, setFavor] = useState(!content.myBookmark);
+  const [favorCount, setFavorCount] = useState(content.countOfBookmarks);
   const wrap = useMemo(() => {
     if (is === "main") {
       return "max-w-240 w-full h-[310px] block bg-white rounded-16 m-auto overflow-hidden px-3";
@@ -27,6 +28,17 @@ function MainCard({ content, is }: { content: any; is: string }) {
     }
   }, [content.gender]);
 
+  const handleFavor = async () => {
+    if (favor) {
+      await postBookMarks(content.id);
+      setFavorCount((prev: number) => prev + 1);
+    } else {
+      await deleteBookMarks(content.id);
+      setFavorCount((prev: number) => prev - 1);
+    }
+    setFavor(prev => !prev);
+  };
+
   return (
     <Link href={`/travel/${content.id}/detail`} className={wrap}>
       <div
@@ -36,7 +48,7 @@ function MainCard({ content, is }: { content: any; is: string }) {
           src={
             content.thumbnail
               ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${content.thumbnail}`
-              : "images/logo.svg"
+              : "/images/Image_DefaultCard.png"
           }
           alt="여행지 이미지"
           fill
@@ -59,8 +71,7 @@ function MainCard({ content, is }: { content: any; is: string }) {
                 className="relative h-24 w-24 cursor-pointer"
                 onClick={e => {
                   e.preventDefault();
-                  postBookMarks(content.id);
-                  setFavor(prev => !prev);
+                  handleFavor();
                 }}
               >
                 <Image src={"/icons/heartOff.svg"} alt="하트" fill />
@@ -70,8 +81,7 @@ function MainCard({ content, is }: { content: any; is: string }) {
                 className="relative h-24 w-24"
                 onClick={e => {
                   e.preventDefault();
-                  deleteBookMarks(content.id);
-                  setFavor(prev => !prev);
+                  handleFavor();
                 }}
               >
                 <Image src={"/icons/heartOn.svg"} alt="하트" fill />
@@ -125,9 +135,7 @@ function MainCard({ content, is }: { content: any; is: string }) {
             <div className="relative h-12 w-12">
               <Image src={"/icons/heart.svg"} alt="좋아요 수" fill />
             </div>
-            <div>
-              {content.countOfBookmarks === null ? 0 : content.countOfBookmarks}
-            </div>
+            <div>{content.countOfBookmarks === null ? 0 : favorCount}</div>
           </div>
 
           <div className="flex items-center gap-4">

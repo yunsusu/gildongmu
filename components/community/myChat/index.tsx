@@ -1,4 +1,5 @@
 import { parseISO } from "date-fns";
+import { useEffect, useState } from "react";
 
 interface ChatProps {
   user: {
@@ -15,11 +16,25 @@ interface ChatProps {
   };
 }
 function MyChat({ user }: ChatProps) {
-  const sendDate = parseISO(user.createdAt).toLocaleTimeString("ko-KR", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  });
+  const [sendDate, setSendDate] = useState("");
+
+  useEffect(() => {
+    if (user?.createdAt) {
+      const date = parseISO(user.createdAt).toLocaleTimeString("ko-KR", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
+      setSendDate(date);
+    } else {
+      const now = new Date();
+      const date = now.toLocaleTimeString("ko-KR", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      setSendDate(date);
+    }
+  }, [user?.createdAt]);
 
   return (
     <div className="w-full gap-8">

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 
 import MainCard from "@/components/mainCard";
@@ -12,6 +12,7 @@ interface CountryCarouselProps {
 }
 
 function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
+  const [sort, setSort] = useState("");
   const sliderRef = useRef<Slider | null>(null);
 
   const next = () => {
@@ -59,9 +60,18 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
       },
     ],
   };
+
+  useEffect(() => {
+    if (children === "HOT") {
+      setSort("popular");
+    } else {
+      setSort("trip");
+    }
+  }, [children]);
+
   const { data: card } = useQuery({
-    queryKey: ["cards"],
-    queryFn: () => getTravelCard(0, 12),
+    queryKey: ["cards", sort],
+    queryFn: () => getTravelCard(0, 12, sort),
   });
 
   return (

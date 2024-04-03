@@ -9,9 +9,11 @@ import ChatCome from "@/components/community/chatCome";
 import ChatDate from "@/components/community/chatDate";
 import ChatHeader from "@/components/community/chatHeader";
 import MyChat from "@/components/community/myChat";
+import NickNameChange from "@/components/community/nicknameChange";
 import UserChat from "@/components/community/userChat";
 import useCookie from "@/hooks/useCookie";
 import { getChatPrev, getChatStatus } from "@/lib/api/chat";
+import { getUserMe } from "@/lib/api/userMe";
 interface IFormInput {
   message: string;
 }
@@ -72,6 +74,11 @@ function Chat() {
     }
   }, [accessToken, id]);
 
+  const { data: myData } = useQuery({
+    queryKey: ["myData"],
+    queryFn: () => getUserMe(),
+  });
+
   const { data: chatHeader } = useQuery({
     queryKey: ["chat", { id }],
     queryFn: () => getChatStatus(Number(id)),
@@ -113,7 +120,6 @@ function Chat() {
       scrollToBottom();
     }
   }, [num, prevPage]);
-
   return (
     <div className="fixed top-0 z-50 h-full w-full bg-white pb-60">
       <ChatHeader chatHeader={chatHeader} />
@@ -161,17 +167,30 @@ function Chat() {
                           </div>
                         );
                       } else if (item.sender.isCurrentUser) {
-                        return <MyChat key={item.id || index} user={item} />;
+                        return <MyChat key={index} user={item} />;
                       } else {
-                        return <UserChat key={item.id || index} user={item} />;
+                        return <UserChat key={index} user={item} />;
                       }
                     })
                 )}
+
+                {messages[0] === undefined && (
+                  <div className="text-center text-14 text-text-02">
+                    여기까지 읽었습니다.
+                  </div>
+                )}
                 {messages.map((item: any, index: number) => {
+                  if (item.type === "USER_PROFILE_CHANGED") {
+                    return <NickNameChange key={index} user={item} />;
+                  }
                   if (item.sender.isCurrentUser) {
                     return <MyChat key={index} user={item} />;
                   } else {
-                    return <UserChat key={index} user={item} />;
+                    if (myData?.nickname === item.sender.nickname) {
+                      return <MyChat key={index} user={item} />;
+                    } else {
+                      return <UserChat key={index} user={item} />;
+                    }
                   }
                 })}
               </div>

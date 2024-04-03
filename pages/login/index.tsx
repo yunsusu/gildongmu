@@ -17,6 +17,7 @@ interface FormValues {
 export default function Login() {
   const [loginErrorModal, setLoginErrorModal] = useState(false);
   const [eye, setEye, toggleEye] = useToggle(true);
+  const [errorType, setErrorType] = useState(0);
   const {
     register,
     handleSubmit,
@@ -46,9 +47,21 @@ export default function Login() {
 
       router.push("/");
     } catch (error: any) {
-      setLoginErrorModal(true);
-
-      console.log(error.message);
+      if (
+        error.response.status === 404 &&
+        error.response.data.message === "해당하는 유저가 없습니다."
+      ) {
+        setErrorType(0);
+        setLoginErrorModal(true);
+      } else if (
+        error.response.status === 400 &&
+        error.response.data.message === "비밀번호가 일치하지 않습니다."
+      ) {
+        setErrorType(1);
+        setLoginErrorModal(true);
+      } else {
+        console.log(error.message);
+      }
     }
   };
 
@@ -56,12 +69,19 @@ export default function Login() {
     <>
       {loginErrorModal ? (
         <Modal
-          modalType={"emailNotFound"}
+          modalType={errorType === 0 ? "emailNotFound" : "passwordMismatch"}
           onClose={() => setLoginErrorModal(false)}
         />
       ) : null}
       <div className="flex" style={{ height: "calc(100vh - 72px)" }}>
-        <div className="h-full w-1/2 bg-kakao text-50 tablet:hidden"></div>
+        <div className="relative h-full w-1/2 bg-kakao text-50 tablet:hidden">
+          <Image
+            src="/images/Image_Login.png"
+            alt="login main image"
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
         <div className="flex h-full w-1/2 items-center justify-center bg-bg-06 text-14 tablet:w-full">
           <div className="flex h-5/6 max-h-[617px] w-[434px] flex-col items-center justify-center rounded-32 bg-white p-40 tablet:mt-[81.5px] mobile:mx-24 mobile:mt-[50.5px] mobile:w-full">
             <h1 className="mb-40 text-32 font-extrabold text-text-01">

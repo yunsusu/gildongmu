@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -6,8 +7,12 @@ import { useMemo, useState } from "react";
 import { deleteBookMarks, postBookMarks } from "@/lib/api/bookmarks";
 
 function Card({ content }: { content: any }) {
+  const pageLimit = 12;
+  const queryClient = useQueryClient();
   const router = useRouter();
   const [favor, setFavor] = useState(!content.myBookmark);
+  const [favorCount, setFavorCount] = useState(content.countOfBookmarks);
+
   const wrap = useMemo(() => {
     if (router.pathname === "/travel") {
       return "max-w-240 w-full h-[310px] block bg-white rounded-16 border border-line-02 m-auto overflow-hidden";
@@ -15,6 +20,13 @@ function Card({ content }: { content: any }) {
       return "tablet:w-196 mobile:max-w-[280px] mobile:min-w-264 mobile:w-full w-240 h-[310px] block bg-white rounded-16  m-auto overflow-hidden";
     }
   }, [router.pathname]);
+
+  const { page, sortby, filter, search } = router.query;
+  const currentPage = parseInt(page as string, 10) || 0;
+  const sortValue = Array.isArray(sortby) ? sortby[0] : sortby;
+  const filterValue = Array.isArray(filter) ? filter[0] : filter;
+  const searchValue = Array.isArray(search) ? search[0] : search;
+
   const gender = useMemo(() => {
     switch (content.gender) {
       case "MALE":
@@ -28,6 +40,17 @@ function Card({ content }: { content: any }) {
     }
   }, [content.gender]);
 
+  const handleFavor = async () => {
+    if (favor) {
+      await postBookMarks(content.id);
+      setFavorCount((prev: number) => prev + 1);
+    } else {
+      await deleteBookMarks(content.id);
+      setFavorCount((prev: number) => prev - 1);
+    }
+    setFavor(prev => !prev);
+  };
+
   return (
     <Link href={`/travel/${content.id}/detail`} className={wrap}>
       <div className="relative flex h-180 w-full flex-col overflow-hidden p-16 tablet:p-12">
@@ -35,7 +58,7 @@ function Card({ content }: { content: any }) {
           src={
             content.thumbnail
               ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${content.thumbnail}`
-              : "images/logo.svg"
+              : "/images/Image_DefaultCard.png"
           }
           alt="여행지 이미지"
           fill
@@ -57,9 +80,8 @@ function Card({ content }: { content: any }) {
               <div
                 className="relative h-24 w-24 cursor-pointer"
                 onClick={e => {
+                  handleFavor();
                   e.preventDefault();
-                  postBookMarks(content.id);
-                  setFavor(prev => !prev);
                 }}
               >
                 <Image src={"/icons/heartOff.svg"} alt="하트" fill />
@@ -68,9 +90,8 @@ function Card({ content }: { content: any }) {
               <div
                 className="relative h-24 w-24"
                 onClick={e => {
+                  handleFavor();
                   e.preventDefault();
-                  deleteBookMarks(content.id);
-                  setFavor(prev => !prev);
                 }}
               >
                 <Image src={"/icons/heartOn.svg"} alt="하트" fill />
@@ -106,17 +127,7 @@ function Card({ content }: { content: any }) {
           <div className="relative h-16 w-16 tablet:h-12 tablet:w-12">
             <Image src={"/icons/tag.svg"} alt="태그" fill />
           </div>
-          <div className="flex gap-6">
-            {/* {content.tag.map((item: any, index: number) => (
-              <>
-                <div key={index}>
-                  {item}
-                  {index !== content.tag.length - 1 && ","}
-                </div>
-              </>
-            ))} */}
-            {gender}
-          </div>
+          <div className="flex gap-6">{gender}</div>
         </div>
 
         <div className="flex flex-1 gap-12 text-12">
@@ -124,9 +135,7 @@ function Card({ content }: { content: any }) {
             <div className="relative h-12 w-12">
               <Image src={"/icons/heart.svg"} alt="좋아요 수" fill />
             </div>
-            <div>
-              {content.countOfBookmarks === null ? 0 : content.countOfBookmarks}
-            </div>
+            <div>{content.countOfBookmarks === null ? 0 : favorCount}</div>
           </div>
 
           <div className="flex items-center gap-4">
