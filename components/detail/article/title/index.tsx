@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -5,18 +6,18 @@ import { useState } from "react";
 import AlertModal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
+import { deleteBookMarks, postBookMarks } from "@/lib/api/bookmarks";
 import { DetailDataType } from "@/lib/api/detail/type";
-
-const content = {
-  id: 1,
-};
+import { getUserMe } from "@/lib/api/userMe";
 
 function DetailTitle({ data }: DetailDataType) {
+  const { data: userData } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => getUserMe(),
+  });
   const router = useRouter();
-
-  const isOwner = false;
+  const isOwner = userData?.id === data?.id;
   const isSubmit = false;
-
   const titleData = {
     title: data?.title,
     nickname: data?.nickname,
@@ -28,12 +29,24 @@ function DetailTitle({ data }: DetailDataType) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isRotating, setIsRotating] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
-  const handleClick = () => {
+  const toggleBookmark = (e: any) => {
+    if (isBookmarked) {
+      e.preventDefault();
+      deleteBookMarks(data.id);
+    } else {
+      e.preventDefault();
+      postBookMarks(data.id);
+    }
+    setIsBookmarked(!isBookmarked);
+  };
+
+  const handleClick = (e: any) => {
+    toggleBookmark(e);
     heartToggle();
     setIsRotating(true);
     setTimeout(() => setIsRotating(false), 500);
-    //TODO: 찜하기 기능 추가
   };
 
   const handleModal = () => {
@@ -45,13 +58,11 @@ function DetailTitle({ data }: DetailDataType) {
   };
 
   const handleEdit = () => {
-    // 수정하기 페이지로 이동
-    router.push(`/travel/${content.id}/detail/edit`);
+    router.push(`/travel/${data.id}/detail/edit`);
   };
 
   const handleDelete = () => {
     setIsDeleteModalOpen(true);
-    // 글 삭제 api 함수
   };
 
   const handleProfile = () => {
