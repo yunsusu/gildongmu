@@ -40,7 +40,9 @@ function NickNameChange({ user }: ChatProps) {
 
   useEffect(() => {
     if (member?.length > 0) {
-      const matchedMember = member.find(m => m.user.id === user.sender.id);
+      const matchedMember = member.find(
+        (m: { user: { id: number } }) => m.user.id === user.sender.id,
+      );
       if (
         matchedMember &&
         matchedMember.user.nickname !== user.sender.nickname
