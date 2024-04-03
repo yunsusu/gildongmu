@@ -55,7 +55,7 @@ export default function Modal({
 
   const getProfileData = async () => {
     try {
-      const res = await axios.get(`/users/me`);
+      const res = await axios.get(`/users/${data.userId}`);
       return res.data;
     } catch (error) {
       console.error("Error fetching card data:", error);
@@ -66,6 +66,8 @@ export default function Modal({
     queryKey: ["profile"],
     queryFn: () => getProfileData(),
   });
+
+  console.log(profile);
 
   switch (modalType) {
     case "loginRequired":
@@ -134,8 +136,8 @@ export default function Modal({
             <div className="moblie:w-64 h-72 w-72 overflow-hidden rounded-full mobile:h-64">
               <Image
                 src={
-                  data.profilePath
-                    ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${data.profilePath}`
+                  profile?.profilePath
+                    ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${profile.profilePath}`
                     : "/icons/defaultProfile.png"
                 }
                 alt="프로필 이미지"
@@ -145,21 +147,25 @@ export default function Modal({
               />
             </div>
             <div className="text-center text-16 font-bold leading-[130%] tracking-[0.6px] text-text-01 mobile:text-14">
-              {`${data.nickname}(${data.gender === "MALE" ? "남" : "여"}/27)`}
+              {`${profile?.nickname}(${profile?.gender === "MALE" ? "남" : "여"})`}
             </div>
           </div>
           <div className="flex w-[432px] flex-wrap items-center justify-center gap-12 mobile:w-272 mobile:gap-8">
-            {data.favoriteSpots?.map((favoriteSpot: string, index: number) => (
-              <span
-                key={index}
-                className={`moblie:py-12 flex h-34 items-center gap-5 rounded-24 bg-primary px-13 py-16 text-16 mobile:h-28 mobile:text-14 ${tagStyles[index]} ${tagTextStyles[index]}`}
-              >
-                # {favoriteSpot}
-              </span>
-            ))}
+            {profile?.favoriteSpots?.map(
+              (favoriteSpot: string, index: number) => (
+                <span
+                  key={index}
+                  className={`moblie:py-12 flex h-34 items-center gap-5 rounded-24 bg-primary px-13 py-16 text-16 mobile:h-28 mobile:text-14 ${tagStyles[index]} ${tagTextStyles[index]}`}
+                >
+                  # {favoriteSpot}
+                </span>
+              ),
+            )}
           </div>
           <div className="justify-left flex w-full items-center self-stretch rounded-16 bg-bg-02 p-16 text-left text-14 font-normal">
-            {data.bio?.length > 75 ? `#${data.bio.slice(0, 75)} ...` : data.bio}
+            {profile?.bio?.length > 75
+              ? `#${profile?.bio.slice(0, 75)} ...`
+              : profile?.bio}
           </div>
         </div>
       );
