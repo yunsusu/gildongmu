@@ -3,6 +3,7 @@ export interface DetailDataType {
   content: string | undefined;
   id: any;
   data: {
+    profilePath: any;
     secret: any;
     data: any;
     id: number;

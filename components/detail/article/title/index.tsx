@@ -5,13 +5,16 @@ import { useState } from "react";
 
 import AlertModal from "@/components/modal";
 import { Button } from "@/components/ui/button";
-import useToggle from "@/hooks/useToggle";
 import {
   deleteBookMarks,
   getBookMarks,
   postBookMarks,
 } from "@/lib/api/bookmarks";
-import { deleteParticipants, postParticipants } from "@/lib/api/detail";
+import {
+  deleteParticipants,
+  getParticipants,
+  postParticipants,
+} from "@/lib/api/detail";
 import { DetailDataType } from "@/lib/api/detail/type";
 import { getUserMe } from "@/lib/api/userMe";
 
@@ -21,9 +24,21 @@ function DetailTitle({ data }: DetailDataType) {
     queryKey: ["user"],
     queryFn: () => getUserMe(),
   });
-  const router = useRouter();
 
+  const router = useRouter();
   const isOwner = userData?.id === data?.id;
+
+  const {
+    data: applyData,
+    status,
+    error,
+  } = useQuery({
+    queryKey: ["apply"],
+    queryFn: () => getParticipants(data.id, isOwner ? "PENDING" : "ACCEPTED"),
+  });
+
+  const isApply = status;
+  console.log(applyData, status, error);
   const isSubmit = false;
 
   const titleData = {
@@ -37,7 +52,6 @@ function DetailTitle({ data }: DetailDataType) {
   });
   const myBookMark = bookMarkData?.[0]?.myBookmark ?? false;
 
-  const [isEmpty, isSetEmpty, heartToggle] = useToggle(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCancleModalOpen, setIsCancleModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -73,17 +87,13 @@ function DetailTitle({ data }: DetailDataType) {
     },
   });
 
-  const applyParticipants = (e: any) => {
-    e.preventDefault();
+  const applyParticipants = () => {
     applyMutate();
   };
 
-  const cancelParticipants = (e: any) => {
-    e.preventDefault();
+  const cancelParticipants = () => {
     cancelMutate();
   };
-
-  console.log(myBookMark);
 
   const toggleBookmark = (e: any) => {
     if (myBookMark) {
@@ -98,7 +108,6 @@ function DetailTitle({ data }: DetailDataType) {
 
   const handleClick = (e: any) => {
     toggleBookmark(e);
-    heartToggle();
     setIsRotating(true);
     setTimeout(() => setIsRotating(false), 500);
   };
@@ -176,7 +185,7 @@ function DetailTitle({ data }: DetailDataType) {
                     className="absolute"
                   />
                 </button>
-                {isSubmit ? (
+                {status === "success" ? (
                   <Button
                     type="button"
                     className="h-44 w-91 tablet:h-36 tablet:w-83 tablet:text-14"
@@ -200,7 +209,11 @@ function DetailTitle({ data }: DetailDataType) {
         <div className="flex items-center gap-12">
           <div className="relative h-32 w-32 rounded-full border border-line-02">
             <Image
-              src={"/icons/defaultProfile.png"} // 데이터 받아오면 유저 프로필 이미지 넣기
+              src={
+                data?.profilePath
+                  ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${data.profilePath}`
+                  : "/icons/defaultProfile.png"
+              }
               alt="Profile"
               fill
               className="absolute rounded-full object-cover"
@@ -233,7 +246,8 @@ function DetailTitle({ data }: DetailDataType) {
             setIsModalOpen(false);
           }}
           onConfirm={() => {
-            applyParticipants;
+            applyParticipants();
+            setIsModalOpen(false);
           }}
         />
       )}
@@ -242,6 +256,13 @@ function DetailTitle({ data }: DetailDataType) {
           modalType="travelCancle"
           onClose={() => {
             setIsCancleModalOpen(false);
+          }}
+          onCancel={() => {
+            setIsCancleModalOpen(false);
+          }}
+          onConfirm={() => {
+            cancelParticipants();
+            setIsModalOpen(false);
           }}
         />
       )}
