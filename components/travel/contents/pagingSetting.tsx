@@ -13,7 +13,7 @@ function PagingSetting() {
   const [dropDown, setDropDown, handleDropDown] = useToggle();
 
   const router = useRouter();
-  const { sort } = router.query;
+  const { sortby } = router.query;
 
   const handleSort = (type: string) => {
     const sortType = type;
@@ -60,7 +60,7 @@ function PagingSetting() {
   });
 
   useEffect(() => {
-    switch (sort) {
+    switch (sortby) {
       case "latest":
         setChoiceSort("최근 작성순");
         break;
@@ -77,7 +77,7 @@ function PagingSetting() {
       default:
         break;
     }
-  }, [setChoiceSort, sort]);
+  }, [setChoiceSort, sortby]);
   return (
     <>
       <div className="mb-32 flex w-full justify-between">

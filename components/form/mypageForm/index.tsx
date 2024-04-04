@@ -1,3 +1,4 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -11,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import axios from "@/lib/api/axios";
+import { getUserMe } from "@/lib/api/userMe";
 import { regPassword } from "@/lib/utils/regexp";
 
 interface MyPage {
@@ -38,7 +40,7 @@ function MyPageForm() {
   });
 
   const router = useRouter();
-
+  const queryClient = useQueryClient();
   const [passwordShown, setPasswordShown] = useState(false);
   const [newPasswordShown, setNewPasswordShown] = useState(false);
   const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
@@ -131,9 +133,21 @@ function MyPageForm() {
         },
       });
       setIsModalOpen(true);
+      handleUploadPost();
     } catch (error) {
       console.error("회원정보 수정 실패:", error);
     }
+  };
+
+  const uploadPostMutation = useMutation({
+    mutationFn: () => getUserMe(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+    },
+  });
+
+  const handleUploadPost = () => {
+    uploadPostMutation.mutate();
   };
 
   return (

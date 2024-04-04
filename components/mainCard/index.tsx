@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { deleteBookMarks, postBookMarks } from "@/lib/api/bookmarks";
 
@@ -38,6 +38,11 @@ function MainCard({ content, is }: { content: any; is: string }) {
     }
     setFavor(prev => !prev);
   };
+
+  useEffect(() => {
+    setFavor(!content.myBookmark);
+    setFavorCount(content.countOfBookmarks);
+  }, [content.countOfBookmarks, content.myBookmark]);
 
   return (
     <Link href={`/travel/${content.id}/detail`} className={wrap}>

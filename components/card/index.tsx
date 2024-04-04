@@ -1,14 +1,11 @@
-import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { deleteBookMarks, postBookMarks } from "@/lib/api/bookmarks";
 
 function Card({ content }: { content: any }) {
-  const pageLimit = 12;
-  const queryClient = useQueryClient();
   const router = useRouter();
   const [favor, setFavor] = useState(!content.myBookmark);
   const [favorCount, setFavorCount] = useState(content.countOfBookmarks);
@@ -20,12 +17,6 @@ function Card({ content }: { content: any }) {
       return "tablet:w-196 mobile:max-w-[280px] mobile:min-w-264 mobile:w-full w-240 h-[310px] block bg-white rounded-16  m-auto overflow-hidden";
     }
   }, [router.pathname]);
-
-  const { page, sortby, filter, search } = router.query;
-  const currentPage = parseInt(page as string, 10) || 0;
-  const sortValue = Array.isArray(sortby) ? sortby[0] : sortby;
-  const filterValue = Array.isArray(filter) ? filter[0] : filter;
-  const searchValue = Array.isArray(search) ? search[0] : search;
 
   const gender = useMemo(() => {
     switch (content.gender) {
@@ -50,6 +41,11 @@ function Card({ content }: { content: any }) {
     }
     setFavor(prev => !prev);
   };
+
+  useEffect(() => {
+    setFavor(!content.myBookmark);
+    setFavorCount(content.countOfBookmarks);
+  }, [content.countOfBookmarks, content.myBookmark]);
 
   return (
     <Link href={`/travel/${content.id}/detail`} className={wrap}>
