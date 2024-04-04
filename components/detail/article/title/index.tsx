@@ -1,50 +1,113 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
 import AlertModal from "@/components/modal";
 import { Button } from "@/components/ui/button";
-import useToggle from "@/hooks/useToggle";
-import { deleteBookMarks, postBookMarks } from "@/lib/api/bookmarks";
+import {
+  deleteBookMarks,
+  getBookMarks,
+  postBookMarks,
+} from "@/lib/api/bookmarks";
+import {
+  deleteParticipants,
+  getParticipants,
+  postParticipants,
+} from "@/lib/api/detail";
 import { DetailDataType } from "@/lib/api/detail/type";
 import { getUserMe } from "@/lib/api/userMe";
 
 function DetailTitle({ data }: DetailDataType) {
+  const queryClient = useQueryClient();
   const { data: userData } = useQuery({
     queryKey: ["user"],
     queryFn: () => getUserMe(),
   });
+
   const router = useRouter();
   const isOwner = userData?.id === data?.id;
+
+  const {
+    data: applyData,
+    status,
+    error,
+  } = useQuery({
+    queryKey: ["apply"],
+    queryFn: () => getParticipants(data.id, isOwner ? "PENDING" : "ACCEPTED"),
+  });
+
+  const isApply = status;
+  console.log(applyData, status, error);
   const isSubmit = false;
+
   const titleData = {
     title: data?.title,
     nickname: data?.nickname,
   };
 
-  const [isEmpty, isSetEmpty, heartToggle] = useToggle(false);
+  const { data: bookMarkData } = useQuery({
+    queryKey: ["mybookmark"],
+    queryFn: () => getBookMarks(),
+  });
+  const myBookMark = bookMarkData?.[0]?.myBookmark ?? false;
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCancleModalOpen, setIsCancleModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isRotating, setIsRotating] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(myBookMark);
+
+  const { mutate: applyMutate } = useMutation({
+    mutationFn: () => postParticipants(data.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+
+  const { mutate: cancelMutate } = useMutation({
+    mutationFn: () => deleteParticipants(data.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+
+  const { mutate: postbookmark } = useMutation({
+    mutationFn: () => postBookMarks(data.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+
+  const { mutate: deletebookmark } = useMutation({
+    mutationFn: () => deleteBookMarks(data.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+
+  const applyParticipants = () => {
+    applyMutate();
+  };
+
+  const cancelParticipants = () => {
+    cancelMutate();
+  };
 
   const toggleBookmark = (e: any) => {
-    if (isBookmarked) {
+    if (myBookMark) {
       e.preventDefault();
-      deleteBookMarks(data.id);
+      deletebookmark();
     } else {
       e.preventDefault();
-      postBookMarks(data.id);
+      postbookmark();
     }
     setIsBookmarked(!isBookmarked);
   };
 
   const handleClick = (e: any) => {
     toggleBookmark(e);
-    heartToggle();
     setIsRotating(true);
     setTimeout(() => setIsRotating(false), 500);
   };
@@ -113,16 +176,16 @@ function DetailTitle({ data }: DetailDataType) {
                 >
                   <Image
                     src={
-                      !isEmpty
-                        ? "/icons/heart-empty.svg"
-                        : "/icons/heart-notEmpty.svg"
+                      myBookMark
+                        ? "/icons/heart-notEmpty.svg"
+                        : "/icons/heart-empty.svg"
                     }
                     alt="찜 버튼"
                     fill
                     className="absolute"
                   />
                 </button>
-                {isSubmit ? (
+                {status === "success" ? (
                   <Button
                     type="button"
                     className="h-44 w-91 tablet:h-36 tablet:w-83 tablet:text-14 "
@@ -146,7 +209,11 @@ function DetailTitle({ data }: DetailDataType) {
         <div className="flex items-center gap-12">
           <div className="relative h-32 w-32 rounded-full border border-line-02">
             <Image
-              src={"/icons/defaultProfile.png"} // 데이터 받아오면 유저 프로필 이미지 넣기
+              src={
+                data?.profilePath
+                  ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${data.profilePath}`
+                  : "/icons/defaultProfile.png"
+              }
               alt="Profile"
               fill
               className="absolute rounded-full object-cover"
@@ -175,6 +242,13 @@ function DetailTitle({ data }: DetailDataType) {
           onClose={() => {
             setIsModalOpen(false);
           }}
+          onCancel={() => {
+            setIsModalOpen(false);
+          }}
+          onConfirm={() => {
+            applyParticipants();
+            setIsModalOpen(false);
+          }}
         />
       )}
       {isCancleModalOpen && (
@@ -182,6 +256,13 @@ function DetailTitle({ data }: DetailDataType) {
           modalType="travelCancle"
           onClose={() => {
             setIsCancleModalOpen(false);
+          }}
+          onCancel={() => {
+            setIsCancleModalOpen(false);
+          }}
+          onConfirm={() => {
+            cancelParticipants();
+            setIsModalOpen(false);
           }}
         />
       )}

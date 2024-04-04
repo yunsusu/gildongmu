@@ -58,3 +58,18 @@ export const getCommentList = async (postid: Number) => {
   const res = await axios.get(`/posts/${postid}/comments`);
   return res;
 };
+
+export const postParticipants = async (postid: number) => {
+  const res = await axios.post(`/posts/${postid}/participants`, {});
+  return res.data;
+};
+
+export const deleteParticipants = async (postid: number) => {
+  const res = await axios.delete(`/posts/${postid}/participants`);
+  return res.data;
+};
+
+export const getParticipants = async (postid: number, status: string) => {
+  const res = await axios.get(`/posts/${postid}/participants?status=${status}`);
+  return res.data;
+};

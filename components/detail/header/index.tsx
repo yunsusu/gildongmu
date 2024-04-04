@@ -1,9 +1,17 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export default function Header() {
+  const router = useRouter();
+  const onPagingBack = () => {
+    router.back();
+  };
   return (
     <div className="mx-auto flex h-120 w-full max-w-[1200px] items-center justify-between gap-10 px-24 py-10 tablet:h-100 mobile:h-80 mobile:min-w-[312px]">
-      <div className="relative flex h-32 w-32 items-center justify-center gap-10 p-8 tablet:h-24 tablet:w-24">
+      <div
+        onClick={onPagingBack}
+        className="relative flex h-32 w-32 cursor-pointer items-center justify-center gap-10 p-8 tablet:h-24 tablet:w-24"
+      >
         <Image src="/icons/chevron_left.svg" alt="왼쪽 화살표 이미지" fill />
       </div>
       <div className="max-w-1036 flex h-48 text-center">
