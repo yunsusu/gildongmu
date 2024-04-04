@@ -74,11 +74,11 @@ function MultipleImageUploadInput({
 
   return (
     <div className="relative">
-      <div className="flex flex-wrap gap-22 tablet:gap-18 mobile:gap-16">
+      <div className="flex flex-wrap gap-22 tablet:gap-18 mobile:gap-12">
         {imagesPreview?.map((image: any, index: number) => (
           <div
             key={index}
-            className="group relative mr-2 h-132 w-132 tablet:h-118 tablet:w-118 mobile:h-126 mobile:w-126"
+            className="group relative w-full mr-2 h-132 max-w-[132px] tablet:h-118 tablet:w-118 mobile:min-h-[123px] mobile:min-w-[118px]"
           >
             {index === 0 && <TitleBadge />}
             <Image

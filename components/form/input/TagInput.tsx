@@ -76,7 +76,7 @@ function TagInput({
       <Input
         type="text"
         id={id}
-        className="mb-5 h-52 w-[756px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm"
+        className="mb-5 h-52 w-full rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 mobile:text-sm"
         value={inputValue}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}

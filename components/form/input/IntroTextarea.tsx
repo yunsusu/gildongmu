@@ -26,12 +26,12 @@ function IntroTextarea({
   };
 
   return (
-    <div className="flex w-[756px] flex-col gap-4 tablet:w-[672px] mobile:w-272">
+    <div className="flex w-full flex-col gap-4">
       <Textarea
         id={id}
         value={text}
         onChange={handleChange}
-        className="h-137 w-full resize-none rounded-2xl border border-line-02 bg-bg-02 px-16 py-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm"
+        className="h-137 w-full resize-none rounded-2xl border border-line-02 bg-bg-02 px-16 py-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 mobile:text-sm"
         placeholder="자기소개를 입력해 주세요"
       />
       <p className="mt-1 self-end text-sm text-gray-500">

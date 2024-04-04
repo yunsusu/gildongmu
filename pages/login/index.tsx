@@ -30,7 +30,6 @@ export default function Login() {
   });
   const router = useRouter();
 
-  // 인풋이 비어있지 않을 때 로그인 버튼 활성화
   const email = watch("email");
   const password = watch("password");
   const isFormEmpty = !email || !password;
@@ -74,11 +73,11 @@ export default function Login() {
         />
       ) : null}
       <div className="flex" style={{ height: "calc(100vh - 72px)" }}>
-        <div className="relative h-full w-1/2 bg-kakao text-50 tablet:hidden">
+        <div className="relative h-full w-1/2 text-50 tablet:hidden">
           <Image
             src="/images/Image_Login.png"
             alt="login main image"
-            layout="fill"
+            fill
             objectFit="cover"
           />
         </div>

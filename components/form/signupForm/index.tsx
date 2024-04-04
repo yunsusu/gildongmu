@@ -100,16 +100,16 @@ function SignUpForm() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(handleFormSubmit)}>
-        <div className="flex w-[956px] flex-col items-center rounded-32 bg-white px-32 py-48 tablet:w-[720px] mobile:w-[312px]">
+      <form onSubmit={handleSubmit(handleFormSubmit)} className="w-full">
+        <div className="flex w-full flex-col items-center rounded-32 bg-white px-32 py-48">
           <div className="mb-40 flex items-center gap-32 tablet:gap-28">
-            <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:w-52"></div>
-            <div className="text-18 tablet:text-16 mobile:text-14">
-              필수 정보 입력
+              <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:hidden"></div>
+              <div className="text-18 tablet:text-16 mobile:text-14">
+                필수 정보 입력
+              </div>
+              <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:hidden"></div>
             </div>
-            <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:w-52"></div>
-          </div>
-          <div className="flex flex-col gap-24">
+          <div className="flex w-full flex-col gap-24">
             <div className="flex flex-col gap-8">
               <Label htmlFor="email">
                 이메일<span className="text-pink-500">*</span>
@@ -117,7 +117,7 @@ function SignUpForm() {
               <Input
                 id="email"
                 type="email"
-                className={`h-52 w-[756px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.email && "border-0 bg-input-error"}`}
+                className={`h-52 w-full rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 mobile:text-sm ${errors.email && "border-0 bg-input-error"}`}
                 placeholder="이메일을 입력해 주세요"
                 {...register("email", { required: true, pattern: regEmail })}
               />
@@ -139,7 +139,7 @@ function SignUpForm() {
               <Input
                 id="nickname"
                 type="text"
-                className={`h-52 w-[756px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.nickname && "border-0 bg-input-error"}`}
+                className={`h-52 w-full rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 mobile:text-sm ${errors.nickname && "border-0 bg-input-error"}`}
                 placeholder="닉네임을 입력해 주세요"
                 {...register("nickname", {
                   required: true,
@@ -171,7 +171,7 @@ function SignUpForm() {
                 <Input
                   id="password"
                   type={passwordShown ? "text" : "password"}
-                  className={`h-52 w-[756px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.password && "border-0 bg-input-error text-text-02"}`}
+                  className={`h-52 w-full rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 mobile:text-sm ${errors.password && "border-0 bg-input-error text-text-02"}`}
                   placeholder="비밀번호를 입력해 주세요"
                   {...register("password", {
                     required: true,
@@ -211,7 +211,7 @@ function SignUpForm() {
                 <Input
                   id="confimPassword"
                   type={confirmPasswordShown ? "text" : "password"}
-                  className={`h-52 w-[756px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.confirmPassword && "border-0 bg-input-error"}`}
+                  className={`h-52 w-full rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 mobile:text-sm ${errors.confirmPassword && "border-0 bg-input-error"}`}
                   placeholder="비밀번호를 다시 입력해 주세요"
                   {...register("confirmPassword", {
                     required: true,
@@ -275,13 +275,13 @@ function SignUpForm() {
             </div>
           </div>
           <div className="my-40 flex items-center gap-32 tablet:gap-28">
-            <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:w-52"></div>
+            <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:hidden"></div>
             <div className="text-18 tablet:text-16 mobile:text-14">
               추가 정보 입력
             </div>
-            <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:w-52"></div>
+            <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:hidden"></div>
           </div>
-          <div className="flex flex-col items-center gap-24">
+          <div className="flex w-full flex-col items-center gap-24">
             <Controller
               control={control}
               name="profile"
@@ -292,7 +292,7 @@ function SignUpForm() {
                 />
               )}
             />
-            <div className="flex flex-col gap-8">
+            <div className="flex w-full flex-col gap-8">
               <Label htmlFor="tags">좋아하는 여행지</Label>
               <Controller
                 control={control}
@@ -307,7 +307,7 @@ function SignUpForm() {
                 )}
               />
             </div>
-            <div className="flex flex-col gap-8">
+            <div className="flex w-full flex-col gap-8">
               <Label htmlFor="bio">자기소개</Label>
               <Controller
                 control={control}
@@ -323,7 +323,7 @@ function SignUpForm() {
             </div>
           </div>
         </div>
-        <div className="mt-40 flex w-[956px] flex-col items-center rounded-32 tablet:w-[720px] mobile:w-[312px]">
+        <div className="mt-40 flex w-full flex-col items-center rounded-32">
           <button
             type="submit"
             disabled={!isValid}
