@@ -1,4 +1,4 @@
-# 📖 책 취향 공유 서비스앱 README
+# 📖 여행 친구를 구해봐요 길동무 README
 
 ![logo](https://github.com/GilDongMu/gildongmu/assets/148840514/b7024d25-684f-404a-a592-6323fea80ab5)<svg width="120" height="30" viewBox="0 0 120 30" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_272_13280)">
@@ -37,8 +37,6 @@
 <div align="center">
 
 | **박준성** | **김윤수** | **임주민** | **이준기** | **이준기** |
-| :------: |  :------: | :------: | :------: |
-| [<img src="https://avatars.githubusercontent.com/u/106502312?v=4" height=150 width=150> <br/> @yeon1615](https://github.com/yeon1615) | [<img src="https://avatars.githubusercontent.com/u/112460466?v=4" height=150 width=150> <br/> @Cheorizzang](https://github.com/Cheorizzang) | [<img src="https://avatars.githubusercontent.com/u/112460506?v=4" height=150 width=150> <br/> @heejiyang](https://github.com/heejiyang) | [<img src="https://avatars.githubusercontent.com/u/76766459?v=4" height=150 width=150> <br/> @journey-ji](https://github.com/journey-ji) |
 
 </div>
 
