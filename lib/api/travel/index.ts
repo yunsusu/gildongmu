@@ -5,10 +5,20 @@ export function buildUrl(
   limit: number,
   sortBy?: string,
   filters?: string,
+  search?: string,
 ): string {
   let url = `/posts?page=${pageNum}&size=${limit}`;
-  if (sortBy) url += `&sort=${sortBy}`;
+  if (search) {
+    url = `/search?page=${pageNum}&size=${limit}`;
+  }
+
+  if (sortBy) {
+    url += `&sortby=${sortBy}`;
+  } else {
+    url += `&sortby=latest`;
+  }
   if (filters) url += `&filter=${filters}`;
+  if (search) url += `&search=${search}`;
   return url;
 }
 
@@ -17,9 +27,10 @@ export async function getTravelCard(
   limit: number,
   sortBy?: string,
   filters?: string,
+  search?: string,
 ): Promise<any> {
   try {
-    const url = buildUrl(pageNum, limit, sortBy, filters);
+    const url = buildUrl(pageNum, limit, sortBy, filters, search);
     const res = await axios.get(url);
     return res.data;
   } catch (error) {

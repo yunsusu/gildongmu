@@ -19,7 +19,7 @@ const Custom404: NextPage = () => {
       <div className="h-334 flex w-240 flex-col items-center justify-center gap-32">
         <div className="relative h-160 w-240">
           <Image
-            src="/icons/404image.png"
+            src="/images/Image_404.png"
             alt="404이미지"
             fill
             className="absolute"

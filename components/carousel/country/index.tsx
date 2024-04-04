@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 
-import Card from "@/components/card";
+import MainCard from "@/components/mainCard";
 import { getTravelCard } from "@/lib/api/travel";
 
 interface CountryCarouselProps {
@@ -12,6 +12,7 @@ interface CountryCarouselProps {
 }
 
 function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
+  const [sort, setSort] = useState("");
   const sliderRef = useRef<Slider | null>(null);
 
   const next = () => {
@@ -44,6 +45,14 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
       {
         breakpoint: 767,
         settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 570,
+        settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
           infinite: true,
@@ -51,9 +60,18 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
       },
     ],
   };
+
+  useEffect(() => {
+    if (children === "HOT") {
+      setSort("popular");
+    } else {
+      setSort("trip");
+    }
+  }, [children]);
+
   const { data: card } = useQuery({
-    queryKey: ["cards"],
-    queryFn: () => getTravelCard(0, 12),
+    queryKey: ["cards", sort],
+    queryFn: () => getTravelCard(0, 12, sort),
   });
 
   return (
@@ -77,7 +95,11 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
             onClick={previous}
           >
             <div className="relative h-24 w-24">
-              <Image src="icons/chevron-left.svg" alt="캐러셀 다음 버튼" fill />
+              <Image
+                src={"/icons/chevron-left.svg"}
+                alt="캐러셀 다음 버튼"
+                fill
+              />
             </div>
           </button>
           <button
@@ -86,7 +108,7 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
           >
             <div className="relative flex h-24 w-24 items-center justify-start">
               <Image
-                src="icons/chevron-right.svg"
+                src={"/icons/chevron-right-blue.png"}
                 alt="캐러셀 다음 버튼"
                 fill
               />
@@ -97,7 +119,7 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
       <Slider ref={sliderRef} {...settings}>
         {Array.isArray(card?.content)
           ? card?.content.map((item: any, index: number) => (
-              <Card key={index} content={item} />
+              <MainCard key={index} content={item} is={"sub"} />
             ))
           : null}
       </Slider>

@@ -54,7 +54,7 @@ function CounterInput({
       <Button
         type="button"
         variant={count <= 0 ? "ghost" : "outline"}
-        className="h-44 w-44 rounded-full border-2 tablet:h-36 tablet:w-36"
+        className="h-full max-h-44 w-full max-w-44 rounded-full border-2 tablet:max-h-36 tablet:max-w-36"
         onClick={handleDecrement}
       >
         -
@@ -64,12 +64,12 @@ function CounterInput({
         type="text"
         value={count}
         onChange={handleChange}
-        className={`text-l h-52 w-254 rounded-xl px-16 text-center focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-228 mobile:w-176 mobile:text-sm ${isError && "border-0 bg-input-error"}`}
+        className={`text-l h-52 w-full max-w-[254px] rounded-xl px-16 text-center focus-visible:ring-0 focus-visible:ring-offset-0  mobile:min-w-100 mobile:text-sm ${isError && "border-0 bg-input-error"}`}
       />
       <Button
         type="button"
         variant={count >= 99 ? "ghost" : "outline"}
-        className="h-44 w-44 rounded-full border-2 tablet:h-36 tablet:w-36"
+        className="h-full max-h-44 w-full max-w-44 rounded-full border-2 tablet:max-h-36 tablet:max-w-36"
         onClick={handleIncrement}
       >
         +

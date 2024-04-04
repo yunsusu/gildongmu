@@ -1,3 +1,6 @@
+// import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { geocode, RequestType, setKey } from "react-geocode";
 import { Controller, useForm } from "react-hook-form";
@@ -13,65 +16,71 @@ import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-// import axios from "@/lib/api/axios";
+import { getDetail } from "@/lib/api/detail";
 
 export interface Location {
   lat: number;
   lng: number;
 }
 
-const detailContent = {
-  id: 2,
-  title: "일본 동행구해요",
-  nickname: "닉네임",
-  destination: "일본, 오사카",
-  tripDate: [
-    {
-      startDate: "2024-03-04",
-      endDate: "2024-03-22",
-    },
-  ],
-  numberOfPeople: 8,
-  gender: "MALE",
-  content: "일본여행가요~",
-
-  tag: ["도쿄", "오사카", "삿포로"],
-  thumbnail: { id: 101, url: "url" },
-  images: [
-    {
-      id: 101,
-      url: "url",
-    },
-    {
-      id: 102,
-      url: "url",
-    },
-  ],
-};
+interface Edit {
+  title: string;
+  destination: string;
+  tripDate: {
+    startDate: string;
+    endDate: string;
+  };
+  numberOfPeople: number;
+  gender: string;
+  content: string;
+  tag: string[];
+  images: any;
+}
 
 function EditForm() {
   const {
     register,
     handleSubmit,
     control,
-    formState: { errors, isValid },
-  } = useForm({
+    reset,
+    formState: { errors, isDirty },
+  } = useForm<Edit>({
     mode: "onBlur",
-    defaultValues: {
-      title: detailContent.title,
-      destination: detailContent.destination,
-      tripDate: detailContent.tripDate[0],
-      numberOfPeople: detailContent.numberOfPeople,
-      gender: detailContent.gender,
-      content: detailContent.content,
-      tags: detailContent.tag,
-      images: undefined, // images는 별도의 처리가 필요
-    },
   });
+
+  const router = useRouter();
+  const { Id: postId } = router.query;
+  const { data: writeData } = useQuery({
+    queryKey: ["detail", postId],
+    queryFn: async () => {
+      const res = await getDetail(Number(postId));
+      return res;
+    },
+    enabled: !!postId,
+  });
+
+  useEffect(() => {
+    if (writeData) {
+      reset({
+        title: writeData.title,
+        destination: writeData.destination,
+        tripDate: {
+          startDate: writeData.tripDate.startDate,
+          endDate: writeData.tripDate.endDate,
+        },
+        numberOfPeople: writeData.numberOfPeople,
+        tag: writeData.tag,
+        content: writeData.content,
+        gender: writeData.gender,
+        images: writeData.images,
+      });
+    }
+  }, [writeData, reset]);
+  console.log(writeData);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
-  const [search, setSearch] = useState("");
+  const [destination, setDestination] = useState("");
   const [location, setLocation] = useState<Location>({
     lat: 37.5400456,
     lng: 126.9921017,
@@ -97,14 +106,16 @@ function EditForm() {
 
   const handleSearchLocation = (e: any) => {
     if (e.key === "Enter") {
-      setSearch(e.target.value);
+      setDestination(e.target.value);
     }
   };
 
   useEffect(() => {
-    if (search.trim() !== "") {
+    const trimmedDestination = destination ? destination.trim() : "";
+
+    if (trimmedDestination !== "") {
       setKey(String(apiKey));
-      geocode(RequestType.ADDRESS, search)
+      geocode(RequestType.ADDRESS, destination)
         .then(({ results }) => {
           if (results.length > 0) {
             const { lat, lng } = results[0].geometry.location;
@@ -116,17 +127,17 @@ function EditForm() {
         })
         .catch(console.error);
     }
-  }, [search, apiKey]);
+  }, [destination, apiKey]);
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex w-[956px] flex-col items-center rounded-32 bg-white px-32 py-48 tablet:w-[720px] mobile:w-[312px]">
-          <div className="flex flex-col gap-32">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+        <div className="flex w-full flex-col items-center rounded-32 bg-white px-32 py-48">
+          <div className="mx-auto flex w-full max-w-[956px] flex-col gap-32 px-24 tablet:gap-28 mobile:min-w-[272px]">
             <div className="mb-8 flex flex-col items-center">
               <Input
                 type="text"
-                className={`h-52 w-[756px] rounded-0 border-0 border-b px-24 pb-24 pt-12 text-center text-xl font-bold placeholder:text-text-05 focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272`}
+                className={`h-52 w-full rounded-none border-0 border-b px-24 pb-24 pt-12 text-center text-xl font-bold placeholder:text-text-05 focus-visible:ring-0 focus-visible:ring-offset-0`}
                 placeholder="제목을 입력해 주세요"
                 {...register("title", { required: true })}
               />
@@ -137,15 +148,18 @@ function EditForm() {
               )}
             </div>
             <div className="flex flex-col gap-8">
-              <Label>
+              <Label htmlFor="destination">
                 여행지<span className="text-pink-500">*</span>
               </Label>
               <Input
+                id="destination"
+                type="text"
                 placeholder="여행지 입력"
-                className="h-52 w-[756px] rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272"
-                onKeyPress={handleSearchLocation}
+                className="h-52 w-full rounded-12 border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0"
+                {...register("destination", { required: true })}
+                onKeyUp={handleSearchLocation}
               />
-              <div className="h-[240px] w-[756px] rounded-12 bg-line-02 tablet:w-[672px] mobile:w-272">
+              <div className="h-[240px] w-full rounded-12 bg-line-02">
                 <GoogleMap location={location} />
               </div>
             </div>
@@ -203,10 +217,10 @@ function EditForm() {
                 rules={{ required: true }}
                 render={({ field }) => (
                   <RadioInput
-                    onChange={(gender: any) => field.onChange(gender)}
+                    onChange={value => field.onChange(value)}
                     value={field.value}
                     pageType="write"
-                    id={"gender"}
+                    id="gender"
                   />
                 )}
               />
@@ -247,6 +261,7 @@ function EditForm() {
                 render={({ field }) => (
                   <MultipleImageUploadInput
                     onChange={imagesUrl => field.onChange(imagesUrl)}
+                    value={field.value}
                   />
                 )}
               />
@@ -255,7 +270,7 @@ function EditForm() {
               <Label htmlFor="tags">태그</Label>
               <Controller
                 control={control}
-                name="tags"
+                name="tag"
                 render={({ field }) => (
                   <TagInput
                     onChange={(tags: any) => field.onChange(tags)}
@@ -268,7 +283,7 @@ function EditForm() {
             </div>
           </div>
         </div>
-        <div className="mt-40 flex w-[956px] items-center justify-center gap-20 tablet:mt-32 tablet:w-[720px] mobile:w-[312px]">
+        <div className="mt-40 flex w-full items-center justify-center gap-20 tablet:mt-32">
           <Button
             variant={"outline"}
             type="button"
@@ -279,7 +294,7 @@ function EditForm() {
           </Button>
           <Button
             type="submit"
-            disabled={!isValid}
+            disabled={!isDirty}
             className="h-52 w-180 tablet:h-44 tablet:w-128"
           >
             수정하기
@@ -288,7 +303,7 @@ function EditForm() {
       </form>
       {isModalOpen && (
         <Modal
-          modalType="writingSuccess"
+          modalType="editingSuccess"
           onClose={() => {
             setIsModalOpen(false);
           }}
@@ -297,6 +312,13 @@ function EditForm() {
       {isCancelModalOpen && (
         <Modal
           modalType="writingCancel"
+          onCancel={() => {
+            setIsCancelModalOpen(false);
+          }}
+          onConfirm={() => {
+            setIsCancelModalOpen(false);
+            router.back();
+          }}
           onClose={() => {
             setIsCancelModalOpen(false);
           }}

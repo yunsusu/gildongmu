@@ -1,42 +1,123 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
 import AlertModal from "@/components/modal";
 import { Button } from "@/components/ui/button";
-import useToggle from "@/hooks/useToggle";
+import {
+  deleteBookMarks,
+  getBookMarks,
+  postBookMarks,
+} from "@/lib/api/bookmarks";
+import {
+  deleteParticipants,
+  getParticipants,
+  postParticipants,
+} from "@/lib/api/detail";
+import { DetailDataType } from "@/lib/api/detail/type";
+import { getUserMe } from "@/lib/api/userMe";
 
-const content = {
-  id: 1,
-};
+function DetailTitle({ data }: DetailDataType) {
+  const queryClient = useQueryClient();
+  const { data: userData } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => getUserMe(),
+  });
 
-function DetailTitle() {
   const router = useRouter();
+  const isOwner = userData?.id === data?.id;
 
-  const isOwner = true; // 작성자인지 아닌지
-  const isSubmit = false; // 신청했는지 아닌지
+  const {
+    data: applyData,
+    status,
+    error,
+  } = useQuery({
+    queryKey: ["apply", data?.id],
+    queryFn: () => getParticipants(data.id, isOwner ? "PENDING" : "ACCEPTED"),
+  });
 
-  //  데이터 예시
+  const isApply = status;
+  console.log(applyData, status, error);
+  const isSubmit = false;
+
   const titleData = {
-    title: "모집글입니다~",
-    nickname: "테스트유저",
+    title: data?.title,
+    nickname: data?.nickname,
   };
 
-  const [isEmpty, isSetEmpty, heartToggle] = useToggle(false);
+  const { data: bookMarkData } = useQuery({
+    queryKey: ["mybookmark"],
+    queryFn: () => getBookMarks(),
+  });
+  const myBookMark = bookMarkData?.[0]?.myBookmark ?? false;
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCancleModalOpen, setIsCancleModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isRotating, setIsRotating] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(myBookMark);
 
-  const handleClick = () => {
-    heartToggle();
+  const { mutate: applyMutate } = useMutation({
+    mutationFn: () => postParticipants(data.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+
+  const { mutate: cancelMutate } = useMutation({
+    mutationFn: () => deleteParticipants(data.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+
+  const { mutate: postbookmark } = useMutation({
+    mutationFn: () => postBookMarks(data.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+
+  const { mutate: deletebookmark } = useMutation({
+    mutationFn: () => deleteBookMarks(data.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+
+  const applyParticipants = () => {
+    applyMutate();
+  };
+
+  const cancelParticipants = () => {
+    cancelMutate();
+  };
+
+  const toggleBookmark = (e: any) => {
+    if (myBookMark) {
+      e.preventDefault();
+      deletebookmark();
+    } else {
+      e.preventDefault();
+      postbookmark();
+    }
+    setIsBookmarked(!isBookmarked);
+  };
+
+  const handleClick = (e: any) => {
+    toggleBookmark(e);
     setIsRotating(true);
     setTimeout(() => setIsRotating(false), 500);
   };
 
   const handleModal = () => {
-    setIsModalOpen(true);
+    if (status === "success") {
+      setIsCancleModalOpen(true);
+    } else {
+      setIsModalOpen(true);
+    }
   };
 
   const handleCancleModal = () => {
@@ -44,13 +125,11 @@ function DetailTitle() {
   };
 
   const handleEdit = () => {
-    // 수정하기 페이지로 이동
-    router.push(`/travel/${content.id}/detail/edit`);
+    router.push(`/travel/${data.id}/detail/edit`);
   };
 
   const handleDelete = () => {
     setIsDeleteModalOpen(true);
-    // 글 삭제 api 함수
   };
 
   const handleProfile = () => {
@@ -93,7 +172,7 @@ function DetailTitle() {
                 </button>
               </div>
             ) : (
-              <div className="flex w-full justify-between gap-16 mobile:absolute mobile:top-110">
+              <div className="flex w-full mx-auto gap-16 mobile:absolute mobile:top-110">
                 <button
                   type="button"
                   className={`relative h-44 w-44 ${isRotating ? "heartRotate" : ""} tablet:h-36 tablet:w-36`}
@@ -101,32 +180,22 @@ function DetailTitle() {
                 >
                   <Image
                     src={
-                      !isEmpty
-                        ? "/icons/heart-empty.svg"
-                        : "/icons/heart-notEmpty.svg"
+                      myBookMark
+                        ? "/icons/heart-notEmpty.svg"
+                        : "/icons/heart-empty.svg"
                     }
                     alt="찜 버튼"
                     fill
                     className="absolute"
                   />
                 </button>
-                {isSubmit ? (
-                  <Button
-                    type="button"
-                    className="h-44 w-91 tablet:h-36 tablet:w-83 tablet:text-14"
-                    onClick={handleCancleModal}
-                  >
-                    신청취소
-                  </Button>
-                ) : (
-                  <Button
-                    type="button"
-                    className="h-44 w-91 tablet:h-36 tablet:w-83 tablet:text-14 mobile:w-220"
-                    onClick={handleModal}
-                  >
-                    신청하기
-                  </Button>
-                )}
+                <Button
+                  type="button"
+                  className="h-44 w-91 tablet:h-36 tablet:w-83 tablet:text-14 mobile:w-220"
+                  onClick={handleModal}
+                >
+                  신청하기
+                </Button>
               </div>
             )}
           </div>
@@ -134,7 +203,11 @@ function DetailTitle() {
         <div className="flex items-center gap-12">
           <div className="relative h-32 w-32 rounded-full border border-line-02">
             <Image
-              src={"/icons/defaultProfile.png"} // 데이터 받아오면 유저 프로필 이미지 넣기
+              src={
+                data?.profilePath
+                  ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${data.profilePath}`
+                  : "/icons/defaultProfile.png"
+              }
               alt="Profile"
               fill
               className="absolute rounded-full object-cover"
@@ -163,11 +236,18 @@ function DetailTitle() {
           onClose={() => {
             setIsModalOpen(false);
           }}
+          onCancel={() => {
+            setIsModalOpen(false);
+          }}
+          onConfirm={() => {
+            applyParticipants();
+            setIsModalOpen(false);
+          }}
         />
       )}
       {isCancleModalOpen && (
         <AlertModal
-          modalType="travelCancle"
+          modalType="noticeDisabledApply"
           onClose={() => {
             setIsCancleModalOpen(false);
           }}
@@ -184,6 +264,7 @@ function DetailTitle() {
       )}
       {isProfileModalOpen && (
         <AlertModal
+          data={data}
           modalType="userProfile"
           onClose={() => {
             setIsProfileModalOpen(false);

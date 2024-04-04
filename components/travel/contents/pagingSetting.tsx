@@ -13,13 +13,13 @@ function PagingSetting() {
   const [dropDown, setDropDown, handleDropDown] = useToggle();
 
   const router = useRouter();
-  const { sort } = router.query;
+  const { sortby } = router.query;
 
   const handleSort = (type: string) => {
     const sortType = type;
     router.push({
       pathname: router.pathname,
-      query: { ...router.query, sort: sortType },
+      query: { ...router.query, sortby: sortType },
     });
   };
 
@@ -35,21 +35,21 @@ function PagingSetting() {
       name: "인기순",
       handleBtn: () => {
         setChoiceSort("인기순");
-        handleSort("countOfBookmarks");
+        handleSort("popular");
       },
     },
     {
       name: "댓글 많은 순",
       handleBtn: () => {
         setChoiceSort("댓글 많은 순");
-        handleSort("countOfComments");
+        handleSort("comment");
       },
     },
     {
       name: "가까운 여행순",
       handleBtn: () => {
         setChoiceSort("가까운 여행순");
-        handleSort("latest-trip");
+        handleSort("trip");
       },
     },
   ];
@@ -60,7 +60,7 @@ function PagingSetting() {
   });
 
   useEffect(() => {
-    switch (sort) {
+    switch (sortby) {
       case "latest":
         setChoiceSort("최근 작성순");
         break;
@@ -77,7 +77,7 @@ function PagingSetting() {
       default:
         break;
     }
-  }, [setChoiceSort, sort]);
+  }, [setChoiceSort, sortby]);
   return (
     <>
       <div className="mb-32 flex w-full justify-between">
