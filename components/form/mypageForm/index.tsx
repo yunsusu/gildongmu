@@ -1,3 +1,4 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -11,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import axios from "@/lib/api/axios";
+import { getUserMe } from "@/lib/api/userMe";
 import { regPassword } from "@/lib/utils/regexp";
 
 interface MyPage {
@@ -38,7 +40,7 @@ function MyPageForm() {
   });
 
   const router = useRouter();
-
+  const queryClient = useQueryClient();
   const [passwordShown, setPasswordShown] = useState(false);
   const [newPasswordShown, setNewPasswordShown] = useState(false);
   const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
@@ -131,15 +133,27 @@ function MyPageForm() {
         },
       });
       setIsModalOpen(true);
+      handleUploadPost();
     } catch (error) {
       console.error("회원정보 수정 실패:", error);
     }
   };
 
+  const uploadPostMutation = useMutation({
+    mutationFn: () => getUserMe(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+    },
+  });
+
+  const handleUploadPost = () => {
+    uploadPostMutation.mutate();
+  };
+
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex w-[956px] flex-col items-center gap-24 rounded-32 bg-white px-32 py-48 tablet:w-[720px] mobile:w-[312px]">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+        <div className="flex w-full flex-col items-center gap-24 rounded-32 bg-white px-32 py-48">
           <Controller
             control={control}
             name="profile"
@@ -150,7 +164,7 @@ function MyPageForm() {
               />
             )}
           />
-          <div className="flex flex-col gap-8">
+          <div className="flex w-full flex-col gap-8">
             <Label htmlFor="email">
               이메일<span className="text-pink-500">*</span>
             </Label>
@@ -158,19 +172,19 @@ function MyPageForm() {
               id="email"
               type="email"
               disabled
-              className={`h-52 w-[756px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm`}
+              className={`h-52 w-full rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 mobile:text-sm`}
               placeholder="이메일을 입력해 주세요"
               {...register("email")}
             />
           </div>
-          <div className="flex flex-col gap-8">
+          <div className="flex w-full flex-col gap-8">
             <Label htmlFor="nickname">
               닉네임<span className="text-pink-500">*</span>
             </Label>
             <Input
               id="nickname"
               type="text"
-              className={`h-52 w-[756px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.nickname && "border-0 bg-input-error"}`}
+              className={`h-52 w-full rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 mobile:text-sm ${errors.nickname && "border-0 bg-input-error"}`}
               placeholder="닉네임을 입력해 주세요"
               {...register("nickname", {
                 required: true,
@@ -194,16 +208,16 @@ function MyPageForm() {
               </span>
             )}
           </div>
-          <div className="flex flex-col gap-8">
+          <div className="flex w-full flex-col gap-8">
             <Label htmlFor="password">
               비밀번호<span className="text-pink-500">*</span>
             </Label>
-            <div className="flex justify-between gap-16">
-              <div className="relative">
+            <div className="flex w-full gap-16">
+              <div className="relative w-full">
                 <Input
                   id="password"
                   type={passwordShown ? "text" : "password"}
-                  className={`h-52 w-[642px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[562px] mobile:w-166 mobile:text-sm ${errors.password && "border-0 bg-input-error text-text-02"}`}
+                  className={`h-52 w-full rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 mobile:text-sm ${errors.password && "border-0 bg-input-error text-text-02"}`}
                   placeholder="현재 비밀번호를 입력해 주세요"
                   {...register("password", {
                     pattern: regPassword,
@@ -246,7 +260,7 @@ function MyPageForm() {
           </div>
           {openChangePassword && (
             <>
-              <div className="flex flex-col gap-8">
+              <div className="flex w-full flex-col gap-8">
                 <Label htmlFor="newPassword">
                   새 비밀번호<span className="text-pink-500">*</span>
                 </Label>
@@ -254,7 +268,7 @@ function MyPageForm() {
                   <Input
                     id="newPassword"
                     type={newPasswordShown ? "text" : "password"}
-                    className={`h-52 w-[756px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.newPassword && "border-0 bg-input-error text-text-02"}`}
+                    className={`h-52 w-full rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 mobile:text-sm ${errors.newPassword && "border-0 bg-input-error text-text-02"}`}
                     placeholder="비밀번호를 입력해 주세요"
                     {...register("newPassword", {
                       required: true,
@@ -288,7 +302,7 @@ function MyPageForm() {
                     </span>
                   )}
               </div>
-              <div className="flex flex-col gap-8">
+              <div className="flex w-full flex-col gap-8">
                 <Label htmlFor="confirmPassword">
                   새 비밀번호 확인<span className="text-pink-500">*</span>
                 </Label>
@@ -296,7 +310,7 @@ function MyPageForm() {
                   <Input
                     id="confirmPassword"
                     type={confirmPasswordShown ? "text" : "password"}
-                    className={`h-52 w-[756px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm ${errors.confirmPassword && "border-0 bg-input-error"}`}
+                    className={`h-52 w-full rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 mobile:text-sm ${errors.confirmPassword && "border-0 bg-input-error"}`}
                     placeholder="비밀번호를 다시 입력해 주세요"
                     {...register("confirmPassword", {
                       required: true,
@@ -325,7 +339,7 @@ function MyPageForm() {
               </div>
             </>
           )}
-          <div className="flex flex-col gap-8">
+          <div className="flex w-full flex-col gap-8">
             <Label htmlFor="bio">자기소개</Label>
             <Controller
               control={control}
@@ -339,7 +353,7 @@ function MyPageForm() {
               )}
             />
           </div>
-          <div className="flex flex-col gap-8">
+          <div className="flex w-full flex-col gap-8">
             <Label htmlFor="tags">좋아하는 여행지</Label>
             <Controller
               control={control}
@@ -355,7 +369,7 @@ function MyPageForm() {
             />
           </div>
         </div>
-        <div className="mt-40 flex w-[956px] flex-col items-center rounded-32 tablet:w-[720px] mobile:w-[312px]">
+        <div className="mt-40 flex w-full flex-col items-center rounded-32">
           <button
             type="submit"
             disabled={!isValid}

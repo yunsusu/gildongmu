@@ -26,7 +26,7 @@ function ContentTextarea({
   };
 
   return (
-    <div className="flex w-[756px] flex-col gap-4 tablet:w-[672px] mobile:w-272">
+    <div className="flex w-full flex-col gap-4">
       <Textarea
         id={id}
         value={text}

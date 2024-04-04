@@ -53,7 +53,7 @@ export default function Destination({
               {destination}
             </span>
           </div>
-          <div className="tablet:h-376 h-[500px] w-[892px] rounded-12 tablet:h-[376px] tablet:w-[672px] mobile:h-[152.5px] mobile:w-272">
+          <div className="tablet:h-376 h-[500px] w-full rounded-12 tablet:h-[376px] mobile:h-[152.5px]">
             <GoogleMap location={location} />
           </div>
         </div>

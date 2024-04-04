@@ -104,7 +104,7 @@ function CardGrid() {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  console.log(card);
+
   return (
     <>
       {card?.numberOfElements ? (

@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -15,33 +16,6 @@ interface Room {
   thumbnail: string;
   title: string;
 }
-
-// const roo = [
-//   {
-//     id: 2,
-//     lastChatMessage: "안녕하세요",
-//     lastChatAt: "2024-03-27T07:07:44",
-//     headCount: 3,
-//     thumbnail: "string",
-//     title: "제목",
-//   },
-//   {
-//     id: 5,
-//     lastChatMessage: "안녕하세요",
-//     lastChatAt: "2024-03-28T19:07:44",
-//     headCount: 3,
-//     thumbnail: "string",
-//     title: "제목",
-//   },
-//   {
-//     id: 1,
-//     lastChatMessage: "안녕하세요",
-//     lastChatAt: "2024-03-29T15:36:49.238412",
-//     headCount: 1,
-//     thumbnail: "string",
-//     title: "안녕하세요",
-//   },
-// ];
 
 function CommuList() {
   const accessToken = useCookie("accessToken");
@@ -77,7 +51,14 @@ function CommuList() {
           ) : (
             <div className="flex h-full w-full flex-col items-center justify-center gap-32 bg-white tablet:gap-24">
               <div className="justify-cente flex flex-col items-center gap-24 tablet:gap-20">
-                <div className="h-160 w-240 bg-[#D9D9D9]" />
+                <div className="relative h-160 w-240 tablet:h-128 tablet:w-192">
+                  <Image
+                    src={"/images/Image_Chat.png"}
+                    fill
+                    alt={"채팅 없음"}
+                    objectFit="cover"
+                  />
+                </div>
                 <div className="text-24 font-semibold leading-[31.2px] tracking-tighter text-text-01 tablet:text-20">
                   참여 중인 길동무 모임이 없어요!
                 </div>

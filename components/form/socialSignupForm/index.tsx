@@ -13,7 +13,7 @@ import TagInput from "@/components/form/input/TagInput";
 import Modal from "@/components/modal";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import axios from "@/lib/api/axios";
+import axiosInstance from "@/lib/api/axios";
 import { regPassword } from "@/lib/utils/regexp";
 
 interface SignUp {
@@ -69,7 +69,7 @@ function SocialSignUpForm() {
     }
 
     try {
-      const res = await axios.post("/oauth2/signup", formData, {
+      const res = await axiosInstance.post("/oauth2/signup", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -85,18 +85,17 @@ function SocialSignUpForm() {
   };
 
   useEffect(() => {
-    const fetchLoginStatus = async () => {
+    const getOauthEmail = async () => {
       try {
-        const response = await axios.get("/oauth2/siginup");
+        const response = await axiosInstance.get("/oauth2/signup");
         setOauthEmail(response.data.email);
-
-        console.log("oauth2 이메일 조회 성공! ", response.data.email);
+        console.log("oauth2 이메일 조회 성공! ", response.data);
       } catch (error) {
         console.error("oauth2 이메일 조회 실패", error);
       }
     };
 
-    fetchLoginStatus();
+    getOauthEmail();
   }, [oauthEmail, router]);
 
   return (

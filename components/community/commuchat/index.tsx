@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-// import io from "socket.io-client";
 interface itemType {
   item: {
     id: number;
@@ -11,8 +10,6 @@ interface itemType {
     title: string;
   };
 }
-
-// const socket = io(`http://3.38.76.39:8080/rooms/${1}`);
 
 function CommuChat({ item }: itemType) {
   const [prevTime, setPrevTime] = useState("");

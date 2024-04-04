@@ -1,6 +1,10 @@
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { parseISO } from "date-fns";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+
+import axios from "@/lib/api/axios";
 
 interface ChatProps {
   user: {
@@ -16,8 +20,38 @@ interface ChatProps {
     };
   };
 }
-function UserChat({ user }: ChatProps) {
+function NickNameChange({ user }: ChatProps) {
   const [sendDate, setSendDate] = useState("");
+  const [nickChange, setNickChange] = useState("");
+  const [prevNick, setPrevNick] = useState("");
+  const router = useRouter();
+  const { id } = router.query;
+  const queryClient = useQueryClient();
+
+  const fetchMembers = async (roomId: string | string[] | undefined) => {
+    const res = await axios.get(`/rooms/${roomId}/participants`);
+    return res.data;
+  };
+
+  const { data: member } = useQuery({
+    queryKey: ["chatMember", id],
+    queryFn: () => fetchMembers(id),
+  });
+
+  useEffect(() => {
+    if (member?.length > 0) {
+      const matchedMember = member.find(
+        (m: { user: { id: number } }) => m.user.id === user.sender.id,
+      );
+      if (
+        matchedMember &&
+        matchedMember.user.nickname !== user.sender.nickname
+      ) {
+        setNickChange(matchedMember.user.nickname);
+        setPrevNick(user.sender.nickname);
+      }
+    }
+  }, [member, user]);
 
   useEffect(() => {
     if (user?.createdAt) {
@@ -37,7 +71,7 @@ function UserChat({ user }: ChatProps) {
     }
   }, [user?.createdAt]);
 
-  return (
+  return nickChange !== "" && prevNick !== nickChange ? (
     <div className="flex w-full justify-start gap-8">
       <div className="relative h-40 w-40 overflow-hidden rounded-16">
         <Image
@@ -55,13 +89,17 @@ function UserChat({ user }: ChatProps) {
         <div className="text-14 text-text-03">{user.sender?.nickname}</div>
         <div className="flex w-full items-end gap-8">
           <div className="min-h-35 max-w-max flex-1 rounded-6 bg-stone-100 px-8 py-4 text-18 text-text-01">
-            {user?.content}
+            {nickChange !== user.sender.nickname &&
+              `📢 ${nickChange} → ${user.sender.nickname}로 닉네임을 변경했습니다! 📢`}
           </div>
           <div className="text-12 text-text-04">{sendDate}</div>
         </div>
       </div>
     </div>
-  );
+  ) : null;
 }
 
-export default UserChat;
+export default NickNameChange;
+function fetchMembers(id: any): any {
+  throw new Error("Function not implemented.");
+}

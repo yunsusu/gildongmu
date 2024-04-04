@@ -30,6 +30,10 @@ export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
     };
   }, [setIsMobile]);
 
+  useEffect(() => {
+    setIsFlipped(false);
+  }, [selectTab]);
+
   return (
     <div
       className={`tablet:h-270 relative flex h-[320px] w-270 cursor-pointer flex-col transition-all duration-500 [transform-style:preserve-3d] tablet:w-227 ${
@@ -51,7 +55,7 @@ export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
           className="rounded-[20px] object-cover"
         />
         <div className="absolute left-0 top-0 h-full w-full rounded-[20px] bg-black opacity-20" />
-        <div className="absolute flex  flex-col items-start justify-center gap-16">
+        <div className="absolute flex flex-col items-start justify-center gap-16">
           <div
             className={`flex w-[222px] items-center justify-between tablet:w-187 ${
               isMobile ? "mobile:w-124" : "mobile:w-219"
@@ -63,7 +67,7 @@ export default function MyTravelCard({ data, selectTab }: MyTravelCardProps) {
           <div
             className={`mb-160 flex flex-col gap-4 tablet:mb-170 ${isMobile ? "mobile:mb-25" : "mobile:mb-50"} `}
           >
-            <Title title={data.title} type="front" />
+            <Title title={data.title} isMobile={isMobile} type="front" />
             <div className="text-14 font-normal leading-5 tracking-tighter text-white tablet:text-12">
               {data.nickname}
             </div>
