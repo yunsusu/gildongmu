@@ -119,7 +119,7 @@ function CardGrid() {
         <div className="h-[450px] w-full">
           <div className="relative left-1/2 top-1/3 h-200 w-300 -translate-x-1/2 -translate-y-1/2">
             <Image
-              src={"/images/image_none.png"}
+              src={"/images/Image_None.png"}
               objectFit="cover"
               fill
               alt="이미지 없음"
