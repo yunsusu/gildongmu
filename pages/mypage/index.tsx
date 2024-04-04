@@ -6,7 +6,9 @@ function MyPage() {
       <h1 className="flex h-120 items-center text-32 font-extrabold text-text-01 tablet:h-100 tablet:text-24">
         마이 페이지
       </h1>
-      <MyPageForm />
+      <div className="mx-auto flex min-h-screen w-full max-w-[1200px] flex-col items-center gap-24 px-24 mobile:min-w-[312px]">
+        <MyPageForm />
+      </div>
     </div>
   );
 }

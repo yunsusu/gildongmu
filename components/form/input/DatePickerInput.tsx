@@ -60,7 +60,7 @@ function DatePickerInput({
           readOnly
           onClick={handleInputClick}
           placeholder="생년월일 입력"
-          className="h-52 w-[756px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272 mobile:text-sm"
+          className="h-52 w-full rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 mobile:text-sm"
         />
         {isPickerOpen && (
           <div ref={ref} className="absolute top-60 z-10 rounded-2xl bg-white">
