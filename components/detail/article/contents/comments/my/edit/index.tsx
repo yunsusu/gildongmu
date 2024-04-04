@@ -106,16 +106,18 @@ export default function EditComment({
               className="h-120 w-full resize-none rounded-12 border border-line-02 bg-white p-16 placeholder:text-ellipsis placeholder:text-16 placeholder:font-normal placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0"
               maxLength={100}
             />
-            <span className="bottom-3 right-3 text-sm text-gray-600">{`${charCount}/${maxLength}`}</span>
+            <div className="flex w-full justify-between">
+              <Checkbox secretToggle={secretToggle} />
+              <span className="bottom-3 right-3 text-sm text-gray-600">{`${charCount}/${maxLength}`}</span>
+            </div>
           </div>
-          <div className="flex items-center justify-between self-stretch">
-            <Checkbox secretToggle={secretToggle} />
+          <div className="flex items-center justify-end self-stretch">
             <Button
               type="submit"
               variant={"outline"}
               className="h-36 w-83 rounded-32"
             >
-              <span className="text-14 font-extrabold leading-5">수정하기</span>
+              <span className="text-14 font-extrabold leading-5">등록하기</span>
             </Button>
           </div>
         </form>
