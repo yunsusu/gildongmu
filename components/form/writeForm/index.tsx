@@ -119,13 +119,13 @@ function WriteForm() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex w-[956px] flex-col items-center rounded-32 bg-white px-32 py-48 tablet:w-[720px] mobile:w-[312px]">
-          <div className="flex flex-col gap-32">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+        <div className="flex w-full flex-col items-center rounded-32 bg-white px-32 py-48">
+          <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-32 px-24 tablet:gap-28 mobile:min-w-[272px]">
             <div className="mb-8 flex flex-col items-center">
               <Input
                 type="text"
-                className="h-52 w-[756px] rounded-0 border-0 border-b px-24 pb-24 pt-12 text-center text-xl font-bold placeholder:text-text-05 focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272"
+                className="h-52 w-full rounded-0 border-0 border-b px-24 pb-24 pt-12 text-center text-xl font-bold placeholder:text-text-05 focus-visible:ring-0 focus-visible:ring-offset-0"
                 placeholder="제목을 입력해 주세요"
                 {...register("title", { required: true })}
               />
@@ -145,10 +145,10 @@ function WriteForm() {
                 {...register("destination", {
                   required: "여행지를 입력해 주세요.",
                 })}
-                className="h-52 w-[756px] rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-[672px] mobile:w-272"
+                className="h-52 w-full rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0"
                 onKeyUp={handleSearchLocation}
               />
-              <div className="h-[240px] w-[756px] rounded-12 bg-line-02 tablet:w-[672px] mobile:w-272">
+              <div className="h-[240px] w-full rounded-12 bg-line-02">
                 <GoogleMap location={location} />
               </div>
             </div>
@@ -279,7 +279,7 @@ function WriteForm() {
             </div>
           </div>
         </div>
-        <div className="mt-40 flex w-[956px] items-center justify-center gap-20 tablet:mt-32 tablet:w-[720px] mobile:w-[312px]">
+        <div className="mt-40 flex w-full items-center justify-center gap-20 tablet:mt-32">
           <Button
             variant={"outline"}
             type="button"

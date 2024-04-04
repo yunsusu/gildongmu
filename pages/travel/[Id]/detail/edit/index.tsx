@@ -2,11 +2,13 @@ import EditForm from "@/components/form/editForm";
 
 function Edit() {
   return (
-    <div className="bg-bg-04 flex flex-col justify-start items-center pb-80">
-      <h1 className="h-120 text-32 font-extrabold text-text-01 flex items-center tablet:h-100 tablet:text-24">
+    <div className="flex flex-col items-center justify-start bg-bg-04 pb-80">
+      <h1 className="flex h-120 items-center text-32 font-extrabold text-text-01 tablet:h-100 tablet:text-24">
         모집글 수정하기
       </h1>
-      <EditForm />
+      <div className="mx-auto flex min-h-screen w-full max-w-[1200px] flex-col items-center gap-24 px-24 pb-80 mobile:min-w-[312px]">
+        <EditForm />
+      </div>
     </div>
   );
 }
