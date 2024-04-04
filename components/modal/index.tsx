@@ -26,7 +26,8 @@ export type ModalType =
   | "participantExile"
   | "applicationAccept"
   | "applicationReject"
-  | "editingSuccess";
+  | "editingSuccess"
+  | "noticeDisabledApply";
 
 interface ModalProps {
   modalType: ModalType;
@@ -182,7 +183,19 @@ export default function Modal({
       break;
     case "travelCancle":
       title = "취소하기";
-      message = "이 길동무 신청을 취소하시겠습니까?";
+      message = (
+        <>
+          한 번 신청을 취소하면
+          <br />
+          다시 신청할 수 없습니다.
+          <br />
+          정말 신청을 취소하시겠습니까?
+        </>
+      );
+      break;
+    case "noticeDisabledApply":
+      title = "";
+      message = "다시 신청할 수 없는 여행글입니다.";
       break;
     case "failCheckPassword":
       title = "";
@@ -226,7 +239,7 @@ export default function Modal({
         </>
       );
       break;
-      case "editingSuccess":
+    case "editingSuccess":
       title = "수정 완료";
       message = "모집글이 수정되었습니다.";
       break;

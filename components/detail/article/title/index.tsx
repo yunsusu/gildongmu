@@ -33,7 +33,7 @@ function DetailTitle({ data }: DetailDataType) {
     status,
     error,
   } = useQuery({
-    queryKey: ["apply"],
+    queryKey: ["apply", data?.id],
     queryFn: () => getParticipants(data.id, isOwner ? "PENDING" : "ACCEPTED"),
   });
 
@@ -113,7 +113,11 @@ function DetailTitle({ data }: DetailDataType) {
   };
 
   const handleModal = () => {
-    setIsModalOpen(true);
+    if (status === "success") {
+      setIsCancleModalOpen(true);
+    } else {
+      setIsModalOpen(true);
+    }
   };
 
   const handleCancleModal = () => {
@@ -185,23 +189,13 @@ function DetailTitle({ data }: DetailDataType) {
                     className="absolute"
                   />
                 </button>
-                {status === "success" ? (
-                  <Button
-                    type="button"
-                    className="h-44 w-91 tablet:h-36 tablet:w-83 tablet:text-14 "
-                    onClick={handleCancleModal}
-                  >
-                    신청취소
-                  </Button>
-                ) : (
-                  <Button
-                    type="button"
-                    className="h-44 w-91 tablet:h-36 tablet:w-83 tablet:text-14 mobile:w-full"
-                    onClick={handleModal}
-                  >
-                    신청하기
-                  </Button>
-                )}
+                <Button
+                  type="button"
+                  className="h-44 w-91 tablet:h-36 tablet:w-83 tablet:text-14 mobile:w-220"
+                  onClick={handleModal}
+                >
+                  신청하기
+                </Button>
               </div>
             )}
           </div>
@@ -253,16 +247,9 @@ function DetailTitle({ data }: DetailDataType) {
       )}
       {isCancleModalOpen && (
         <AlertModal
-          modalType="travelCancle"
+          modalType="noticeDisabledApply"
           onClose={() => {
             setIsCancleModalOpen(false);
-          }}
-          onCancel={() => {
-            setIsCancleModalOpen(false);
-          }}
-          onConfirm={() => {
-            cancelParticipants();
-            setIsModalOpen(false);
           }}
         />
       )}
