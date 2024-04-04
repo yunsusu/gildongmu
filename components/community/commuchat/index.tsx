@@ -32,7 +32,6 @@ function CommuChat({ item }: itemType) {
       setPrevTime(`${month}월 ${date}일`);
     }
   }, [item.lastChatAt]);
-  console.log(item);
   return (
     <div
       onClick={() =>
