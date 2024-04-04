@@ -90,7 +90,7 @@ function WriteForm() {
       });
       setIsModalOpen(true);
     } catch (error) {
-      console.error("회원가입 실패:", error);
+      console.error("글 작성 실패:", error);
     }
   };
 
