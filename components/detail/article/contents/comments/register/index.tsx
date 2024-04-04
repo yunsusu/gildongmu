@@ -75,10 +75,12 @@ export default function RegisterComment({
             placeholder="댓글을 작성해 주세요."
             maxLength={100}
           />
-          <span className="bottom-3 right-3 text-sm text-gray-600">{`${charCount}/${maxLength}`}</span>
+          <div className="flex w-full justify-between">
+            <Checkbox secretToggle={secretToggle} />
+            <span className="bottom-3 right-3 text-sm text-gray-600">{`${charCount}/${maxLength}`}</span>
+          </div>
         </div>
-        <div className="flex items-center justify-between self-stretch">
-          <Checkbox secretToggle={secretToggle} />
+        <div className="flex items-center justify-end self-stretch">
           <Button
             type="submit"
             variant={"outline"}
