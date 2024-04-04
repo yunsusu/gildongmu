@@ -133,7 +133,7 @@ function EditForm() {
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="w-full">
         <div className="flex w-full flex-col items-center rounded-32 bg-white px-32 py-48">
-          <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-32 px-24 tablet:gap-28 mobile:min-w-[272px]">
+          <div className="mx-auto flex w-full max-w-[956px] flex-col gap-32 px-24 tablet:gap-28 mobile:min-w-[272px]">
             <div className="mb-8 flex flex-col items-center">
               <Input
                 type="text"
