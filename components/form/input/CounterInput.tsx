@@ -64,7 +64,7 @@ function CounterInput({
         type="text"
         value={count}
         onChange={handleChange}
-        className={`text-l h-52 w-254 rounded-xl px-16 text-center focus-visible:ring-0 focus-visible:ring-offset-0 tablet:w-228 mobile:w-176 mobile:text-sm ${isError && "border-0 bg-input-error"}`}
+        className={`text-l h-52 w-full max-w-[254px] rounded-xl px-16 text-center focus-visible:ring-0 focus-visible:ring-offset-0  mobile:min-w-156 mobile:text-sm ${isError && "border-0 bg-input-error"}`}
       />
       <Button
         type="button"

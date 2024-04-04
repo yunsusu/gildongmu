@@ -105,7 +105,7 @@ function DetailTitle({ data }: DetailDataType) {
                 </button>
               </div>
             ) : (
-              <div className="flex w-full justify-between gap-16 mobile:absolute mobile:top-110">
+              <div className="flex w-full mx-auto gap-16 mobile:absolute mobile:top-110">
                 <button
                   type="button"
                   className={`relative h-44 w-44 ${isRotating ? "heartRotate" : ""} tablet:h-36 tablet:w-36`}
@@ -125,7 +125,7 @@ function DetailTitle({ data }: DetailDataType) {
                 {isSubmit ? (
                   <Button
                     type="button"
-                    className="h-44 w-91 tablet:h-36 tablet:w-83 tablet:text-14"
+                    className="h-44 w-91 tablet:h-36 tablet:w-83 tablet:text-14 "
                     onClick={handleCancleModal}
                   >
                     신청취소
@@ -133,7 +133,7 @@ function DetailTitle({ data }: DetailDataType) {
                 ) : (
                   <Button
                     type="button"
-                    className="h-44 w-91 tablet:h-36 tablet:w-83 tablet:text-14 mobile:w-220"
+                    className="h-44 w-91 tablet:h-36 tablet:w-83 tablet:text-14 mobile:w-full"
                     onClick={handleModal}
                   >
                     신청하기
