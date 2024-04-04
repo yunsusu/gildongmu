@@ -39,7 +39,6 @@ function ChatHeader({ chatHeader }: chatHeaderProp) {
     queryFn: () => fetchMembers(id),
   });
 
-  console.log(member);
   return (
     <div className="sticky top-0 z-10 flex items-center justify-between gap-16 border-b border-line-01 bg-white p-20">
       <div className="relative h-52 w-52 overflow-hidden rounded-16">
