@@ -100,11 +100,16 @@ export default function Login() {
                       message: "올바른 이메일을 입력해주세요.",
                     },
                   })}
-                  className={`flex h-52 w-full items-center justify-end gap-8 self-stretch rounded-xl bg-bg-02 px-16 outline-none ${errors.email ? "bg-rose-50" : ""}`}
+                  className={`flex h-52 w-full items-center justify-end gap-8 self-stretch rounded-xl border border-line-02 bg-bg-02 px-16 outline-none focus:border focus:border-line-01 focus:bg-white ${errors.email ? "border-0 bg-rose-50" : ""}`}
                 />
                 <p className="ml-12 mt-4 text-system-error">
                   {errors.email?.message}
                 </p>
+                {errors.email && errors.email.type === "required" && (
+                  <span className="ml-12 mt-4 text-system-error">
+                    이메일을 입력해 주세요
+                  </span>
+                )}
               </div>
               <div className="relative w-full">
                 <input
@@ -118,7 +123,7 @@ export default function Login() {
                       message: "올바른 비밀번호를 입력해주세요.",
                     },
                   })}
-                  className={`flex h-52 w-full items-center justify-end gap-8 self-stretch rounded-xl bg-bg-02 px-16 outline-none ${errors.password ? "bg-rose-50" : ""}`}
+                  className={`flex h-52 w-full items-center justify-end gap-8 self-stretch rounded-xl border border-line-02 bg-bg-02 px-16 outline-none focus:border focus:border-line-01 focus:bg-white ${errors.password ? "border-0 bg-rose-50" : ""}`}
                 />
                 <Image
                   src={eye ? "/icons/eye-off.png" : "/icons/eye-on.png"}
@@ -131,12 +136,17 @@ export default function Login() {
                 <p className="mb-12 ml-12 mt-4 text-system-error">
                   {errors.password?.message}
                 </p>
+                {errors.password && errors.password.type === "required" && (
+                  <span className="ml-12 mt-4 text-system-error">
+                    비밀번호를 입력해 주세요
+                  </span>
+                )}
               </div>
               <div className="mt-24 w-full text-18">
                 <Button
                   type="submit"
                   variant="ghost"
-                  className="h-52 w-full bg-primary text-primary-foreground hover:bg-primary-press"
+                  className="h-52 w-full bg-primary text-primary-foreground hover:bg-primary-press hover:text-primary-foreground"
                   disabled={isFormEmpty}
                 >
                   로그인
