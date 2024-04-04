@@ -73,8 +73,8 @@ export default function Login() {
           onClose={() => setLoginErrorModal(false)}
         />
       ) : null}
-      <div className="flex" style={{ height: "calc(100vh - 72px)" }}>
-        <div className="relative h-full w-1/2 bg-kakao text-50 tablet:hidden">
+      <div className="flex bg-bg-06  " style={{ height: "calc(100vh - 60px)" }}>
+        <div className="relative h-full w-1/2 text-50 tablet:hidden">
           <Image
             src="/images/Image_Login.png"
             alt="login main image"
@@ -82,8 +82,8 @@ export default function Login() {
             objectFit="cover"
           />
         </div>
-        <div className="flex h-full w-1/2 items-center justify-center bg-bg-06 text-14 tablet:w-full">
-          <div className="flex h-5/6 max-h-[617px] w-[434px] flex-col items-center justify-center rounded-32 bg-white p-40 tablet:mt-[81.5px] mobile:mx-24 mobile:mt-[50.5px] mobile:w-full">
+        <div className="py-20 flex h-full w-1/2 items-center justify-center text-14 tablet:w-full">
+          <div className="flex h-full max-h-[617px] w-full max-w-[434px] flex-col items-center justify-center rounded-32 bg-white p-40 mobile:mx-24">
             <h1 className="mb-40 text-32 font-extrabold text-text-01">
               로그인
             </h1>
@@ -171,10 +171,10 @@ export default function Login() {
               <div className="w-1/3 border-b border-line-01"></div>
             </div>
 
-            <div className="flex w-full items-center justify-between text-18 mobile:text-16">
+            <div className="flex w-full items-center justify-between gap-20 text-18 mobile:text-16">
               <Link
                 href={"http://3.38.76.39:8080/oauth2/authorization/kakao"}
-                className="mr-20 w-1/2"
+                className="w-1/2"
               >
                 <Button
                   variant="destructive"
