@@ -125,7 +125,7 @@ function WriteForm() {
             <div className="mb-8 flex flex-col items-center">
               <Input
                 type="text"
-                className="h-52 w-full rounded-0 border-0 border-b px-24 pb-24 pt-12 text-center text-xl font-bold placeholder:text-text-05 focus-visible:ring-0 focus-visible:ring-offset-0"
+                className="h-52 w-full rounded-none border-0 border-b px-24 pb-24 pt-12 text-center text-xl font-bold placeholder:text-text-05 focus-visible:ring-0 focus-visible:ring-offset-0"
                 placeholder="제목을 입력해 주세요"
                 {...register("title", { required: true })}
               />

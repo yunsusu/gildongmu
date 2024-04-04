@@ -174,11 +174,6 @@ function Chat() {
                     })
                 )}
 
-                {messages[0] === undefined && (
-                  <div className="text-center text-14 text-text-02">
-                    여기까지 읽었습니다.
-                  </div>
-                )}
                 {messages.map((item: any, index: number) => {
                   if (item.type === "USER_PROFILE_CHANGED") {
                     return <NickNameChange key={index} user={item} />;
@@ -196,6 +191,11 @@ function Chat() {
               </div>
             </div>
           ))}
+        {messages[0] === undefined && (
+          <div className="text-center text-14 text-text-02">
+            여기까지 읽었습니다.
+          </div>
+        )}
       </div>
 
       <div className="fixed bottom-0 w-full bg-stone-100 p-20">

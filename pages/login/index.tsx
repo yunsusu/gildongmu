@@ -72,7 +72,7 @@ export default function Login() {
           onClose={() => setLoginErrorModal(false)}
         />
       ) : null}
-      <div className="flex" style={{ height: "calc(100vh - 72px)" }}>
+      <div className="flex bg-bg-06  " style={{ height: "calc(100vh - 60px)" }}>
         <div className="relative h-full w-1/2 text-50 tablet:hidden">
           <Image
             src="/images/Image_Login.png"
@@ -81,8 +81,8 @@ export default function Login() {
             objectFit="cover"
           />
         </div>
-        <div className="flex h-full w-1/2 items-center justify-center bg-bg-06 text-14 tablet:w-full">
-          <div className="flex h-5/6 max-h-[617px] w-[434px] flex-col items-center justify-center rounded-32 bg-white p-40 tablet:mt-[81.5px] mobile:mx-24 mobile:mt-[50.5px] mobile:w-full">
+        <div className="py-20 flex h-full w-1/2 items-center justify-center text-14 tablet:w-full">
+          <div className="flex h-full max-h-[617px] w-full max-w-[434px] flex-col items-center justify-center rounded-32 bg-white p-40 mobile:mx-24">
             <h1 className="mb-40 text-32 font-extrabold text-text-01">
               로그인
             </h1>
@@ -99,11 +99,16 @@ export default function Login() {
                       message: "올바른 이메일을 입력해주세요.",
                     },
                   })}
-                  className={`flex h-52 w-full items-center justify-end gap-8 self-stretch rounded-xl bg-bg-02 px-16 outline-none ${errors.email ? "bg-rose-50" : ""}`}
+                  className={`flex h-52 w-full items-center justify-end gap-8 self-stretch rounded-xl border border-line-02 bg-bg-02 px-16 outline-none focus:border focus:border-line-01 focus:bg-white ${errors.email ? "border-0 bg-rose-50" : ""}`}
                 />
                 <p className="ml-12 mt-4 text-system-error">
                   {errors.email?.message}
                 </p>
+                {errors.email && errors.email.type === "required" && (
+                  <span className="ml-12 mt-4 text-system-error">
+                    이메일을 입력해 주세요
+                  </span>
+                )}
               </div>
               <div className="relative w-full">
                 <input
@@ -117,7 +122,7 @@ export default function Login() {
                       message: "올바른 비밀번호를 입력해주세요.",
                     },
                   })}
-                  className={`flex h-52 w-full items-center justify-end gap-8 self-stretch rounded-xl bg-bg-02 px-16 outline-none ${errors.password ? "bg-rose-50" : ""}`}
+                  className={`flex h-52 w-full items-center justify-end gap-8 self-stretch rounded-xl border border-line-02 bg-bg-02 px-16 outline-none focus:border focus:border-line-01 focus:bg-white ${errors.password ? "border-0 bg-rose-50" : ""}`}
                 />
                 <Image
                   src={eye ? "/icons/eye-off.png" : "/icons/eye-on.png"}
@@ -130,12 +135,17 @@ export default function Login() {
                 <p className="mb-12 ml-12 mt-4 text-system-error">
                   {errors.password?.message}
                 </p>
+                {errors.password && errors.password.type === "required" && (
+                  <span className="ml-12 mt-4 text-system-error">
+                    비밀번호를 입력해 주세요
+                  </span>
+                )}
               </div>
               <div className="mt-24 w-full text-18">
                 <Button
                   type="submit"
                   variant="ghost"
-                  className="h-52 w-full bg-primary text-primary-foreground hover:bg-primary-press"
+                  className="h-52 w-full bg-primary text-primary-foreground hover:bg-primary-press hover:text-primary-foreground"
                   disabled={isFormEmpty}
                 >
                   로그인
@@ -160,10 +170,10 @@ export default function Login() {
               <div className="w-1/3 border-b border-line-01"></div>
             </div>
 
-            <div className="flex w-full items-center justify-between text-18 mobile:text-16">
+            <div className="flex w-full items-center justify-between gap-20 text-18 mobile:text-16">
               <Link
                 href={"http://3.38.76.39:8080/oauth2/authorization/kakao"}
-                className="mr-20 w-1/2"
+                className="w-1/2"
               >
                 <Button
                   variant="destructive"

@@ -102,13 +102,13 @@ function SignUpForm() {
     <>
       <form onSubmit={handleSubmit(handleFormSubmit)} className="w-full">
         <div className="flex w-full flex-col items-center rounded-32 bg-white px-32 py-48">
-          <div className="mb-40 flex items-center gap-32 tablet:gap-28">
-              <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:hidden"></div>
-              <div className="text-18 tablet:text-16 mobile:text-14">
-                필수 정보 입력
-              </div>
-              <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:hidden"></div>
+          <div className="mb-40 flex w-full items-center justify-center gap-32 tablet:gap-28">
+            <div className="h-px w-full max-w-[294px] bg-line-02"></div>
+            <div className="min-w-max text-18 tablet:text-16 mobile:text-14">
+              필수 정보 입력
             </div>
+            <div className="h-px w-full max-w-[294px] bg-line-02"></div>
+          </div>
           <div className="flex w-full flex-col gap-24">
             <div className="flex flex-col gap-8">
               <Label htmlFor="email">
@@ -274,12 +274,12 @@ function SignUpForm() {
               />
             </div>
           </div>
-          <div className="my-40 flex items-center gap-32 tablet:gap-28">
-            <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:hidden"></div>
-            <div className="text-18 tablet:text-16 mobile:text-14">
+          <div className="my-40 flex w-full items-center justify-center gap-32 tablet:gap-28">
+            <div className="h-px w-full max-w-[294px] bg-line-02"></div>
+            <div className="min-w-max text-18 tablet:text-16 mobile:text-14">
               추가 정보 입력
             </div>
-            <div className="h-px w-294 bg-line-02 tablet:w-248 mobile:hidden"></div>
+            <div className="h-px w-full max-w-[294px] bg-line-02"></div>
           </div>
           <div className="flex w-full flex-col items-center gap-24">
             <Controller
