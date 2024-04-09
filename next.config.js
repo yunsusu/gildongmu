@@ -1,7 +1,6 @@
-const { createProxyMiddleware } = require("http-proxy-middleware");
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export",
   reactStrictMode: true,
   images: {
     remotePatterns: [
@@ -19,14 +18,6 @@ const nextConfig = {
       },
     ],
     domains: ["gildongmuu.s3.ap-northeast-2.amazonaws.com"],
-  },
-  async rewrites() {
-    return [
-      {
-        source: "/api/:path*",
-        destination: "http://3.38.76.39:8080/:path*",
-      },
-    ];
   },
 };
 
