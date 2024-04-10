@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { useState } from "react";
 
 import FilterBtn from "@/components/travel/contents/filterBtn";
@@ -23,12 +24,23 @@ function Filter() {
       >
         <div className="m-auto flex w-max justify-center gap-12 px-36 py-20 mobile:justify-start mobile:gap-8 mobile:px-24 mobile:py-12">
           {filterMock.map((item, index) => (
-            <FilterBtn
-              key={index}
-              text={item}
-              searchText={searchText}
-              setSearch={setSearch}
-            />
+            <motion.div
+              className="box"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.5,
+                ease: [0, 0.71, 0.2, 1.01],
+              }}
+            >
+              <FilterBtn
+                key={index}
+                text={item}
+                searchText={searchText}
+                setSearch={setSearch}
+              />
+            </motion.div>
           ))}
         </div>
       </div>
