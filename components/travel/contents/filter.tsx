@@ -25,6 +25,7 @@ function Filter() {
         <div className="m-auto flex w-max justify-center gap-12 px-36 py-20 mobile:justify-start mobile:gap-8 mobile:px-24 mobile:py-12">
           {filterMock.map((item, index) => (
             <motion.div
+              key={index}
               className="box"
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -35,7 +36,6 @@ function Filter() {
               }}
             >
               <FilterBtn
-                key={index}
                 text={item}
                 searchText={searchText}
                 setSearch={setSearch}
