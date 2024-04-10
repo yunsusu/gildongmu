@@ -56,13 +56,17 @@ function Gnb() {
   ];
 
   useEffect(() => {
+    let color = "hover:text-primary-press";
+
     if (gnbColor === "travel") {
-      setGnb("hover:text-blue-400");
+      color = "hover:text-blue-400";
     } else if (gnbColor === "community") {
-      setGnb("hover:text-lime-600");
+      color = "hover:text-lime-600";
     } else if (gnbColor === "mytravel") {
-      setGnb("hover:text-indigo-500");
+      color = "hover:text-indigo-500";
     }
+
+    setGnb(color);
   }, [gnbColor]);
 
   useEffect(() => {
