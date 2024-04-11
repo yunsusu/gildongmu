@@ -95,6 +95,7 @@ function MultipleImageUploadInput({
               className="rounded-2xl border border-line-02 object-cover"
             />
             <button
+              type="button"
               onClick={() => handleRemoveImage(index)}
               className="absolute right-5 top-5 flex h-20 w-20 items-center justify-center rounded-xl bg-primary text-white"
             >
