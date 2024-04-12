@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 import Card from "@/components/card";
+import SkeletonComponent from "@/components/card/Skeleton";
 import GridNum from "@/components/travel/contents/gridNum";
 import { getTravelCard } from "@/lib/api/travel";
 interface itemType {
@@ -45,7 +46,7 @@ function CardGrid() {
   const filterValue = Array.isArray(filter) ? filter[0] : filter;
   const searchValue = Array.isArray(search) ? search[0] : search;
 
-  const { data: card } = useQuery<CardData>({
+  const { data: card, isLoading } = useQuery<CardData>({
     queryKey: [
       "cards",
       { page, sort: sortValue, filter: filterValue, searchValue },
@@ -107,7 +108,15 @@ function CardGrid() {
 
   return (
     <>
-      {card?.numberOfElements ? (
+      {isLoading ? (
+        <div
+          className={`mx-auto mb-40 grid grid-flow-row auto-rows-max gap-24 tablet:gap-20 ${gridColumns}`}
+        >
+          {Array.from({ length: pageLimit }).map((_, index) => (
+            <SkeletonComponent key={index} />
+          ))}
+        </div>
+      ) : card?.numberOfElements ? (
         <div
           className={`mx-auto mb-40 grid grid-flow-row auto-rows-max gap-24 tablet:gap-20 ${gridColumns}`}
         >

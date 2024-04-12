@@ -16,7 +16,8 @@ export default function Searchbar() {
   const { search } = router.query;
 
   useEffect(() => {
-    setValue("search", search || "");
+    const searchValue = Array.isArray(search) ? search[0] || "" : search || "";
+    setValue("search", searchValue);
   }, [search, setValue]);
 
   const firstLastPage = (search: string) => {
