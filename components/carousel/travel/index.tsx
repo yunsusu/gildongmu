@@ -7,6 +7,7 @@ import React, { useEffect } from "react";
 import Slider from "react-slick";
 
 import MainCard from "@/components/mainCard";
+import SkeletonComponentMain from "@/components/mainCard/Skeleton";
 import useToggle from "@/hooks/useToggle";
 import { getTravelCard } from "@/lib/api/travel";
 
@@ -50,6 +51,7 @@ function SampleNextArrow(props: { className: any; style: any; onClick: any }) {
           src="/icons/arrow_right.svg"
           alt="캐러셀다음버튼"
           fill
+          sizes="29px"
         />
       </div>
     </div>
@@ -98,6 +100,7 @@ function SamplePrevArrow(props: { className: any; style: any; onClick: any }) {
           src="/icons/arrow_left.svg"
           alt="캐러셀이전버튼"
           fill
+          sizes="29px"
         />
       </div>
     </div>
@@ -156,7 +159,7 @@ function TravelCarousel({ choice }: any) {
       },
     ],
   };
-  const { data: card } = useQuery({
+  const { data: card, isLoading } = useQuery({
     queryKey: ["cards", choice],
     queryFn: () => getTravelCard(0, 12, choice),
   });
@@ -164,11 +167,16 @@ function TravelCarousel({ choice }: any) {
   return (
     <div className="slider-container my-custom-slider relative">
       <Slider {...settings}>
-        {Array.isArray(card?.content)
-          ? card?.content.map((item: any, index: number) => (
-              <MainCard key={index} content={item} is={"main"} />
-            ))
-          : null}
+        {!isLoading
+          ? Array.isArray(card?.content)
+            ? card?.content.map((item: any, index: number) => (
+                <MainCard key={index} content={item} is={"main"} />
+              ))
+            : null
+          : Array.from({ length: 12 }).map((_, index) => (
+              <SkeletonComponentMain is={"main"} key={index} />
+            ))}
+        {}
       </Slider>
     </div>
   );

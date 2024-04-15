@@ -84,6 +84,7 @@ export default function MyComment({ data, user, cardId }: any) {
                   }
                   alt="댓글 작성자 이미지"
                   fill
+                  sizes="32px"
                 />
               </div>
               <span className="text-18 leading-[27px] tracking-[-0.6px] text-text-01 tablet:text-16 tablet:leading-[20.8px]">
@@ -91,7 +92,12 @@ export default function MyComment({ data, user, cardId }: any) {
               </span>
               {data.secret && (
                 <div className="relative h-20 w-20">
-                  <Image src="/icons/lock.svg" alt="자물쇠 이미지" fill />
+                  <Image
+                    src="/icons/lock.svg"
+                    alt="자물쇠 이미지"
+                    fill
+                    sizes="20px"
+                  />
                 </div>
               )}
               {data.owner && <WriterTag />}
@@ -105,6 +111,7 @@ export default function MyComment({ data, user, cardId }: any) {
                   src={"/icons/more_vertical.svg"}
                   alt="케밥 이미지"
                   fill
+                  sizes="24px"
                 />
               </div>
               {dropDown && (

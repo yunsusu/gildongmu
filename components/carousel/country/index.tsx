@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 
 import MainCard from "@/components/mainCard";
+import SkeletonComponentMain from "@/components/mainCard/Skeleton";
 import { getTravelCard } from "@/lib/api/travel";
 
 interface CountryCarouselProps {
@@ -69,7 +70,7 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
     }
   }, [children]);
 
-  const { data: card } = useQuery({
+  const { data: card, isLoading } = useQuery({
     queryKey: ["cards", sort],
     queryFn: () => getTravelCard(0, 12, sort),
   });
@@ -99,6 +100,7 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
                 src={"/icons/chevron-left.svg"}
                 alt="캐러셀 다음 버튼"
                 fill
+                sizes="24px"
               />
             </div>
           </button>
@@ -111,17 +113,22 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
                 src={"/icons/chevron-right-blue.png"}
                 alt="캐러셀 다음 버튼"
                 fill
+                sizes="24px"
               />
             </div>
           </button>
         </div>
       </div>
       <Slider ref={sliderRef} {...settings}>
-        {Array.isArray(card?.content)
-          ? card?.content.map((item: any, index: number) => (
-              <MainCard key={index} content={item} is={"sub"} />
-            ))
-          : null}
+        {!isLoading
+          ? Array.isArray(card?.content)
+            ? card?.content.map((item: any, index: number) => (
+                <MainCard key={index} content={item} is={"sub"} />
+              ))
+            : null
+          : Array.from({ length: 12 }).map((_, index) => (
+              <SkeletonComponentMain is={"sub"} key={index} />
+            ))}
       </Slider>
     </div>
   );

@@ -56,13 +56,17 @@ function Gnb() {
   ];
 
   useEffect(() => {
+    let color = "hover:text-primary-press";
+
     if (gnbColor === "travel") {
-      setGnb("hover:text-blue-400");
+      color = "hover:text-blue-400";
     } else if (gnbColor === "community") {
-      setGnb("hover:text-lime-600");
+      color = "hover:text-lime-600";
     } else if (gnbColor === "mytravel") {
-      setGnb("hover:text-indigo-500");
+      color = "hover:text-indigo-500";
     }
+
+    setGnb(color);
   }, [gnbColor]);
 
   useEffect(() => {
@@ -107,6 +111,7 @@ function Gnb() {
               fill
               className="object-cover"
               priority={true}
+              sizes="120px"
             />
           </Link>
           <Link
@@ -160,6 +165,7 @@ function Gnb() {
                     alt="유저 프로필"
                     fill
                     className="object-cover"
+                    sizes="36px"
                   />
                 </div>
                 {userData?.nickname} 님 &nbsp;
@@ -169,6 +175,7 @@ function Gnb() {
                     alt="드롭다운 버튼"
                     fill
                     className={dropDown ? "rotate-180" : ""}
+                    sizes="16px"
                   />
                 </div>
               </div>
@@ -189,6 +196,7 @@ function Gnb() {
               alt="햄버거메뉴"
               fill
               className="object-cover"
+              sizes="24px"
             />
           </div>
         )}

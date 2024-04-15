@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { Input } from "@/components/ui/input";
@@ -8,11 +9,16 @@ interface IFormInput {
   search: string;
 }
 export default function Searchbar() {
-  const { register, handleSubmit } = useForm<IFormInput>();
+  const { register, handleSubmit, setValue } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = data =>
     firstLastPage(data.search);
   const router = useRouter();
   const { search } = router.query;
+
+  useEffect(() => {
+    const searchValue = Array.isArray(search) ? search[0] || "" : search || "";
+    setValue("search", searchValue);
+  }, [search, setValue]);
 
   const firstLastPage = (search: string) => {
     if (router.pathname === "/travel") {

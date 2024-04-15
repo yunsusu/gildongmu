@@ -57,6 +57,7 @@ function CommuList() {
                     fill
                     alt={"채팅 없음"}
                     objectFit="cover"
+                    sizes="240px"
                   />
                 </div>
                 <div className="text-24 font-semibold leading-[31.2px] tracking-tighter text-text-01 tablet:text-20">
