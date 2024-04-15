@@ -47,6 +47,7 @@ function CommuChat({ item }: itemType) {
             alt="대표이미지"
             fill
             objectFit="cover"
+            sizes="60px"
           />
         </div>
         <div className="flex-1">
@@ -54,7 +55,12 @@ function CommuChat({ item }: itemType) {
             <div className="line-clamp-1">{item.title}</div>
             <div className="flex text-16 tablet:text-14">
               <div className="relative h-20 w-20">
-                <Image src={"/icons/profile.svg"} alt="인원수" fill />
+                <Image
+                  src={"/icons/profile.svg"}
+                  alt="인원수"
+                  fill
+                  sizes="20px"
+                />
               </div>
               {item.headCount}
             </div>

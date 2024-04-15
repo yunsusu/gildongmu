@@ -35,7 +35,7 @@ export interface CardData {
 }
 
 function CardGrid() {
-  const [gridColumns, setGridColumns] = useState("grid-cols-4");
+  const [gridColumns, setGridColumns] = useState("grid-cols-1");
 
   const pageLimit = 12;
 
@@ -132,6 +132,7 @@ function CardGrid() {
               objectFit="cover"
               fill
               alt="이미지 없음"
+              sizes="300px"
             />
           </div>
         </div>
@@ -142,10 +143,20 @@ function CardGrid() {
           className="relative h-24 w-24 cursor-pointer"
           onClick={() => firstLastPage(0)}
         >
-          <Image src={"/icons/first_page.svg"} alt="첫페이지" fill />
+          <Image
+            src={"/icons/first_page.svg"}
+            alt="첫페이지"
+            fill
+            sizes="24px"
+          />
         </div>
         <div className="relative h-24 w-24 cursor-pointer" onClick={prevPage}>
-          <Image src={"/icons/keyboard_arrow_left.svg"} alt="이전페이지" fill />
+          <Image
+            src={"/icons/keyboard_arrow_left.svg"}
+            alt="이전페이지"
+            fill
+            sizes="24px"
+          />
         </div>
         <div className="flex gap-6 px-5 text-16 font-normal">
           {Array.from({ length: card?.totalPages || 0 }, (_, index) => {
@@ -174,13 +185,19 @@ function CardGrid() {
             src={"/icons/keyboard_arrow_right.svg"}
             alt="다음페이지"
             fill
+            sizes="24px"
           />
         </div>
         <div
           className="relative h-24 w-24 cursor-pointer"
           onClick={() => firstLastPage(Number(card?.totalPages) - 1)}
         >
-          <Image src={"/icons/last_page.svg"} alt="마지막페이지" fill />
+          <Image
+            src={"/icons/last_page.svg"}
+            alt="마지막페이지"
+            fill
+            sizes="24px"
+          />
         </div>
       </div>
     </>

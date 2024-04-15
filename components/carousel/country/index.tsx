@@ -100,6 +100,7 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
                 src={"/icons/chevron-left.svg"}
                 alt="캐러셀 다음 버튼"
                 fill
+                sizes="24px"
               />
             </div>
           </button>
@@ -112,6 +113,7 @@ function CountryCarousel({ titleIcon, children }: CountryCarouselProps) {
                 src={"/icons/chevron-right-blue.png"}
                 alt="캐러셀 다음 버튼"
                 fill
+                sizes="24px"
               />
             </div>
           </button>

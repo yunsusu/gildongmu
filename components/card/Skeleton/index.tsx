@@ -24,7 +24,7 @@ function SkeletonComponent() {
             </div>
 
             <div className="relative h-24 w-24 ">
-              <Image src={"/icons/heartOff.svg"} alt="하트" fill />
+              <Image src={"/icons/heartOff.svg"} alt="하트" fill sizes="24px" />
             </div>
           </div>
 

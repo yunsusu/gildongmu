@@ -111,6 +111,7 @@ function Gnb() {
               fill
               className="object-cover"
               priority={true}
+              sizes="120px"
             />
           </Link>
           <Link
@@ -164,6 +165,7 @@ function Gnb() {
                     alt="유저 프로필"
                     fill
                     className="object-cover"
+                    sizes="36px"
                   />
                 </div>
                 {userData?.nickname} 님 &nbsp;
@@ -173,6 +175,7 @@ function Gnb() {
                     alt="드롭다운 버튼"
                     fill
                     className={dropDown ? "rotate-180" : ""}
+                    sizes="16px"
                   />
                 </div>
               </div>
@@ -193,6 +196,7 @@ function Gnb() {
               alt="햄버거메뉴"
               fill
               className="object-cover"
+              sizes="24px"
             />
           </div>
         )}

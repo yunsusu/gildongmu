@@ -51,6 +51,7 @@ function SampleNextArrow(props: { className: any; style: any; onClick: any }) {
           src="/icons/arrow_right.svg"
           alt="캐러셀다음버튼"
           fill
+          sizes="29px"
         />
       </div>
     </div>
@@ -99,6 +100,7 @@ function SamplePrevArrow(props: { className: any; style: any; onClick: any }) {
           src="/icons/arrow_left.svg"
           alt="캐러셀이전버튼"
           fill
+          sizes="29px"
         />
       </div>
     </div>

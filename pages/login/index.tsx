@@ -81,7 +81,7 @@ export default function Login() {
             objectFit="cover"
           />
         </div>
-        <div className="py-20 flex h-full w-1/2 items-center justify-center text-14 tablet:w-full">
+        <div className="flex h-full w-1/2 items-center justify-center py-20 text-14 tablet:w-full">
           <div className="flex h-full max-h-[617px] w-full max-w-[434px] flex-col items-center justify-center rounded-32 bg-white p-40 mobile:mx-24">
             <h1 className="mb-40 text-32 font-extrabold text-text-01">
               로그인
