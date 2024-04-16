@@ -1,5 +1,5 @@
-import CardGrid from "@/components/Travel/Contents/cardGrid";
-import PagingSetting from "@/components/Travel/Contents/pagingSetting";
+import CardGrid from "@/components/Travel/Contents/CardGrid";
+import PagingSetting from "@/components/Travel/Contents/PagingSetting";
 
 function Paging() {
   return (

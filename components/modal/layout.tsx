@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { useOnClickOutside } from "usehooks-ts";
 
 import { ModalType } from "@/components/Modal";
-import ModalButton from "@/components/Modal/button";
+import ModalButton from "@/components/Modal/Button";
 
 interface ModalLayoutProps {
   modalMessage: string | ReactNode;
