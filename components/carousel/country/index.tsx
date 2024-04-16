@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 
 import MainCard from "@/components/MainCard";
+import SkeletonComponentMain from "@/components/MainCard/Skeleton";
 import { getTravelCard } from "@/lib/api/travel";
 
 interface CountryCarouselProps {

@@ -6,8 +6,8 @@ import Image from "next/image";
 import React, { useEffect } from "react";
 import Slider from "react-slick";
 
-import MainCard from "@/components/mainCard";
-import SkeletonComponentMain from "@/components/mainCard/Skeleton";
+import MainCard from "@/components/MainCard";
+import SkeletonComponentMain from "@/components/MainCard/Skeleton";
 import useToggle from "@/hooks/useToggle";
 import { getTravelCard } from "@/lib/api/travel";
 
