@@ -3,9 +3,9 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
-import BookmarkContent from "@/components/mytravel/modal/content/Bookmark";
-import ParticipatingContent from "@/components/mytravel/modal/content/Participating";
-import RecruitingContent from "@/components/mytravel/modal/content/Recruiting";
+import BookmarkContent from "@/components/MyTravel/Modal/Content/Bookmark";
+import ParticipatingContent from "@/components/MyTravel/Modal/Content/Participating";
+import RecruitingContent from "@/components/MyTravel/Modal/Content/Recruiting";
 
 interface MyTravelModalProps {
   data: any;

@@ -2,8 +2,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
 
-import Modal from "@/components/modal";
-import Chip from "@/components/mytravel/modal/Chip";
+import Modal from "@/components/Modal";
+import Chip from "@/components/MyTravel/Modal/Chip";
 import axios from "@/lib/api/axios";
 
 export interface Data {

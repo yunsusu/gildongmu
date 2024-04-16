@@ -3,18 +3,18 @@ import { useEffect, useState } from "react";
 import { geocode, RequestType, setKey } from "react-geocode";
 import { Controller, useForm } from "react-hook-form";
 
-import ContentTextarea from "@/components/form/input/ContentInput";
-import CounterInput from "@/components/form/input/CounterInput";
-import MultipleImageUploadInput from "@/components/form/input/MultipleImageUploadInput";
-import RadioInput from "@/components/form/input/RadioInput";
-import RangeDatePickerInput from "@/components/form/input/RangeDatePickerInput";
-import TagInput from "@/components/form/input/TagInput";
-import GoogleMap from "@/components/googlemap";
-import Modal from "@/components/modal";
+import ContentTextarea from "@/components/Form/Input/ContentInput";
+import CounterInput from "@/components/Form/Input/CounterInput";
+import MultipleImageUploadInput from "@/components/Form/Input/MultipleImageUploadInput";
+import RadioInput from "@/components/Form/Input/RadioInput";
+import RangeDatePickerInput from "@/components/Form/Input/RangeDatePickerInput";
+import TagInput from "@/components/Form/Input/TagInput";
+import GoogleMap from "@/components/GoogleMap";
+import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import axios from "@/lib/api/axios";
+// import axios from "@/lib/api/axios";
 
 export interface Location {
   lat: number;
@@ -83,12 +83,13 @@ function WriteForm() {
     }
 
     try {
-      const res = await axios.post("/posts", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      setIsModalOpen(true);
+      // const res = await axios.post("/posts", formData, {
+      //   headers: {
+      //     "Content-Type": "multipart/form-data",
+      //   },
+      // });
+      // setIsModalOpen(true);
+      console.log(submitData);
     } catch (error) {
       console.error("글 작성 실패:", error);
     }

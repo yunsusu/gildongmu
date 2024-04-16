@@ -5,12 +5,12 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
-import DatePickerInput from "@/components/form/input/DatePickerInput";
-import ImageUpload from "@/components/form/input/ImageUploadInput";
-import IntroTextarea from "@/components/form/input/IntroTextarea";
-import RadioInput from "@/components/form/input/RadioInput";
-import TagInput from "@/components/form/input/TagInput";
-import Modal from "@/components/modal";
+import DatePickerInput from "@/components/Form/Input/DatePickerInput";
+import ImageUpload from "@/components/Form/Input/ImageUploadInput";
+import IntroTextarea from "@/components/Form/Input/IntroTextarea";
+import RadioInput from "@/components/Form/Input/RadioInput";
+import TagInput from "@/components/Form/Input/TagInput";
+import Modal from "@/components/Modal";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import axios from "@/lib/api/axios";

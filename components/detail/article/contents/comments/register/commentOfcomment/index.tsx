@@ -3,8 +3,8 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-import Checkbox from "@/components/detail/secretCheckbox";
-import WriterTag from "@/components/detail/tag";
+import Checkbox from "@/components/Detail/SecretCheckBox";
+import WriterTag from "@/components/Detail/Tag";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { postCommentOfComment } from "@/lib/api/detail";

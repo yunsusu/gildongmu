@@ -1,6 +1,6 @@
-import Hot from "@/components/main/contents/hot";
-import Imminent from "@/components/main/contents/imminent";
-import Travel from "@/components/main/contents/travel";
+import Hot from "@/components/Main/Contents/Hot";
+import Imminent from "@/components/Main/Contents/Imminent";
+import Travel from "@/components/Main/Contents/Travel";
 
 export default function Contents() {
   return (

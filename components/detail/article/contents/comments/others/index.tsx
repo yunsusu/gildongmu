@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import CommentOfComment from "@/components/detail/article/contents/comments/others/commentOfcomment";
-import RegistCommentOfComment from "@/components/detail/article/contents/comments/register/commentOfcomment";
-import SecretComment from "@/components/detail/article/contents/comments/secret";
-import WriterTag from "@/components/detail/tag";
+import CommentOfComment from "@/components/Detail/Article/Contents/Comments/Others/CommentOfComment";
+import RegistCommentOfComment from "@/components/Detail/Article/Contents/Comments/Register/CommentOfComment";
+import SecretComment from "@/components/Detail/Article/Contents/Comments/Secret";
+import WriterTag from "@/components/Detail/Tag";
 import { Button } from "@/components/ui/button";
 
 export default function OthersComment({ data, user, cardId }: any) {

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import TravelCarousel from "@/components/carousel/travel";
+import TravelCarousel from "@/components/Carousel/Travel";
 
 export default function Travel() {
   const [choice, setChoice] = useState("latest");

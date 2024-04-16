@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import FilterBtn from "@/components/travel/contents/filterBtn";
+import FilterBtn from "@/components/Travel/Contents/FilterBtn";
 const filterMock = [
   "전체",
   "여자만",

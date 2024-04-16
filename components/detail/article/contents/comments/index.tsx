@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
-import MyComment from "@/components/detail/article/contents/comments/my";
-import OthersComment from "@/components/detail/article/contents/comments/others";
-import RegisterComment from "@/components/detail/article/contents/comments/register";
+import MyComment from "@/components/Detail/Article/Contents/Comments/My";
+import OthersComment from "@/components/Detail/Article/Contents/Comments/Others";
+import RegisterComment from "@/components/Detail/Article/Contents/Comments/Register";
 import { getCommentList } from "@/lib/api/detail";
 import { CommentProps } from "@/lib/api/detail/type";
 import { getUserMe } from "@/lib/api/userMe";

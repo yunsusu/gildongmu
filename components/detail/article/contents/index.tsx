@@ -1,10 +1,10 @@
 import { useInView } from "react-intersection-observer";
 
-import Comment from "@/components/detail/article/contents/comments/index";
-import Destination from "@/components/detail/article/contents/destination";
-import Images from "@/components/detail/article/contents/destination/descriptionImages";
-import Recruitment from "@/components/detail/article/contents/recruitment";
-import Sort from "@/components/detail/article/contents/sort";
+import Comment from "@/components/Detail/Article/Contents/Comments/index";
+import Destination from "@/components/Detail/Article/Contents/Destination";
+import Images from "@/components/Detail/Article/Contents/Destination/DescriptionImages";
+import Recruitment from "@/components/Detail/Article/Contents/Recruitment";
+import Sort from "@/components/Detail/Article/Contents/Sort";
 import { DetailDataType } from "@/lib/api/detail/type";
 
 export default function Content({ data }: DetailDataType) {

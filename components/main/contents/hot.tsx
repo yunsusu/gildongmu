@@ -1,4 +1,4 @@
-import CountryCarousel from "@/components/carousel/country";
+import CountryCarousel from "@/components/Carousel/Country";
 
 export default function Hot() {
   const titleIcon = "/icons/icon_hot.svg";

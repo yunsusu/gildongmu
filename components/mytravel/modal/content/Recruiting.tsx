@@ -2,9 +2,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import Modal from "@/components/modal";
-import Chip from "@/components/mytravel/modal/Chip";
-import { Participant } from "@/components/mytravel/modal/content/Participating";
+import Modal from "@/components/Modal";
+import Chip from "@/components/MyTravel/Modal/Chip";
+import { Participant } from "@/components/MyTravel/Modal/Content/Participating";
 import useToggle from "@/hooks/useToggle";
 import axios from "@/lib/api/axios";
 

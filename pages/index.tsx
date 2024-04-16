@@ -1,7 +1,7 @@
-import WritingButton from "@/components/button/writing";
-import Header from "@/components/header";
-import Contents from "@/components/main/contents";
-import Footer from "@/components/main/footer";
+import WritingButton from "@/components/Button/Writing";
+import Header from "@/components/Header";
+import Contents from "@/components/Main/Contents";
+import Footer from "@/components/Main/Footer";
 
 export default function Main() {
   return (

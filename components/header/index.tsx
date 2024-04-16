@@ -1,4 +1,4 @@
-import Searchbar from "@/components/header/searchbar";
+import Searchbar from "@/components/Header/SearchBar";
 
 interface HeaderProps {
   headerColor: string;

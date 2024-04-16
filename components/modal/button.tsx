@@ -1,4 +1,4 @@
-import { ModalType } from "@/components/modal";
+import { ModalType } from "@/components/Modal";
 import { Button } from "@/components/ui/button";
 
 interface ModalButtonProps {

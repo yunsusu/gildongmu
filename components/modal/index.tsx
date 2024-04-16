@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { ReactNode } from "react";
 
-import ModalLayout from "@/components/modal/layout";
+import ModalLayout from "@/components/Modal/Layout";
 import axios from "@/lib/api/axios";
 
 export type ModalType =

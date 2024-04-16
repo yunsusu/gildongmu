@@ -4,10 +4,10 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
-import ImageUpload from "@/components/form/input/ImageUploadInput";
-import IntroTextarea from "@/components/form/input/IntroTextarea";
-import TagInput from "@/components/form/input/TagInput";
-import Modal from "@/components/modal";
+import ImageUpload from "@/components/Form/Input/ImageUploadInput";
+import IntroTextarea from "@/components/Form/Input/IntroTextarea";
+import TagInput from "@/components/Form/Input/TagInput";
+import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

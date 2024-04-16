@@ -1,4 +1,4 @@
-import CountryCarousel from "@/components/carousel/country";
+import CountryCarousel from "@/components/Carousel/Country";
 
 export default function Imminent() {
   const titleIcon = "/icons/icon_time.svg";

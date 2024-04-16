@@ -3,8 +3,8 @@ import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useOnClickOutside } from "usehooks-ts";
 
-import { ModalType } from "@/components/modal";
-import ModalButton from "@/components/modal/button";
+import { ModalType } from "@/components/Modal";
+import ModalButton from "@/components/Modal/button";
 
 interface ModalLayoutProps {
   modalMessage: string | ReactNode;

@@ -2,8 +2,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { geocode, RequestType, setKey } from "react-geocode";
 
-import { Location } from "@/components/form/writeForm";
-import GoogleMap from "@/components/googlemap";
+import { Location } from "@/components/Form/WriteForm";
+import GoogleMap from "@/components/GoogleMap";
 import { DestinationProps } from "@/lib/api/detail/type";
 
 export default function Destination({

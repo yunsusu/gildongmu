@@ -1,7 +1,7 @@
-import WritingButton from "@/components/button/writing";
-import Header from "@/components/header";
-import Filter from "@/components/travel/contents/filter";
-import Paging from "@/components/travel/contents/paging";
+import WritingButton from "@/components/Button/Writing";
+import Header from "@/components/Header";
+import Filter from "@/components/Travel/contents/filter";
+import Paging from "@/components/Travel/contents/paging";
 import IsMobile from "@/hooks/isMobile";
 
 function Travel() {

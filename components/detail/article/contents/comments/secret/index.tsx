@@ -1,4 +1,4 @@
-import SecretCommentOfComment from "@/components/detail/article/contents/comments/secret/commentOfcomment";
+import SecretCommentOfComment from "@/components/Detail/Article/Contents/Comments/Secret/CommentOfComment";
 
 export default function SecretCommment() {
   return (

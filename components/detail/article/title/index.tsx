@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-import AlertModal from "@/components/modal";
+import AlertModal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
 import {
   deleteBookMarks,
@@ -172,7 +172,7 @@ function DetailTitle({ data }: DetailDataType) {
                 </button>
               </div>
             ) : (
-              <div className="flex w-full mx-auto gap-16 mobile:absolute mobile:top-110">
+              <div className="mx-auto flex w-full gap-16 mobile:absolute mobile:top-110">
                 <button
                   type="button"
                   className={`relative h-44 w-44 ${isRotating ? "heartRotate" : ""} tablet:h-36 tablet:w-36`}

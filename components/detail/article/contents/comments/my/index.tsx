@@ -3,12 +3,12 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
-import EditComment from "@/components/detail/article/contents/comments/my/edit";
-import CommentOfComment from "@/components/detail/article/contents/comments/others/commentOfcomment";
-import RegistCommentOfComment from "@/components/detail/article/contents/comments/register/commentOfcomment";
-import WriterTag from "@/components/detail/tag";
-import Dropdown from "@/components/dropdown";
-import Modal from "@/components/modal";
+import EditComment from "@/components/Detail/Article/Contents/Comments/My/Edit";
+import CommentOfComment from "@/components/Detail/Article/Contents/Comments/Others/CommentOfComment";
+import RegistCommentOfComment from "@/components/Detail/Article/Contents/Comments/Register/CommentOfComment";
+import WriterTag from "@/components/Detail/Tag";
+import Dropdown from "@/components/DropDown";
+import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
 import { deleteComment } from "@/lib/api/detail";

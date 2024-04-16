@@ -5,8 +5,8 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
-import Dropdown from "@/components/dropdown";
-import Hammenu from "@/components/gnb/Hammenu";
+import Dropdown from "@/components/DropDown";
+import Hammenu from "@/components/Gnb/HamMenu";
 import useCookie from "@/hooks/useCookie";
 import useToggle from "@/hooks/useToggle";
 import { getUserMe } from "@/lib/api/userMe";

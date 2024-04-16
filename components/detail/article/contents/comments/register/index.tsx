@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
 
-import Checkbox from "@/components/detail/secretCheckbox";
+import Checkbox from "@/components/Detail/SecretCheckBox";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { postComment } from "@/lib/api/detail/index";

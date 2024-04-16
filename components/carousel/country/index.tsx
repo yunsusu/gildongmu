@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 
-import MainCard from "@/components/mainCard";
+import MainCard from "@/components/MainCard";
 import { getTravelCard } from "@/lib/api/travel";
 
 interface CountryCarouselProps {

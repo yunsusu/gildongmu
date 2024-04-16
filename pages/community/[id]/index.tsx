@@ -5,12 +5,12 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import ChatCome from "@/components/community/chatCome";
-import ChatDate from "@/components/community/chatDate";
-import ChatHeader from "@/components/community/chatHeader";
-import MyChat from "@/components/community/myChat";
-import NickNameChange from "@/components/community/nicknameChange";
-import UserChat from "@/components/community/userChat";
+import ChatCome from "@/components/Community/ChatCome";
+import ChatDate from "@/components/Community/ChatDate";
+import ChatHeader from "@/components/Community/ChatHeader";
+import MyChat from "@/components/Community/MyChat";
+import NickNameChange from "@/components/Community/NicknameChange";
+import UserChat from "@/components/Community/UserChat";
 import useCookie from "@/hooks/useCookie";
 import { getChatPrev, getChatStatus } from "@/lib/api/chat";
 import { getUserMe } from "@/lib/api/userMe";

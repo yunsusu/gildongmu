@@ -87,6 +87,7 @@ function RangeDatePickerInput({
 
   const resetSelection = () => {
     setRange(undefined);
+    setInputValue("");
   };
 
   const css = `

@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import Bookmark from "@/components/mytravel/card/Bookmark";
-import FilpButton from "@/components/mytravel/card/FlipButton";
-import RecruitmentStatus from "@/components/mytravel/card/RecruitmentStatus";
-import Title from "@/components/mytravel/card/Title";
-import MyTravelModal from "@/components/mytravel/modal";
+import Bookmark from "@/components/MyTravel/Card/Bookmark";
+import FilpButton from "@/components/MyTravel/Card/FlipButton";
+import RecruitmentStatus from "@/components/MyTravel/Card/RecruitmentStatus";
+import Title from "@/components/MyTravel/Card/Title";
+import MyTravelModal from "@/components/MyTravel/Modal";
 import useToggle from "@/hooks/useToggle";
 
 interface MyTravelCardProps {

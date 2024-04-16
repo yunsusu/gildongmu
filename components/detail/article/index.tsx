@@ -1,5 +1,5 @@
-import Content from "@/components/detail/article/contents/index";
-import Title from "@/components/detail/article/title/index";
+import Content from "@/components/Detail/Article/Contents/index";
+import Title from "@/components/Detail/Article/Title/index";
 import { DetailDataType } from "@/lib/api/detail/type";
 
 export default function Article({ data }: DetailDataType) {

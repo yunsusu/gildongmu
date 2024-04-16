@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
-import Dropdown from "@/components/dropdown";
+import Dropdown from "@/components/DropDown";
 import useToggle from "@/hooks/useToggle";
 import useSortStore from "@/store/choiceSort";
 

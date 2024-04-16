@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-import ChatUserList from "@/components/community/chatUserList";
+import ChatUserList from "@/components/Community/ChatUserList";
 import axios from "@/lib/api/axios";
 interface chatHeaderProp {
   chatHeader: {
