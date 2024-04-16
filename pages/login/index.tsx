@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import Modal from "@/components/modal";
+import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
 import useToggle from "@/hooks/useToggle";
 import axios from "@/lib/api/axios";

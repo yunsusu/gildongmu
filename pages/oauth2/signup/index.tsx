@@ -1,4 +1,4 @@
-import SocialSignUpForm from "@/components/form/socialSignupForm";
+import SocialSignUpForm from "@/components/Form/SocialSignupForm";
 
 export default function Oauth2Signup() {
   return (
