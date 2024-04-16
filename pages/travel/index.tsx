@@ -14,6 +14,7 @@ function Travel() {
       </Header>
 
       <Filter />
+
       <Paging />
 
       <WritingButton />

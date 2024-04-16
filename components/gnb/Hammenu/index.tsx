@@ -58,6 +58,7 @@ function Hammenu({
                 alt="유저 프로필"
                 fill
                 className="object-cover"
+                sizes="36px"
               />
             </div>
             {userData?.nickname} 님

@@ -79,6 +79,7 @@ export default function EditComment({
                 }
                 alt="댓글 작성자 이미지"
                 fill
+                sizes="32px"
               />
             </div>
             <span className="text-18 leading-[27px] tracking-[-0.6px] text-text-01 tablet:text-16 tablet:leading-[20.8px]">
@@ -86,7 +87,12 @@ export default function EditComment({
             </span>
             {data.secret && (
               <div className="relative h-20 w-20">
-                <Image src="/icons/lock.svg" alt="자물쇠 이미지" fill />
+                <Image
+                  src="/icons/lock.svg"
+                  alt="자물쇠 이미지"
+                  fill
+                  sizes="20px"
+                />
               </div>
             )}
             {user?.id === cardId && <WriterTag />}
@@ -95,7 +101,12 @@ export default function EditComment({
             onClick={openCancelModal}
             className="relative h-24 w-24 cursor-pointer mobile:h-20 mobile:w-20"
           >
-            <Image src="/icons/cancel_white.svg" alt="닫기 버튼 이미지" fill />
+            <Image
+              src="/icons/cancel_white.svg"
+              alt="닫기 버튼 이미지"
+              fill
+              sizes="24px"
+            />
           </div>
         </div>
         <form onSubmit={handleSubmit} className="flex w-full flex-col gap-12">

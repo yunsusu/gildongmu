@@ -56,6 +56,7 @@ function Card({ content }: { content: any }) {
               ? `https://gildongmuu.s3.ap-northeast-2.amazonaws.com/${content.thumbnail}`
               : "/images/Image_DefaultCard.png"
           }
+          sizes="180px"
           alt="여행지 이미지"
           fill
           className="z-0 object-cover"
@@ -80,7 +81,12 @@ function Card({ content }: { content: any }) {
                   e.preventDefault();
                 }}
               >
-                <Image src={"/icons/heartOff.svg"} alt="하트" fill />
+                <Image
+                  src={"/icons/heartOff.svg"}
+                  alt="하트"
+                  fill
+                  sizes="24px"
+                />
               </div>
             ) : (
               <div
@@ -90,7 +96,12 @@ function Card({ content }: { content: any }) {
                   e.preventDefault();
                 }}
               >
-                <Image src={"/icons/heartOn.svg"} alt="하트" fill />
+                <Image
+                  src={"/icons/heartOn.svg"}
+                  alt="하트"
+                  fill
+                  sizes="24px"
+                />
               </div>
             )}
           </div>
@@ -105,14 +116,14 @@ function Card({ content }: { content: any }) {
       <div className="flex h-130 w-full flex-col p-16 text-14 text-text-02 tablet:p-12">
         <div className="flex flex-1 items-center gap-8">
           <div className="relative h-16 w-16 tablet:h-12 tablet:w-12">
-            <Image src={"/icons/location.svg"} alt="위치" fill />
+            <Image src={"/icons/location.svg"} alt="위치" fill sizes="16px" />
           </div>
           <div>{content.destination}</div>
         </div>
 
         <div className="flex flex-1 items-center gap-8">
           <div className="relative h-16 w-16 tablet:h-12 tablet:w-12">
-            <Image src={"/icons/calendar.svg"} alt="일정" fill />
+            <Image src={"/icons/calendar.svg"} alt="일정" fill sizes="16px" />
           </div>
           <div>
             {content.tripDate.startDate} ~ {content.tripDate.endDate}
@@ -121,7 +132,7 @@ function Card({ content }: { content: any }) {
 
         <div className="flex flex-1 items-center gap-8">
           <div className="relative h-16 w-16 tablet:h-12 tablet:w-12">
-            <Image src={"/icons/tag.svg"} alt="태그" fill />
+            <Image src={"/icons/tag.svg"} alt="태그" fill sizes="16px" />
           </div>
           <div className="flex gap-6">{gender}</div>
         </div>
@@ -129,14 +140,24 @@ function Card({ content }: { content: any }) {
         <div className="flex flex-1 gap-12 text-12">
           <div className="flex items-center gap-4">
             <div className="relative h-12 w-12">
-              <Image src={"/icons/heart.svg"} alt="좋아요 수" fill />
+              <Image
+                src={"/icons/heart.svg"}
+                alt="좋아요 수"
+                fill
+                sizes="12px"
+              />
             </div>
             <div>{content.countOfBookmarks === null ? 0 : favorCount}</div>
           </div>
 
           <div className="flex items-center gap-4">
             <div className="relative h-12 w-12">
-              <Image src={"/icons/comment.svg"} alt="댓글 수" fill />
+              <Image
+                src={"/icons/comment.svg"}
+                alt="댓글 수"
+                fill
+                sizes="12px"
+              />
             </div>
             <div>{content.countOfComments}</div>
           </div>

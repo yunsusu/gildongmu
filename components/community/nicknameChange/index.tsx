@@ -82,6 +82,7 @@ function NickNameChange({ user }: ChatProps) {
           }
           alt={`${user.sender?.nickname}의 프로필`}
           fill
+          sizes="40px"
         />
       </div>
 

@@ -94,6 +94,7 @@ function PagingSetting() {
                 alt="드롭다운 버튼"
                 fill
                 className={dropDown ? "rotate-180" : ""}
+                sizes="16px"
               />
             </div>
           </div>

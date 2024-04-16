@@ -219,6 +219,7 @@ function Chat() {
               }
               alt="전송"
               fill
+              sizes="44px"
             />
           </button>
         </form>

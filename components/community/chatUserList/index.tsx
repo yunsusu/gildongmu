@@ -21,7 +21,9 @@ function ChatUserList({ item }: itemProp) {
       </div> */}
       {true && (
         <div className="relative h-20 w-20">
-          {item.isLeader && <Image src={"/icons/crown.svg"} alt="왕관" fill />}
+          {item.isLeader && (
+            <Image src={"/icons/crown.svg"} alt="왕관" fill sizes="20px" />
+          )}
         </div>
       )}
       {item.user?.nickname}
