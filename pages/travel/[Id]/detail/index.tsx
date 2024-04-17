@@ -3,8 +3,8 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 
-import Article from "@/components/detail/article";
-import Header from "@/components/detail/header/index";
+import Article from "@/components/Detail/Article";
+import Header from "@/components/Detail/Header/index";
 import { getDetail } from "@/lib/api/detail";
 
 function Detail() {

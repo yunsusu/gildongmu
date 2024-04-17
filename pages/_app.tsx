@@ -6,8 +6,8 @@ import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-import Gnb from "@/components/gnb";
-import Modal from "@/components/modal";
+import Gnb from "@/components/Gnb";
+import Modal from "@/components/Modal";
 import useCookie from "@/hooks/useCookie";
 import useGnbStore from "@/store/gnb";
 

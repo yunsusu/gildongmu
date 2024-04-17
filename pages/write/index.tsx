@@ -1,4 +1,4 @@
-import WriteForm from "@/components/form/writeForm";
+import WriteForm from "@/components/Form/WriteForm";
 
 function Write() {
   return (
