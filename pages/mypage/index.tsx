@@ -1,4 +1,4 @@
-import MyPageForm from "@/components/form/mypageForm";
+import MyPageForm from "@/components/Form/MyPageForm";
 
 function MyPage() {
   return (

@@ -1,5 +1,5 @@
-import CommuList from "@/components/community/commulist";
-import CommuHeader from "@/components/community/header";
+import CommuList from "@/components/Community/Commulist";
+import CommuHeader from "@/components/Community/Header";
 
 function Community() {
   return (

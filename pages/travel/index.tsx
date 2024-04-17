@@ -1,7 +1,7 @@
-import WritingButton from "@/components/button/writing";
-import Header from "@/components/header";
-import Filter from "@/components/travel/contents/filter";
-import Paging from "@/components/travel/contents/paging";
+import WritingButton from "@/components/Button/Writing";
+import Header from "@/components/Header";
+import Filter from "@/components/Travel/Contents/Filter";
+import Paging from "@/components/Travel/Contents/Paging";
 import IsMobile from "@/hooks/isMobile";
 
 function Travel() {
@@ -14,6 +14,7 @@ function Travel() {
       </Header>
 
       <Filter />
+
       <Paging />
 
       <WritingButton />

@@ -4,9 +4,9 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-import MyTravelHeader from "@/components/header/mytravel";
-import MyTravelCard from "@/components/mytravel/card";
-import TabMenu from "@/components/mytravel/tabMenu";
+import MyTravelHeader from "@/components/Header/MyTravel";
+import MyTravelCard from "@/components/MyTravel/Card";
+import TabMenu from "@/components/MyTravel/TabMenu";
 import { Skeleton } from "@/components/ui/skeleton";
 import axios from "@/lib/api/axios";
 import { scrollToTop } from "@/pages/travel/[Id]/detail";
