@@ -71,10 +71,10 @@
 
 ### 브랜치 전략
 
-- Git-flow 전략을 기반으로 main, develop 브랜치와 feature 보조 브랜치를 운용했습니다.
-- main, develop, Feat 브랜치로 나누어 개발을 하였습니다.
+- Github-flow 전략을 기반으로 main, dev 브랜치와 feature 보조 브랜치를 운용했습니다.
+- main, dev, Feat 브랜치로 나누어 개발을 하였습니다.
     - **main** 브랜치는 배포 단계에서만 사용하는 브랜치입니다.
-    - **develop** 브랜치는 개발 단계에서 git-flow의 master 역할을 하는 브랜치입니다.
+    - **develop** 브랜치는 개발 단계에서 github-flow의 master 역할을 하는 브랜치입니다.
     - **Feat** 브랜치는 기능 단위로 독립적인 개발 환경을 위하여 사용하고 merge 후 각 브랜치를 삭제해주었습니다.
 
 <br>
@@ -191,23 +191,19 @@ project
 ### 작업 관리
 
 - GitHub Projects와 Issues를 사용하여 진행 상황을 공유했습니다.
-- 주간회의를 진행하며 작업 순서와 방향성에 대한 고민을 나누고 GitHub Wiki에 회의 내용을 기록했습니다.
+- 주간회의를 진행하며 작업 순서와 방향성에 대한 고민을 나누고 노션에 회의 내용을 기록했습니다.
 
 <br>
 
 ## 6. 신경 쓴 부분
 
-- [접근제한 설정](https://github.com/likelion-project-README/README/wiki/README-6.%EC%8B%A0%EA%B2%BD-%EC%93%B4-%EB%B6%80%EB%B6%84_%EC%A0%91%EA%B7%BC%EC%A0%9C%ED%95%9C-%EC%84%A4%EC%A0%95)
-
-- [Recoil을 통한 상태관리 및 유지](https://github.com/likelion-project-README/README/wiki/README-6.%EC%8B%A0%EA%B2%BD-%EC%93%B4-%EB%B6%80%EB%B6%84_Recoil%EC%9D%84-%ED%86%B5%ED%95%9C-%EC%83%81%ED%83%9C%EA%B4%80%EB%A6%AC-%EB%B0%8F-%EC%9C%A0%EC%A7%80)
+- 
 
 <br>
 
 ## 7. 트러블 슈팅
 
-- [탭메뉴 프로필 버튼 이슈](https://github.com/likelion-project-README/README/wiki/README-8.%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85_%ED%83%AD%EB%A9%94%EB%89%B4-%ED%94%84%EB%A1%9C%ED%95%84-%EB%B2%84%ED%8A%BC-%EC%9D%B4%EC%8A%88)
-
-- [프로필 수정 이슈](https://github.com/likelion-project-README/README/wiki/README-8.%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85_%ED%94%84%EB%A1%9C%ED%95%84-%EC%88%98%EC%A0%95-%EC%9D%B4%EC%8A%88)
+- 
 
 <br>
 
