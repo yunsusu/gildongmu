@@ -1,4 +1,3 @@
-# 수정중..
 # 📖 여행 친구를 구해봐요 길동무 README
 
 ![logo](https://github.com/GilDongMu/gildongmu/assets/148840514/b7024d25-684f-404a-a592-6323fea80ab5)<svg width="120" height="30" viewBox="0 0 120 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,7 +20,7 @@
 
 
 
-- 배포 URL : https://gildongmu.vercel.app/
+- 배포 URL : http://34.228.244.93:3000/
 - Test ID : test@email.com
 - Test PW : qwer1234!
 
