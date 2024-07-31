@@ -23,7 +23,11 @@
     "**/*.tsx",
     "store/gnb.js",
     "lib/api/axios.js",
-    "lib/utils/regexp.ts"
+    "lib/utils/regexp.ts",
+    "src",
+    "cypress/e2e/2-order/order-cy.ts",
+    "**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "types": ["cypress"]
 }

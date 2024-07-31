@@ -184,6 +184,7 @@ function MyPageForm() {
             <Input
               id="nickname"
               type="text"
+              data-cy="nickname"
               className={`h-52 w-full rounded-2xl border border-line-02 bg-bg-02 px-16 placeholder:text-text-05 focus:border focus:border-line-01 focus:bg-white focus-visible:ring-0 focus-visible:ring-offset-0 mobile:text-sm ${errors.nickname && "border-0 bg-input-error"}`}
               placeholder="닉네임을 입력해 주세요"
               {...register("nickname", {

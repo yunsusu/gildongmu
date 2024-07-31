@@ -67,7 +67,7 @@ function Hammenu({
         <div
           className={`mt-32 w-max text-16 ${gnbColor === "travel" && "text-blue-400"} ${gnb}`}
         >
-          <Link href={"/travel"} className="p-10 pl-0 pr-20">
+          <Link href={"/travel"} className="p-10 pl-0 pr-20" data-cy="travel">
             여행
           </Link>
         </div>

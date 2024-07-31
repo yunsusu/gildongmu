@@ -197,6 +197,7 @@ function Gnb() {
               fill
               className="object-cover"
               sizes="24px"
+              data-cy="ham"
             />
           </div>
         )}

@@ -90,6 +90,7 @@ function FilterBtn({ text, searchText, setSearch }: FilterBtnProps) {
   return (
     <div
       onClick={handleFilter}
+      data-cy={text}
       className={`text-blue-500 ${choice} max-w-320 min-w-90 cursor-pointer rounded-32 px-16 py-10 text-center text-16 font-extrabold hover:bg-yellow-300 tablet:text-14 mobile:min-w-72 mobile:px-12 mobile:py-8`}
     >
       {text}
